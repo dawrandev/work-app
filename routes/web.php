@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
 
 Route::get('/', function () {
     return redirect()->route('home', ['locale' => 'kr']);
+});
+
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register')->name('register');
+    Route::post('/login', 'login')->name('login');
 });

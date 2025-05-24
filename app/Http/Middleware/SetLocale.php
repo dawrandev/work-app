@@ -15,15 +15,19 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $allowedLocales = ['ru', 'uz', 'kr'];
         $locale = $request->segment(1);
 
-        $allowedLocales = ['ru', 'uz', 'kr'];
-
         if (in_array($locale, $allowedLocales)) {
-            app()->setlocale($locale);
+            app()->setLocale($locale);
             session(['locale' => $locale]);
         } else {
-            app()->setLocale(session('locale', config('app.locale')));
+            $locale = session('locale', config('app.locale'));
+            app()->setLocale($locale);
+
+            if ($locale && !$request->is('/')) {
+                return redirect()->to('/' . $locale . $request->getPathInfo());
+            }
         }
 
         return $next($request);

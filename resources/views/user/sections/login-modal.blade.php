@@ -8,32 +8,18 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="heading">
-                            <h3>Login From Here</h3>
-                            <p>Log in to continue your account <br> and explore new jobs.</p>
-                        </div>
-                        <div class="social-login">
-                            <ul>
-                                <li><a class="linkedin" href="#"><i class="lni lni-linkedin-original"></i> Log in
-                                        with LinkedIn</a></li>
-                                <li><a class="google" href="#"><i class="lni lni-google"></i> Log in with
-                                        Google</a></li>
-                                <li><a class="facebook" href="#"><i class="lni lni-facebook-original"></i> Log in
-                                        with Facebook</a></li>
-                            </ul>
-                        </div>
-                        <div class="or-devider">
-                            <span>Or</span>
+                            <h3>{{__('Login')}}</h3>
                         </div>
                         <form action="https://demo.graygrids.com/">
                             <div class="form-group">
-                                <label for="email" class="label">E-mail</label>
-                                <input type="email" class="form-control" placeholder="example@gmail.com" id="email">
+                                <label for="phone" class="label">{{__('Phone')}}</label>
+                                <input type="number" class="form-control" placeholder="+998 99 999 99 99" id="phone">
                             </div>
                             <div class="form-group">
-                                <label for="password" class="label">Password</label>
+                                <label for="password" class="label">{{__('Password')}}</label>
                                 <div class="position-relative">
                                     <input type="password" class="form-control" id="password"
-                                        placeholder="Enter password">
+                                        placeholder="{{__('Enter password')}}">
                                 </div>
                             </div>
                             <div class="form-group d-flex flex-wrap justify-content-between">
@@ -41,15 +27,15 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value=""
                                         id="flexCheckDefault" />
-                                    <label class="form-check-label" for="flexCheckDefault">Remember password</label>
+                                    <label class="form-check-label" for="flexCheckDefault">{{__('Remember password')}}</label>
                                 </div>
-                                <a href="#" class="font-size-3 text-dodger line-height-reset">Forget Password</a>
+                                <a href="#" class="font-size-3 text-dodger line-height-reset">{{__('Forget Password')}}</a>
                             </div>
                             <div class="form-group mb-8 button">
-                                <button class="btn ">Log in
+                                <button class="btn ">{{__('Log in')}}
                                 </button>
                             </div>
-                            <p class="text-center create-new-account">Don’t have an account? <a href="#">Create a free account</a></p>
+                            <p class="text-center create-new-account">{{__('Don’t have an account? ')}}<a href="javacript:" data-toggle="modal" data-target="#signup">{{__('Create a free account')}}</a></p>
                         </form>
                     </div>
                 </div>

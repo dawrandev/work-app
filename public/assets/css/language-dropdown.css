@@ -1,4 +1,3 @@
-/* Minimal Language Dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -8,18 +7,29 @@
 .dropdown-toggle {
     background: transparent;
     color: #333;
-    padding: 0;
-    border: none;
+    padding: 8px 12px; /* Added padding for better button feel */
+    border: 1px solid #e0e0e0; /* Subtle border for better visibility */
+    border-radius: 4px; /* Rounded corners */
     cursor: pointer;
     font-size: 14px;
     display: flex;
     align-items: center;
+    transition: background 0.2s ease; /* Smooth background transition */
+}
+
+.dropdown-toggle:hover {
+    background: #f5f5f5; /* Hover effect on button */
 }
 
 .dropdown-toggle::after {
-    content: "▼";
+    content: "\25BC"; /* Unicode for a cleaner downward arrow */
     font-size: 10px;
-    margin-left: 5px;
+    margin-left: 8px;
+    transition: transform 0.3s ease; /* Smooth arrow rotation */
+}
+
+.dropdown-toggle.active::after {
+    transform: rotate(180deg); /* Rotate arrow when dropdown is open */
 }
 
 .dropdown-menu {
@@ -29,13 +39,15 @@
     background: white;
     min-width: 120px;
     border: 1px solid #e0e0e0;
+    border-radius: 4px; /* Rounded corners for menu */
     margin-top: 5px;
     padding: 5px 0;
     z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
+.dropdown-menu.show {
+    display: block; /* Show dropdown when 'show' class is added */
 }
 
 .dropdown-menu a {

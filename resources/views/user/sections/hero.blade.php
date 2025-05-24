@@ -6,10 +6,9 @@
                 <div class="col-lg-7 co-12">
                     <div class="inner-content">
                         <div class="hero-text">
-                            <h1 class="wow fadeInUp" data-wow-delay=".3s">Find the Most Exciting<br> Jobs to Make a Better Life
+                            <h1 class="wow fadeInUp" data-wow-delay=".3s">Siz uchun eng yaxshi <br>ish joylarini bir joyga jamladik!
                             </h1>
-                            <p class="wow fadeInUp" data-wow-delay=".5s">Creating a beautiful job website is not
-                                easy always. To make<br> your life easier, we are introducing Jobcamp template,<br> Leverage agile frameworks to provide a robust<br> synopsis for high level overviews.
+                            <p class="wow fadeInUp" data-wow-delay=".5s">Biz bilan ish qidirish endi oson!<br>Tez va samarali tarzda orzuingizdagi kasbni toping."<br>
                             </p>
                             <div class="button wow fadeInUp" data-wow-delay=".7s">
                                 <a href="#" class="btn">Post a Job</a>
