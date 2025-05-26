@@ -6,13 +6,13 @@
                 <div class="col-lg-7 co-12">
                     <div class="inner-content">
                         <div class="hero-text">
-                            <h1 class="wow fadeInUp" data-wow-delay=".3s">Siz uchun eng yaxshi <br>ish joylarini bir joyga jamladik!
+                            <h1 class="wow fadeInUp" data-wow-delay=".3s">{{__('Best for you')}}<br>{{__('We have brought the workplaces together!')}}
                             </h1>
-                            <p class="wow fadeInUp" data-wow-delay=".5s">Biz bilan ish qidirish endi oson!<br>Tez va samarali tarzda orzuingizdagi kasbni toping."<br>
+                            <p class="wow fadeInUp" data-wow-delay=".5s">{{__('Looking for work with us is now easy!')}}<br>{{__('Find your dream profession quickly and efficiently.')}}"<br>
                             </p>
                             <div class="button wow fadeInUp" data-wow-delay=".7s">
-                                <a href="#" class="btn">Post a Job</a>
-                                <a href="#" class="btn btn-alt">See Our Jobs</a>
+                                <a href="{{ route('orders.index') }}" class="btn">{{__('Post a Job')}}</a>
+                                <a href="#" class="btn btn-alt">{{__('See Our Jobs')}}</a>
                             </div>
                         </div>
                         <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">

@@ -11,6 +11,7 @@
 <body>
     <div id="loading-area"></div>
 
+    @include('sweetalert::alert')
     <!-- Start Header Area -->
     @include('user.components.header')
     <!-- End Header Area -->

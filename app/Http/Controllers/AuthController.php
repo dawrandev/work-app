@@ -24,8 +24,10 @@ class AuthController extends Controller
             ]
         );
 
-        Auth::user($user);
-        Alert::success('okok');
+        Auth::login($user);
+
+        Alert::success(__('Registration successful'));
+
         return redirect()->route('home');
     }
 
@@ -33,12 +35,29 @@ class AuthController extends Controller
     {
         $credentials = $request->only('phone', 'password');
 
-        if (Auth::attempt($credentials)) {
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
+
             $request->session()->regenerate();
-            Alert::success('success');
-            return redirect()->intended('home');
+
+            Alert::success(__('Successfully login!'));
+
+            return redirect()->route('home');
         }
-        Alert::error('error');
-        return redirect()->intended('home');
+        Alert::error(__('error'));
+
+        return redirect()->route('home');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerate();
+
+        return redirect()->route('home');
     }
 }

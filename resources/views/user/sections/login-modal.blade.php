@@ -10,22 +10,29 @@
                         <div class="heading">
                             <h3>{{__('Login')}}</h3>
                         </div>
-                        <form action="https://demo.graygrids.com/">
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
                             <div class="form-group">
                                 <label for="phone" class="label">{{__('Phone')}}</label>
-                                <input type="number" class="form-control" placeholder="+998 99 999 99 99" id="phone">
+                                <input type="number" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('number') }}">
+                                @error('phone')
+                                <li style="color: red;">{{ $message }}</li>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="password" class="label">{{__('Password')}}</label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password"
-                                        placeholder="{{__('Enter password')}}">
+                                    <input type="password" name="password" class="form-control" id="password"
+                                        placeholder="{{__('Enter password')}}" value="{{ old('password') }}">
+                                    @error('password')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group d-flex flex-wrap justify-content-between">
                                 <!-- Default checkbox -->
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=""
+                                    <input class="form-check-input" name="remember" type="checkbox" value="{{ old('remember') }}"
                                         id="flexCheckDefault" />
                                     <label class="form-check-label" for="flexCheckDefault">{{__('Remember password')}}</label>
                                 </div>

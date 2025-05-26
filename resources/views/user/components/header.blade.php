@@ -67,7 +67,7 @@
                         </div>
                         <div class="dropdown">
                             <button class="dropdown-toggle" type="button" id="languageDropdown" aria-expanded="false">
-                                🌐 {{ app()->getLocale() }}
+                                🌐 {{__(app()->getLocale()) }}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                                 <li><a class="dropdown-item" href="{{ route('home', ['locale' => 'uz']) }}">{{__('uz')}}</a></li>
@@ -75,9 +75,25 @@
                                 <li><a class="dropdown-item" href="{{ route('home', ['locale' => 'kr']) }}">{{__('kr')}}</a></li>
                             </ul>
                         </div>
-                        <div class="button">
-                            <a href="javacript:" data-toggle="modal" data-target="#login" class="login"><i class="lni lni-lock-alt"></i> {{ __('Login') }}</a>
-                            <a href="javacript:" data-toggle="modal" data-target="#signup" class="btn">{{ __('Sign Up') }}</a>
+                        <div class="d-flex align-items-center">
+                            @auth
+                            <div class="user-name">
+                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                            </div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="logout-btn">
+                                    {{__('Logout')}}
+                                </button>
+                            </form>
+                            @else
+                            <div class="button mr-3">
+                                <a href="javascript:" data-toggle="modal" data-target="#login" class="login">
+                                    <i class="lni lni-lock-alt"></i> {{ __('Login') }}
+                                </a>
+                                <a href="javascript:" data-toggle="modal" data-target="#signup" class="btn">{{ __('Sign Up') }}</a>
+                            </div>
+                            @endauth
                         </div>
                     </nav>
                     <!-- navbar -->

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class RegisterRequest extends FormRequest
 {
@@ -27,5 +29,15 @@ class RegisterRequest extends FormRequest
             'phone' => 'required|string|regex:/^\d{9}$/',
             'password' => 'required|string|min:8|confirmed',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        session()->flash('form', 'register');
+
+        throw new ValidationException($validator, redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput());
     }
 }

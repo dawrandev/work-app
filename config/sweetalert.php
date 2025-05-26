@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timer' => env('SWEET_ALERT_TIMER', 5000),
+    'timer' => env('SWEET_ALERT_TIMER', 2000),
 
     /*
     |--------------------------------------------------------------------------
@@ -145,7 +145,7 @@ return [
     |
     */
 
-    'show_confirm_button' => env('SWEET_ALERT_CONFIRM_BUTTON', true),
+    'show_confirm_button' => env('SWEET_ALERT_CONFIRM_BUTTON', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -210,7 +210,7 @@ return [
 
     'middleware' => [
 
-        'autoClose' => env('SWEET_ALERT_MIDDLEWARE_AUTO_CLOSE', false),
+        'autoClose' => env('SWEET_ALERT_MIDDLEWARE_AUTO_CLOSE', true),
 
         'toast_position' => env('SWEET_ALERT_MIDDLEWARE_TOAST_POSITION', 'top-end'),
 
