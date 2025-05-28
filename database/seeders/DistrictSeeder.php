@@ -18,112 +18,112 @@ class DistrictSeeder extends Seeder
                 'name' => json_encode([
                     'uz' => 'Amudaryo tumani',
                     'ru' => 'Амударья район',
-                    'kk' => 'Amudarya rayonı'
+                    'kr' => 'Amudarya rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Beruniy tumani',
                     'ru' => 'Беруни район',
-                    'kk' => 'Beruniy rayonı'
+                    'kr' => 'Beruniy rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Boʻzatov tumani',
                     'ru' => 'Бозатов район',
-                    'kk' => 'Bozatov rayonı'
+                    'kr' => 'Bozatov rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Chimboy tumani',
                     'ru' => 'Чимбай район',
-                    'kk' => 'Shımbay rayonı'
+                    'kr' => 'Shımbay rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Ellikqalʼa tumani',
                     'ru' => 'Элликкала район',
-                    'kk' => 'Ellikqala rayonı'
+                    'kr' => 'Ellikqala rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Kegeyli tumani',
                     'ru' => 'Кегейли район',
-                    'kk' => 'Kegeyli rayonı'
+                    'kr' => 'Kegeyli rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Moʻynoq tumani',
                     'ru' => 'Муйнак район',
-                    'kk' => 'Moynaq rayonı'
+                    'kr' => 'Moynaq rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Nukus tumani',
                     'ru' => 'Нукус район',
-                    'kk' => 'Nókis rayonı'
+                    'kr' => 'Nókis rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Qanlikoʻl tumani',
                     'ru' => 'Канлыкуль район',
-                    'kk' => 'Qanlıkól rayonı'
+                    'kr' => 'Qanlıkól rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Qoʻngʻirot tumani',
                     'ru' => 'Кунград район',
-                    'kk' => 'Qońırat rayonı'
+                    'kr' => 'Qońırat rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Qoraoʻzak tumani',
                     'ru' => 'Караузяк район',
-                    'kk' => 'Qaraózek rayonı'
+                    'kr' => 'Qaraózek rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Shoʻmanoy tumani',
                     'ru' => 'Шуманай район',
-                    'kk' => 'Shomanay rayonı'
+                    'kr' => 'Shomanay rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Taxtakoʻpir tumani',
                     'ru' => 'Тахтакупыр район',
-                    'kk' => 'Taxtakópir rayonı'
+                    'kr' => 'Taxtakópir rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Taxiatosh tumani',
                     'ru' => 'Тахиаташ район',
-                    'kk' => 'Taqiyatas rayonı'
+                    'kr' => 'Taqiyatas rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Toʻrtkoʻl tumani',
                     'ru' => 'Турткуль район',
-                    'kk' => 'Tórtkúl rayonı'
+                    'kr' => 'Tórtkúl rayonı'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Xoʻjayli tumani',
                     'ru' => 'Ходжейли район',
-                    'kk' => 'Xojeli rayonı'
+                    'kr' => 'Xojeli rayonı'
                 ]),
             ],
         ];

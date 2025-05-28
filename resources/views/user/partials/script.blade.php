@@ -4,6 +4,17 @@
     <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/language-dropdown.js') }}"></script>
+    <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
+    <script>
+        Dropzone.autoDiscover = false; // Agar avtomatik kashfiyotni o'chirib qo'ymoqchi bo'lsangiz
+        new Dropzone("#jobDropzone", {
+            url: "/upload", // Fayllarni yuklash uchun server URL
+            maxFilesize: 10, // Maksimal fayl hajmi (MB)
+            acceptedFiles: "image/*", // Faqat rasm fayllarini qabul qilish
+            dictDefaultMessage: "Rasmlarni bu yerga tashlang yoki bosing...",
+        });
+    </script>
+
     <script type="text/javascript">
         //====== Clients Logo Slider
         tns({

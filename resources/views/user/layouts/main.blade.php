@@ -12,17 +12,12 @@
     <div id="loading-area"></div>
 
     @include('sweetalert::alert')
-    <!-- Start Header Area -->
+
     @include('user.components.header')
-    <!-- End Header Area -->
 
-    <!-- Start Content -->
     @yield('content')
-    <!-- End Content -->
 
-    <!-- Start Footer Top -->
     @include('user.components.footer')
-    <!--/ End Footer Top -->
 
     @include('user.partials.script')
 </body>

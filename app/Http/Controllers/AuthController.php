@@ -45,7 +45,7 @@ class AuthController extends Controller
 
             return redirect()->route('home');
         }
-        Alert::error(__('error'));
+        Alert::error(__('Login failed. Please enter the correct phone number and password'));
 
         return redirect()->route('home');
     }

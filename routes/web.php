@@ -28,8 +28,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     });
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::group(['prefix' => '', 'orders', 'as' => 'orders.'], function () {
+        Route::group(['prefix' => 'orders', 'orders', 'as' => 'orders.'], function () {
             Route::get('/index', [OrderController::class, 'index'])->name('index');
+            Route::get('/create', [OrderController::class, 'create'])->name('create');
+            Route::post('/store', [OrderController::class, 'store'])->name('store');
         });
     });
 });

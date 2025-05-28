@@ -12,4 +12,16 @@ class District extends Model
     protected $fillable = [
         'name'
     ];
+
+    protected $casts =
+    [
+        'name' => 'array'
+    ];
+
+    public function getTranslatedNameAttribute()
+    {
+        $locale = session('locale', 'kr');
+
+        return $this->name[$locale] ?? $this->name['kr'];
+    }
 }

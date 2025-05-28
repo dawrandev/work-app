@@ -11,9 +11,16 @@
                             <p class="wow fadeInUp" data-wow-delay=".5s">{{__('Looking for work with us is now easy!')}}<br>{{__('Find your dream profession quickly and efficiently.')}}"<br>
                             </p>
                             <div class="button wow fadeInUp" data-wow-delay=".7s">
-                                <a href="{{ route('orders.index') }}" class="btn">{{__('Post a Job')}}</a>
-                                <a href="#" class="btn btn-alt">{{__('See Our Jobs')}}</a>
+                                @if(auth()->check())
+                                <a href="{{ route('orders.create') }}" class="btn">{{ __('Post a Job') }}</a>
+                                @else
+                                <a href="javascript:void(0);" class="btn" data-toggle="modal" data-target="#login">
+                                    {{ __('Post a Job') }}
+                                </a>
+                                @endif
+                                <a href="#" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
                             </div>
+
                         </div>
                         <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
                             <div class="trending-keywords mt-30">
