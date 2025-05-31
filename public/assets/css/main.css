@@ -3989,6 +3989,23 @@ blockquote .shape {
     background-color: #f6f9fc;
 }
 
+.find-job .search-job .select {
+    width: 100%;
+    height: 50px;
+    border-radius: 0;
+    border: 1px solid #ebebeb;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.find-job .search-job .select option {
+    color: #081828;
+    padding: 10px 10px;
+    font-weight: 400;
+}
+
 .find-job .section-title {
     margin-bottom: 50px;
 }
@@ -4138,6 +4155,23 @@ blockquote .shape {
 
 .find-job .search-job .search-nner .btn {
     width: 100%;
+}
+
+find-job .search-job .search-nner .select {
+    width: 100%;
+    height: 50px;
+    border-radius: 0;
+    border: 1px solid #ebebeb;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.find-job .search-job .search-nner .select option {
+    color: #081828;
+    padding: 10px 10px;
+    font-weight: 400;
 }
 
 /*======================================

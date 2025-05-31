@@ -1,19 +1,15 @@
-.dz-image img {
-    width: 100%;
-    height: 100%;
+@media (min-width: 768px) {
+    .search-nner .button {
+        padding-left: 0; /* Remove extra padding */
+    }
+    .search-nner .btn-common {
+        width: 100%; /* Make button fill container */
+    }
 }
-.dropzone.dz-started .dz-message {
-    display: block !important;
-}
-.dropzone {
-    border: 2px dashed #028af4 !important;
-}
-.dropzone .dz-preview.dz-complete .dz-success-mark {
-    opacity: 1;
-}
-.dropzone .dz-preview.dz-error .dz-success-mark {
-    opacity: 0;
-}
-.dropzone .dz-preview .dz-error-message {
-    top: 144px;
+
+/* For extra small screens */
+@media (max-width: 767px) {
+    .search-nner .button {
+        margin-top: 15px;
+    }
 }

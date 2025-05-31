@@ -17,9 +17,18 @@ class OrderController extends Controller
         // 
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('user.pages.orders.index');
+        $filters = $request->only(['category_id', 'district_id', 'type_id']);
+
+        $orders = $this->orderService->getFilteredOrders($filters);
+
+        return view(
+            'user.pages.orders.index',
+            [
+                'orders' => $orders
+            ]
+        );
     }
 
     public function create()
@@ -31,10 +40,9 @@ class OrderController extends Controller
     {
         $order = $this->orderService->createOrder($request->validated(), $request);
 
-        return redirect()->route('orders.create')->withSuccess('alert', [
-            'type' => 'success',
-            'message' => __('Request sent successfully!')
-        ]);
+        Alert::success(__('Request sent successfully!'));
+
+        return redirect()->route('orders.create');
     }
 
     public function show(Order $order)

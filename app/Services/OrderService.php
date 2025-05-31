@@ -43,4 +43,9 @@ class OrderService
             throw $e;
         }
     }
+
+    public function getFilteredOrders(array $filters)
+    {
+        return $this->orderRepository->filter($filters);
+    }
 }
