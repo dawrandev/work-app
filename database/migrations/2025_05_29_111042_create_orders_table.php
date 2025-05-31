@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->longText('description');
-            $table->decimal('price', 10, 2);
+            $table->string('salary_from');
+            $table->string('salary_to');
             $table->timestamp('deadline');
             $table->string('address');
-            $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }

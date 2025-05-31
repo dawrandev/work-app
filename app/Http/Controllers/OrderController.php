@@ -2,62 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
+use App\Models\OrderImage;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected OrderService $orderService)
     {
         // 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function index()
+    {
+        return view('user.pages.orders.index');
+    }
+
     public function create()
     {
         return view('user.pages.orders.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(OrderStoreRequest $request)
     {
-        //
+        $order = $this->orderService->createOrder($request->validated(), $request);
+
+        return redirect()->route('orders.create')->withSuccess('alert', [
+            'type' => 'success',
+            'message' => __('Request sent successfully!')
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Order $order)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Order $order)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Order $order)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Order $order)
     {
         //

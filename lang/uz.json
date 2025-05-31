@@ -62,5 +62,22 @@
     "By clicking checkbox, you agree to our": "Belgilash katagiga bosish orqali siz bizning shartlarimizga rozilik bildirasiz",
     "Terms & Conditions": "Foydalanish shartlari",
     "And": "va",
-    "Login failed. Please enter the correct phone number and password": "Tizimga kirilmadi. Telefon raqami va parolni to'g'ri kiriting"
+    "Login failed. Please enter the correct phone number and password": "Tizimga kirilmadi. Telefon raqami va parolni to'g'ri kiriting",
+    "Job Information": "Ish haqida ma'lumot",
+    "Job title*": "Ish nomi*",
+    "Category*": "Kategoriya*",
+    "Job Types*": "Ish turlari*",
+    "Select District": "Tumanni tanlang",
+    "Select Work Type": "Ish turini tanlang",
+    "Select Category": "Kategoriya tanlang",
+    "Districts": "Tumanlar",
+    "Address": "Manzil",
+    "Salary From": "Maosh (dan)",
+    "Salary To": "Maosh (gacha)",
+    "Deadline": "Oxirgi muddat",
+    "Job Description*": "Ish tavsifi*",
+    "Upload Images": "Rasmlarni yuklash",
+    "Drop or tap images here...": "Rasmlarni shu yerga tashlang yoki bosing...",
+    "Request sent successfully!": "So‘rov yuborildi!",
+    "Error occurred": "Xatolik yuz berdi"
 }

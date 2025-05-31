@@ -62,5 +62,22 @@
     "By clicking checkbox, you agree to our": "Belgilew túymesin basıw arqalı siz biziń shórtlerimizge razılıq bildiresiz",
     "Terms & Conditions": "Paydalanıw shártleri",
     "And": "hám",
-    "Login failed. Please enter the correct phone number and password": "Kiriw ámelge asırılmadı. Telefon nomeri hám paroldi duris kirgiziń."
+    "Login failed. Please enter the correct phone number and password": "Kiriw ámelge asırılmadı. Telefon nomeri hám paroldi duris kirgiziń.",
+    "Job Information": "Jumıs haqqında maǵlıwmat",
+    "Job title*": "Jumıs atı*",
+    "Category*": "Kategoriya*",
+    "Job Types*": "Jumıs túrleri*",
+    "Select District": "Rayondı tańlań",
+    "Select Work Type": "Jumıs túrin tańlań",
+    "Select Category": "Kategoriyanı tańlań",
+    "Districts": "Rayonlar",
+    "Address": "Anıq mánzil",
+    "Salary From": "Is haqı (dan)",
+    "Salary To": "Is haqı (shekem)",
+    "Deadline": "Múddet",
+    "Job Description*": "jumıs táriyplemesi",
+    "Upload Images": "Súwretlerdi júklew",
+    "Drop or tap images here...": "Súwretlerdi usı jerge túsiriń yamasa basıń...",
+    "Request sent successfully!": "Soraw jiberildi!",
+    "Error occurred": "Qátelik payda boldı"
 }

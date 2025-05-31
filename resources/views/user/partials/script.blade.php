@@ -5,15 +5,36 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/language-dropdown.js') }}"></script>
     <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/js/cleave.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
     <script>
-        Dropzone.autoDiscover = false; // Agar avtomatik kashfiyotni o'chirib qo'ymoqchi bo'lsangiz
-        new Dropzone("#jobDropzone", {
-            url: "/upload", // Fayllarni yuklash uchun server URL
-            maxFilesize: 10, // Maksimal fayl hajmi (MB)
-            acceptedFiles: "image/*", // Faqat rasm fayllarini qabul qilish
-            dictDefaultMessage: "Rasmlarni bu yerga tashlang yoki bosing...",
+        $('#salary_from').inputmask('decimal', {
+            groupSeparator: ' ',
+            digits: 0, // O‘nlik qismlar yo‘q
+            rightAlign: false,
+            autoGroup: true,
+            allowMinus: false, // Minus belgisini cheklaydi
+            clearIncomplete: true
+        });
+
+        $('#salary_to').inputmask('decimal', {
+            groupSeparator: ' ',
+            digits: 0, // O‘nlik qismlar yo‘q
+            rightAlign: false,
+            autoGroup: true,
+            allowMinus: false, // Minus belgisini cheklaydi
+            clearIncomplete: true
+        });
+
+        $(document).ready(function() {
+            $('#phone').inputmask('99 999 99 99');
         });
     </script>
+    <script>
+
+    </script>
+
 
     <script type="text/javascript">
         //====== Clients Logo Slider

@@ -65,5 +65,22 @@
     "By clicking checkbox, you agree to our": "Нажимая на флажок, вы соглашаетесь с нашими",
     "Terms & Conditions": "Условия и положения",
     "And": "и",
-    "Login failed. Please enter the correct phone number and password": "Не удалось войти. Пожалуйста, введите правильный номер телефона и пароль"
+    "Login failed. Please enter the correct phone number and password": "Не удалось войти. Пожалуйста, введите правильный номер телефона и пароль",
+    "Job Information": "Информация о вакансии",
+    "Job title*": "Название работы*",
+    "Category*": "Категория*",
+    "Job Types*": "Типы работы*",
+    "Select District": "Выберите районы",
+    "Select Work Type": "Выберите тип работы",
+    "Select Category": "Выберите категорию",
+    "Districts": "Районы",
+    "Address": "Адрес",
+    "Salary From": "Зарплата от",
+    "Salary To": "Зарплата до",
+    "Deadline": "Крайний срок",
+    "Job Description*": "Описание работы*",
+    "Upload Images": "Загрузить изображения",
+    "Drop or tap images here...": "Опустить или коснуться изображений здесь...",
+    "Request sent successfully!": "Запрос успешно отправлен!",
+    "Error occurred": "Произошла ошибка"
 }

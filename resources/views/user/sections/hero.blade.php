@@ -18,7 +18,7 @@
                                     {{ __('Post a Job') }}
                                 </a>
                                 @endif
-                                <a href="#" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
+                                <a href="{{ route('orders.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
                             </div>
 
                         </div>

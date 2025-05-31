@@ -18,56 +18,56 @@ class CategorySeeder extends Seeder
                 'name' => json_encode([
                     'uz' => 'Santexnik',
                     'ru' => 'Сантехник',
-                    'kk' => 'Santexnik'
+                    'kr' => 'Santexnik'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Elektrik',
                     'ru' => 'Электрик',
-                    'kk' => 'Elektrik'
+                    'kr' => 'Elektrik'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Uy tozalash',
                     'ru' => 'Уборка дома',
-                    'kk' => 'Üydi tazalaw'
+                    'kr' => 'Üydi tazalaw'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Bog‘dorchilik ishlari',
                     'ru' => 'Садоводство',
-                    'kk' => 'Baǵbanshılıq isleri'
+                    'kr' => 'Baǵbanshılıq isleri'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Yuk tashish',
                     'ru' => 'Грузоперевозки',
-                    'kk' => 'Júk tasıw'
+                    'kr' => 'Júk tasıw'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Ta’mirlash ishlari',
                     'ru' => 'Ремонтные работы',
-                    'kk' => 'Ońlaw jumısları'
+                    'kr' => 'Ońlaw jumısları'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Haydovchilik xizmati',
                     'ru' => 'Услуги водителя',
-                    'kk' => 'Aydawshılıq xızmeti'
+                    'kr' => 'Aydawshılıq xızmeti'
                 ]),
             ],
             [
                 'name' => json_encode([
                     'uz' => 'Mebel yig‘ish',
                     'ru' => 'Сборка мебели',
-                    'kk' => 'Mebel jıynaw'
+                    'kr' => 'Mebel jıynaw'
                 ]),
             ],
         ];
