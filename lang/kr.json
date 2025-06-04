@@ -30,6 +30,7 @@
     "Blog Single": "Blog maqálasi",
     "Blog Single Sidebar": "Blog maqálasi yan panel",
     "Contact": "Baylanıs",
+    "Profile": "Profil",
     "Toggle navigation": "Navigatsiyanı alısp-beriw",
     "Sign Up": "Dizimnen ótiw",
     "Last name": "Familiya",
@@ -71,9 +72,11 @@
     "Select Type": "Jumıs túrin tańlań",
     "Select Category": "Kategoriyanı tańlań",
     "Districts": "Rayonlar",
+    "District": "Rayon",
     "Address": "Anıq mánzil",
     "Salary From": "Is haqı (dan)",
     "Salary To": "Is haqı (shekem)",
+    "Salary": "Is haqı",
     "Deadline": "Múddet",
     "Job Description*": "jumıs táriyplemesi",
     "Upload Images": "Súwretlerdi júklew",
@@ -85,5 +88,11 @@
     "Download Our App": "Bizdiń mobil qosımshamızdı júklep alıń",
     "Browse Job": "Jumıs izlew",
     "Find the right job that": "Qábiletińiz hám qızıǵıwshılıqlarıńızǵa sáykes",
-    "matches your skills and interests": "keletuǵın durıs jumıstı tabıń"
+    "matches your skills and interests": "keletuǵın durıs jumıstı tabıń",
+    "sum": "som",
+    "Job Overview": "Jumıs haqqında ulıwma maǵlıwmat",
+    "Job Type": "Jumis túri",
+    "Save Job": "Jumistı saqlaw",
+    "Apply": "Múrájat",
+    "Published on": "Shıǵarılǵan waqtı"
 }

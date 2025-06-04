@@ -48,4 +48,9 @@ class OrderService
     {
         return $this->orderRepository->filter($filters);
     }
+
+    public function getOrder($id)
+    {
+        return $this->orderRepository->getOrder($id);
+    }
 }

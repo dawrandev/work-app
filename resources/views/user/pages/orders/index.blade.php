@@ -78,7 +78,7 @@
                             <img src="{{asset('assets/images/category-icons/plumber.png')}}" alt="#">
                         </div>
                         <div class="job-content">
-                            <h4><a href="{{ route('orders.show', ['order' => $order->id]) }}">{{ $order->category->translated_name }}</a></h4>
+                            <h4><a href="{{ route('orders.show', $order->id) }}">{{ $order->category->translated_name }}</a></h4>
                             <p>{{ $order->title }}</p>
                             <ul>
                                 <li></i>{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} sum</li>

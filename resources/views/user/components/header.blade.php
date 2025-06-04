@@ -62,7 +62,7 @@
                                         <li><a href="blog-single-sidebar.html">{{ __('Blog Single Sidebar') }}</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item"><a href="contact.html">{{ __('Contact') }}</a> </li>
+                                <li class="nav-item"><a href="contact.html">{{ __('Profile') }}</a> </li>
                             </ul>
                         </div>
                         <div class="dropdown">

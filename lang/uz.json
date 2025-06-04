@@ -30,6 +30,7 @@
     "Blog Single": "Blog maqolasi",
     "Blog Single Sidebar": "Blog maqolasi yon panel",
     "Contact": "Aloqa",
+    "Profile": "Profil",
     "Toggle navigation": "Navigatsiyani almashtirish",
     "Sign Up": "Ro‘yxatdan o‘tish",
     "Last name": "Familiya",
@@ -71,9 +72,11 @@
     "Select Type": "Ish turini tanlang",
     "Select Category": "Kategoriya tanlang",
     "Districts": "Tumanlar",
+    "District": "Tuman",
     "Address": "Manzil",
     "Salary From": "Maosh (dan)",
     "Salary To": "Maosh (gacha)",
+    "Salary": "Ish haqi",
     "Deadline": "Oxirgi muddat",
     "Job Description*": "Ish tavsifi*",
     "Upload Images": "Rasmlarni yuklash",
@@ -85,5 +88,11 @@
     "Download Our App": "Bizning mobil ilovamizni yuklab oling",
     "Browse Job": "Ish qidirish",
     "Find the right job that": "Malakangiz va qiziqishlaringizga mos",
-    "matches your skills and interests": "keladigan to‘g‘ri ishni toping"
+    "matches your skills and interests": "keladigan to‘g‘ri ishni toping",
+    "sum": "so'm",
+    "Job Overview": "Ish haqida umumiy ma’lumot",
+    "Job Type": "Ish turi",
+    "Save Job": "Ishni saqlash",
+    "Apply": "Murojaat qilish",
+    "Published on": "chiqarilgan vaqti"
 }

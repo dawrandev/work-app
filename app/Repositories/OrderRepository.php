@@ -26,4 +26,10 @@ class OrderRepository
             ->paginate(10)
             ->appends($filters);
     }
+
+    public function getOrder($id)
+    {
+        return $id;
+        return Order::where('id', $id)->get();
+    }
 }

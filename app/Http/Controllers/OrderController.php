@@ -40,8 +40,10 @@ class OrderController extends Controller
         return redirect()->route('orders.create');
     }
 
-    public function show(Order $order)
+    public function show($locale, Order $order)
     {
+        $order->load(['order_images', 'category', 'district', 'type']);
+
         return view('user.pages.orders.show', compact('order'));
     }
 

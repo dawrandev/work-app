@@ -7,21 +7,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumbs-content">
-                    <h1 class="page-title">Job Details</h1>
-                    <p>Business plan draws on a wide range of knowledge from different business<br> disciplines.
-                        Business draws on a wide range of different business .</p>
+                    <h1 class="page-title">{{__('Job Details')}}</h1>
                 </div>
                 <ul class="breadcrumb-nav">
-                    <li><a href="index-2.html">Home</a></li>
-                    <li><a href="news-standard.html">Blog</a></li>
-                    <li>Job Details</li>
+                    <li><a href="index-2.html">{{__('Home')}}</a></li>
+                    <li>{{__('Job Details')}}</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
 <!-- End Breadcrumbs -->
-{{ $order }}
 <!-- Start Job Details -->
 <div class="job-details section">
     <div class="container">
@@ -31,71 +27,26 @@
                 <div class="job-details-inner">
                     <div class="job-details-head row mx-0">
                         <div class="company-logo col-auto">
-                            <a href="#" style="border-radius: 4px; overflow: hidden;"><img src="assets/images/universal-image/job-details.png"
+                            <a href="#" style="border-radius: 4px; overflow: hidden;"><img src="{{ asset('assets/images/universal-image/job-details.png') }}"
                                     alt="Company Logo"></a>
                         </div>
                         <div class="salary-type col-auto order-sm-3">
-                            <span class="salary-range">{{ number_format($order->salary_to, 0, ',', ' ') }} {{ number_format($order->salary_from, 0, ',', ' ') }}</span>
-                            <span class="badge badge-success">Full Time</span>
+                            <span class="salary-range">{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
+                            <span class="badge badge-success">{{ $order->type->translated_name }}</span>
                         </div>
                         <div class="content col">
-                            <h5 class="title">Website front end development</h5>
+                            <h5 class="title">{{ $order->title }}</h5>
                             <ul class="meta">
-                                <li><strong class="text-primary"><a href="http://www.graygrids.com/">GrayGrids</a></strong>
+                                <li><strong class="text-primary"><a href="#">{{ $order->category->translated_name }}</a></strong>
                                 </li>
-                                <li><i class="lni lni-map-marker"></i> 2023 Willshire Glen, GA-30009</li>
+                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $order->district->translated_name }}</strong></li>
+                                <li>{{ $order->address }}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="job-details-body">
-                        <h6 class="mb-3">Job Description</h6>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique, ex iusto! Tenetur
-                            iusto dolore amet voluptates esse? Ut debitis perferendis, impedit ullam ea officia
-                            sapiente soluta cupiditate molestiae eius enim aut laboriosam, saepe deleniti. Excepturi
-                            nobis amet fugit ipsa corrupti!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo ratione odit qui inventore
-                            maiores labore tenetur earum! Quam eaque, deleniti quibusdam deserunt quos reprehenderit
-                            dolor, in quo voluptates maxime nostrum.</p>
-                        <h6 class="mb-3 mt-4">Responsibilities</h6>
-                        <ul>
-                            <li>Proven work experienceas a web designer</li>
-                            <li>Demonstrable graphic design skills with a strong portfolio</li>
-                            <li>Proficiency in HTML, CSS and JavaScript for rapid prototyping</li>
-                            <li>Experience working in an Agile/Scrum development process</li>
-                            <li>Proven work experienceas a web designer</li>
-                            <li>Excellent visual design skills with sensitivity to user-system interaction</li>
-                            <li>Ability to solve problems creatively and effectively</li>
-                            <li>Proven work experienceas a web designer</li>
-                            <li>Up-to-date with the latest Web trends, techniques and technologies</li>
-                            <li>BS/MS in Human-Computer Interaction, Interaction Design or a Visual Arts subject
-                            </li>
-                        </ul>
-                        <h6 class="mb-3 mt-4">Education + Experience</h6>
-                        <ul>
-                            <li>Advanced degree or equivalent experience in graphic and web design</li>
-                            <li>3 or more years of professional design experience</li>
-                            <li>Direct response email experience</li>
-                            <li>Ecommerce website design experience</li>
-                            <li>Familiarity with mobile and web apps preferred</li>
-                            <li>Excellent communication skills, most notably a demonstrated ability to solicit and
-                                address creative and design feedback</li>
-                            <li>Must be able to work under pressure and meet deadlines while maintaining a positive
-                                attitude and providing exemplary customer service</li>
-                            <li>Ability to work independently and to carry out assignments to completion within
-                                parameters of instructions given, prescribed routines, and standard accepted
-                                practices</li>
-                        </ul>
-                        <h6 class="mb-3 mt-4">Benefits</h6>
-                        <ul>
-                            <li>Medical insurance</li>
-                            <li>Dental insurance</li>
-                            <li>Vision insurance</li>
-                            <li>Supplemental benefits (Short Term Disability, Cancer & Accident).</li>
-                            <li>Employer-sponsored Basic Life & AD&D Insurance</li>
-                            <li>Employer-sponsored Long Term Disability</li>
-                            <li>Employer-sponsored Value Adds – Fresh Beanies</li>
-                            <li>401(k)with matching</li>
-                        </ul>
+                        <h6 class="mb-3">{{__('Job Description*')}}</h6>
+                        <p>{{ $order->description }}</p>
                     </div>
                 </div>
             </div>
@@ -107,11 +58,11 @@
                     <div class="sidebar-widget">
                         <div class="inner">
                             <div class="row m-n2 button">
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
-                                    <a href="bookmarked.html" class="d-block btn"><i class="fa fa-heart-o mr-1"></i> Save Job</a>
+                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
+                                    <a href="bookmarked.html" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</a>
                                 </div>
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-2">
-                                    <a href="job-details.html" class="d-block btn btn-alt">Apply Now</a>
+                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
+                                    <a href="job-details.html" class="d-block btn btn-alt">{{__('Apply')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -120,51 +71,26 @@
                     <!-- Sidebar (Job Overview) Start -->
                     <div class="sidebar-widget">
                         <div class="inner">
-                            <h6 class="title">Job Overview</h6>
+                            <h6 class="title">{{__('Job Overview')}}</h6>
                             <ul class="job-overview list-unstyled">
-                                <li><strong>Published on:</strong> Nov 6, 2023</li>
-                                <li><strong>Vacancy:</strong> 02</li>
-                                <li><strong>Employment Status:</strong> Full-time</li>
-                                <li><strong>Experience:</strong> 2 to 3 year(s)</li>
-                                <li><strong>Job Location:</strong> Willshire Glen</li>
-                                <li><strong>Salary:</strong> $5k - $8k</li>
-                                <li><strong>Gender:</strong> Any</li>
-                                <li><strong>Application Deadline:</strong> Dec 15, 2023</li>
+                                @php
+                                use Carbon\Carbon;
+                                $deadline = Carbon::parse($order->deadline)->format('d.m.Y');
+                                $published = Carbon::parse($order->created_at)->format('d.m.Y');
+                                @endphp
+                                <li><strong>{{__('Published on')}}:</strong> {{ $published }}</li>
+                                <li><strong>{{__('Job Type')}}:</strong>{{ $order->type->translated_name }}</li>
+                                <li><strong>{{__('District')}}:</strong>{{ $order->district->translated_name }}</li>
+                                <li><strong>{{__('Address')}}:</strong>{{ $order->address }}</li>
+                                <li><strong>{{__('Salary')}}:</strong>{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
+                                <li><strong>{{__('Deadline')}}:</strong>{{ $deadline }}</li>
                             </ul>
                         </div>
                     </div>
                     <!-- Sidebar (Job Overview) End -->
-
-                    <!-- Sidebar (Job Location) Start -->
-                    <div class="sidebar-widget">
-                        <div class="inner">
-                            <h6 class="title">Job Location</h6>
-                            <div class="mapouter">
-                                <div class="gmap_canvas"><iframe width="100%" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=New%20York&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.com/">123movies old site</a>
-                                    <style>
-                                        .mapouter {
-                                            position: relative;
-                                            text-align: right;
-                                            height: 300px;
-                                            width: 100%;
-                                        }
-
-                                        .gmap_canvas {
-                                            overflow: hidden;
-                                            background: none !important;
-                                            height: 300px;
-                                            width: 100%;
-                                        }
-                                    </style><a href="https://maps-google.github.io/embed-google-map/">embed google map</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Sidebar (Job Location) End -->
                 </div>
             </div>
             <!-- Job Sidebar Wrap End -->
-
         </div>
     </div>
 </div>

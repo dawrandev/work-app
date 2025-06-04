@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () {
     Route::get('/', function () {
         return view('user.pages.home');
@@ -27,15 +27,20 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::post('/logout', 'logout')->name('logout')->middleware('auth');
     });
 
-    Route::group(['middleware' => 'auth'], function () {
-        Route::group(['prefix' => 'orders', 'orders', 'as' => 'orders.'], function () {
+    Route::middleware('auth')->group(function () {
+        Route::prefix('orders')->as('orders.')->group(function () {
             Route::get('/create', [OrderController::class, 'create'])->name('create');
             Route::post('/store', [OrderController::class, 'store'])->name('store');
+        });
+
+        Route::prefix('users')->as('users.')->group(function () {
+            Route::get('/index', [UserController::class, 'index'])->name('index');
         });
     });
     Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/show/{order}', [OrderController::class, 'show'])->name('orders.show');
 });
+
 
 Route::get('/', function () {
     return redirect()->route('home', ['locale' => 'kr']);
