@@ -23,12 +23,7 @@ class OrderController extends Controller
 
         $orders = $this->orderService->getFilteredOrders($filters);
 
-        return view(
-            'user.pages.orders.index',
-            [
-                'orders' => $orders
-            ]
-        );
+        return view('user.pages.orders.index', ['orders' => $orders]);
     }
 
     public function create()
@@ -47,7 +42,7 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        //
+        return view('user.pages.orders.show', compact('order'));
     }
 
     public function edit(Order $order)

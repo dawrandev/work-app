@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone' => 'required|string|regex:/^\d{9}$/',
+            'phone' => 'required|digits:9',
             'password' => 'required|string|min:8|confirmed',
         ];
     }
@@ -39,5 +39,19 @@ class RegisterRequest extends FormRequest
             ->back()
             ->withErrors($validator)
             ->withInput());
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge(
+            [
+                'phone' => $this->normalizeNumber($this->phone)
+            ]
+        );
+    }
+
+    public function normalizeNumber($value)
+    {
+        return $value ? (int)str_replace(' ', '', $value) : null;
     }
 }

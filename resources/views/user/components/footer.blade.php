@@ -4,9 +4,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 col-12">
                     <div class="download-text">
-                        <h3>Download Our Best Apps</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do<br> eiusmod tempor
-                            incididunt ut labore et dolore</p>
+                        <h3>{{__('Download Our App')}}</h3>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12">
@@ -76,22 +74,6 @@
                                     <li><a href="#">Jobs Listing</a></li>
                                     <li><a href="#">Jobs Featured</a></li>
                                 </ul>
-                            </div>
-                            <!-- End Single Widget -->
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-12">
-                            <!-- Single Widget -->
-                            <div class="single-footer newsletter">
-                                <h3>Join Our Newsletter</h3>
-                                <p>Subscribe to get the latest jobs posted, candidates...</p>
-                                <form action="https://demo.graygrids.com/themes/jobgrids/mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-                                    <input name="EMAIL" placeholder="Your email address" class="common-input"
-                                        onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Your email address'" required="" type="email">
-                                    <div class="button">
-                                        <button class="btn">Subscribe Now! <span class="dir-part"></span></button>
-                                    </div>
-                                </form>
                             </div>
                             <!-- End Single Widget -->
                         </div>

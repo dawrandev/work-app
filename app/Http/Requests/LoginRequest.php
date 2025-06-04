@@ -22,8 +22,20 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|regex:/^\d{9}$/',
+            'phone' => 'required|digits:9',
             'password' => 'required|min:8|string'
         ];
+    }
+
+    public function normalizeNumber($value)
+    {
+        return $value ? (int)str_replace(' ', '', $value) : null;
+    }
+
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'phone' => $this->normalizeNumber($this->phone)
+        ]);
     }
 }

@@ -68,7 +68,7 @@
     "Category*": "Kategoriya*",
     "Job Types*": "Ish turlari*",
     "Select District": "Tumanni tanlang",
-    "Select Work Type": "Ish turini tanlang",
+    "Select Type": "Ish turini tanlang",
     "Select Category": "Kategoriya tanlang",
     "Districts": "Tumanlar",
     "Address": "Manzil",
@@ -79,5 +79,11 @@
     "Upload Images": "Rasmlarni yuklash",
     "Drop or tap images here...": "Rasmlarni shu yerga tashlang yoki bosing...",
     "Request sent successfully!": "So‘rov yuborildi!",
-    "Error occurred": "Xatolik yuz berdi"
+    "Error occurred": "Xatolik yuz berdi",
+    "Details": "Batafsil",
+    "Filter": "Filtirlash",
+    "Download Our App": "Bizning mobil ilovamizni yuklab oling",
+    "Browse Job": "Ish qidirish",
+    "Find the right job that": "Malakangiz va qiziqishlaringizga mos",
+    "matches your skills and interests": "keladigan to‘g‘ri ishni toping"
 }

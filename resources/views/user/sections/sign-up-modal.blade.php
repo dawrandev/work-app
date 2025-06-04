@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="email" class="label">{{ __('Phone') }}</label>
-                                <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" value="{{ old('phone') }}">
+                                <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone') }}">
                                 @error('phone')
                                 <li style="color: red;">{{ $message }}</li>
                                 @enderror

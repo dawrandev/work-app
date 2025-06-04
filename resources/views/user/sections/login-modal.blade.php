@@ -14,7 +14,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="phone" class="label">{{__('Phone')}}</label>
-                                <input type="number" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('number') }}">
+                                <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone') }}">
                                 @error('phone')
                                 <li style="color: red;">{{ $message }}</li>
                                 @enderror

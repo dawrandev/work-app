@@ -24,4 +24,9 @@ class District extends Model
 
         return $this->name[$locale] ?? $this->name['kr'];
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

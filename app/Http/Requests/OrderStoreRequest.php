@@ -25,6 +25,7 @@ class OrderStoreRequest extends FormRequest
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'type_id' => 'required|exists:types,id',
+            'district_id' => 'required|exists:districts,id',
             'description' => 'required|string',
             'salary_from' => 'numeric',
             'salary_to' => 'numeric',

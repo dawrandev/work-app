@@ -36,11 +36,16 @@ class Order extends Model
 
     public function order_images()
     {
-        return $this->hasMany(OrderImage::class);
+        return $this->hasMany(OrderImage::class, 'order_id', 'id');
     }
 
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
     }
 }

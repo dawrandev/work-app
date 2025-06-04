@@ -68,7 +68,7 @@
     "Category*": "Kategoriya*",
     "Job Types*": "Jumıs túrleri*",
     "Select District": "Rayondı tańlań",
-    "Select Work Type": "Jumıs túrin tańlań",
+    "Select Type": "Jumıs túrin tańlań",
     "Select Category": "Kategoriyanı tańlań",
     "Districts": "Rayonlar",
     "Address": "Anıq mánzil",
@@ -79,5 +79,11 @@
     "Upload Images": "Súwretlerdi júklew",
     "Drop or tap images here...": "Súwretlerdi usı jerge túsiriń yamasa basıń...",
     "Request sent successfully!": "Soraw jiberildi!",
-    "Error occurred": "Qátelik payda boldı"
+    "Error occurred": "Qátelik payda boldı",
+    "Details": "Tolıǵıraq",
+    "Filter": "Filtrler",
+    "Download Our App": "Bizdiń mobil qosımshamızdı júklep alıń",
+    "Browse Job": "Jumıs izlew",
+    "Find the right job that": "Qábiletińiz hám qızıǵıwshılıqlarıńızǵa sáykes",
+    "matches your skills and interests": "keletuǵın durıs jumıstı tabıń"
 }

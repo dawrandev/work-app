@@ -7,8 +7,8 @@
             <div class="col-12">
                 <div class="breadcrumbs-content">
                     <h1 class="page-title">{{__('Browse Job')}}</h1>
-                    <p>{{ __('Explore a wide range of job opportunities from various industries') }} <br>
-                        {{__('Find the right job that matches your skills and interests.') }}
+                    <p>{{ __('Find the right job that') }} <br>
+                        {{__('matches your skills and interests') }}
                     </p>
                 </div>
                 <ul class="breadcrumb-nav">
@@ -29,33 +29,40 @@
                 <form action="#" method="GET">
                     <div class="row">
                         <div class="col-lg-3 col-md-3 col-3">
-                            <select class="select" name="category_id">
+                            <select class="select" id="category_id" name="category_id">
                                 <option value="">{{ __('Select Category') }}</option>
                                 @foreach (getCategories() as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->translated_name }}</option>
+                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->translated_name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-3 col-3">
-                            <select class="select" name="district_id">
+                            <select class="select" id="district_id" name="district_id">
                                 <option value="">{{ __('Select District') }}</option>
                                 @foreach (getDistricts() as $district)
-                                <option value="{{ $district->id }}" {{ old('district_id') == $district->id ? 'selected' : '' }}>{{ $district->translated_name }}</option>
+                                <option value="{{ $district->id }}" {{ old('district_id') == $district->id ? 'selected' : '' }}>
+                                    {{ $district->translated_name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-3 col-3">
-                            <select class="select" name="type_id">
-                                <option value="">{{ __('Select Work Type') }}</option>
+                            <select class="select" id="type_id" name="type_id">
+                                <option value="">{{ __('Select Type') }}</option>
                                 @foreach (getTypes() as $type)
-                                <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
+                                <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
+                                    {{ $type->translated_name }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-3">
-                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <button type="submit" class="btn btn-primary d-block">{{__('Filter')}}</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -68,20 +75,19 @@
                     <!-- Single Job -->
                     <div class="single-job">
                         <div class="job-image">
-                            <img src="{{asset('assets/images/jobs/img1.png')}}" alt="#">
+                            <img src="{{asset('assets/images/category-icons/plumber.png')}}" alt="#">
                         </div>
                         <div class="job-content">
-                            <h4><a href="job-details.html">{{ $order->category->translated_name }}</a></h4>
+                            <h4><a href="{{ route('orders.show', ['order' => $order->id]) }}">{{ $order->category->translated_name }}</a></h4>
                             <p>{{ $order->title }}</p>
                             <ul>
-                                <li><i class="lni lni-website"></i><a href="#"> winbrans.com</a></li>
-                                <li><i class="lni lni-dollar"></i>{{ $order->salary_from }} - {{ $order->salary_to }}</li>
-                                <li><i class="lni lni-map-marker"></i>{{ $order->district }}</li>
+                                <li></i>{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} sum</li>
+                                <li><i class="lni lni-map-marker"></i>{{ $order->district->translated_name }}</li>
                             </ul>
                         </div>
                         <div class="job-button">
                             <ul>
-                                <li><a href="job-details.html">Apply</a></li>
+                                <li><a href="{{ route('orders.show', ['order' => $order->id]) }}">{{__('Details') }}</a></li>
                                 <li><span>{{ $order->type->translated_name }}</span></li>
                             </ul>
                         </div>

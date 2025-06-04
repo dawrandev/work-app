@@ -11,7 +11,7 @@
     <script>
         $('#salary_from').inputmask('decimal', {
             groupSeparator: ' ',
-            digits: 0, // O‘nlik qismlar yo‘q
+            digits: 0,
             rightAlign: false,
             autoGroup: true,
             allowMinus: false, // Minus belgisini cheklaydi
@@ -20,15 +20,17 @@
 
         $('#salary_to').inputmask('decimal', {
             groupSeparator: ' ',
-            digits: 0, // O‘nlik qismlar yo‘q
+            digits: 0,
             rightAlign: false,
             autoGroup: true,
-            allowMinus: false, // Minus belgisini cheklaydi
+            allowMinus: false,
             clearIncomplete: true
         });
 
-        $(document).ready(function() {
-            $('#phone').inputmask('99 999 99 99');
+        document.addEventListener("DOMContentLoaded", function() {
+            Inputmask({
+                "mask": "99 999 99 99"
+            }).mask("#phone");
         });
     </script>
     <script>

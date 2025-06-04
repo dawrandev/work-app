@@ -20,7 +20,6 @@
                                 @endif
                                 <a href="{{ route('orders.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
                             </div>
-
                         </div>
                         <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
                             <div class="trending-keywords mt-30">

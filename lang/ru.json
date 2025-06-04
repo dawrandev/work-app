@@ -71,7 +71,7 @@
     "Category*": "Категория*",
     "Job Types*": "Типы работы*",
     "Select District": "Выберите районы",
-    "Select Work Type": "Выберите тип работы",
+    "Select Type": "Выберите тип работы",
     "Select Category": "Выберите категорию",
     "Districts": "Районы",
     "Address": "Адрес",
@@ -82,5 +82,11 @@
     "Upload Images": "Загрузить изображения",
     "Drop or tap images here...": "Опустить или коснуться изображений здесь...",
     "Request sent successfully!": "Запрос успешно отправлен!",
-    "Error occurred": "Произошла ошибка"
+    "Error occurred": "Произошла ошибка",
+    "Details": "Подробности",
+    "Filter": "Фильтр",
+    "Download Our App": "Скачать наше приложение",
+    "Browse Job": "Просмотреть работу",
+    "Find the right job that": "Найдите подходящую работу, которая",
+    "matches your skills and interests": "соответствует вашим навыкам и интересам"
 }
