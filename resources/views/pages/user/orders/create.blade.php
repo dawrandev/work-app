@@ -1,24 +1,7 @@
-@extends('user.layouts.main')
+@extends('layouts.user.main')
 
 @section('content')
-<!-- Start Breadcrumbs -->
-<div class="breadcrumbs overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">{{__('Post a Job')}}</h1>
-                    <p>{{__('Post your job vacancies')}}<br>{{__('and attract the best talent for your business')}}.</p>
-                </div>
-                <ul class="breadcrumb-nav">
-                    <li><a href="{{ route('home') }}">{{__('Home')}}</a></li>
-                    <li>{{__('Post a Job')}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
+<x-breadcrumb :title="__('Post a Job')" :description="__('Post your job vacancies and attract the best talent for your business.')" :page="__('Post a Job')" />
 
 <section class="job-post section">
     <div class="container">
@@ -157,6 +140,5 @@
         </div>
     </div>
 </section>
-
 
 @endsection

@@ -1,25 +1,7 @@
-@extends('user.layouts.main')
+@extends('layouts.user.main')
 
 @section('content')
-<div class="breadcrumbs overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">{{__('Browse Job')}}</h1>
-                    <p>{{ __('Find the right job that') }} <br>
-                        {{__('matches your skills and interests') }}
-                    </p>
-                </div>
-                <ul class="breadcrumb-nav">
-                    <li><a href="{{ route('home')}}">{{__('Home')}}</a></li>
-                    <li>{{__('Browse Job')}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
+<x-user.breadcrumb :title="__('Browse Job')" :description="__('Find the right job that matches your skills and interests')" :page="__('Browse Job')" />
 
 <!-- Start Find Job Area -->
 <section class="find-job section">

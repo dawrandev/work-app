@@ -5,7 +5,7 @@
 <!-- Mirrored from demo.graygrids.com/themes/jobgrids/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 May 2025 11:28:23 GMT -->
 
 <head>
-    @include('user.partials.head')
+    @include('partials.user.head')
 </head>
 
 <body>
@@ -13,13 +13,13 @@
 
     @include('sweetalert::alert')
 
-    @include('user.components.header')
+    @include('components.user.header')
 
     @yield('content')
 
-    @include('user.components.footer')
+    @include('components.user.footer')
 
-    @include('user.partials.script')
+    @include('partials.user.script')
 </body>
 
 </html>

@@ -60,4 +60,34 @@ class AuthController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function edit()
+    {
+        return view('pages.user.profile.change-password');
+    }
+    public function update(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $user = Auth::user();
+
+        if (!$user instanceof \App\Models\User) {
+            Alert::error(__('User not found.'));
+            return back()->withErrors(['user' => __('User not found.')]);
+        }
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            Alert::error(__('Old password is incorrect.'));
+            return back()->withErrors(['old_password' => __('Old password is incorrect.')]);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        Alert::success(__('Password changed successfully.'));
+        return redirect()->route('home');
+    }
 }

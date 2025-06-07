@@ -33,11 +33,6 @@
             }).mask("#phone");
         });
     </script>
-    <script>
-
-    </script>
-
-
     <script type="text/javascript">
         //====== Clients Logo Slider
         tns({
@@ -97,3 +92,10 @@
             }
         });
     </script>
+    @guest
+    <script>
+        $(document).ready(function() {
+            $('#login').modal('show');
+        });
+    </script>
+    @endguest

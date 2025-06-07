@@ -1,23 +1,9 @@
-@extends('user.layouts.main')
+@extends('layouts.user.main')
 
 @section('content')
-<!-- Start Breadcrumbs -->
-<div class="breadcrumbs overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">{{__('Job Details')}}</h1>
-                </div>
-                <ul class="breadcrumb-nav">
-                    <li><a href="index-2.html">{{__('Home')}}</a></li>
-                    <li>{{__('Job Details')}}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Breadcrumbs -->
+
+<x-user.breadcrumb :title="__('Job Details')" :description="__('View detailed information about the job, including requirements, salary, and application process')" :page="__('Job Details')" />
+
 <!-- Start Job Details -->
 <div class="job-details section">
     <div class="container">
@@ -36,6 +22,7 @@
                         </div>
                         <div class="content col">
                             <h5 class="title">{{ $order->title }}</h5>
+
                             <ul class="meta">
                                 <li><strong class="text-primary"><a href="#">{{ $order->category->translated_name }}</a></strong>
                                 </li>
@@ -46,6 +33,21 @@
                     </div>
                     <div class="job-details-body">
                         <h6 class="mb-3">{{__('Job Description*')}}</h6>
+                        <div class="post-details">
+                            <div class="post-image">
+                                <div class="row">
+                                    @if (!empty($order->order_images) && count($order->order_images) > 0)
+                                    @foreach ($order->order_images as $image)
+                                    <div class="col-lg-4 col-md-4 col-6">
+                                        <button type="button" class="mb-4 border-0 bg-transparent p-0" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{ asset('storage/orders/' . $image['image']) }}">
+                                            <img src="{{ asset('storage/orders/' . $image['image']) }}" alt="#" class="img-thumbnail" id="myImg">
+                                        </button>
+                                    </div>
+                                    @endforeach
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         <p>{{ $order->description }}</p>
                     </div>
                 </div>
@@ -59,7 +61,14 @@
                         <div class="inner">
                             <div class="row m-n2 button">
                                 <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
-                                    <a href="bookmarked.html" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</a>
+                                    @if (auth()->check())
+
+                                    @endif
+                                    <form action="{{ route('save-orders.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                        <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</button>
+                                    </form>
                                 </div>
                                 <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
                                     <a href="job-details.html" class="d-block btn btn-alt">{{__('Apply')}}</a>

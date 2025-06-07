@@ -23,12 +23,12 @@ class OrderController extends Controller
 
         $orders = $this->orderService->getFilteredOrders($filters);
 
-        return view('user.pages.orders.index', ['orders' => $orders]);
+        return view('pages.user.orders.index', ['orders' => $orders]);
     }
 
     public function create()
     {
-        return view('user.pages.orders.create');
+        return view('pages.user.orders.create');
     }
 
     public function store(OrderStoreRequest $request)
@@ -44,7 +44,7 @@ class OrderController extends Controller
     {
         $order->load(['order_images', 'category', 'district', 'type']);
 
-        return view('user.pages.orders.show', compact('order'));
+        return view('pages.user.orders.show', compact('order'));
     }
 
     public function edit(Order $order)

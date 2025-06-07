@@ -29,7 +29,15 @@ class OrderRepository
 
     public function getOrder($id)
     {
-        return $id;
         return Order::where('id', $id)->get();
+    }
+
+    public function getUserOrders($order_id)
+    {
+        return Order::where('user_id', auth()->id())
+            ->where('id', '$order_id')
+            ->latest()
+            ->paginate(5)
+            ->appends(['user_id' => auth()->id()]);
     }
 }

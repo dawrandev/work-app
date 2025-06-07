@@ -62,7 +62,9 @@
                                         <li><a href="blog-single-sidebar.html">{{ __('Blog Single Sidebar') }}</a></li>
                                     </ul>
                                 </li>
-                                <li class="nav-item"><a href="contact.html">{{ __('Profile') }}</a> </li>
+                                @if (auth()->check())
+                                <li class="nav-item"><a href="{{ route('profile.index') }}">{{ __('Profile') }}</a> </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="dropdown">
@@ -77,15 +79,7 @@
                         </div>
                         <div class="d-flex align-items-center">
                             @auth
-                            <div class="user-name">
-                                {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
-                            </div>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="logout-btn">
-                                    {{__('Logout')}}
-                                </button>
-                            </form>
+
                             @else
                             <div class="button mr-3">
                                 <a href="javascript:" data-toggle="modal" data-target="#login" class="login">
