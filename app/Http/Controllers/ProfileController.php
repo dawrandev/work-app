@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\JobService;
+use App\Services\JobSaveService;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function __construct(
-        protected JobService $jobService,
+        protected JobSaveService $jobSaveService,
     ) {
-        // Middleware can be added here if needed
+        //
     }
+
     public function index()
     {
         return view('pages.user.profile.index');
@@ -71,7 +72,7 @@ class ProfileController extends Controller
 
     public function bookmarked()
     {
-        $jobs = $this->jobService->getUserJobs();
+        $jobs = $this->jobSaveService->getUserJobs(auth()->id());
 
         return view('pages.user.profile.bookmarked', compact('jobs'));
     }

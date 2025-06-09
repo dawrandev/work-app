@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobSaveStoreRequest;
+use App\Services\JobSaveService;
 use App\Services\SaveJobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class SaveJobController extends Controller
+class JobSaveController extends Controller
 {
     public function __construct(
-        protected SaveJobService $saveJobService
+        protected JobSaveService $jobSaveService,
     ) {
         // Middleware can be added here if needed
     }
@@ -29,7 +30,7 @@ class SaveJobController extends Controller
 
     public function store(JobSaveStoreRequest $request)
     {
-        $job = $this->saveJobService->saveJob($request->validated(), $request);
+        $job = $this->jobSaveService->saveJob($request->validated(), $request);
 
         Alert::success(__('Job saved successfully!'));
 

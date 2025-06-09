@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use App\Repositories\JobSaveRepository;
 use Illuminate\Support\Facades\DB;
 
-class SaveJobService
+class JobSaveService
 {
+    public function __construct(
+        protected JobSaveRepository $jobSaveRepository
+    ) {}
     public function saveJob(array $data)
     {
         try {
@@ -20,5 +24,9 @@ class SaveJobService
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+    public function getUserJobs($user_id)
+    {
+        return $this->jobSaveRepository->getUserJobs($user_id);
     }
 }

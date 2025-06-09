@@ -45,13 +45,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
 
     public function jobs()
     {
         return $this->hasMany(Job::class);
+    }
+
+    public function savedJobs()
+    {
+        return $this->belongsToMany(Job::class, 'save_jobs', 'user_id', 'job_id')
+            ->withTimestamps();
     }
 }

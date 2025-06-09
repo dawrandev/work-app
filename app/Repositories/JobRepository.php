@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Job;
+use App\Models\User;
 
 class JobRepository
 {
@@ -30,10 +31,5 @@ class JobRepository
     public function getJob($id)
     {
         return Job::where('id', $id)->get();
-    }
-
-    public function getUserJobs($job_id)
-    {
-        return Job::where('id', $job_id)->get();
     }
 }

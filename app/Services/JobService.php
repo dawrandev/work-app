@@ -53,9 +53,4 @@ class JobService
     {
         return $this->jobRepository->getJob($id);
     }
-
-    public function getUserJobs($job_id)
-    {
-        return $this->jobRepository->getUserJobs($job_id);
-    }
 }

@@ -48,4 +48,10 @@ class Job extends Model
     {
         return $this->belongsTo(District::class);
     }
+
+    public function savedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'save_jobs', 'job_id', 'user_id')
+            ->withTimestamps();
+    }
 }

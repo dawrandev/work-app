@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobSaveController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SaveJobController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -55,7 +55,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     // SaveJobController
     Route::middleware('auth')->group(function () {
         Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
-            Route::post('/store', [SaveJobController::class, 'store'])->name('store');
+            Route::post('/store', [JobSaveController::class, 'store'])->name('store');
         });
     });
 });
