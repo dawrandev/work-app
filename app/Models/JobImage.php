@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderImage extends Model
+class JobImage extends Model
 {
     use HasFactory;
 
     protected $fillable =
     [
-        'order_id',
+        'job_id',
         'image_path'
     ];
 
-    public function order()
+    public function job()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Job::class);
     }
 }

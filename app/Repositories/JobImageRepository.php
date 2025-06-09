@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\OrderImage;
+use App\Models\JobImage;
 
-class OrderImageRepository
+class JobImageRepository
 {
     public function create(array $data)
     {
-        OrderImage::create($data);
+        JobImage::create($data);
     }
 }

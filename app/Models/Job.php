@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Job extends Model
 {
     use HasFactory;
 
@@ -34,9 +34,9 @@ class Order extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function order_images()
+    public function job_images()
     {
-        return $this->hasMany(OrderImage::class, 'order_id', 'id');
+        return $this->hasMany(JobImage::class, 'job_id', 'id');
     }
 
     public function type()

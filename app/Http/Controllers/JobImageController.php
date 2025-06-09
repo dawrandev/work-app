@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderImage;
+use App\Models\JobImage;
 use Illuminate\Http\Request;
 
-class OrderImageController extends Controller
+class JobImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class OrderImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(OrderImage $orderImage)
+    public function show(JobImage $jobImage)
     {
         //
     }
@@ -42,7 +42,7 @@ class OrderImageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(OrderImage $orderImage)
+    public function edit(JobImage $jobImage)
     {
         //
     }
@@ -50,7 +50,7 @@ class OrderImageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, OrderImage $orderImage)
+    public function update(Request $request, JobImage $jobImage)
     {
         //
     }
@@ -58,7 +58,7 @@ class OrderImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(OrderImage $orderImage)
+    public function destroy(JobImage $jobImage)
     {
         //
     }

@@ -2,18 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Models\Order;
+use App\Models\Job;
 
-class OrderRepository
+class JobRepository
 {
     public function create(array $data)
     {
-        return Order::create($data);
+        return Job::create($data);
     }
 
     public function filter(array $filters)
     {
-        return Order::when(!empty($filters['category_id']), function ($query) use ($filters) {
+        return Job::when(!empty($filters['category_id']), function ($query) use ($filters) {
             return $query->where('category_id', $filters['category_id']);
         })
             ->when(!empty($filters['district_id']), function ($query) use ($filters) {
@@ -27,17 +27,13 @@ class OrderRepository
             ->appends($filters);
     }
 
-    public function getOrder($id)
+    public function getJob($id)
     {
-        return Order::where('id', $id)->get();
+        return Job::where('id', $id)->get();
     }
 
-    public function getUserOrders($order_id)
+    public function getUserJobs($job_id)
     {
-        return Order::where('user_id', auth()->id())
-            ->where('id', '$order_id')
-            ->latest()
-            ->paginate(5)
-            ->appends(['user_id' => auth()->id()]);
+        return Job::where('id', $job_id)->get();
     }
 }
