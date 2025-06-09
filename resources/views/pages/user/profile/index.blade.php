@@ -33,7 +33,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="manage-jobs.html">
+                                <a href="{{ route('profile.manage-jobs') }}" class="{{ Route::is('profile.manage-jobs') ? 'active' : '' }}">
                                     <i class="lni lni-briefcase"></i> {{ __('Manage Jobs') }}
                                 </a>
                             </li>

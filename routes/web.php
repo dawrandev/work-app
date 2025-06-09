@@ -49,10 +49,11 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::get('/index', [ProfileController::class, 'index'])->name('index');
             Route::get('/my-resume', [ProfileController::class, 'myResume'])->name('my-resume');
             Route::get('/bookmarked', [ProfileController::class, 'bookmarked'])->name('bookmarked');
+            Route::get('/manage-jobs', [ProfileController::class, 'manageJobs'])->name('manage-jobs');
         });
     });
 
-    // SaveJobController
+    // JobSaveController
     Route::middleware('auth')->group(function () {
         Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
             Route::post('/store', [JobSaveController::class, 'store'])->name('store');

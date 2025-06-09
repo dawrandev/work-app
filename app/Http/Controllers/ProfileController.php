@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Services\JobSaveService;
+use App\Services\JobService;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function __construct(
         protected JobSaveService $jobSaveService,
+        protected JobService $jobService
     ) {
         //
     }
@@ -75,5 +77,12 @@ class ProfileController extends Controller
         $jobs = $this->jobSaveService->getUserJobs(auth()->id());
 
         return view('pages.user.profile.bookmarked', compact('jobs'));
+    }
+
+    public function manageJobs()
+    {
+        $jobs = $this->jobService->getUserJobs(auth()->id());
+
+        return view('pages.user.profile.manage-jobs', compact('jobs'));
     }
 }

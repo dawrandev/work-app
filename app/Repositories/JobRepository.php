@@ -32,4 +32,13 @@ class JobRepository
     {
         return Job::where('id', $id)->get();
     }
+
+    public function getUserJobs($user_id)
+    {
+        return Job::where('user_id', $user_id)
+            ->with(['category', 'district', 'type', 'job_images'])
+            ->latest()
+            ->paginate(5)
+            ->appends(request()->query());
+    }
 }
