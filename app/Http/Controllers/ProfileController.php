@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OrderService;
+use App\Services\JobService;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function __construct(
-        protected OrderService $orderService,
+        protected JobService $jobService,
     ) {
         // Middleware can be added here if needed
     }
@@ -71,8 +71,8 @@ class ProfileController extends Controller
 
     public function bookmarked()
     {
-        $orders = $this->orderService->getUserOrders();
-        return $orders;
-        return view('pages.user.profile.bookmarked', compact('orders'));
+        $jobs = $this->jobService->getUserJobs();
+
+        return view('pages.user.profile.bookmarked', compact('jobs'));
     }
 }

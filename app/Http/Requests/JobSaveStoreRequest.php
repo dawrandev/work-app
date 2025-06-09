@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderSaveStoreRequest extends FormRequest
+class JobSaveStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class OrderSaveStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'order_id' => 'integer|exists:orders,id',
-            'user_id' => 'integer|exists:users,id',
+            'job_id' => 'required|exists:jobs,id',
         ];
     }
 }

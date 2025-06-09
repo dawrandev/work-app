@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Order;
+use App\Models\Job;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             TypeSeeder::class,
             UserSeeder::class,
-            OrderSeeder::class,
-            OrderImages::class,
+            JobSeeder::class,
+            JobImages::class,
         ]);
     }
 }

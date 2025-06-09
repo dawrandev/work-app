@@ -17,17 +17,17 @@
                                     alt="Company Logo"></a>
                         </div>
                         <div class="salary-type col-auto order-sm-3">
-                            <span class="salary-range">{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
-                            <span class="badge badge-success">{{ $order->type->translated_name }}</span>
+                            <span class="salary-range">{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
+                            <span class="badge badge-success">{{ $job->type->translated_name }}</span>
                         </div>
                         <div class="content col">
-                            <h5 class="title">{{ $order->title }}</h5>
+                            <h5 class="title">{{ $job->title }}</h5>
 
                             <ul class="meta">
-                                <li><strong class="text-primary"><a href="#">{{ $order->category->translated_name }}</a></strong>
+                                <li><strong class="text-primary"><a href="#">{{ $job->category->translated_name }}</a></strong>
                                 </li>
-                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $order->district->translated_name }}</strong></li>
-                                <li>{{ $order->address }}</li>
+                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $job->district->translated_name }}</strong></li>
+                                <li>{{ $job->address }}</li>
                             </ul>
                         </div>
                     </div>
@@ -36,11 +36,11 @@
                         <div class="post-details">
                             <div class="post-image">
                                 <div class="row">
-                                    @if (!empty($order->order_images) && count($order->order_images) > 0)
-                                    @foreach ($order->order_images as $image)
+                                    @if (!empty($job->job_images) && count($job->job_images) > 0)
+                                    @foreach ($job->job_images as $image)
                                     <div class="col-lg-4 col-md-4 col-6">
-                                        <button type="button" class="mb-4 border-0 bg-transparent p-0" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{ asset('storage/orders/' . $image['image']) }}">
-                                            <img src="{{ asset('storage/orders/' . $image['image']) }}" alt="#" class="img-thumbnail" id="myImg">
+                                        <button type="button" class="mb-4 border-0 bg-transparent p-0" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{ asset('storage/jobs/' . $image['image']) }}">
+                                            <img src="{{ asset('storage/jobs/' . $image['image']) }}" alt="#" class="img-thumbnail" id="myImg">
                                         </button>
                                     </div>
                                     @endforeach
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p>{{ $order->description }}</p>
+                        <p>{{ $job->description }}</p>
                     </div>
                 </div>
             </div>
@@ -64,9 +64,9 @@
                                     @if (auth()->check())
 
                                     @endif
-                                    <form action="{{ route('save-orders.store') }}" method="post">
+                                    <form action="{{ route('save-jobs.store') }}" method="post">
                                         @csrf
-                                        <input type="hidden" name="order_id" value="{{ $order->id }}">
+                                        <input type="hidden" name="job_id" value="{{ $job->id }}">
                                         <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</button>
                                     </form>
                                 </div>
@@ -84,14 +84,14 @@
                             <ul class="job-overview list-unstyled">
                                 @php
                                 use Carbon\Carbon;
-                                $deadline = Carbon::parse($order->deadline)->format('d.m.Y');
-                                $published = Carbon::parse($order->created_at)->format('d.m.Y');
+                                $deadline = Carbon::parse($job->deadline)->format('d.m.Y');
+                                $published = Carbon::parse($job->created_at)->format('d.m.Y');
                                 @endphp
                                 <li><strong>{{__('Published on')}}:</strong> {{ $published }}</li>
-                                <li><strong>{{__('Job Type')}}:</strong>{{ $order->type->translated_name }}</li>
-                                <li><strong>{{__('District')}}:</strong>{{ $order->district->translated_name }}</li>
-                                <li><strong>{{__('Address')}}:</strong>{{ $order->address }}</li>
-                                <li><strong>{{__('Salary')}}:</strong>{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
+                                <li><strong>{{__('Job Type')}}:</strong>{{ $job->type->translated_name }}</li>
+                                <li><strong>{{__('District')}}:</strong>{{ $job->district->translated_name }}</li>
+                                <li><strong>{{__('Address')}}:</strong>{{ $job->address }}</li>
+                                <li><strong>{{__('Salary')}}:</strong>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
                                 <li><strong>{{__('Deadline')}}:</strong>{{ $deadline }}</li>
                             </ul>
                         </div>

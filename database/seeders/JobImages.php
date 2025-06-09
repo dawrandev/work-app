@@ -6,35 +6,28 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OrderImages extends Seeder
+class JobImages extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $images = [
+        $jobImages = [
             [
-                'order_id' => 1,
-                'image' => 'order1.jpg',
+                'job_id' => 1,
+                'image' => 'job1.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'order_id' => 1,
-                'image' => 'order2.jpg',
+                'job_id' => 2,
+                'image' => 'job2.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'order_id' => 1,
-                'image' => 'order3.jpg',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]
-
         ];
 
-        DB::table('order_images')->insert($images);
+        DB::table('job_images')->insert($jobImages);
     }
 }

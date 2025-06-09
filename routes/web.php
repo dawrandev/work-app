@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SaveOrderController;
+use App\Http\Controllers\SaveJobController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,15 +33,15 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::post('/update', 'update')->name('auth.update')->middleware('auth');
     });
 
-    // OrderController 
+    // JobController 
     Route::middleware('auth')->group(function () {
-        Route::prefix('orders')->as('orders.')->group(function () {
-            Route::get('/create', [OrderController::class, 'create'])->name('create');
-            Route::post('/store', [OrderController::class, 'store'])->name('store');
+        Route::prefix('jobs')->as('jobs.')->group(function () {
+            Route::get('/create', [JobController::class, 'create'])->name('create');
+            Route::post('/store', [JobController::class, 'store'])->name('store');
+            Route::get('/index', [JobController::class, 'index'])->name('index');
+            Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
         });
     });
-    Route::get('orders/index', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('orders/show/{order}', [OrderController::class, 'show'])->name('orders.show');
 
     // ProfileController
     Route::middleware('auth')->group(function () {
@@ -51,10 +52,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
-    // SaveOrderController
+    // SaveJobController
     Route::middleware('auth')->group(function () {
-        Route::prefix('save-order')->as('save-orders.')->group(function () {
-            Route::post('/store', [SaveOrderController::class, 'store'])->name('store');
+        Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
+            Route::post('/store', [SaveJobController::class, 'store'])->name('store');
         });
     });
 });

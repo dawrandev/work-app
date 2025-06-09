@@ -7,7 +7,7 @@ $sectionClass = 'bookmarked';
 @section('profile-content')
 <div class="col-lg-8 col-12">
     <div class="job-items">
-        @foreach ($orders as $order)
+        @foreach ($jobs as $job)
         <div class="manage-content">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-5 col-md-5 col-12">
@@ -15,18 +15,18 @@ $sectionClass = 'bookmarked';
                         <div class="can-img">
                             <img src="{{ asset('assets/images/jobs/manage-job1.png') }}" alt="#">
                         </div>
-                        <h3>{{ $order->category->translated_name }} <span>{{ $order->title }}</span></h3>
+                        <h3>{{ $job->category->translated_name }} <span>{{ $job->title }}</span></h3>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
-                    <p><span class="time">{{ $order->type->translated_name }}</span></p>
+                    <p><span class="time">{{ $job->type->translated_name }}</span></p>
                 </div>
                 <div class="col-lg-3 col-md-3 col-12">
-                    <p class="location"><i class="lni lni-map-marker"></i> {{ $order->district->translated_name }}</p>
+                    <p class="location"><i class="lni lni-map-marker"></i> {{ $job->district->translated_name }}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
                     <div class="button">
-                        <a href="job-details.html" class="btn">{{__('Apply')}}</a>
+                        <a href="{{ route('jobs.show', $job->id) }}" class="btn">{{__('Apply')}}</a>
                     </div>
                 </div>
             </div>
@@ -34,16 +34,31 @@ $sectionClass = 'bookmarked';
         @endforeach
     </div>
     <!-- Pagination -->
+    @if ($jobs->hasPages())
     <div class="pagination left pagination-md-center">
         <ul class="pagination-list">
-            <li><a href="#"><i class="lni lni-arrow-left"></i></a></li>
-            <li class="active"><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#"><i class="lni lni-arrow-right"></i></a></li>
+            @if ($jobs->onFirstPage())
+            <li class="disabled"><span><i class="lni lni-arrow-left"></i></span></li>
+            @else
+            <li><a href="{{ $jobs->previousPageUrl() }}"><i class="lni lni-arrow-left"></i></a></li>
+            @endif
+
+            @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
+            @if ($page == $jobs->currentPage())
+            <li class="active"><a href="#">{{ $page }}</a></li>
+            @else
+            <li><a href="{{ $url }}">{{ $page }}</a></li>
+            @endif
+            @endforeach
+
+            @if ($jobs->hasMorePages())
+            <li><a href="{{ $jobs->nextPageUrl() }}"><i class="lni lni-arrow-right"></i></a></li>
+            @else
+            <li class="disabled"><span><i class="lni lni-arrow-right"></i></span></li>
+            @endif
         </ul>
     </div>
+    @endif
     <!-- End Pagination -->
 </div>
 @endsection

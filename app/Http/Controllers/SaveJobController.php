@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderSaveStoreRequest;
-use App\Services\SaveOrderService;
+use App\Http\Requests\JobSaveStoreRequest;
+use App\Services\SaveJobService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class SaveOrderController extends Controller
+class SaveJobController extends Controller
 {
     public function __construct(
-        protected SaveOrderService $saveOrderService
+        protected SaveJobService $saveJobService
     ) {
         // Middleware can be added here if needed
     }
@@ -27,13 +27,13 @@ class SaveOrderController extends Controller
     }
 
 
-    public function store(OrderSaveStoreRequest $request)
+    public function store(JobSaveStoreRequest $request)
     {
-        $order = $this->saveOrderService->saveOrder($request->validated(), $request);
+        $job = $this->saveJobService->saveJob($request->validated(), $request);
 
-        Alert::success(__('Order saved successfully!'));
+        Alert::success(__('Job saved successfully!'));
 
-        return redirect()->route('orders.index');
+        return redirect()->back();
     }
 
 

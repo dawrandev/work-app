@@ -52,7 +52,7 @@
     <div class="container">
         <div class="single-head">
             <div class="row">
-                @foreach ($orders as $order)
+                @foreach ($jobs as $job)
                 <div class="col-lg-6 col-12">
                     <!-- Single Job -->
                     <div class="single-job">
@@ -60,17 +60,17 @@
                             <img src="{{asset('assets/images/category-icons/plumber.png')}}" alt="#">
                         </div>
                         <div class="job-content">
-                            <h4><a href="{{ route('orders.show', $order->id) }}">{{ $order->category->translated_name }}</a></h4>
-                            <p>{{ $order->title }}</p>
+                            <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a></h4>
+                            <p>{{ $job->title }}</p>
                             <ul>
-                                <li></i>{{ number_format($order->salary_from, 0, ',', ' ') }} - {{ number_format($order->salary_to, 0, ',', ' ') }} sum</li>
-                                <li><i class="lni lni-map-marker"></i>{{ $order->district->translated_name }}</li>
+                                <li></i>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} sum</li>
+                                <li><i class="lni lni-map-marker"></i>{{ $job->district->translated_name }}</li>
                             </ul>
                         </div>
                         <div class="job-button">
                             <ul>
-                                <li><a href="{{ route('orders.show', ['order' => $order->id]) }}">{{__('Details') }}</a></li>
-                                <li><span>{{ $order->type->translated_name }}</span></li>
+                                <li><a href="{{ route('jobs.show', ['job' => $job->id]) }}">{{__('Details') }}</a></li>
+                                <li><span>{{ $job->type->translated_name }}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -79,20 +79,20 @@
                 @endforeach
             </div>
             <!-- Pagination -->
-            @if ($orders->hasPages())
+            @if ($jobs->hasPages())
             <div class="row">
                 <div class="col-12">
                     <div class="pagination center">
                         <ul class="pagination-list">
-                            @if ($orders->onFirstPage())
+                            @if ($jobs->onFirstPage())
                             <li class="disabled"><span><i class="lni lni-arrow-left"></i></span></li>
                             @else
-                            <li><a href="{{ $orders->previousPageUrl() }}"><i class="lni lni-arrow-left"></i></a></li>
+                            <li><a href="{{ $jobs->previousPageUrl() }}"><i class="lni lni-arrow-left"></i></a></li>
                             @endif
 
                             {{-- Pagination Elements --}}
-                            @foreach ($orders->getUrlRange(1, $orders->lastPage()) as $page => $url)
-                            @if ($page == $orders->currentPage())
+                            @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
+                            @if ($page == $jobs->currentPage())
                             <li class="active"><a href="#">{{ $page }}</a></li>
                             @else
                             <li><a href="{{ $url }}">{{ $page }}</a></li>
@@ -100,8 +100,8 @@
                             @endforeach
 
                             {{-- Next Page Link --}}
-                            @if ($orders->hasMorePages())
-                            <li><a href="{{ $orders->nextPageUrl() }}"><i class="lni lni-arrow-right"></i></a></li>
+                            @if ($jobs->hasMorePages())
+                            <li><a href="{{ $jobs->nextPageUrl() }}"><i class="lni lni-arrow-right"></i></a></li>
                             @else
                             <li class="disabled"><span><i class="lni lni-arrow-right"></i></span></li>
                             @endif

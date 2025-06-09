@@ -12,13 +12,13 @@
                             </p>
                             <div class="button wow fadeInUp" data-wow-delay=".7s">
                                 @if(auth()->check())
-                                <a href="{{ route('orders.create') }}" class="btn">{{ __('Post a Job') }}</a>
+                                <a href="{{ route('jobs.create') }}" class="btn">{{ __('Post a Job') }}</a>
                                 @else
                                 <a href="javascript:void(0);" class="btn" data-toggle="modal" data-target="#login">
                                     {{ __('Post a Job') }}
                                 </a>
                                 @endif
-                                <a href="{{ route('orders.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
+                                <a href="{{ route('jobs.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
                             </div>
                         </div>
                         <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
