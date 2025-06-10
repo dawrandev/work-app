@@ -85,6 +85,20 @@ class JobSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'user_id' => 1,
+                'category_id' => 3,
+                'type_id' => 1,
+                'district_id' => 13, // To‘rtko‘l tumani ID si
+                'title' => "Mebellarini joylashtirish",
+                'description' => "3 ta odam kerak, 3-qavatdan mebellarni olib chiqish kerak.",
+                'salary_from' => '200000',
+                'salary_to' => '250000',
+                'deadline' => now()->addDays(3),
+                'address' => "Do‘stlik mahallasi",
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('jobs')->insert($jobs);

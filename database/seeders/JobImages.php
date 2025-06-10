@@ -21,7 +21,7 @@ class JobImages extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'job_id' => 2,
+                'job_id' => 1,
                 'image' => 'job2.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),

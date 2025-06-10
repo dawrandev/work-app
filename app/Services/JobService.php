@@ -27,17 +27,40 @@ class JobService
 
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
-                        $filenime = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                        $path = $image->storeAs("jobs", $filenime, 'public');
+                        $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
+                        $path = $image->storeAs("jobs", $filename, 'public');
 
                         $jobImage = $this->jobImageRepository->create([
                             'job_id' => $job->id,
-                            'image_path' => $path,
+                            'image' => $filename,
                         ]);
                     }
                 }
 
                 return $job;
+            });
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function updateJob($job, array $data, $request)
+    {
+        try {
+            DB::transaction(function () use ($job, $data, $request) {
+                $job = $this->jobRepository->update($job, $data);
+
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $image) {
+                        $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
+                        $path = $image->storeAs("jobs", $filename, 'public');
+
+                        $this->jobImageRepository->update([
+                            'job_id' => $job->id,
+                            'image' => $filename,
+                        ]);
+                    }
+                }
             });
         } catch (Exception $e) {
             throw $e;

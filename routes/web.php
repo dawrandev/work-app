@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSaveController;
 use App\Http\Controllers\ProfileController;
@@ -36,10 +37,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     // JobController 
     Route::middleware('auth')->group(function () {
         Route::prefix('jobs')->as('jobs.')->group(function () {
+            Route::get('/index', [JobController::class, 'index'])->name('index');
             Route::get('/create', [JobController::class, 'create'])->name('create');
             Route::post('/store', [JobController::class, 'store'])->name('store');
-            Route::get('/index', [JobController::class, 'index'])->name('index');
             Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
+            Route::get('/edit/{job}', [JobController::class, 'edit'])->name('edit');
+            Route::put('/update/{job}', [JobController::class, 'update'])->name('update');
+            Route::delete('/destroy/{job}', [JobController::class, 'destroy'])->name('destroy');
         });
     });
 
@@ -50,6 +54,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::get('/my-resume', [ProfileController::class, 'myResume'])->name('my-resume');
             Route::get('/bookmarked', [ProfileController::class, 'bookmarked'])->name('bookmarked');
             Route::get('/manage-jobs', [ProfileController::class, 'manageJobs'])->name('manage-jobs');
+        });
+    });
+
+    // CategoryController
+    Route::middleware('auth')->group(function () {
+        Route::prefix('categories')->as('categories.')->group(function () {
+            Route::get('/index', [CategoryController::class, 'index'])->name('index');
         });
     });
 

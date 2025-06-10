@@ -109,5 +109,14 @@
     "Bookmarked Jobs": "Saqlanǵan jumıslar",
     "Notifications": "Xabarnamalar",
     "Manage Account": "Akkauntı basqarıw",
-    "Job saved successfully!": "Jumıs tabıslı saqlandı!"
+    "Job saved successfully!": "Jumıs tabıslı saqlandı!",
+    "Actions": "Ámeller",
+    "Delete Job": "Jumıstı óshiriw",
+    "Are you sure you want to delete this job?": "Siz usı jumıstı óshiriwdi qáleysiz be?",
+    "Cancel": "Biykar etiw",
+    "Delete": "Óshiriw",
+    "Job deleted successfully!": "Jumıs óshirildi!",
+    "Update a Job": "Jumıstı jańalaw",
+    "Job updated successfully!": "Jumıs jańalandı!",
+    "You have :count job(s) listed.": "Sizde :count jumıs(lar) dizimge alınǵan."
 }

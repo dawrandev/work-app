@@ -19,4 +19,4 @@
 <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/language-dropdown.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/dropzone.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom-syle.css') }}" />

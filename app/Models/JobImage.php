@@ -12,7 +12,7 @@ class JobImage extends Model
     protected $fillable =
     [
         'job_id',
-        'image_path'
+        'image'
     ];
 
     public function job()

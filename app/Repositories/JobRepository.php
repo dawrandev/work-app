@@ -41,4 +41,11 @@ class JobRepository
             ->paginate(5)
             ->appends(request()->query());
     }
+
+    public function update(Job $job, array $data)
+    {
+        $job->update($data);
+
+        return $job;
+    }
 }

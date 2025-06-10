@@ -13,3 +13,16 @@
         margin-top: 15px;
     }
 }
+.custom-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.custom-close-btn:hover {
+    opacity: 1;
+    color: #d9534f;
+}

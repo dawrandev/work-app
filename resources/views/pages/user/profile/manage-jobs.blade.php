@@ -5,10 +5,14 @@ $sectionClass = 'manage-jobs';
 
 @section('profile-content')
 <div class="col-lg-8 col-12">
+    <!-- Job Count -->
     <div class="job-items shadow rounded bg-white p-4 mb-4">
         <!-- Table Header -->
         <div class="manage-list border-bottom pb-2 mb-3">
             <div class="row text-center font-weight-bold text-secondary">
+                <div class="col-lg-1 col-md-1 col-12">
+                    <p class="mb-0">{{ __('№') }}</p>
+                </div>
                 <div class="col-lg-2 col-md-2 col-12">
                     <p class="mb-0">{{ __('Category*') }}</p>
                 </div>
@@ -16,51 +20,53 @@ $sectionClass = 'manage-jobs';
                     <p class="mb-0">{{ __('District') }}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
-                    <p class="mb-0">{{ __('Title*') }}</p>
+                    <p class="mb-0">{{ __('Job title*') }}</p>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
                     <p class="mb-0">{{ __('Job Type') }}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-12">
-                    <p class="mb-0">{{ __('Action') }}</p>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <p class="mb-0">{{ __('Actions') }}</p>
                 </div>
             </div>
         </div>
+        @php
+        $i = 1;
+        @endphp
         <!-- Table Rows -->
         @forelse ($jobs as $job)
         <div class="manage-content border-bottom py-3">
             <div class="row align-items-center text-center">
-                <div class="col-lg-2 col-md-2 col-12">
-                    <h3>{{ $job->category->translated_name }}</h3>
+                <div class="col-lg-1 col-md-1 col-2">
+                    <h3>{{ $i++ }}</h3>
                 </div>
-                <div class="col-lg-2 col-md-2 col-12">
+                <div class="col-lg-2 col-md-2 col-4">
+                    <h6 class="mb-0">{{ $job->category->translated_name }}</h6>
+                </div>
+                <div class="col-lg-2 col-md-2 col-6">
                     <span class="text-dark">{{ $job->district->translated_name }}</span>
                 </div>
-                <div class="col-lg-2 col-md-2 col-12">
+                <div class="col-lg-2 col-md-2 col-6">
                     <span class="font-weight-bold">{{ $job->title }}</span>
                 </div>
-                <div class="col-lg-1 col-md-1 col-12">
-                    <p><span class="time">{{ $job->type->translated_name }}</span></p>
+                <div class="col-lg-2 col-md-2 col-6">
+                    <p class="mb-0"><span class="time">{{ $job->type->translated_name }}</span></p>
                 </div>
-                <div class="col-lg-5 col-md-5 col-12">
-                    <div class="d-flex justify-content-center flex-wrap gap-2">
-                        <a href="#" class="btn btn-outline-primary btn-sm" title="{{ __('View') }}">
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="d-flex justify-content-center gap-1 flex-wrap">
+                        <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-outline-primary btn-sm mx-1" title="{{ __('View') }}">
                             <i class="lni lni-eye"></i>
                         </a>
-                        <a href="#" class="btn btn-outline-warning btn-sm" title="{{ __('Edit') }}">
+                        <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-outline-warning btn-sm mx-1" title="{{ __('Edit') }}">
                             <i class="lni lni-pencil"></i>
                         </a>
-                        <form action="#" method="POST" onsubmit="return confirm('{{ __('Are you sure you want to delete this job?') }}')" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger btn-sm" title="{{ __('Delete') }}">
-                                <i class="lni lni-trash-can"></i>
-                            </button>
-                        </form>
+                        <button type="button" class="btn btn-outline-danger btn-sm mx-1" title="{{ __('Delete') }}" data-toggle="modal" data-target="#deleteJobModal{{ $job->id }}">
+                            <i class="lni lni-trash"></i>
+                        </button>
                     </div>
-
                 </div>
             </div>
+
         </div>
         @empty
         <div class="text-center text-muted py-5">

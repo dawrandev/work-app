@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        protected CategoryService $categoryService,
+    ) {
+        // 
+    }
     public function index()
     {
-        //
+        $categories = $this->categoryService->getAllCategories();
+
+        return view('pages.user.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //

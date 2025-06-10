@@ -17,13 +17,10 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="active" href="index-2.html">{{ __('Home') }}</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index-2.html">{{ __('Home 1') }}</a></li>
-                                        <li><a href="index2.html">{{ __('Home 2') }}</a></li>
-                                        <li><a class="active" href="index3.html">{{ __('Home 3') }}</a></li>
-                                        <li><a href="index4.html">{{ __('Home 4') }}</a></li>
-                                    </ul>
+                                    <a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">{{ __('Home') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('categories.index') }}" class="{{ Route::is('categories.index') ? 'active' : '' }}">{{ __('Categories') }}</a>
                                 </li>
                                 <li class="nav-item"><a href="#">{{ __('Pages') }}</a>
                                     <ul class="sub-menu">
@@ -63,7 +60,7 @@
                                     </ul>
                                 </li>
                                 @if (auth()->check())
-                                <li class="nav-item"><a href="{{ route('profile.index') }}">{{ __('Profile') }}</a> </li>
+                                <li class="nav-item"><a href="{{ route('profile.index') }}" class="{{ Route::is('profile.index') ? 'active' : '' }}">{{ __('Profile') }}</a> </li>
                                 @endif
                             </ul>
                         </div>
