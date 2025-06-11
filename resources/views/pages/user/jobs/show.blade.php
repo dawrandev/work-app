@@ -13,8 +13,9 @@
                 <div class="job-details-inner">
                     <div class="job-details-head row mx-0">
                         <div class="company-logo col-auto">
-                            <a href="#" style="border-radius: 4px; overflow: hidden;"><img src="{{ asset('assets/images/universal-image/job-details.png') }}"
-                                    alt="Company Logo"></a>
+                            <div class="job-image">
+                                <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
+                            </div>
                         </div>
                         <div class="salary-type col-auto order-sm-3">
                             <span class="salary-range">{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
@@ -24,7 +25,7 @@
                             <h5 class="title">{{ $job->title }}</h5>
 
                             <ul class="meta">
-                                <li><strong class="text-primary"><a href="#">{{ $job->category->translated_name }}</a></strong>
+                                <li><strong class="text-primary"><a href="{{ route('categories.show', $job->category_id) }}">{{ $job->category->translated_name }}</a></strong>
                                 </li>
                                 <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $job->district->translated_name }}</strong></li>
                                 <li>{{ $job->address }}</li>

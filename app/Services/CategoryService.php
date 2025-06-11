@@ -16,4 +16,9 @@ class CategoryService
     {
         return $this->categoryRepository->getAll();
     }
+
+    public function getCategoryJobs($categoryId)
+    {
+        return $this->categoryRepository->getCategoryJobs($categoryId);
+    }
 }

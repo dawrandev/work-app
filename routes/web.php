@@ -37,14 +37,16 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     // JobController 
     Route::middleware('auth')->group(function () {
         Route::prefix('jobs')->as('jobs.')->group(function () {
-            Route::get('/index', [JobController::class, 'index'])->name('index');
-            Route::get('/create', [JobController::class, 'create'])->name('create');
             Route::post('/store', [JobController::class, 'store'])->name('store');
-            Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
             Route::get('/edit/{job}', [JobController::class, 'edit'])->name('edit');
             Route::put('/update/{job}', [JobController::class, 'update'])->name('update');
             Route::delete('/destroy/{job}', [JobController::class, 'destroy'])->name('destroy');
         });
+    });
+    Route::prefix('jobs')->as('jobs.')->group(function () {
+        Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
+        Route::get('/create', [JobController::class, 'create'])->name('create');
+        Route::get('/index', [JobController::class, 'index'])->name('index');
     });
 
     // ProfileController
@@ -58,10 +60,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     });
 
     // CategoryController
-    Route::middleware('auth')->group(function () {
-        Route::prefix('categories')->as('categories.')->group(function () {
-            Route::get('/index', [CategoryController::class, 'index'])->name('index');
-        });
+    Route::prefix('categories')->as('categories.')->group(function () {
+        Route::get('/index', [CategoryController::class, 'index'])->name('index');
+        Route::get('/show/{category}', [CategoryController::class, 'show'])->name('show');
     });
 
     // JobSaveController

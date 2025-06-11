@@ -57,7 +57,7 @@
                     <!-- Single Job -->
                     <div class="single-job">
                         <div class="job-image">
-                            <img src="{{asset('assets/images/category-icons/plumber.png')}}" alt="#">
+                            <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
                         </div>
                         <div class="job-content">
                             <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a></h4>

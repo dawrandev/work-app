@@ -79,7 +79,7 @@
     "Salary To": "Is haqı (shekem)",
     "Salary": "Is haqı",
     "Deadline": "Múddet",
-    "Job Description*": "jumıs táriyplemesi",
+    "Job Description*": "Jumıs táriyplemesi",
     "Upload Images": "Súwretlerdi júklew",
     "Drop or tap images here...": "Súwretlerdi usı jerge túsiriń yamasa basıń...",
     "Request sent successfully!": "Soraw jiberildi!",
@@ -92,8 +92,8 @@
     "View detailed information about the job, including requirements, salary, and application process": "Jumıs haqqında tolıq maǵlıwmat, sonıń ishinde, talaplar, is haqı hám arza beriw procesin kóriw",
     "sum": "som",
     "Job Overview": "Jumıs haqqında ulıwma maǵlıwmat",
-    "Job Type": "Jumis túri",
-    "Save Job": "Jumistı saqlaw",
+    "Job Type": "Jumıs túri",
+    "Save Job": "Jumıstı saqlaw",
     "Apply": "Múrájat",
     "Published on": "Shıǵarılǵan waqtı",
     "Change Password": "Paroldi ózgertiw",
@@ -118,5 +118,10 @@
     "Job deleted successfully!": "Jumıs óshirildi!",
     "Update a Job": "Jumıstı jańalaw",
     "Job updated successfully!": "Jumıs jańalandı!",
-    "You have :count job(s) listed.": "Sizde :count jumıs(lar) dizimge alınǵan."
+    "You have :count job(s) listed.": "Sizde :count jumıs(lar) dizimge alınǵan.",
+    "Categories": "Kategoriyalar",
+    "Job categories here.": "Jumıs kategoriyaları",
+    "Job Category": "Jumıs Kategoriyası",
+    "Choose Your Desire Category": "Ózińizge kerek kategoriyanı tanlań",
+    "Browse All Categories": "Barlıq kategoriyalardı kóriw"
 }

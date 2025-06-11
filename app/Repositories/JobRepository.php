@@ -14,9 +14,9 @@ class JobRepository
 
     public function filter(array $filters)
     {
-        return Job::when(!empty($filters['category_id']), function ($query) use ($filters) {
-            return $query->where('category_id', $filters['category_id']);
-        })
+        return Job::with('category')->when(!empty($filters['category_id']), function ($query) use ($filters) {
+                return $query->where('category_id', $filters['category_id']);
+            })
             ->when(!empty($filters['district_id']), function ($query) use ($filters) {
                 return $query->where('district_id', $filters['district_id']);
             })

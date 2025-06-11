@@ -16,59 +16,75 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'name' => json_encode([
-                    'uz' => 'Santexnik',
-                    'ru' => 'Сантехник',
-                    'kr' => 'Santexnik'
+                    'uz' => 'Transport',
+                    'ru' => 'Транспорт',
+                    'kr' => 'Transport'
                 ]),
+                'icon' => 'lni lni-car',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Elektrik',
-                    'ru' => 'Электрик',
-                    'kr' => 'Elektrik'
+                    'uz' => 'Qurilish',
+                    'ru' => 'Строительство',
+                    'kr' => 'Qurılıs'
                 ]),
+                'icon' => 'lni lni-bricks',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Uy tozalash',
-                    'ru' => 'Уборка дома',
-                    'kr' => 'Üydi tazalaw'
+                    'uz' => 'Restoran',
+                    'ru' => 'Ресторан',
+                    'kr' => 'Restoran'
                 ]),
+                'icon' => 'lni lni-restaurant',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Bog‘dorchilik ishlari',
-                    'ru' => 'Садоводство',
-                    'kr' => 'Baǵbanshılıq isleri'
+                    'uz' => 'Mehmonxona',
+                    'ru' => 'Гостиница',
+                    'kr' => 'Miymanxana'
                 ]),
+                'icon' => 'lni lni-hotel',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Yuk tashish',
-                    'ru' => 'Грузоперевозки',
-                    'kr' => 'Júk tasıw'
+                    'uz' => 'Ta\'lim',
+                    'ru' => 'Образование',
+                    'kr' => 'Tálim'
                 ]),
+                'icon' => 'lni lni-graduation',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Ta’mirlash ishlari',
-                    'ru' => 'Ремонтные работы',
-                    'kr' => 'Ońlaw jumısları'
+                    'uz' => 'Chakana savdo',
+                    'ru' => 'Розничная торговля',
+                    'kr' => 'Sawda satıw'
                 ]),
+                'icon' => 'lni lni-cart',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Haydovchilik xizmati',
-                    'ru' => 'Услуги водителя',
-                    'kr' => 'Aydawshılıq xızmeti'
+                    'uz' => 'Uy xodimlari',
+                    'ru' => 'Домашний персонал',
+                    'kr' => 'Úy xizmetshileri'
                 ]),
+                'icon' => 'lni lni-home',
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'Mebel yig‘ish',
-                    'ru' => 'Сборка мебели',
-                    'kr' => 'Mebel jıynaw'
+                    'uz' => 'Tibbiyot',
+                    'ru' => 'Медицина',
+                    'kr' => 'Meditsina'
                 ]),
+                'icon' => 'lni lni-sthethoscope',
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'IT',
+                    'ru' => 'Айти',
+                    'kr' => 'IT'
+                ]),
+                'icon' => 'lni lni-code-alt',
             ],
         ];
 

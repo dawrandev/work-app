@@ -13,7 +13,7 @@ $sectionClass = 'bookmarked';
                 <div class="col-lg-5 col-md-5 col-12">
                     <div class="title-img">
                         <div class="can-img">
-                            <img src="{{ asset('assets/images/jobs/manage-job1.png') }}" alt="#">
+                            <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
                         </div>
                         <h3>{{ $job->category->translated_name }} <span>{{ $job->title }}</span></h3>
                     </div>

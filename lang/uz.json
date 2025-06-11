@@ -118,5 +118,10 @@
     "Job deleted successfully!": "Ish muvaffaqiyatli o'chirildi!",
     "Update a Job": "Ishni yangilash",
     "Job updated successfully!": "Ish muvaffaqiyatli yangilandi!",
-    "You have :count job(s) listed.": "Sizda :count ish(lar) ro'yxatga olingan."
+    "You have :count job(s) listed.": "Sizda :count ish(lar) ro'yxatga olingan.",
+    "Categories": "Kategoriyalar",
+    "Job categories here.": "Ish kategoriyalari shu yerda.",
+    "Job Category": "Ish Kategoriyasi",
+    "Choose Your Desire Category": "O'zingiz xohlagan kategoriyani tanlang",
+    "Browse All Categories": "Barcha kategoriyalarni ko'rish"
 }

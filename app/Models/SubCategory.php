@@ -5,32 +5,34 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class SubCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function jobs()
     {
         return $this->hasMany(Job::class);
     }
 
-    public function subCategories()
-    {
-        return $this->hasMany(SubCategory::class);
-    }
-
-    protected $casts =
-    [
+    protected $casts = [
         'name' => 'array'
     ];
 
     public function getTranslatedNameAttribute()
     {
         $locale = session('locale', 'kr');
+
+        $name = is_array($this->name) ? $this->name : json_decode($this->name, true);
 
         return $this->name[$locale] ?? $this->name['kr'];
     }

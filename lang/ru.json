@@ -121,5 +121,10 @@
     "Job deleted successfully!": "Работа успешно удалена!",
     "Update a Job": "Обновить работу",
     "Job updated successfully!": "Работа успешно обновлена!",
-    "You have :count job(s) listed.": "У вас :count работа(ы) в списке."
+    "You have :count job(s) listed.": "У вас :count работа(ы) в списке.",
+    "Categories": "Категории",
+    "Job categories here.": "Категории работы здесь.",
+    "Job Category": "Категория работы",
+    "Choose Your Desire Category": "Выберите желаемую категорию",
+    "Browse All Categories": "Просмотреть все категории"
 }

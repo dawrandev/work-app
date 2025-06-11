@@ -99,3 +99,12 @@
         });
     </script>
     @endguest
+
+    @if(session('openLoginModal'))
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const modal = new bootstrap.Modal(document.getElementById('login'));
+            modal.show();
+        });
+    </script>
+    @endif

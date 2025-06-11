@@ -27,4 +27,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
+        $locale = $request->segment(1) ?? session('locale', config('app.locale', 'kr'));
+
+        return redirect()->route('home', ['locale' => $locale])
+            ->with('openLoginModal', true);
+    }
 }
