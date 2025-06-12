@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSaveController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -47,6 +48,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
         Route::get('/create', [JobController::class, 'create'])->name('create');
         Route::get('/index', [JobController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('subCategories')->as('subCategories.')->group(function () {
+        Route::get('/show/{subCategory}', [SubCategoryController::class, 'show'])->name('show');
     });
 
     // ProfileController

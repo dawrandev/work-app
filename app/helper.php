@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\District;
+use App\Models\SubCategory;
 use App\Models\Type;
 
 function getDistricts()
@@ -17,4 +18,11 @@ function getTypes()
 function getCategories()
 {
     return Category::all();
+}
+
+function getSubCategories()
+{
+    return SubCategory::with('category')
+        ->orderBy('created_at', 'desc')
+        ->get();
 }

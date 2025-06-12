@@ -15,7 +15,7 @@ class CategoryRepository
 
     public function getCategoryJobs($categoryId)
     {
-        $category = Category::findOrFail($categoryId);
+        $category = Category::with('subCategories')->findOrFail($categoryId);
 
         $jobs = $category->jobs()
             ->orderBy('created_at', 'desc')

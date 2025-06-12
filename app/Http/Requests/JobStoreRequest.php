@@ -30,7 +30,7 @@ class JobStoreRequest extends FormRequest
             'salary_from' => 'numeric',
             'salary_to' => 'numeric',
             'deadline' => 'nullable|date',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif',
+            'images.*' => 'image|mimes:jpeg,png,jpg|max:3',
             'address' => 'string'
         ];
     }

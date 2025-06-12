@@ -44,7 +44,7 @@
             @foreach ($category->subCategories as $subCategory)
             <div class="col-lg-3 col-md-6 col-xs-12 d-flex justify-content-center align-items-center">
                 <ul class="w-100 text-center">
-                    <li><a href="browse-jobs.html">{{ $subCategory->translated_name }}</a></li>
+                    <li><a href="{{ route('subCategories.show', $subCategory->id) }}">{{ $subCategory->translated_name }}</a></li>
                 </ul>
             </div>
             @endforeach

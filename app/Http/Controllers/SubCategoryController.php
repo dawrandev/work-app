@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubCategory;
+use App\Services\SubCategoryService;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
+    public function __construct(
+        protected SubCategoryService $subCategoryService,
+    ) {
+        // You can inject services or repositories here if needed
+    }
     /**
      * Display a listing of the resource.
      */
@@ -34,9 +40,11 @@ class SubCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubCategory $subCategory)
+    public function show($locale, SubCategory $subCategory)
     {
-        //
+        $jobs = $this->subCategoryService->getSubCategoryJobs($subCategory->id);
+        return $jobs;
+        return view('pages.user.subcategories.show', compact('subCategory', 'jobs'));
     }
 
     /**

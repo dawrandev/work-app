@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             UserSeeder::class,
             JobSeeder::class,
-            JobImages::class,
+            JobImagesSeeder::class,
             SubCategorySeeder::class,
         ]);
     }
