@@ -36,7 +36,6 @@ class JobService
                         ]);
                     }
                 }
-
                 return $job;
             });
         } catch (Exception $e) {

@@ -91,7 +91,7 @@ return [
     ],
     'mac_address' => ':attribute maydanı haqıyqıy MAC adres bolıwı kerek.',
     'max' => [
-        'array' => ':attribute maydanı :max dan kóp elementlerden ibarat bolbawı kerek.',
+        'array' => ':attribute maydanında kóbi menen:max element bolıwı kerek.',
         'file' => ':attribute maydanı :max kilobaytdan úlken bolbawı kerek.',
         'numeric' => ':attribute maydanı :max dan úlken bolbawı kerek.',
         'string' => ':attribute maydanı :max belgiden uzın bolbawı kerek.',

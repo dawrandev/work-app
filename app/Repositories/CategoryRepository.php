@@ -19,7 +19,7 @@ class CategoryRepository
 
         $jobs = $category->jobs()
             ->orderBy('created_at', 'desc')
-            ->paginate(8);
+            ->paginate(10);
 
         $category->setRelation('jobs', $jobs);
 

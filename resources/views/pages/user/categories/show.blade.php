@@ -6,7 +6,7 @@
     <div class="container">
         <div class="single-head">
             <div class="row">
-                @foreach ($jobs->jobs as $job)
+                @foreach ($categoryWithJobs->jobs as $job)
                 <div class="col-lg-6 col-12">
                     <div class="single-job">
                         <div class="job-image">
@@ -14,6 +14,7 @@
                         </div>
                         <div class="job-content">
                             <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a></h4>
+                            <h6><a href="{{ route('jobs.show', $job->id) }}">{{ $job->sub_category->translated_name }}</a></h6>
                             <p>{{ $job->title }}</p>
                             <ul>
                                 <li><i class=" lni lni-dollar"></i>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }}</li>
@@ -31,20 +32,37 @@
                 @endforeach
             </div>
             <!-- Pagination -->
-            <div class=" row">
+            @if ($categoryWithJobs->jobs->hasPages())
+            <div class="row">
                 <div class="col-12">
                     <div class="pagination center">
                         <ul class="pagination-list">
-                            <li><a href="#"><i class="lni lni-arrow-left"></i></a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="lni lni-arrow-right"></i></a></li>
+                            @if ($jobs->onFirstPage())
+                            <li class="disabled"><span><i class="lni lni-arrow-left"></i></span></li>
+                            @else
+                            <li><a href="{{ $jobs->previousPageUrl() }}"><i class="lni lni-arrow-left"></i></a></li>
+                            @endif
+
+                            {{-- Pagination Elements --}}
+                            @foreach ($jobs->getUrlRange(1, $jobs->lastPage()) as $page => $url)
+                            @if ($page == $jobs->currentPage())
+                            <li class="active"><a href="#">{{ $page }}</a></li>
+                            @else
+                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                            @endif
+                            @endforeach
+
+                            {{-- Next Page Link --}}
+                            @if ($jobs->hasMorePages())
+                            <li><a href="{{ $jobs->nextPageUrl() }}"><i class="lni lni-arrow-right"></i></a></li>
+                            @else
+                            <li class="disabled"><span><i class="lni lni-arrow-right"></i></span></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
             </div>
+            @endif
             <!--/ End Pagination -->
         </div>
     </div>

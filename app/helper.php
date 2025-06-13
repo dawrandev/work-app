@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\District;
+use App\Models\Job;
 use App\Models\SubCategory;
 use App\Models\Type;
 
@@ -17,7 +18,7 @@ function getTypes()
 
 function getCategories()
 {
-    return Category::all();
+    return Category::orderBy('created_at', 'desc')->get();
 }
 
 function getSubCategories()
@@ -25,4 +26,11 @@ function getSubCategories()
     return SubCategory::with('category')
         ->orderBy('created_at', 'desc')
         ->get();
+}
+
+function getJobs()
+{
+    return Job::with(['category', 'sub_category', 'district', 'type', 'job_images'])
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
 }

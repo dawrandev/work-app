@@ -24,13 +24,15 @@ class JobStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'sub_category_id' => 'required|exists:sub_categories,id',
             'type_id' => 'required|exists:types,id',
             'district_id' => 'required|exists:districts,id',
             'description' => 'required|string',
             'salary_from' => 'numeric',
             'salary_to' => 'numeric',
             'deadline' => 'nullable|date',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:3',
+            'images' => 'nullable|array|max:3',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'address' => 'string'
         ];
     }

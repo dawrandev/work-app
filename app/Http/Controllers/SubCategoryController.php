@@ -42,9 +42,11 @@ class SubCategoryController extends Controller
      */
     public function show($locale, SubCategory $subCategory)
     {
-        $jobs = $this->subCategoryService->getSubCategoryJobs($subCategory->id);
-        return $jobs;
-        return view('pages.user.subcategories.show', compact('subCategory', 'jobs'));
+        $categoryWithJobs = $this->subCategoryService->getSubCategoryJobs($subCategory->id);
+
+        $category = $subCategory;
+
+        return view('pages.user.categories.show', compact('category', 'categoryWithJobs'));
     }
 
     /**

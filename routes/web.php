@@ -38,6 +38,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     // JobController 
     Route::middleware('auth')->group(function () {
         Route::prefix('jobs')->as('jobs.')->group(function () {
+            Route::get('/create', [JobController::class, 'create'])->name('create');
             Route::post('/store', [JobController::class, 'store'])->name('store');
             Route::get('/edit/{job}', [JobController::class, 'edit'])->name('edit');
             Route::put('/update/{job}', [JobController::class, 'update'])->name('update');
@@ -46,11 +47,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     });
     Route::prefix('jobs')->as('jobs.')->group(function () {
         Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
-        Route::get('/create', [JobController::class, 'create'])->name('create');
         Route::get('/index', [JobController::class, 'index'])->name('index');
     });
 
-    Route::prefix('subCategories')->as('subCategories.')->group(function () {
+    Route::prefix('subcategories')->as('subcategories.')->group(function () {
         Route::get('/show/{subCategory}', [SubCategoryController::class, 'show'])->name('show');
     });
 

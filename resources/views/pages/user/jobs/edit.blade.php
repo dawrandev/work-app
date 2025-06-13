@@ -38,6 +38,20 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
+                                    <label>{{ __('SubCategory*') }}</label>
+                                    <select class="select" name="sub_category_id">
+                                        <option value="">{{ __('Select SubCategory') }}</option>
+                                        @foreach (getSubCategories() as $category)
+                                        <option value="{{ $category->id }}" {{ old('sub_category_id', $job->category_id) == $category->id ? 'selected' : ''}}>{{ $category->translated_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
                                     <label>{{ __('Job Types*') }}</label>
                                     <select class="select" name="type_id">
                                         <option value="">{{__('Select Work Type') }}</option>
