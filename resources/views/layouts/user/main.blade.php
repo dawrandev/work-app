@@ -6,6 +6,8 @@
 
 <head>
     @include('partials.user.head')
+
+    @livewireStyles
 </head>
 
 <body>
@@ -20,6 +22,8 @@
     @include('components.user.footer')
 
     @include('partials.user.script')
+
+    @livewireScripts
 </body>
 
 </html>

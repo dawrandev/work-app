@@ -108,3 +108,9 @@
         });
     </script>
     @endif
+
+    <script>
+        Livewire.start({
+            baseUrl: "/{{ app()->getLocale() }}"
+        });
+    </script>

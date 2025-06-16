@@ -1,7 +1,6 @@
 @extends('layouts.user.main')
 
 @section('content')
-
 @include('sections.user.hero')
 
 @include('sections.user.apply')

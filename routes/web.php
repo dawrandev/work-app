@@ -9,6 +9,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\View;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () {
     Route::get('/', function () {
@@ -77,7 +79,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 });
-
 
 Route::get('/', function () {
     return redirect()->route('home', ['locale' => 'kr']);

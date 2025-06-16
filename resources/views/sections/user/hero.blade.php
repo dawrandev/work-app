@@ -37,36 +37,9 @@
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2 co-12">
-                    <form class="home-search wow fadeInRight" data-wow-delay=".5s">
-                        <div class="form-group">
-                            <label class="font-weight-bold text-dark">What?</label>
-                            <div class=" form-location">
-                                <input type="text" class="form-control" placeholder="What are you looking for...">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="font-weight-bold text-dark">Where?</label>
-                            <div class="form-location">
-                                <input type="text" class="form-control" placeholder="Where...">
-                            </div>
-                        </div>
-                        <div class="form-group select-border">
-                            <label class="font-weight-bold text-dark">Choose Category?</label>
-                            <select class="form-control basic-select">
-                                <option>All categories </option>
-                                <option>Finance </option>
-                                <option>Sale/Markting </option>
-                                <option>Education/Training </option>
-                                <option>Technologies</option>
-                                <option>Art/Design</option>
-                                <option>Healthcare</option>
-                            </select>
-                        </div>
-                        <div class="button">
-                            <a class="btn" href="#"> Search </a>
-                        </div>
-                    </form>
+                    @livewire('cascade-select')
                 </div>
+
             </div>
         </div>
     </div>
