@@ -144,5 +144,6 @@
     "No Type": "Нет типа",
     "Please try adjusting your filters or": "Пожалуйста, попробуйте настроить ваши фильтры или",
     "clear all filters": "очистить все фильтры",
-    "No Jobs Found": "Не найдено вакансий"
+    "No Jobs Found": "Не найдено вакансий",
+    "Salary \"to\" must be greater than or equal to salary \"from\".": "Поле «до» должно быть больше или равно полю «от»."
 }

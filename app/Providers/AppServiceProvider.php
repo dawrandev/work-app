@@ -25,13 +25,5 @@ class AppServiceProvider extends ServiceProvider
         if (request()->route()?->parameter('locale')) {
             URL::defaults(['locale' => request()->route('locale')]);
         }
-
-        Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/livewire/update', $handle);
-        });
-
-        Livewire::setScriptRoute(function ($handle) {
-            return Route::get('/livewire/livewire.js', $handle);
-        });
     }
 }

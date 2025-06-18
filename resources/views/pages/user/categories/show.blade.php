@@ -6,7 +6,7 @@
     <div class="container">
         <div class="single-head">
             <div class="row">
-                @foreach ($categoryWithJobs->jobs as $job)
+                @foreach ($jobs as $job)
                 <div class="col-lg-6 col-12">
                     <div class="single-job">
                         <div class="job-image">
@@ -14,7 +14,7 @@
                         </div>
                         <div class="job-content">
                             <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a></h4>
-                            <h6><a href="{{ route('jobs.show', $job->id) }}">{{ $job->sub_category->translated_name }}</a></h6>
+                            <h6><a href="{{ route('jobs.show', $job->id) }}">{{ $job->subcategory->translated_name }}</a></h6>
                             <p>{{ $job->title }}</p>
                             <ul>
                                 <li><i class=" lni lni-dollar"></i>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }}</li>
@@ -32,7 +32,7 @@
                 @endforeach
             </div>
             <!-- Pagination -->
-            @if ($categoryWithJobs->jobs->hasPages())
+            @if ($jobs->hasPages())
             <div class="row">
                 <div class="col-12">
                     <div class="pagination center">

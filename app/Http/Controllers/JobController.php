@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\JobFilter;
 use App\Http\Requests\JobStoreRequest;
 use App\Http\Requests\JobUpdateRequest;
 use App\Models\Job;
@@ -18,11 +19,9 @@ class JobController extends Controller
         // 
     }
 
-    public function index(Request $request)
+    public function index(Request $request, JobFilter $filter)
     {
-        $filters = $request->only(['category_id', 'district_id', 'type_id']);
-
-        $jobs = $this->jobService->getFilteredJobs($filters);
+        $jobs = $filter->apply(Job::query(), $request->all());
 
         return view('pages.user.jobs.index', ['jobs' => $jobs]);
     }

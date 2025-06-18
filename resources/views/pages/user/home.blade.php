@@ -15,14 +15,6 @@
 
 @include('sections.user.featured')
 
-@include('sections.user.testimonials')
-
-@include('sections.user.pricing')
-
-@include('sections.user.latest-news')
-
-@include('sections.user.client-logo')
-
 @include('sections.user.login-modal')
 
 @include('sections.user.sign-up-modal')

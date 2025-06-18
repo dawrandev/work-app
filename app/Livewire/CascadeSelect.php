@@ -17,7 +17,8 @@ class CascadeSelect extends Component
     public function mount()
     {
         $this->categories = Category::all();
-        $this->subCategories = collect();
+        $this->subCategories = SubCategory::where('category_id', 1)
+            ->get();
     }
 
     public function SubCategories()

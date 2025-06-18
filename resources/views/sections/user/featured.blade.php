@@ -23,7 +23,7 @@
                             @endif
                         </div>
                         <div class="content">
-                            <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->sub_category->translated_name }}</a></h4>
+                            <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->subcategory->translated_name }}</a></h4>
                             <ul>
                                 <li><i class="lni lni-map-marker"></i>{{ $job->district->translated_name }}</li>
                                 <li><i class="lni lni-briefcase"></i>{{ $job->type->translated_name }}</li>

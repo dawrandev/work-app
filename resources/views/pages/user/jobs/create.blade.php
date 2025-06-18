@@ -22,39 +22,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Category*') }}</label>
-                                    <select class="select" name="category_id" id="category_id">
-                                        <option value="">{{ __('Select Category') }}</option>
-                                        @foreach (getCategories() as $category)
-                                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->translated_name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('Sub Category*') }}</label>
-                                    <select class="select" name="sub_category_id" id="sub_category_id">
-                                        <option value="">{{ __('Select SubCategory') }}</option>
-                                        @foreach (getSubCategories() as $category)
-                                        <option value="{{ $category->id }}" {{ old('sub_category_id') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->translated_name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    @error('sub_category_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                            @livewire('job-store')
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">

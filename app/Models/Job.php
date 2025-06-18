@@ -13,7 +13,7 @@ class Job extends Model
     [
         'user_id',
         'category_id',
-        'sub_category_id',
+        'subcategory_id',
         'district_id',
         'type_id',
         'title',
@@ -35,9 +35,9 @@ class Job extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function sub_category()
+    public function subcategory()
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
 
     public function job_images()

@@ -22,12 +22,16 @@ use Livewire\Livewire;
 |
 */
 
-
 Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () {
+    Route::post('/livewire/update', \Livewire\Mechanisms\HandleRequests\HandleRequests::class . '@handleUpdate')
+        ->name('livewire.update');
+
+    Route::get('/livewire/livewire.js', \Livewire\Mechanisms\FrontendAssets\FrontendAssets::class . '@returnJavaScriptAsFile')
+        ->name('livewire.js');
+
     Route::get('/', function () {
         return view('pages.user.home');
     })->name('home');
-
     // Authcontroller 
     Route::controller(AuthController::class)->group(function () {
         Route::post('/register', 'register')->name('register');

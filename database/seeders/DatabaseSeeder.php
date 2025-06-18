@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             TypeSeeder::class,
             UserSeeder::class,
+            SubCategorySeeder::class,
             JobSeeder::class,
             JobImagesSeeder::class,
-            SubCategorySeeder::class,
         ]);
     }
 }

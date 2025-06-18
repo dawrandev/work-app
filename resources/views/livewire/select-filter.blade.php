@@ -80,7 +80,6 @@
     <!-- Job Listings -->
     <div class="container">
         <div class="single-head">
-            <!-- Results Count -->
             <div class="row mb-4">
                 <div class="col-12 text-center">
                     <p class="results-count fw-bold fs-5 text-secondary">
@@ -107,12 +106,12 @@
                                 </a>
                                 <br>
                                 <a href="{{ route('jobs.show', ['locale' => app()->getLocale(), 'job' => $job]) }}">
-                                    {{ $job->sub_category ? $job->sub_category->translated_name : __('No Subcategory') }}
+                                    {{ $job->subcategory ? $job->subcategory->translated_name : __('No Subcategory') }}
                                 </a>
                                 @else
                                 <span>{{ $job->category ? $job->category->translated_name : __('No Category') }}</span>
                                 <br>
-                                <span>{{ $job->sub_category ? $job->sub_category->translated_name : __('No Subcategory') }}</span>
+                                <span>{{ $job->subcategory ? $job->subcategory->translated_name : __('No Subcategory') }}</span>
                                 @endif
                             </h4>
                             <p>{{ $job->title ?? __('No Title') }}</p>

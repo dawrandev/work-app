@@ -24,12 +24,12 @@ class JobStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'sub_category_id' => 'required|exists:sub_categories,id',
+            'subcategory_id' => 'required|exists:subcategories,id',
             'type_id' => 'required|exists:types,id',
             'district_id' => 'required|exists:districts,id',
             'description' => 'required|string',
             'salary_from' => 'numeric',
-            'salary_to' => 'numeric',
+            'salary_to' => 'numeric|gt:salary_from',
             'deadline' => 'nullable|date',
             'images' => 'nullable|array|max:3',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -48,5 +48,17 @@ class JobStoreRequest extends FormRequest
     private function normalizeNumber($value)
     {
         return $value ? (int)str_replace(' ', '', $value) : null;
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $from = $this->salary_from;
+            $to = $this->salary_to;
+
+            if ($from !== null && $to !== null && $to < $from) {
+                $validator->errors()->add('salary_to', __('Salary "to" must be greater than or equal to salary "from".'));
+            }
+        });
     }
 }

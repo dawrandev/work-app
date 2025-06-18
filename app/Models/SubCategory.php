@@ -9,6 +9,8 @@ class SubCategory extends Model
 {
     use HasFactory;
 
+    protected $table = 'subcategories';
+
     protected $fillable = [
         'category_id',
         'name',
@@ -21,7 +23,7 @@ class SubCategory extends Model
 
     public function jobs()
     {
-        return $this->hasMany(Job::class);
+        return $this->hasMany(Job::class, 'subcategory_id', 'id');
     }
 
     protected $casts = [

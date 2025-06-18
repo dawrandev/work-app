@@ -16,13 +16,16 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->is('livewire/*')) {
+            return $next($request);
+        }
+
         $allowedLocales = ['ru', 'uz', 'kr'];
         $locale = $request->segment(1);
 
         if (in_array($locale, $allowedLocales)) {
             app()->setLocale($locale);
             session(['locale' => $locale]);
-
             URL::defaults(['locale' => $locale]);
         } else {
             $locale = session('locale', config('app.locale'));
@@ -32,7 +35,6 @@ class SetLocale
                 return redirect()->to('/' . $locale . $request->getPathInfo());
             }
         }
-
         return $next($request);
     }
 }

@@ -20,7 +20,7 @@
                             <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
                         </div>
                         <div class="job-content">
-                            <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a> <br><a href="{{ route('jobs.show', $job->id) }}">{{ $job->sub_category->translated_name }}</a></h4>
+                            <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a> <br><a href="{{ route('jobs.show', $job->id) }}">{{ $job->subcategory->translated_name }}</a></h4>
                             <p>{{ $job->title }}</p>
                             <ul>
                                 <li></i>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} sum</li>

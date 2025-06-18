@@ -26,7 +26,7 @@
 
                             <ul class="meta">
                                 <li><strong class="text-primary"><a href="{{ route('categories.show', $job->category_id) }}">{{ $job->category->translated_name }}</a></strong></li>
-                                <li><strong class="text-primary"><a href="{{ route('subcategories.show', $job->sub_category_id) }}">{{ $job->sub_category->translated_name }}</a></strong></li>
+                                <li><strong class="text-primary"><a href="{{ route('subcategories.show', $job->subcategory_id) }}">{{ $job->subcategory->translated_name }}</a></strong></li>
                                 <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $job->district->translated_name }}</strong></li>
                                 <li>{{ $job->address }}</li>
                             </ul>

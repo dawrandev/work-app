@@ -107,7 +107,7 @@ class SelectFilter extends Component
             ->select('jobs.*')
             ->with([
                 'category',
-                'sub_category',
+                'subcategory',
                 'district',
                 'type'
             ]);
@@ -117,7 +117,7 @@ class SelectFilter extends Component
         }
 
         if (!empty($this->selectedSubCategory)) {
-            $query->where('sub_category_id', $this->selectedSubCategory);
+            $query->where('subcategory_id', $this->selectedSubCategory);
         }
 
         if (!empty($this->selectedDistrict)) {
@@ -144,10 +144,10 @@ class SelectFilter extends Component
                 'id' => $firstJob->id,
                 'title' => $firstJob->title,
                 'category' => $firstJob->category ? $firstJob->category->translated_name : 'null',
-                'sub_category' => $firstJob->sub_category ? $firstJob->sub_category->translated_name : 'null',
+                'subcategory' => $firstJob->subcategory ? $firstJob->subcategory->translated_name : 'null',
                 'has_relations' => [
                     'category' => $firstJob->relationLoaded('category'),
-                    'sub_category' => $firstJob->relationLoaded('sub_category'),
+                    'subcategory' => $firstJob->relationLoaded('subcategory'),
                     'district' => $firstJob->relationLoaded('district'),
                     'type' => $firstJob->relationLoaded('type'),
                 ]

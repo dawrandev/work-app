@@ -39,7 +39,6 @@
                 <div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2 co-12">
                     @livewire('cascade-select')
                 </div>
-
             </div>
         </div>
     </div>
