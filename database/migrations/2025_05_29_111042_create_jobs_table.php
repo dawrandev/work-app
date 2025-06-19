@@ -19,10 +19,10 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained()->onDelete('cascade');
             $table->foreignId('district_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->longText('description');
             $table->string('salary_from');
             $table->string('salary_to');
             $table->timestamp('deadline');
+            $table->longText('description');
             $table->string('address');
             $table->timestamps();
         });

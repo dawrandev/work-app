@@ -23,8 +23,8 @@
                                     <!-- media body start -->
                                     <div class="media-body">
                                         <i class="lni lni-checkmark"></i>
-                                        <h6 class="">Job alert!</h6>
-                                        <p class="">104 new jobs are available in this week!
+                                        <h6 class="">{{__('Job alert!')}}</h6>
+                                        <p class="">{{__('104 new jobs are available in this week!')}}
                                         </p>
                                     </div>
                                     <!-- media body start -->
@@ -38,17 +38,18 @@
                 <!-- content-1 start -->
                 <div class="content-right wow fadeInRight" data-wow-delay=".5s">
                     <!-- Heading -->
-                    <h2>Help you to get the <br>
-                        best job that fits you</h2>
+                    <h2>{{__('Help you to get the')}} <br>
+                        {{__('best job that fits you')}}
+                    </h2>
                     <!-- End Heading -->
                     <!-- Single List -->
                     <div class="single-list">
                         <i class="lni lni-grid-alt"></i>
                         <!-- List body start -->
                         <div class="list-bod">
-                            <h5>#1 Jobs site in UK</h5>
-                            <p>Leverage agile frameworks to provide a
-                                robust synopsis for high level overviews. Iterative</p>
+                            <h5>{{__('#1 Jobs site in UK')}}</h5>
+                            <p>{{__('Leverage agile frameworks to provide a
+                                robust synopsis for high level overviews. Iterative')}}</p>
                         </div>
                         <!-- List body start -->
                     </div>
@@ -58,9 +59,9 @@
                         <i class="lni lni-search"></i>
                         <!-- List body start -->
                         <div class="list-bod">
-                            <h5>Seamless searching</h5>
-                            <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta
-                                test.</p>
+                            <h5>{{__('Seamless searching')}}</h5>
+                            <p>{{__('Capitalize on low hanging fruit to identify a ballpark value added activity to beta
+                                test')}}</p>
                         </div>
                         <!-- List body start -->
                     </div>
@@ -70,8 +71,8 @@
                         <i class="lni lni-stats-up"></i>
                         <!-- List body start -->
                         <div class="list-bod">
-                            <h5>Hired in top companies</h5>
-                            <p>Podcasting operational change management inside of workflows to establish.</p>
+                            <h5>{{__('Hired in top companies')}}</h5>
+                            <p>{{__('Podcasting operational change management inside of workflows to establish')}}.</p>
                         </div>
                         <!-- List body start -->
                     </div>

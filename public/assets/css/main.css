@@ -1224,6 +1224,42 @@ ol {
     color: #fff;
 }
 
+.button .btn-service {
+    background-color: #081828;
+    color: #fff;
+}
+.button .btn-service {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 2px solid transparent;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 30px;
+    font-weight: 700;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.button .btn-service:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    text-decoration: none;
+}
+
+.button .btn-service:focus,
+.button .btn-service:active {
+    color: white;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
 .align-left {
     text-align: left;
 }
@@ -7856,3 +7892,5 @@ find-job .search-job .search-nner .select {
     opacity: 1;
     color: #d9534f;
 }
+
+

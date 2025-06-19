@@ -6,6 +6,7 @@ $sectionClass = 'bookmarked';
 
 @section('profile-content')
 <div class="col-lg-8 col-12">
+    @if($jobs->count() > 0)
     <div class="job-items">
         @foreach ($jobs as $job)
         <div class="manage-content">
@@ -33,6 +34,7 @@ $sectionClass = 'bookmarked';
         </div>
         @endforeach
     </div>
+
     <!-- Pagination -->
     @if ($jobs->hasPages())
     <div class="pagination left pagination-md-center">
@@ -60,5 +62,20 @@ $sectionClass = 'bookmarked';
     </div>
     @endif
     <!-- End Pagination -->
+    @else
+    <!-- Empty State -->
+    <div class="job-items">
+        <div class="empty-state text-center">
+            <div class="empty-icon">
+                <i class="lni lni-bookmark" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+            </div>
+            <h4 class="empty-title">{{ __('No Bookmarked Jobs') }}</h4>
+            <p class="empty-description">{{ __('You haven\'t bookmarked any jobs yet. Browse jobs and save the ones you\'re interested in.') }}</p>
+            <div class="empty-action">
+                <a href="{{ route('jobs.index') }}" class="btn">{{ __('Browse Jobs') }}</a>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>
 @endsection

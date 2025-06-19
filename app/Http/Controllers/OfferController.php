@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
+use App\Http\Requests\OfferStoreRequest;
+use App\Models\Offer;
+use App\Services\OfferService;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class OfferController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct(protected OfferService $offerService) {}
+
     public function index()
     {
         //
@@ -20,21 +24,22 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.user.offers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OfferStoreRequest $request)
     {
-        //
+        $this->offerService->createOffer($request->validated(), $request);
+        return redirect()->route('offers.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show(Offer $offer)
     {
         //
     }
@@ -42,7 +47,7 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit(Offer $offer)
     {
         //
     }
@@ -50,7 +55,7 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Offer $offer)
     {
         //
     }
@@ -58,7 +63,7 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy(Offer $offer)
     {
         //
     }

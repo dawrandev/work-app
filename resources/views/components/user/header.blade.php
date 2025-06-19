@@ -39,7 +39,7 @@
                                     <ul class="sub-menu">
                                         <li><a href="browse-jobs.html">{{ __('Browse Jobs') }}</a></li>
                                         <li><a href="browse-categories.html">{{ __('Browse Categories') }}</a></li>
-                                        <li><a href="add-resume.html">{{ __('Add Resume') }}</a></li>
+                                        <li><a href="{{ route('offers.create') }}">{{ __('Add Resume') }}</a></li>
                                         <li><a href="job-alerts.html">{{ __('Job Alerts') }}</a></li>
                                     </ul>
                                 </li>

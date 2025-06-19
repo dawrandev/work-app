@@ -124,6 +124,9 @@
     "Job updated successfully!": "Работа успешно обновлена!",
     "You have :count job(s) listed.": "У вас :count работа(ы) в списке.",
     "Categories": "Категории",
+    "All Categories": "Все категории",
+    "All Subcategories": "Все подкатегории",
+    "All Districts": "Все районы",
     "Job categories here.": "Категории работы здесь.",
     "Job Category": "Категория работы",
     "Choose Your Desire Category": "Выберите желаемую категорию",
@@ -145,5 +148,15 @@
     "Please try adjusting your filters or": "Пожалуйста, попробуйте настроить ваши фильтры или",
     "clear all filters": "очистить все фильтры",
     "No Jobs Found": "Не найдено вакансий",
-    "Salary \"to\" must be greater than or equal to salary \"from\".": "Поле «до» должно быть больше или равно полю «от»."
+    "Salary \"to\" must be greater than or equal to salary \"from\".": "Поле «до» должно быть больше или равно полю «от».",
+    "Job alert!": "Оповещение о работе!",
+    "104 new jobs are available in this week!": "На этой неделе доступно 104 новых вакансии!",
+    "Help you to get the": "Помогаем вам получить",
+    "best job that fits you": "лучшую работу, которая вам подходит",
+    "#1 Jobs site in KK": "№1 сайт по поиску работы в Каракалпакстан",
+    "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative": "Используйте гибкие подходы для создания надежного обзора на высоком уровне. Итеративный процесс",
+    "Seamless searching": "Беспрепятственный поиск",
+    "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test": "Используйте простые возможности для определения примерной ценности на этапе тестирования",
+    "Hired in top companies": "Принимайте участие в отборе ведущих компаний",
+    "Podcasting operational change management inside of workflows to establish": "Интеграция управления изменениями в рабочих процессах через подкасты"
 }

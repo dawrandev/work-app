@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSaveController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
@@ -56,6 +57,15 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::get('/index', [JobController::class, 'index'])->name('index');
     });
 
+    // Offer Controller
+    Route::middleware('auth')->group(function () {
+        Route::prefix('offers')->as('offers.')->group(function () {
+            Route::get('/create', [OfferController::class, 'create'])->name('create');
+            Route::post('/store', [OfferController::class, 'store'])->name('store');
+        });
+    });
+
+    // SubCategory Controller
     Route::prefix('subcategories')->as('subcategories.')->group(function () {
         Route::get('/show/{subCategory}', [SubCategoryController::class, 'show'])->name('show');
     });

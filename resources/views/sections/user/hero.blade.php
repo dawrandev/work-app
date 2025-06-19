@@ -19,21 +19,10 @@
                                 </a>
                                 @endif
                                 <a href="{{ route('jobs.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
+                                <a href="#" class="button btn-service">{{ __('Our Services') }}</a>
                             </div>
                         </div>
-                        <div class="job-search-wrap-two mt-50 wow fadeInUp" data-wow-delay=".9s">
-                            <div class="trending-keywords mt-30">
-                                <div class="keywords style-two">
-                                    <span class="title">Popular Keywords:</span>
-                                    <ul>
-                                        <li><a href="#">Administrative</a></li>
-                                        <li><a href="#">Android</a></li>
-                                        <li><a href="#">app</a></li>
-                                        <li><a href="#">ASP.NET</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @livewire('popular-categories')
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-0 col-md-8 offset-md-2 co-12">
