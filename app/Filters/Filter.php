@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-class JobFilter
+class Filter
 {
     public function apply($query, array $filters)
     {

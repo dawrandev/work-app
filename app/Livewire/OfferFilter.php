@@ -4,14 +4,14 @@ namespace App\Livewire;
 
 use App\Models\Category;
 use App\Models\District;
-use App\Models\Job;
+use App\Models\Offer;
 use App\Models\SubCategory;
 use App\Models\Type;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class SelectFilter extends Component
+class OfferFilter extends Component
 {
     use WithPagination;
 
@@ -103,8 +103,8 @@ class SelectFilter extends Component
 
     public function render()
     {
-        $query = Job::query()
-            ->select('jobs.*')
+        $query = Offer::query()
+            ->select('offers.*')
             ->with([
                 'category',
                 'subcategory',
@@ -136,26 +136,26 @@ class SelectFilter extends Component
             $query->where('salary_to', '<=', $this->salaryTo);
         }
 
-        $jobs = $query->latest()->paginate(10);
+        $offers = $query->latest()->paginate(10);
 
-        if ($jobs->count() > 0) {
-            $firstJob = $jobs->first();
-            Log::info('First job data:', [
-                'id' => $firstJob->id,
-                'title' => $firstJob->title,
-                'category' => $firstJob->category ? $firstJob->category->translated_name : 'null',
-                'subcategory' => $firstJob->subcategory ? $firstJob->subcategory->translated_name : 'null',
+        if ($offers->count() > 0) {
+            $firstOffer = $offers->first();
+            Log::info('First offer data:', [
+                'id' => $firstOffer->id,
+                'title' => $firstOffer->title,
+                'category' => $firstOffer->category ? $firstOffer->category->translated_name : 'null',
+                'subcategory' => $firstOffer->subcategory ? $firstOffer->subcategory->translated_name : 'null',
                 'has_relations' => [
-                    'category' => $firstJob->relationLoaded('category'),
-                    'subcategory' => $firstJob->relationLoaded('subcategory'),
-                    'district' => $firstJob->relationLoaded('district'),
-                    'type' => $firstJob->relationLoaded('type'),
+                    'category' => $firstOffer->relationLoaded('category'),
+                    'subcategory' => $firstOffer->relationLoaded('subcategory'),
+                    'district' => $firstOffer->relationLoaded('district'),
+                    'type' => $firstOffer->relationLoaded('type'),
                 ]
             ]);
         }
 
-        return view('livewire.select-filter', [
-            'jobs' => $jobs,
+        return view('livewire.offer-filter', [
+            'offers' => $offers,
             'categories' => Category::all(),
             'districts' => District::all(),
             'types' => Type::all(),

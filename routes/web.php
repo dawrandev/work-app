@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSaveController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OfferSaveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
@@ -62,6 +63,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::prefix('offers')->as('offers.')->group(function () {
             Route::get('/create', [OfferController::class, 'create'])->name('create');
             Route::post('/store', [OfferController::class, 'store'])->name('store');
+            Route::get('/index', [OfferController::class, 'index'])->name('index');
+            Route::get('/show/{offer}', [OfferController::class, 'show'])->name('show');
         });
     });
 
@@ -90,6 +93,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     Route::middleware('auth')->group(function () {
         Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
             Route::post('/store', [JobSaveController::class, 'store'])->name('store');
+        });
+    });
+
+    // OfferSaveController
+    Route::middleware('auth')->group(function () {
+        Route::prefix('save-offers')->as('save-offers.')->group(function () {
+            Route::post('/store', [OfferSaveController::class, 'store'])->name('store');
         });
     });
 });

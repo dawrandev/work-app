@@ -141,11 +141,11 @@
                                     @endforeach
                                     @endforeach
 
-                                    @if (!empty($job->job_images) && count($job->job_images) > 0)
+                                    @if (!empty($job->images) && count($job->images) > 0)
                                     <div class="post-details mt-3">
                                         <div class="post-image">
                                             <div class="row">
-                                                @foreach ($job->job_images as $image)
+                                                @foreach ($job->images as $image)
                                                 <div class="col-lg-4 col-md-4 col-6">
                                                     <button type="button" class="mb-4 border-0 bg-transparent p-0" data-img="{{ asset('storage/jobs/' . $image['image']) }}">
                                                         <img src="{{ asset('storage/jobs/' . $image['image']) }}" alt="job image" class="img-thumbnail" id="myImg">

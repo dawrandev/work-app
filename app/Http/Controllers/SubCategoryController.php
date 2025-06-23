@@ -48,7 +48,7 @@ class SubCategoryController extends Controller
             request()->all()
         );
 
-        return view('pages.user.categories.show', compact('category', 'jobs'));
+        return view('pages.user.categories.show', compact('jobs'));
     }
 
     /**

@@ -10,7 +10,7 @@
                 <div class="col-lg-6 col-12">
                     <div class="single-job">
                         <div class="job-image">
-                            <i class="{{ $category->icon }}" style="font-size: 3rem;"></i>
+                            <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
                         </div>
                         <div class="job-content">
                             <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->category->translated_name }}</a></h4>

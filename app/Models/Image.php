@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JobImage extends Model
+class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable =
-    [
-        'job_id',
-        'image'
+    protected $fillable = [
+        'image_path',
     ];
 
-    public function job()
+    public function imageable()
     {
-        return $this->belongsTo(Job::class);
+        return $this->morphTo();
     }
 }

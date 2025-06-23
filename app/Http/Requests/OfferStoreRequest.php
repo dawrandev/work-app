@@ -37,17 +37,19 @@ class OfferStoreRequest extends FormRequest
                 'service_images.*' => 'image|mimes:jpeg,png,jpg,svg|max:2048',
             ];
     }
-    public function prepareForValidation()
+    protected function prepareForValidation()
     {
         $this->merge([
             'salary_from' => $this->normalizeNumber($this->salary_from),
             'salary_to' => $this->normalizeNumber($this->salary_to),
         ]);
     }
-    public function normalizeNumber($value)
+
+    private function normalizeNumber($value)
     {
-        return str_replace(',', '', $value);
+        return $value ? (int)str_replace(' ', '', $value) : null;
     }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

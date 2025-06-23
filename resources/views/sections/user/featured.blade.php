@@ -18,8 +18,8 @@
                         <div class="shape"></div>
                         <div class="feature">{{ $job->category->translated_name }}</div>
                         <div class="image">
-                            @if($job->job_images->isNotEmpty())
-                            <img src="{{ asset('storage/jobs/' . $job->job_images->first()->image) }}" alt="#">
+                            @if($job->images->isNotEmpty())
+                            <img src="{{ asset('storage/jobs/' . $job->images->first()->image_path) }}" alt="#">
                             @endif
                         </div>
                         <div class="content">

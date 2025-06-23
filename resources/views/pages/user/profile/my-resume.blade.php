@@ -14,8 +14,8 @@ $sectionClass = 'resume';
                     <div class="name-head">
                         <a class="mb-2" href="#"><img class="circle-54"
                                 src="{{ asset('assets/images/resume/avater.png') }}" alt=""></a>
-                        <h4><a class="name" href="#">David Henricks</a></h4>
-                        <p><a class="deg" href="#">Product Designer</a></p>
+                        <h4><a class="name" href="#">{{ $offer->user->first_name }} {{ $offer->user->last_name }}</a></h4>
+                        <p><a class="deg" href="#">{{ $offer->subcategory->translated_name }}</a></p>
                         <ul class="social">
                             <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
                             <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
@@ -30,20 +30,20 @@ $sectionClass = 'resume';
                         <h5 class="title-main">Contact Info</h5>
                         <!-- Single List -->
                         <div class="single-list">
-                            <h5 class="title">Location</h5>
-                            <p>New York , USA</p>
+                            <h5 class="title">District</h5>
+                            <p>{{ $offer->district->translated_name }} </p>
                         </div>
                         <!-- Single List -->
                         <!-- Single List -->
                         <div class="single-list">
-                            <h5 class="title">E-mail</h5>
-                            <p>youremail@gmail.com</p>
+                            <h5 class="title">Address</h5>
+                            <p>{{ $offer->address }}</p>
                         </div>
                         <!-- Single List -->
                         <!-- Single List -->
                         <div class="single-list">
                             <h5 class="title">Phone</h5>
-                            <p>+999 565 562</p>
+                            <p>+998 {{ $offer->phone }}</p>
                         </div>
                         <!-- Single List -->
                         <!-- Single List -->

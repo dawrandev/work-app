@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobImage;
+use App\Http\Requests\OfferSaveStoreRequest;
+use App\Services\OfferSaveService;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class JobImageController extends Controller
+class OfferSaveController extends Controller
 {
+    public function __construct(
+        protected OfferSaveService $offerSaveService
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -26,23 +32,27 @@ class JobImageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OfferSaveStoreRequest $request)
     {
-        //
+        $this->offerSaveService->saveOffer($request->validated(), $request);
+
+        Alert::success(__('Offer saved successfully!'));
+
+        return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(JobImage $jobImage)
+    public function show(string $id)
     {
-        //
+        // 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JobImage $jobImage)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +60,7 @@ class JobImageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobImage $jobImage)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +68,7 @@ class JobImageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobImage $jobImage)
+    public function destroy(string $id)
     {
         //
     }

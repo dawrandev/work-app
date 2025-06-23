@@ -30,7 +30,7 @@ function getSubCategories()
 
 function getJobs()
 {
-    return Job::with(['category', 'subcategory', 'district', 'type', 'job_images'])
+    return Job::with(['category', 'subcategory', 'district', 'type', 'images'])
         ->orderBy('created_at', 'desc')
         ->paginate(10);
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\JobFilter;
+use App\Filters\Filter;
 use App\Http\Requests\JobStoreRequest;
 use App\Http\Requests\JobUpdateRequest;
 use App\Models\Job;
-use App\Models\JobImage;
 use App\Services\JobService;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -19,7 +18,7 @@ class JobController extends Controller
         // 
     }
 
-    public function index(Request $request, JobFilter $filter)
+    public function index(Request $request, Filter $filter)
     {
         $jobs = $filter->apply(Job::query(), $request->all());
 
@@ -42,14 +41,14 @@ class JobController extends Controller
 
     public function show($locale, Job $job)
     {
-        $job->load(['job_images', 'category', 'district', 'type']);
+        $job->load(['images', 'category', 'district', 'type']);
 
         return view('pages.user.jobs.show', compact('job'));
     }
 
     public function edit($locale, Job $job)
     {
-        $job->load(['job_images', 'category', 'district', 'type']);
+        $job->load(['images', 'category', 'district', 'type']);
 
         return view('pages.user.jobs.edit', compact('job'));
     }

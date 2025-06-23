@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Offer;
 use App\Services\JobSaveService;
 use App\Services\JobService;
 use Illuminate\Http\Request;
@@ -69,7 +70,11 @@ class ProfileController extends Controller
 
     public function myResume()
     {
-        return view('pages.user.profile.my-resume');
+        $offer = Offer::where('user_id', auth()->id())
+            ->with('user', 'category', 'subcategory', 'type', 'district', 'images')
+            ->first();
+
+        return view('pages.user.profile.my-resume', compact('offer'));
     }
 
     public function bookmarked()

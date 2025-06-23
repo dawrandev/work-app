@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Requests\JobStoreRequest;
-use App\Repositories\JobImageRepository;
 use App\Repositories\JobRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +11,7 @@ use Illuminate\Support\Str;
 class JobService
 {
     public function __construct(
-        protected JobRepository $jobRepository,
-        protected JobImageRepository $jobImageRepository
+        protected JobRepository $jobRepository
     ) {
         // 
     }
@@ -30,9 +28,8 @@ class JobService
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $path = $image->storeAs("jobs", $filename, 'public');
 
-                        $jobImage = $this->jobImageRepository->create([
-                            'job_id' => $job->id,
-                            'image' => $filename,
+                        $job->images()->create([
+                            'image_path' => $filename,
                         ]);
                     }
                 }
@@ -54,9 +51,8 @@ class JobService
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $path = $image->storeAs("jobs", $filename, 'public');
 
-                        $this->jobImageRepository->update([
-                            'job_id' => $job->id,
-                            'image' => $filename,
+                        $job->images()->update([
+                            'image_path' => $filename,
                         ]);
                     }
                 }

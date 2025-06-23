@@ -19,7 +19,7 @@
                                 </a>
                                 @endif
                                 <a href="{{ route('jobs.index') }}" class="btn btn-alt">{{ __('See Our Jobs') }}</a>
-                                <a href="#" class="button btn-service">{{ __('Our Services') }}</a>
+                                <a href="{{ route('offers.index') }}" class="button btn-service">{{ __('Our Services') }}</a>
                             </div>
                         </div>
                         @livewire('popular-categories')

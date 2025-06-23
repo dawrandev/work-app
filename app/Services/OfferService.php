@@ -25,9 +25,8 @@ class OfferService
                     foreach ($request->file('service_images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $path = $image->storeAs("offers", $filename, 'public');
-                        $offerImage = $this->offerImageRepository->create([
-                            'offer_id' => $offer->id,
-                            'image' => $filename,
+                        $offer->images()->create([
+                            'image_path' => $filename,
                         ]);
                     }
                 }

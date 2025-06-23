@@ -2,7 +2,7 @@
 
 @section('content')
 
-<x-user.breadcrumb :title="__('Job Details')" :description="__('View detailed information about the job, including requirements, salary, and application process')" :page="__('Job Details')" />
+<x-user.breadcrumb :title="__('Offer Details')" :description="__('View detailed information about the offer, including requirements, salary, and application process')" :page="__('Offer Details')" />
 
 <!-- Start Job Details -->
 <div class="job-details section">
@@ -14,21 +14,21 @@
                     <div class="job-details-head row mx-0">
                         <div class="company-logo col-auto">
                             <div class="job-image">
-                                <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
+                                <i class="{{ $offer->category->icon }}" style="font-size: 3rem;"></i>
                             </div>
                         </div>
                         <div class="salary-type col-auto order-sm-3">
-                            <span class="salary-range">{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
-                            <span class="badge badge-success">{{ $job->type->translated_name }}</span>
+                            <span class="salary-range">{{ number_format($offer->salary_from, 0, ',', ' ') }} - {{ number_format($offer->salary_to, 0, ',', ' ') }} {{__('sum')}}</span>
+                            <span class="badge badge-success">{{ $offer->type->translated_name }}</span>
                         </div>
                         <div class="content col">
-                            <h5 class="title">{{ $job->title }}</h5>
+                            <h5 class="title">{{ $offer->title }}</h5>
 
                             <ul class="meta">
-                                <li><strong class="text-primary"><a href="{{ route('categories.show', $job->category_id) }}">{{ $job->category->translated_name }}</a></strong></li>
-                                <li><strong class="text-primary"><a href="{{ route('subcategories.show', $job->subcategory_id) }}">{{ $job->subcategory->translated_name }}</a></strong></li>
-                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $job->district->translated_name }}</strong></li>
-                                <li>{{ $job->address }}</li>
+                                <li><strong class="text-primary"><a href="{{ route('categories.show', $offer->category_id) }}">{{ $offer->category->translated_name }}</a></strong></li>
+                                <li><strong class="text-primary"><a href="{{ route('subcategories.show', $offer->subcategory_id) }}">{{ $offer->subcategory->translated_name }}</a></strong></li>
+                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $offer->district->translated_name }}</strong></li>
+                                <li>{{ $offer->address }}</li>
                             </ul>
                         </div>
                     </div>
@@ -37,8 +37,8 @@
                         <div class="post-details">
                             <div class="post-image">
                                 <div class="row">
-                                    @if (!empty($job->images) && count($job->images) > 0)
-                                    @foreach ($job->images as $image)
+                                    @if (!empty($offer->images) && count($offer->images) > 0)
+                                    @foreach ($offer->images as $image)
                                     <div class="col-lg-4 col-md-4 col-6">
                                         <button type="button" class="mb-4 border-0 bg-transparent p-0" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{ asset('storage/jobs/' . $image['image_path']) }}">
                                             <img src="{{ asset('storage/jobs/' . $image['image_path']) }}" alt="#" class="img-thumbnail" id="myImg">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p>{{ $job->description }}</p>
+                        <p>{{ $offer->description }}</p>
                     </div>
                 </div>
             </div>
@@ -65,10 +65,10 @@
                                     @if (auth()->check())
 
                                     @endif
-                                    <form action="{{ route('save-jobs.store') }}" method="post">
+                                    <form action="{{ route('save-offers.store') }}" method="post">
                                         @csrf
-                                        <input type="hidden" name="job_id" value="{{ $job->id }}">
-                                        <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</button>
+                                        <input type="hidden" name="offer_id" value="{{ $offer->id }}">
+                                        <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Offer')}}</button>
                                     </form>
                                 </div>
                                 <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
@@ -81,19 +81,17 @@
                     <!-- Sidebar (Job Overview) Start -->
                     <div class="sidebar-widget">
                         <div class="inner">
-                            <h6 class="title">{{__('Job Overview')}}</h6>
+                            <h6 class="title">{{__('Offer Overview')}}</h6>
                             <ul class="job-overview list-unstyled">
                                 @php
                                 use Carbon\Carbon;
-                                $deadline = Carbon::parse($job->deadline)->format('d.m.Y');
-                                $published = Carbon::parse($job->created_at)->format('d.m.Y');
+                                $published = Carbon::parse($offer->created_at)->format('d.m.Y');
                                 @endphp
                                 <li><strong>{{__('Published on')}}:</strong> {{ $published }}</li>
-                                <li><strong>{{__('Job Type')}}:</strong>{{ $job->type->translated_name }}</li>
-                                <li><strong>{{__('District')}}:</strong>{{ $job->district->translated_name }}</li>
-                                <li><strong>{{__('Address')}}:</strong>{{ $job->address }}</li>
-                                <li><strong>{{__('Salary')}}:</strong>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
-                                <li><strong>{{__('Deadline')}}:</strong>{{ $deadline }}</li>
+                                <li><strong>{{__('Offer Type')}}:</strong>{{ $offer->type->translated_name }}</li>
+                                <li><strong>{{__('District')}}:</strong>{{ $offer->district->translated_name }}</li>
+                                <li><strong>{{__('Address')}}:</strong>{{ $offer->address }}</li>
+                                <li><strong>{{__('Salary')}}:</strong>{{ number_format($offer->salary_from, 0, ',', ' ') }} - {{ number_format($offer->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
                             </ul>
                         </div>
                     </div>

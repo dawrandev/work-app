@@ -40,9 +40,9 @@ class Job extends Model
         return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
 
-    public function job_images()
+    public function images()
     {
-        return $this->hasMany(JobImage::class, 'job_id', 'id');
+        return $this->morphMany(\App\Models\Image::class, 'imageable');
     }
 
     public function type()

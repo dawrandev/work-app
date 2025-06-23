@@ -5,7 +5,7 @@
 
 <!-- Start Find Job Area -->
 <section class="find-job section">
-    @livewire('select-filter')
+    @livewire('job-filter')
 </section>
 <!-- /End Find Job Area -->
 @endsection
