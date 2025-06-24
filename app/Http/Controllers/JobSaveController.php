@@ -57,6 +57,6 @@ class JobSaveController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        return $id;
     }
 }

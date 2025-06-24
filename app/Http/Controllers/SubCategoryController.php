@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\JobFilter;
+use App\Filters\Filter;
 use App\Models\SubCategory;
 use App\Services\SubCategoryService;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class SubCategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($locale, SubCategory $subCategory, JobFilter $filter)
+    public function show($locale, SubCategory $subCategory, Filter $filter)
     {
         $jobs = $filter->apply(
             $subCategory->jobs()->with(['category', 'subcategory', 'district', 'type']),

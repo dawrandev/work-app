@@ -34,9 +34,13 @@ class OfferSaveController extends Controller
      */
     public function store(OfferSaveStoreRequest $request)
     {
-        $this->offerSaveService->saveOffer($request->validated(), $request);
-
-        Alert::success(__('Offer saved successfully!'));
+        try {
+            $this->offerSaveService->saveOffer($request->validated(), $request);
+            Alert::success(__('Offer saved successfully!'));
+        } catch (\Exception $e) {
+            Alert::info('Diqqat', $e->getMessage());
+            return redirect()->back()->withInput();
+        }
 
         return redirect()->back();
     }

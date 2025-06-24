@@ -142,7 +142,7 @@
                 @empty
                 <div class="col-12">
                     <div class="no-jobs-found text-center py-5">
-                        <h4>{{ __('No jobs found') }}</h4>
+                        <h4>{{ __('No offers found') }}</h4>
                         <p>{{ __('Please try adjusting your filters or') }}
                             <button wire:click="clearFilters" class="btn btn-link p-0">{{ __('clear all filters') }}</button>
                         </p>

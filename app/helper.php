@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\District;
+use App\Models\EmploymentType;
 use App\Models\Job;
 use App\Models\SubCategory;
 use App\Models\Type;
@@ -33,4 +34,8 @@ function getJobs()
     return Job::with(['category', 'subcategory', 'district', 'type', 'images'])
         ->orderBy('created_at', 'desc')
         ->paginate(10);
+}
+function getEmploymentTypes()
+{
+    return EmploymentType::all();
 }

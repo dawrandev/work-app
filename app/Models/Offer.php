@@ -15,12 +15,16 @@ class Offer extends Model
         'subcategory_id',
         'district_id',
         'type_id',
-        'title',
         'phone',
+        'title',
+        'description',
         'salary_from',
         'salary_to',
         'address',
-        'description',
+        'longitude',
+        'latitude',
+        'status',
+        'approval_status',
     ];
 
     public function user()
@@ -45,6 +49,11 @@ class Offer extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function employmentType()
+    {
+        return $this->belongsTo(EmploymentType::class);
     }
 
     public function images()

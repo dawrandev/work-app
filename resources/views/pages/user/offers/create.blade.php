@@ -46,7 +46,7 @@
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label class="control-label">Phone</label>
-                                    <input type="text" class="form-control" placeholder="phone" value="{{ auth()->user()->phone }}" name="phone">
+                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', auth()->user()->phone ?? '') }}">
                                     @error('phone')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -59,7 +59,7 @@
                                     <select class="form-control" name="district_id">
                                         <option value="">Select District</option>
                                         @foreach (getDistricts() as $district)
-                                        <option value="{{ $district->id }}">{{ $district->translated_name }}</option>
+                                        <option value="{{ $district->id }}" {{ old('district_id') == $district->id ? 'selected' : '' }}>{{ $district->translated_name }}</option>
                                         @endforeach
                                     </select>
                                     @error('district_id')
@@ -73,7 +73,7 @@
                                     <select class="form-control" name="type_id">
                                         <option value="">Select Type</option>
                                         @foreach (getTypes() as $type)
-                                        <option value="{{ $type->id }}">{{ $type->translated_name }}</option>
+                                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
                                         @endforeach
                                     </select>
                                     @error('type_id')
@@ -102,7 +102,7 @@
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label class="control-label">Location</label>
-                                    <input type="text" class="form-control" placeholder="Location, e.g" name="address">
+                                    <input type="text" class="form-control" placeholder="Location, e.g" name="address" value="{{ old('address') }}">
                                     @error('address')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Description</label>
-                            <textarea class="form-control" name="description"></textarea>
+                            <textarea class="form-control" name="description">{{ old('description') }}</textarea>
                             @error('description')
                             <li style="color: red;">{{ $message }}</li>
                             @enderror

@@ -11,23 +11,28 @@ $sectionClass = 'bookmarked';
         @foreach ($jobs as $job)
         <div class="manage-content">
             <div class="row align-items-center justify-content-center">
-                <div class="col-lg-5 col-md-5 col-12">
+                <div class="col-lg-4 col-md-4 col-12">
                     <div class="title-img">
                         <div class="can-img">
                             <i class="{{ $job->category->icon }}" style="font-size: 3rem;"></i>
                         </div>
-                        <h3>{{ $job->category->translated_name }} <span>{{ $job->title }}</span></h3>
+                        <h3><a href="{{ route('categories.show', $job->category_id) }}">{{ $job->category->translated_name }}</a><span>{{ $job->title }}</span></h3>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-12">
                     <p><span class="time">{{ $job->type->translated_name }}</span></p>
                 </div>
-                <div class="col-lg-3 col-md-3 col-12">
+                <div class="col-lg-2 col-md-2 col-12">
                     <p class="location"><i class="lni lni-map-marker"></i> {{ $job->district->translated_name }}</p>
                 </div>
-                <div class="col-lg-2 col-md-2 col-12">
-                    <div class="button">
-                        <a href="{{ route('jobs.show', $job->id) }}" class="btn">{{__('Apply')}}</a>
+                <div class="col-lg-3 col-md-3 col-12">
+                    <div class="d-flex justify-content-center gap-1 flex-wrap">
+                        <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-outline-primary btn-sm mx-1" title="{{ __('View') }}">
+                            <i class="lni lni-eye"></i>
+                        </a>
+                        <button type="button" class="btn btn-outline-danger btn-sm mx-1" title="{{ __('Remove Bookmark') }}" data-toggle="modal" data-target="#deleteBookmarkModal{{ $job->id }}">
+                            <i class="lni lni-trash"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -62,6 +67,35 @@ $sectionClass = 'bookmarked';
     </div>
     @endif
     <!-- End Pagination -->
+
+    <!-- Delete Confirmation Modals -->
+    @foreach ($jobs as $job)
+    <div class="modal fade" id="deleteBookmarkModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteBookmarkModalLabel{{ $job->id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteBookmarkModalLabel{{ $job->id }}">{{ __('Remove Bookmark') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ __('Are you sure you want to remove this job from your bookmarks?') }}
+                    <br><strong>{{ $job->title }}</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                    <form action="{{ route('save-jobs.destroy', $job->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">{{ __('Remove') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    <!-- End Delete Confirmation Modals -->
     @else
     <!-- Empty State -->
     <div class="job-items">

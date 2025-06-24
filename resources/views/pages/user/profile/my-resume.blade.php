@@ -5,6 +5,7 @@ $sectionClass = 'resume';
 @extends('pages.user.profile.index')
 
 @section('profile-content')
+@if($offer)
 <div class="col-lg-8 col-12">
     <div class="inner-content">
         <!-- Start Personal Top Content -->
@@ -201,4 +202,34 @@ $sectionClass = 'resume';
         <!-- End Single Section -->
     </div>
 </div>
+@else
+<div class="col-lg-8 col-12">
+    <div class="inner-content">
+        <!-- Start Empty Resume Content -->
+        <div class="empty-resume-content text-center py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 col-12">
+                    <div class="empty-state-card p-5">
+                        <!-- Icon -->
+                        <div class="empty-icon mb-4">
+                            <i class="lni lni-files" style="font-size: 80px; color: #6c757d; opacity: 0.5;"></i>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="empty-title mb-3 text-dark">Sizda hali Resume mavjud emas</h3>
+                        <!-- Create Resume Button -->
+                        <div class="create-resume-action">
+                            <a href="{{ route('offers.create') }}" class="btn btn-primary btn-lg px-5 py-3">
+                                <i class="lni lni-plus me-2"></i>
+                                Resume Yaratish
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Empty Resume Content -->
+    </div>
+</div>
+@endif
 @endsection

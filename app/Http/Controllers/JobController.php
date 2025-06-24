@@ -32,6 +32,7 @@ class JobController extends Controller
 
     public function store(JobStoreRequest $request)
     {
+        return $request;
         $job = $this->jobService->createJob($request->validated(), $request);
 
         Alert::success(__('Request sent successfully!'));

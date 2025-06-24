@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\JobFilter;
+use App\Filters\Filter;
 use App\Models\Category;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
@@ -37,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($locale, JobFilter $filter, Category $category)
+    public function show($locale, Filter $filter, Category $category)
     {
         $jobs = $filter->apply($category->jobs()->with(['category', 'subcategory', 'district', 'type']), request()->all());
 

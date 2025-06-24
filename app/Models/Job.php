@@ -16,13 +16,17 @@ class Job extends Model
         'subcategory_id',
         'district_id',
         'type_id',
+        'phone',
         'title',
         'description',
         'salary_from',
         'salary_to',
         'deadline',
         'address',
+        'longitude',
+        'latitude',
         'status',
+        'approval_status',
     ];
 
     public function user()
@@ -53,6 +57,11 @@ class Job extends Model
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+
+    public function employmentType()
+    {
+        return $this->belongsTo(EmploymentType::class);
     }
 
     public function savedByUsers()

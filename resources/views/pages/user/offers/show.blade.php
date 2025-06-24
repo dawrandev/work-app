@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="job-details-body">
-                        <h6 class="mb-3">{{__('Job Description*')}}</h6>
+                        <h6 class="mb-3">{{__('Offer Description*')}}</h6>
                         <div class="post-details">
                             <div class="post-image">
                                 <div class="row">
@@ -41,7 +41,7 @@
                                     @foreach ($offer->images as $image)
                                     <div class="col-lg-4 col-md-4 col-6">
                                         <button type="button" class="mb-4 border-0 bg-transparent p-0" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{ asset('storage/jobs/' . $image['image_path']) }}">
-                                            <img src="{{ asset('storage/jobs/' . $image['image_path']) }}" alt="#" class="img-thumbnail" id="myImg">
+                                            <img src="{{ asset('storage/offers/' . $image['image_path']) }}" alt="#" class="img-thumbnail" id="myImg">
                                         </button>
                                     </div>
                                     @endforeach
@@ -92,6 +92,7 @@
                                 <li><strong>{{__('District')}}:</strong>{{ $offer->district->translated_name }}</li>
                                 <li><strong>{{__('Address')}}:</strong>{{ $offer->address }}</li>
                                 <li><strong>{{__('Salary')}}:</strong>{{ number_format($offer->salary_from, 0, ',', ' ') }} - {{ number_format($offer->salary_to, 0, ',', ' ') }} {{__('sum') }}</li>
+                                <li><strong>{{__('Phone')}}:</strong>{{ $offer->phone }}</li>
                             </ul>
                         </div>
                     </div>
