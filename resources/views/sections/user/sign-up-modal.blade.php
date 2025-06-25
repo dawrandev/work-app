@@ -13,21 +13,21 @@
                         <form action="{{ route('register') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="email" class="label">{{ __('First name') }}</label>
+                                <label for="first_name" class="label">{{ __('First name') }}</label>
                                 <input type="text" name="first_name" class="form-control" placeholder="{{ __('Enter your first name') }}" value="{{ old('first_name') }}">
                                 @error('first_name')
                                 <li style="color: red;">{{ $message }}</li>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="email" class="label">{{ __('Last name') }}</label>
+                                <label for="last_name" class="label">{{ __('Last name') }}</label>
                                 <input type="text" name="last_name" class="form-control" placeholder="{{ __('Enter your last name') }}" value="{{ old('last_name') }}">
                                 @error('last_name')
                                 <li style="color: red;">{{ $message }}</li>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="email" class="label">{{ __('Phone') }}</label>
+                                <label for="phone" class="label">{{ __('Phone') }}</label>
                                 <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone') }}">
                                 @error('phone')
                                 <li style="color: red;">{{ $message }}</li>

@@ -8,7 +8,8 @@
     <script src="{{ asset('assets/js/cleave.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.api_key') }}&libraries=places&callback=initMap&language=uz&region=UZ" async defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script>
         $('#salary_from').inputmask('decimal', {
             groupSeparator: ' ',

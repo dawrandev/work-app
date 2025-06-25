@@ -32,7 +32,6 @@ class JobController extends Controller
 
     public function store(JobStoreRequest $request)
     {
-        return $request;
         $job = $this->jobService->createJob($request->validated(), $request);
 
         Alert::success(__('Request sent successfully!'));
@@ -42,7 +41,7 @@ class JobController extends Controller
 
     public function show($locale, Job $job)
     {
-        $job->load(['images', 'category', 'district', 'type']);
+        $job->load(['images', 'category', 'district', 'type', 'user']);
 
         return view('pages.user.jobs.show', compact('job'));
     }

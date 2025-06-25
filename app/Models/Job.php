@@ -16,6 +16,7 @@ class Job extends Model
         'subcategory_id',
         'district_id',
         'type_id',
+        'employment_type_id',
         'phone',
         'title',
         'description',

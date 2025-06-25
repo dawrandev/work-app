@@ -19,4 +19,5 @@
 <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/language-dropdown.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/dropzone.min.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/css/custom-syle.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/custom-style.css') }}" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />

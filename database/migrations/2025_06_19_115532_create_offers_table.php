@@ -25,8 +25,6 @@ return new class extends Migration
             $table->string('salary_to');
             $table->longText('description');
             $table->string('address');
-            $table->decimal('latitude', 10, 8)->nullable();
-            $table->decimal('longitude', 11, 8)->nullable();
             $table->enum('status', ['active', 'paused', 'closed', 'expired', 'draft'])->default('active');
             $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();

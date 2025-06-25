@@ -21,6 +21,9 @@ class JobService
         try {
             DB::transaction(function () use ($data, $request) {
                 $data['user_id'] = auth()->id();
+                $data['status'] = 'active';
+                $data['approval_status'] = 'pending';
+
                 $job = $this->jobRepository->create($data);
 
                 if ($request->hasFile('images')) {

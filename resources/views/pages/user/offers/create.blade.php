@@ -45,16 +45,6 @@
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
-                                    <label class="control-label">Phone</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', auth()->user()->phone ?? '') }}">
-                                    @error('phone')
-                                    <li style="color: red;">{{ $message }}</li>
-                                    @enderror
-                                </div>
-                            </div>
-                            @livewire('service-store')
-                            <div class="col-lg-6 col-12">
-                                <div class="form-group">
                                     <label class="control-label">District</label>
                                     <select class="form-control" name="district_id">
                                         <option value="">Select District</option>
@@ -67,12 +57,27 @@
                                     @enderror
                                 </div>
                             </div>
+                            @livewire('service-store')
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label class="control-label">Type</label>
                                     <select class="form-control" name="type_id">
                                         <option value="">Select Type</option>
                                         @foreach (getTypes() as $type)
+                                        <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('type_id')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label class="control-label">Employment Type</label>
+                                    <select class="form-control" name="employment_type_id">
+                                        <option value="">Select Employment Type</option>
+                                        @foreach (getEmploymentTypes() as $type)
                                         <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
                                         @endforeach
                                     </select>
@@ -108,6 +113,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label class="control-label">Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', auth()->user()->phone ?? '') }}">
+                                    @error('phone')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Description</label>
@@ -117,19 +131,26 @@
                             @enderror
                         </div>
                         <div class="row align-items-left justify-content-left">
-                            <div class="col-lg-6 col-md-5 col-12">
+                            <div class="col-lg-12">
                                 <div class="form-group">
-                                    <div class="button-group">
-                                        <div class="action-buttons">
-                                            <div class="upload-button button">
-                                                <button class="btn">Upload Your Service Images</button>
-                                                <input name="service_images[]" id="cover_img_file_3" type="file" multiple>
-                                            </div>
+                                    <label>{{ __('Upload Images') }}</label>
+                                    <div class="custom-file-upload" id="fileUploadArea">
+                                        <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                                            <i class="lni lni-cloud-upload"></i>
+                                            <h4>{{ __('Click to upload or drag and drop') }}</h4>
+                                            <p>{{ __('Maximum 5MB per file') }}</p>
                                         </div>
+                                        <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
+                                        <div id="imagePreview" class="image-preview-container"></div>
                                     </div>
+                                    @error('images')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-6 d-flex justify-content-end">
+                        </div>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
                                 <div class="button"><input type="submit" value="Save" class="btn btn-alt"></div>
                             </div>
                         </div>

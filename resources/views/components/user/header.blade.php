@@ -59,9 +59,6 @@
                                         <li><a href="blog-single-sidebar.html">{{ __('Blog Single Sidebar') }}</a></li>
                                     </ul>
                                 </li>
-                                @if (auth()->check())
-                                <li class="nav-item"><a href="{{ route('profile.index') }}" class="{{ Route::is('profile.index') ? 'active' : '' }}">{{ __('Profile') }}</a> </li>
-                                @endif
                             </ul>
                         </div>
                         <div class="dropdown">
@@ -76,7 +73,26 @@
                         </div>
                         <div class="d-flex align-items-center">
                             @auth
-
+                            <!-- Profile Dropdown Button -->
+                            <div class="profile-dropdown-wrapper ml-2">
+                                <a href="{{ route('profile.index') }}" class="profile-btn">
+                                    <i class="lni lni-user"></i>
+                                </a>
+                                <ul class="profile-dropdown-menu">
+                                    <li><a href="{{ route('profile.index') }}"><i class="lni lni-user"></i> {{ __('My Profile') }}</a></li>
+                                    <li><a href="3"><i class="lni lni-files"></i> {{ __('My Applications') }}</a></li>
+                                    <li><a href="3"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
+                                    <li><a href="3"><i class="lni lni-cog"></i> {{ __('Settings') }}</a></li>
+                                    <li>
+                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="lni lni-exit"></i> {{ __('Logout') }}
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
                             @else
                             <div class="button mr-3">
                                 <a href="javascript:" data-toggle="modal" data-target="#login" class="login">
