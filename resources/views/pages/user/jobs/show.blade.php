@@ -31,15 +31,21 @@
                             @else
                             <span class="salary-range">{{ __('Negotiable') }}</span>
                             @endif
-                            <span class="badge badge-success">{{ $job->type->translated_name }}</span>
+                            <div class="job-badges mt-2">
+                                <span class="badge badge-success">{{ $job->type->translated_name }}</span>
+                                @if($job->employmentType)
+                                <span class="badge badge-employment">
+                                    <i class="lni lni-users"></i>
+                                    {{ $job->employmentType->translated_name }}
+                                </span>
+                                @endif
+                            </div>
                         </div>
                         <div class="content col">
                             <h5 class="title">{{ $job->title }}</h5>
                             <ul class="meta">
                                 <li><strong class="text-primary"><a href="{{ route('categories.show', $job->category_id) }}">{{ $job->category->translated_name }}</a></strong></li>
                                 <li><strong class="text-primary"><a href="{{ route('subcategories.show', $job->subcategory_id) }}">{{ $job->subcategory->translated_name }}</a></strong></li>
-                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $job->district->translated_name ?? __('Not specified') }}</strong></li>
-                                <li>{{ $job->address }}</li>
                             </ul>
                         </div>
                     </div>
@@ -61,9 +67,6 @@
                                             <img src="{{ asset('storage/jobs/' . $image['image_path']) }}"
                                                 alt="Job image {{ $index + 1 }}"
                                                 class="img-thumbnail job-image-thumb"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#imageModal"
-                                                onclick="showImage('{{ asset('storage/jobs/' . $image['image_path']) }}')"
                                                 style="cursor: pointer; height: 150px; width: 100%; object-fit: cover;">
                                         </div>
                                     </div>
@@ -77,6 +80,28 @@
                         @if($job->latitude && $job->longitude)
                         <div class="job-location mt-4">
                             <h6 class="mb-3">{{__('Location')}}</h6>
+
+                            <!-- Address Block -->
+                            @if($job->address)
+                            <div class="address-block mb-3">
+                                <div class="address-content">
+                                    <div class="address-icon">
+                                        <i class="lni lni-map-marker"></i>
+                                    </div>
+                                    <div class="address-text">
+                                        <h6 class="address-title">{{ __('Job Address') }}</h6>
+                                        <p class="address-detail">{{ $job->address }}</p>
+                                        @if($job->district)
+                                        <span class="district-badge">
+                                            <i class="lni lni-map"></i>
+                                            {{ $job->district->translated_name }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
                             <div class="map-container">
                                 <div id="jobMap"
                                     data-lat="{{ $job->latitude }}"
@@ -125,7 +150,6 @@
                     <!-- Sidebar (Apply Buttons) End -->
 
                     <!-- Sidebar (Job Overview) Start -->
-                    <!-- Sidebar (Job Overview) Start -->
                     <div class="sidebar-widget job-overview-widget">
                         <div class="inner">
                             <h6 class="title">
@@ -153,13 +177,15 @@
                                         <span>{{ $job->type->translated_name }}</span>
                                     </div>
                                 </li>
+                                @if($job->employmentType)
                                 <li>
                                     <div class="overview-content">
                                         <i class="lni lni-users"></i>
                                         <strong>{{__('Employment Type')}}:</strong>
-                                        <span>{{ $job->employmentType->translated_name ?? __('Not specified') }}</span>
+                                        <span>{{ $job->employmentType->translated_name }}</span>
                                     </div>
                                 </li>
+                                @endif
                                 <li>
                                     <div class="overview-content">
                                         <i class="lni lni-map"></i>
@@ -185,7 +211,7 @@
                                         <span class="salary-info">
                                             @if($job->salary_from || $job->salary_to)
                                             @if($job->salary_from && $job->salary_to)
-                                            {{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }} {{__('sum')}}
+                                            {{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }}
                                             @elseif($job->salary_from)
                                             {{ __('From') }} {{ number_format($job->salary_from, 0, ',', ' ') }} {{__('sum')}}
                                             @else
@@ -211,7 +237,8 @@
                                     <div class="overview-content">
                                         <i class="lni lni-checkmark-circle"></i>
                                         <strong>{{ __('Status') }}:</strong>
-                                        <span class="badge badge-{{ $job->status == 'active' ? 'success' : 'secondary' }}">
+                                        <span class="status-badge status-{{ strtolower($job->status) }}">
+                                            <i class="lni lni-{{ $job->status == 'active' ? 'checkmark-circle' : ($job->status == 'pending' ? 'time' : 'close') }}"></i>
                                             {{ __(ucfirst($job->status)) }}
                                         </span>
                                     </div>
@@ -256,43 +283,28 @@
 </div>
 <!-- End Job Details -->
 
-<!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="imageModalLabel">{{ __('Image Preview') }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img src="" id="modalImage" class="img-fluid" alt="Full size image">
-            </div>
+<!-- Lightbox Modal -->
+<div id="imageLightbox" class="lightbox-overlay" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeLightbox()">&times;</button>
+        <div class="image-counter" id="imageCounter">1 / 1</div>
+
+        <button class="nav-arrow prev" id="prevBtn" onclick="previousImage()">&#8249;</button>
+        <img id="lightboxImage" class="lightbox-image" src="" alt="Full size image">
+        <button class="nav-arrow next" id="nextBtn" onclick="nextImage()">&#8250;</button>
+
+        <div class="lightbox-controls">
+            <button class="lightbox-btn" onclick="previousImage()">
+                <i class="lni lni-chevron-left"></i>
+            </button>
+            <button class="lightbox-btn" onclick="closeLightbox()">
+                <i class="lni lni-close"></i>
+            </button>
+            <button class="lightbox-btn" onclick="nextImage()">
+                <i class="lni lni-chevron-right"></i>
+            </button>
         </div>
     </div>
 </div>
 
 @endsection
-
-@push('styles')
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin="" />
-
-@endpush
-
-@push('scripts')
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-
-<script>
-    function showImage(imageSrc) {
-        const modalImage = document.getElementById('modalImage');
-        if (modalImage) {
-            modalImage.src = imageSrc;
-        }
-    }
-</script>
-@endpush

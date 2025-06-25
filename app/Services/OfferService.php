@@ -19,6 +19,9 @@ class OfferService
         try {
             DB::transaction(function () use ($data, $request) {
                 $data['user_id'] = auth()->id();
+                $data['status'] = 'active';
+                $data['approval_status'] = 'pending';
+
                 $offer = $this->offerRepository->create($data);
 
                 if ($request->hasFile('service_images')) {

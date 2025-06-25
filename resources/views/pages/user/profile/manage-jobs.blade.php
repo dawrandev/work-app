@@ -60,13 +60,37 @@ $sectionClass = 'manage-jobs';
                         <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-outline-warning btn-sm mx-1" title="{{ __('Edit') }}">
                             <i class="lni lni-pencil"></i>
                         </a>
-                        <button type="button" class="btn btn-outline-danger btn-sm mx-1" title="{{ __('Delete') }}" data-toggle="modal" data-target="#deleteJobModal{{ $job->id }}">
+                        <button type="button" class="btn btn-outline-danger btn-sm mx-1 delete-job-btn" title="{{ __('Delete') }}" data-toggle="modal" data-target="#deleteJobModal{{ $job->id }}">
                             <i class="lni lni-trash"></i>
                         </button>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteJobModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteJobModalLabel{{ $job->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteJobModalLabel{{ $job->id }}">{{ __('Confirm Delete') }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ __('Are you sure you want to delete this job?') }} <strong>{{ $job->title }}</strong>? {{ __('This action cannot be undone.') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Cancel') }}</button>
+                        <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">{{ __('Delete') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         @empty
         <div class="text-center text-muted py-5">

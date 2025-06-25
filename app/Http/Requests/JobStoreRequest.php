@@ -36,8 +36,8 @@ class JobStoreRequest extends FormRequest
             'address' => 'required|string|max:500',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
-            'images' => 'nullable|array|max:5',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
+            'images' => 'nullable|array|max:3',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 

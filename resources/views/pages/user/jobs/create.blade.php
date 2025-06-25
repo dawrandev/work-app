@@ -163,7 +163,7 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>

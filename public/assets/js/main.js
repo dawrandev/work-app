@@ -76,12 +76,24 @@ let map, marker;
 let uploadedFiles = [];
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Initialize Leaflet Map
-    initMap();
+    // Initialize Leaflet Map for jobs.create
+    if (document.getElementById("map")) {
+        initMap();
+        setupFileUpload();
+    }
 
-    // File upload handling
-    setupFileUpload();
+    // Initialize Jobs Show functionality
+    if (document.getElementById("jobMap")) {
+        initJobShowMap();
+    }
+
+    // Initialize Image Gallery for jobs.show
+    if (document.querySelectorAll(".job-image-thumb").length > 0) {
+        initImageGallery();
+    }
 });
+
+// ==================== JOBS.CREATE FUNCTIONS ====================
 
 // Leaflet Map functions
 function initMap() {
@@ -231,6 +243,7 @@ function clearLocation() {
 
 // File Upload Functions
 function setupFileUpload() {
+    let uploadedFiles = [];
     const uploadArea = document.querySelector(".upload-area");
     const fileInput = document.getElementById("imageInput");
     const previewContainer = document.getElementById("imagePreview");
@@ -264,6 +277,13 @@ function handleFiles(e) {
 
 function handleFilesArray(files) {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+
+    // Check if adding new files would exceed the limit
+    const totalFiles = uploadedFiles.length + imageFiles.length;
+    if (totalFiles > 3) {
+        alert("Maksimal 3 ta rasm yuklash mumkin!");
+        return;
+    }
 
     imageFiles.forEach((file) => {
         if (file.size > 5 * 1024 * 1024) {
@@ -323,3 +343,257 @@ function updateFileInput() {
 
     fileInput.files = dataTransfer.files;
 }
+
+// ==================== JOBS.SHOW FUNCTIONS ====================
+
+// Job Show Map Initialization
+function initJobShowMap() {
+    const mapContainer = document.getElementById("jobMap");
+
+    if (!mapContainer) return;
+
+    const lat = parseFloat(mapContainer.dataset.lat);
+    const lng = parseFloat(mapContainer.dataset.lng);
+    const title = mapContainer.dataset.title;
+    const address = mapContainer.dataset.address;
+    const phone = mapContainer.dataset.phone;
+
+    if (!lat || !lng) return;
+
+    // Initialize map
+    const jobMap = L.map("jobMap").setView([lat, lng], 15);
+
+    // Add tile layer
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+    }).addTo(jobMap);
+
+    // Create custom popup content
+    let popupContent = `<div class="map-popup">
+        <h6 class="mb-2">${title}</h6>
+        <p class="mb-2"><i class="lni lni-map-marker"></i> ${address}</p>`;
+
+    if (phone) {
+        popupContent += `<p class="mb-0"><i class="lni lni-phone"></i> <a href="tel:${phone}">${phone}</a></p>`;
+    }
+
+    popupContent += `</div>`;
+
+    // Add marker with popup
+    const jobMarker = L.marker([lat, lng])
+        .addTo(jobMap)
+        .bindPopup(popupContent)
+        .openPopup();
+
+    // Add click event to center map on marker
+    jobMarker.on("click", function () {
+        jobMap.setView([lat, lng], 16);
+    });
+}
+
+// Image Gallery/Lightbox Functions
+function initImageGallery() {
+    // Create lightbox overlay
+    createLightboxOverlay();
+
+    // Add click events to all job images
+    const imageThumbails = document.querySelectorAll(".job-image-thumb");
+    imageThumbails.forEach((img, index) => {
+        img.addEventListener("click", () => {
+            openLightbox(img.src, index);
+        });
+    });
+}
+
+function createLightboxOverlay() {
+    const lightboxHTML = `
+        <div id="lightbox-overlay" class="lightbox-overlay">
+            <div class="lightbox-container">
+                <button class="lightbox-close" onclick="closeLightbox()">×</button>
+                <button class="lightbox-prev" onclick="previousImage()">‹</button>
+                <img id="lightbox-image" class="lightbox-image" src="" alt="">
+                <button class="lightbox-next" onclick="nextImage()">›</button>
+                <div class="lightbox-counter">
+                    <span id="lightbox-current">1</span> / <span id="lightbox-total">1</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML("beforeend", lightboxHTML);
+}
+
+let currentImageIndex = 0;
+let allImages = [];
+
+function openLightbox(imageSrc, index) {
+    // Get all job images
+    allImages = Array.from(document.querySelectorAll(".job-image-thumb")).map(
+        (img) => img.src
+    );
+    currentImageIndex = index;
+
+    const lightbox = document.getElementById("lightbox-overlay");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const currentSpan = document.getElementById("lightbox-current");
+    const totalSpan = document.getElementById("lightbox-total");
+
+    lightboxImage.src = imageSrc;
+    currentSpan.textContent = currentImageIndex + 1;
+    totalSpan.textContent = allImages.length;
+
+    lightbox.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    // Add keyboard events
+    document.addEventListener("keydown", handleLightboxKeydown);
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById("lightbox-overlay");
+    lightbox.style.display = "none";
+    document.body.style.overflow = "";
+
+    // Remove keyboard events
+    document.removeEventListener("keydown", handleLightboxKeydown);
+}
+
+function previousImage() {
+    if (allImages.length > 1) {
+        currentImageIndex =
+            (currentImageIndex - 1 + allImages.length) % allImages.length;
+        updateLightboxImage();
+    }
+}
+
+function nextImage() {
+    if (allImages.length > 1) {
+        currentImageIndex = (currentImageIndex + 1) % allImages.length;
+        updateLightboxImage();
+    }
+}
+
+function updateLightboxImage() {
+    const lightboxImage = document.getElementById("lightbox-image");
+    const currentSpan = document.getElementById("lightbox-current");
+
+    lightboxImage.src = allImages[currentImageIndex];
+    currentSpan.textContent = currentImageIndex + 1;
+}
+
+function handleLightboxKeydown(e) {
+    switch (e.key) {
+        case "Escape":
+            closeLightbox();
+            break;
+        case "ArrowLeft":
+            previousImage();
+            break;
+        case "ArrowRight":
+            nextImage();
+            break;
+    }
+}
+
+// Legacy function for backward compatibility (from your original code)
+function showImage(imageSrc) {
+    const allImages = Array.from(document.querySelectorAll(".job-image-thumb"));
+    const index = allImages.findIndex((img) => img.src === imageSrc);
+    openLightbox(imageSrc, index >= 0 ? index : 0);
+}
+// offers.show
+// Offers.show - Image Gallery functionality
+// Main.js faylining oxiriga qo'shing (mavjud kodlar ostiga)
+
+// Offers Image Gallery - Lightbox functionality
+let currentOfferImageIndex = 0;
+let offerImageGallery = [];
+
+function initOfferImageGallery() {
+    const images = document.querySelectorAll(".offer-image-thumb");
+    offerImageGallery = Array.from(images).map((img) => img.src);
+
+    images.forEach((img, index) => {
+        img.addEventListener("click", () => openOfferLightbox(index));
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keydown", handleOfferKeyPress);
+}
+
+function openOfferLightbox(index) {
+    currentOfferImageIndex = index;
+    updateOfferLightboxImage();
+    document.getElementById("imageLightbox").style.display = "flex";
+    document.body.style.overflow = "hidden"; // Prevent scrolling
+}
+
+function updateOfferLightboxImage() {
+    const lightboxImg = document.getElementById("lightboxImage");
+    const counter = document.getElementById("imageCounter");
+
+    lightboxImg.src = offerImageGallery[currentOfferImageIndex];
+    counter.textContent = `${currentOfferImageIndex + 1} / ${
+        offerImageGallery.length
+    }`;
+
+    // Update navigation buttons
+    document.getElementById("prevBtn").style.display =
+        currentOfferImageIndex === 0 ? "none" : "block";
+    document.getElementById("nextBtn").style.display =
+        currentOfferImageIndex === offerImageGallery.length - 1
+            ? "none"
+            : "block";
+}
+
+function previousOfferImage() {
+    if (currentOfferImageIndex > 0) {
+        currentOfferImageIndex--;
+        updateOfferLightboxImage();
+    }
+}
+
+function nextOfferImage() {
+    if (currentOfferImageIndex < offerImageGallery.length - 1) {
+        currentOfferImageIndex++;
+        updateOfferLightboxImage();
+    }
+}
+
+function handleOfferKeyPress(e) {
+    if (document.getElementById("imageLightbox").style.display === "flex") {
+        switch (e.key) {
+            case "Escape":
+                closeLightbox();
+                break;
+            case "ArrowLeft":
+                if (offerImageGallery.length > 0) {
+                    previousOfferImage();
+                } else {
+                    previousImage(); // fallback for jobs
+                }
+                break;
+            case "ArrowRight":
+                if (offerImageGallery.length > 0) {
+                    nextOfferImage();
+                } else {
+                    nextImage(); // fallback for jobs
+                }
+                break;
+        }
+    }
+}
+
+// Update existing DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", function () {
+    // Existing code...
+    initMap();
+    setupFileUpload();
+
+    // Jobs.show functions
+    initJobShowMap();
+    initImageGallery();
+
+    // Offers.show functions
+    initOfferImageGallery();
+});

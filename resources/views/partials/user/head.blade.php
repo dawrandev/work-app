@@ -3,6 +3,7 @@
 <title>JobGrids - Job Portal HTML Template.</title>
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.svg')}}" />
 <!-- Place favicon.ico in the root directory -->
 
@@ -20,4 +21,5 @@
 <link rel="stylesheet" href="{{ asset('assets/css/language-dropdown.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/dropzone.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/custom-style.css') }}" />
+<link rel="stylesheet" href="{{ asset('assets/css/leaflet.css') }}" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
