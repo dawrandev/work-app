@@ -93,7 +93,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     Route::middleware('auth')->group(function () {
         Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
             Route::post('/store', [JobSaveController::class, 'store'])->name('store');
-            Route::delete('/destroy/save-job', [JobSaveController::class, 'destroy'])->name('destroy');
+            Route::delete('/destroy/{id}', [JobSaveController::class, 'destroy'])->name('destroy');
         });
     });
 

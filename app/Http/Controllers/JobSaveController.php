@@ -30,9 +30,13 @@ class JobSaveController extends Controller
 
     public function store(JobSaveStoreRequest $request)
     {
-        $job = $this->jobSaveService->saveJob($request->validated(), $request);
+        try {
+            $this->jobSaveService->saveJob($request->validated(), $request);
 
-        Alert::success(__('Job saved successfully!'));
+            Alert::success(__('Job saved successfully!'));
+        } catch (\Exception $e) {
+            Alert::warning(__($e->getMessage() === 'Job already saved!' ? 'This job is already saved!' : 'Error occurred'));
+        }
 
         return redirect()->back();
     }
@@ -55,8 +59,12 @@ class JobSaveController extends Controller
         //
     }
 
-    public function destroy(string $id)
+    public function destroy($locale, string $id)
     {
-        return $id;
+        $this->jobSaveService->destroy($id);
+
+        Alert::success(__('Job deleted successfully'));
+
+        return redirect()->back();
     }
 }

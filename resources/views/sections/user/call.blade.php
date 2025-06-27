@@ -11,7 +11,7 @@
                             finding a suitable job and let recruiters contact you
                             about jobs that are not needed to pay for advertising.</p>
                         <div class="button wow fadeInUp" data-wow-delay=".8s">
-                            <a href="add-resume.html" class="btn"><i class="lni lni-upload"></i> Upload Your Resume</a>
+                            <a href="{{ route('offers.create') }}" class="btn"><i class="lni lni-pencil"></i> Fill Out Your Resume</a>
                         </div>
                     </div>
                 </div>

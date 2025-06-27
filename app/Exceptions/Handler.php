@@ -39,4 +39,26 @@ class Handler extends ExceptionHandler
         return redirect()->route('home', ['locale' => $locale])
             ->with('openLoginModal', true);
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($this->isHttpException($exception)) {
+            $statusCode = $exception->getStatusCode();
+
+            // Locale'ni aniqlash va o'rnatish
+            $segments = $request->segments();
+            $locale = isset($segments[0]) && in_array($segments[0], ['uz', 'kr', 'ru']) ? $segments[0] : 'kr';
+            app()->setLocale($locale);
+
+            // View mavjudligini tekshirish
+            if (view()->exists("errors.{$statusCode}")) {
+                return response()->view("errors.{$statusCode}", [
+                    'exception' => $exception,
+                    'locale' => $locale
+                ], $statusCode);
+            }
+        }
+
+        return parent::render($request, $exception);
+    }
 }

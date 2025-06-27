@@ -32,7 +32,17 @@
                             <span class="salary-range">{{ __('Negotiable') }}</span>
                             @endif
                             <div class="job-badges mt-2">
-                                <span class="badge badge-success">{{ $job->type->translated_name }}</span>
+                                @if ($job->type->id == 1)
+                                <span class="badge badge-success">
+                                    <i class="lni lni-briefcase"></i>
+                                    {{ $job->type->translated_name }}
+                                </span>
+                                @else
+                                <span class="badge badge-success">
+                                    <i class="lni lni-timer"></i>
+                                    {{ $job->type->translated_name }}
+                                </span>
+                                @endif
                                 @if($job->employmentType)
                                 <span class="badge badge-employment">
                                     <i class="lni lni-users"></i>
@@ -126,23 +136,26 @@
                     <div class="sidebar-widget">
                         <div class="inner">
                             <div class="row m-n2 button">
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
-                                    @if (auth()->check())
+                                <div class="col-12 p-1 mb-2">
                                     <form action="{{ route('save-jobs.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="job_id" value="{{ $job->id }}">
-                                        <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Job')}}</button>
+                                        <button type="submit" class="d-block btn w-100">
+                                            <i class="lni lni-bookmark mr-1"></i>{{__('Save Job')}}
+                                        </button>
                                     </form>
-                                    @endif
                                 </div>
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
+                                <div class="col-6 p-1">
                                     @if($job->phone)
                                     <a href="tel:{{ $job->phone }}" class="d-block btn btn-alt">
-                                        <i class="lni lni-phone"></i> {{ __('Call') }}
+                                        <i class="lni lni-phone mr-1"></i> {{ __('Call') }}
                                     </a>
-                                    @else
-                                    <a href="#" class="d-block btn btn-alt">{{__('Apply')}}</a>
                                     @endif
+                                </div>
+                                <div class="col-6 p-1">
+                                    <a href="#" class="d-block btn btn-alt">
+                                        <i class="lni lni-send mr-1"></i>{{__('Apply')}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -267,7 +280,6 @@
                                         @if($job->user->phone)
                                         <small class="text-muted d-block">{{ __('Phone') }}: {{ $job->user->phone }}</small>
                                         @endif
-                                        <small class="text-muted">{{ __('Member since') }} {{ $job->user->created_at->format('Y') }}</small>
                                     </div>
                                 </div>
                             </div>
