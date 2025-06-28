@@ -40,7 +40,7 @@ class OfferController extends Controller
 
         Alert::success(__('Offer created successfully'));
 
-        return redirect()->route('offers.index');
+        return redirect()->back();
     }
 
     /**

@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JobApplyStoreRequest;
-use App\Services\JobApplyService;
+use App\Http\Requests\OfferApplyStoreRequest;
+use App\Services\OfferApplyService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class JobApplyController extends Controller
+class OfferApplyController extends Controller
 {
-    public function __construct(private JobApplyService $jobApplyService) {}
+    public function __construct(private OfferApplyService $offerApplyService) {}
 
     public function index(Request $request)
     {
         try {
-            if ($request->ajax() && $request->has('job_id')) {
-                $status = $this->jobApplyService->checkApplyStatus(auth()->id());
+            if ($request->ajax() && $request->has('offer_id')) {
+                $status = $this->offerApplyService->checkApplyStatus(auth()->id());
                 return response()->json($status);
             }
 
-            $applications = $this->jobApplyService->getUserApplications(auth()->id());
-            return view('job-applies.index', compact('applications'));
+            $applications = $this->offerApplyService->getUserApplications(auth()->id());
+            return view('offer-applies.index', compact('applications'));
         } catch (\Exception $e) {
             if ($request->ajax()) {
                 return response()->json(['error' => $e->getMessage()], 500);
@@ -30,9 +30,9 @@ class JobApplyController extends Controller
         }
     }
 
-    public function store(JobApplyStoreRequest $request)
+    public function store(OfferApplyStoreRequest $request)
     {
-        $result = $this->jobApplyService->createApplication($request->validated());
+        $result = $this->offerApplyService->createApplication($request->validated());
 
         if ($result['success']) {
             Alert::success('Muvaffaqiyat!', $result['message']);
@@ -45,14 +45,14 @@ class JobApplyController extends Controller
 
     public function show(int $id)
     {
-        $applications = $this->jobApplyService->getUserApplications(auth()->id());
+        $applications = $this->offerApplyService->getUserApplications(auth()->id());
         $application = $applications->where('pivot.id', $id)->first();
 
         if (!$application) {
             abort(404, 'Ariza topilmadi!');
         }
 
-        return view('job-applies.show', compact('application'));
+        return view('offer-applies.show', compact('application'));
     }
 
     public function destroy(int $id)
@@ -60,7 +60,7 @@ class JobApplyController extends Controller
         // Pivot table'dan o'chirish logikasi
         // try {
         //     $user = auth()->user();
-        //     $deleted = $user->appliedJobs()->wherePivot('id', $id)->detach();
+        //     $deleted = $user->appliedOffers()->wherePivot('id', $id)->detach();
 
         //     if ($deleted) {
         //         return response()->json([

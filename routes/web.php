@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\JobApplyController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobSaveController;
+use App\Http\Controllers\OfferApplyController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OfferSaveController;
 use App\Http\Controllers\ProfileController;
@@ -34,6 +36,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     Route::get('/', function () {
         return view('pages.user.home');
     })->name('home');
+
     // Authcontroller 
     Route::controller(AuthController::class)->group(function () {
         Route::post('/register', 'register')->name('register');
@@ -103,7 +106,26 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::post('/store', [OfferSaveController::class, 'store'])->name('store');
         });
     });
+
+    // JobApplyController
+    Route::middleware('auth')->group(function () {
+        Route::prefix('job-applies')->as('job-applies.')->group(function () {
+            Route::get('/index', [JobApplyController::class, 'index'])->name('index');
+            Route::post('/store', [JobApplyController::class, 'store'])->name('store');
+        });
+    });
+
+    // OfferApplyController
+    Route::middleware(['auth'])->group(function () {
+        Route::prefix('offer-applies')->as('offer-applies.')->group(function () {
+            Route::get('/index', [OfferApplyController::class, 'index'])->name('index');
+            Route::post('/store', [OfferApplyController::class, 'store'])->name('store');
+            Route::get('show/{id}', [OfferApplyController::class, 'show'])->name('show');
+            Route::delete('destroy/{id}', [OfferApplyController::class, 'destroy'])->name('destroy');
+        });
+    });
 });
+
 
 Route::get('/', function () {
     return redirect()->route('home', ['locale' => 'kr']);

@@ -101,23 +101,28 @@
                     <div class="sidebar-widget">
                         <div class="inner">
                             <div class="row m-n2 button">
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
+                                <div class="col-12 p-1 mb-2">
                                     @if (auth()->check())
                                     <form action="{{ route('save-offers.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="offer_id" value="{{ $offer->id }}">
-                                        <button type="submit" class="d-block btn"><i class="fa fa-heart-o mr-1"></i>{{__('Save Offer')}}</button>
+                                        <button type="submit" class="d-block btn w-100">
+                                            <i class="fa fa-heart-o mr-1"></i>{{__('Save Offer')}}
+                                        </button>
                                     </form>
                                     @endif
                                 </div>
-                                <div class="col-xl-auto col-lg-12 col-sm-auto col-12 p-1">
+                                <div class="col-6 p-1">
                                     @if($offer->phone)
                                     <a href="tel:{{ $offer->phone }}" class="d-block btn btn-alt">
-                                        <i class="lni lni-phone"></i> {{ __('Call') }}
+                                        <i class="lni lni-phone mr-1"></i> {{ __('Call') }}
                                     </a>
-                                    @else
-                                    <a href="#" class="d-block btn btn-alt">{{__('Apply')}}</a>
                                     @endif
+                                </div>
+                                <div class="col-6 p-1">
+                                    <a href="#" class="d-block btn btn-alt" onclick="handleOfferApply({{ $offer->id }})">
+                                        <i class="lni lni-send mr-1"></i>{{__('Apply')}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -283,4 +288,101 @@
     </div>
 </div>
 
-@endsectio
+<!-- Modal 1: No Jobs -->
+<div class="apply-modal" id="noJobModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeOfferApplyModal('noJobModal')">&times;</button>
+            <div class="heading">
+                <h3>Avval ish e'lonini yarating</h3>
+            </div>
+            <p style="color: #666; margin-bottom: 30px;">
+                Taklifga ariza berish uchun avval ish e'lonini yaratishingiz kerak.
+            </p>
+            <div class="button">
+                <button class="btn" onclick="createJob()">Ish e'loni yaratish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Single Job -->
+<div class="apply-modal" id="singleJobModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeOfferApplyModal('singleJobModal')">&times;</button>
+            <div class="heading">
+                <h3>Taklifga ariza berish</h3>
+            </div>
+
+            <form id="singleJobForm" action="{{ route('offer-applies.store') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label class="label">Cover Letter (ixtiyoriy)</label>
+                    <textarea
+                        class="form-control"
+                        name="cover_letter"
+                        placeholder="Nima uchun siz bu taklif uchun mos ekanligingizni qisqacha yozing..."
+                        maxlength="500"
+                        oninput="updateOfferApplyCharCount(this, 'offerCharCount1')"></textarea>
+                    <div class="apply-character-count">
+                        <span id="offerCharCount1">0</span>/500 belgi
+                    </div>
+                </div>
+
+                <!-- Hidden inputs -->
+                <input type="hidden" id="offerIdInput" name="offer_id">
+                <input type="hidden" id="jobIdInput" name="job_id">
+
+                <div class="button">
+                    <button type="submit" class="btn">Ariza berish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 3: Multiple Jobs -->
+<div class="apply-modal" id="multipleJobsModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeOfferApplyModal('multipleJobsModal')">&times;</button>
+            <div class="heading">
+                <h3>Taklifga ariza berish</h3>
+            </div>
+
+            <form action="{{ route('offer-applies.store') }}" method="POST" id="offer-apply-form">
+                @csrf
+
+                <div class="form-group">
+                    <label class="label">Ish e'loningizni tanlang</label>
+                    <select class="form-control" name="job_id" id="jobSelect" required>
+                        <option value="">Ish e'lonini tanlang...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Cover Letter (ixtiyoriy)</label>
+                    <textarea
+                        class="form-control"
+                        name="cover_letter"
+                        placeholder="Nima uchun siz bu taklif uchun mos ekanligingizni qisqacha yozing..."
+                        maxlength="500"
+                        oninput="updateOfferApplyCharCount(this, 'offerCharCount2')"></textarea>
+                    <div class="apply-character-count">
+                        <span id="offerCharCount2">0</span>/500 belgi
+                    </div>
+                </div>
+
+                <input type="hidden" id="offerIdInputMultiple" name="offer_id">
+                <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+
+                <div class="button">
+                    <button type="submit" class="btn">Ariza berish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@endsection
