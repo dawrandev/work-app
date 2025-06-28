@@ -70,4 +70,11 @@ class Job extends Model
         return $this->belongsToMany(User::class, 'save_jobs', 'job_id', 'user_id')
             ->withTimestamps();
     }
+
+    public function applicants()
+    {
+        return $this->belongsToMany(User::class, 'job_applies', 'job_id', 'user_id')
+            ->withPivot(['offer_id', 'cover_letter', 'status', 'applied_at'])
+            ->withTimestamps();
+    }
 }

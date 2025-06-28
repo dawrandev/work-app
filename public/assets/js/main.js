@@ -597,3 +597,290 @@ document.addEventListener("DOMContentLoaded", function () {
     // Offers.show functions
     initOfferImageGallery();
 });
+// Apply tugmasi bosilganda asosiy funksiya
+async function handleApply(jobId) {
+    console.log("handleApply chaqirildi, jobId:", jobId); // Debug uchun
+
+    try {
+        // CSRF token olish
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            ?.getAttribute("content");
+        if (!csrfToken) {
+            console.error("CSRF token topilmadi");
+            alert("Xatolik: CSRF token topilmadi");
+            return;
+        }
+
+        console.log("Request yuborilmoqda..."); // Debug uchun
+
+        // Apply status tekshirish - locale bilan to'g'ri URL
+        const locale = window.location.pathname.split("/")[1]; // URL'dan locale olish
+        const response = await fetch(
+            `/${locale}/job-applies/index?job_id=${jobId}`,
+            {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    Accept: "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+            }
+        );
+
+        console.log("Response status:", response.status); // Debug uchun
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Response data:", data); // Debug uchun
+
+        // Javobga qarab modallarni ochamiz
+        switch (data.status) {
+            case "no_offers":
+                console.log("No offers modal ochilmoqda");
+                showNoOfferModal();
+                break;
+            case "single_offer":
+                console.log("Single offer modal ochilmoqda");
+                showSingleOfferModal();
+                // Job ID va Offer ID ni modal ichida saqlaymiz
+                document.getElementById("jobIdInput").value = jobId;
+                document.getElementById("offerIdInput").value = data.offer.id;
+                break;
+            case "multiple_offers":
+                console.log("Multiple offers modal ochilmoqda");
+                showMultipleOffersModal();
+                document.getElementById("jobIdInputMultiple").value = jobId;
+                populateOffers(data.offers);
+                break;
+            default:
+                console.error("Noma'lum status:", data.status);
+                alert("Noma'lum xatolik yuz berdi");
+        }
+    } catch (error) {
+        console.error("Error in handleApply:", error);
+        alert("Xatolik yuz berdi: " + error.message);
+    }
+}
+
+// Modal ochish funksiyalari
+function showNoOfferModal() {
+    console.log("showNoOfferModal chaqirildi");
+    const modal = document.getElementById("noOfferModal");
+    if (modal) {
+        modal.classList.add("show");
+        console.log("noOfferModal show class qo'shildi");
+    } else {
+        console.error("noOfferModal topilmadi");
+    }
+}
+
+function showSingleOfferModal() {
+    console.log("showSingleOfferModal chaqirildi");
+    const modal = document.getElementById("singleOfferModal");
+    if (modal) {
+        modal.classList.add("show");
+        console.log("singleOfferModal show class qo'shildi");
+    } else {
+        console.error("singleOfferModal topilmadi");
+    }
+}
+
+function showMultipleOffersModal() {
+    console.log("showMultipleOffersModal chaqirildi");
+    const modal = document.getElementById("multipleOffersModal");
+    if (modal) {
+        modal.classList.add("show");
+        console.log("multipleOffersModal show class qo'shildi");
+    } else {
+        console.error("multipleOffersModal topilmadi");
+    }
+}
+
+// Apply modal yopish funksiyasi
+function closeApplyModal(modalId) {
+    console.log("closeApplyModal chaqirildi:", modalId);
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove("show");
+        console.log(modalId + " modal yopildi");
+    } else {
+        console.error("Modal topilmadi:", modalId);
+    }
+}
+
+// Profil yaratish funksiyasi
+function createProfile() {
+    console.log("createProfile chaqirildi");
+    // Bu yerda to'g'ri route qo'ying (locale bilan)
+    const locale = window.location.pathname.split("/")[1];
+    window.location.href = `/${locale}/offers/create`;
+    closeApplyModal("noOfferModal");
+}
+
+// Offerlarni dropdown'ga to'ldirish
+function populateOffers(offers) {
+    console.log("populateOffers chaqirildi:", offers);
+    const select = document.getElementById("offerSelect");
+    if (!select) {
+        console.error("offerSelect topilmadi");
+        return;
+    }
+
+    select.innerHTML = '<option value="">Profil tanlang...</option>';
+
+    if (offers && offers.length > 0) {
+        offers.forEach((offer) => {
+            const option = document.createElement("option");
+            option.value = offer.id;
+            option.textContent = `${offer.title || "Profil"} - ${
+                offer.experience || "0"
+            } yil tajriba`;
+            select.appendChild(option);
+        });
+    }
+}
+
+// Ariza yuborish funksiyasi
+async function submitApplication() {
+    console.log("submitApplication chaqirildi");
+
+    const activeModal = document.querySelector(".apply-modal.show");
+    if (!activeModal) {
+        console.error("Faol modal topilmadi");
+        return;
+    }
+
+    console.log("Faol modal:", activeModal.id);
+
+    const formData = new FormData();
+    let jobId, offerId, coverLetter;
+
+    // CSRF token qo'shish
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+    if (csrfToken) {
+        formData.append("_token", csrfToken);
+    }
+
+    if (activeModal.id === "singleOfferModal") {
+        jobId = document.getElementById("jobIdInput").value;
+        offerId = document.getElementById("offerIdInput").value;
+        coverLetter =
+            activeModal.querySelector('textarea[name="cover_letter"]')?.value ||
+            "";
+
+        console.log("Single modal data:", { jobId, offerId, coverLetter });
+    } else if (activeModal.id === "multipleOffersModal") {
+        jobId = document.getElementById("jobIdInputMultiple").value;
+        offerId = document.getElementById("offerSelect").value;
+        coverLetter =
+            activeModal.querySelector('textarea[name="cover_letter"]')?.value ||
+            "";
+
+        console.log("Multiple modal data:", { jobId, offerId, coverLetter });
+
+        if (!offerId) {
+            alert("Iltimos, profilingizni tanlang!");
+            return;
+        }
+    }
+
+    if (!jobId || !offerId) {
+        console.error("JobId yoki OfferId yo'q:", { jobId, offerId });
+        alert("Ma'lumotlar to'liq emas!");
+        return;
+    }
+
+    formData.append("job_id", jobId);
+    formData.append("offer_id", offerId);
+    formData.append("cover_letter", coverLetter);
+
+    try {
+        console.log("Application yuborilmoqda...");
+
+        // Store route'i uchun locale bilan to'g'ri URL
+        const locale = window.location.pathname.split("/")[1]; // URL'dan locale olish
+        const response = await fetch(`/${locale}/job-applies/store`, {
+            method: "POST",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                Accept: "application/json",
+            },
+            body: formData,
+        });
+
+        console.log("Submit response status:", response.status);
+
+        const data = await response.json();
+        console.log("Submit response data:", data);
+
+        if (data.success) {
+            alert(data.message);
+            // Modallarni yopish
+            document
+                .querySelectorAll(".apply-modal")
+                .forEach((modal) => modal.classList.remove("show"));
+            // Formni tozalash
+            if (activeModal.querySelector("textarea")) {
+                activeModal.querySelector("textarea").value = "";
+            }
+            if (activeModal.querySelector("select")) {
+                activeModal.querySelector("select").value = "";
+            }
+        } else {
+            alert(data.message || "Xatolik yuz berdi");
+        }
+    } catch (error) {
+        console.error("Submit error:", error);
+        alert("Arizani yuborishda xatolik yuz berdi: " + error.message);
+    }
+}
+
+// Character counter funksiyasi
+function updateApplyCharCount(textarea, countId) {
+    const count = textarea.value.length;
+    const countElement = document.getElementById(countId);
+
+    if (countElement) {
+        countElement.textContent = count;
+
+        if (count > 400) {
+            countElement.style.color = "#ff6b6b";
+        } else {
+            countElement.style.color = "#999";
+        }
+    }
+}
+
+// Event listener'lar
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM yuklandi, event listener'lar qo'shilmoqda");
+
+    // ESC tugmasi bilan modal yopish
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            const modals = document.querySelectorAll(".apply-modal.show");
+            modals.forEach((modal) => modal.classList.remove("show"));
+        }
+    });
+
+    // Modal tashqarisiga bosganda yopish
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("apply-modal")) {
+            e.target.classList.remove("show");
+        }
+    });
+
+    console.log("Event listener'lar qo'shildi");
+});
+
+// Debug uchun global funksiya
+window.debugApply = function (jobId = 1) {
+    console.log("Debug apply ishga tushirildi");
+    handleApply(jobId);
+};

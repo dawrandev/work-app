@@ -153,8 +153,8 @@
                                     @endif
                                 </div>
                                 <div class="col-6 p-1">
-                                    <a href="#" class="d-block btn btn-alt">
-                                        <i class="lni lni-send mr-1"></i>{{__('Apply')}}
+                                    <a href="#" class="d-block btn btn-alt" onclick="handleApply({{ $job->id }})">
+                                        <i class=" lni lni-send mr-1"></i>{{__('Apply')}}
                                     </a>
                                 </div>
                             </div>
@@ -318,5 +318,96 @@
         </div>
     </div>
 </div>
+<!-- Modal 1 -->
+<div class="apply-modal" id="noOfferModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeApplyModal('noOfferModal')">&times;</button>
+            <div class="heading">
+                <h3>Avval profilingizni yarating</h3>
+            </div>
+            <p style="color: #666; margin-bottom: 30px;">
+                Ishga ariza berish uchun avval o'zingiz haqingizda ma'lumot kiritishingiz kerak.
+            </p>
+            <div class="button">
+                <button class="btn" onclick="createProfile()">Profil yaratish</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Modal 2: Bitta offer -->
+<div class="apply-modal" id="singleOfferModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeApplyModal('singleOfferModal')">&times;</button>
+            <div class="heading">
+                <h3>Ishga ariza berish</h3>
+            </div>
+
+            <!-- FORM qo'shish -->
+            <form id="singleOfferForm" action="{{ route('job-applies.store') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label class="label">Cover Letter (ixtiyoriy)</label>
+                    <textarea
+                        class="form-control"
+                        name="cover_letter"
+                        placeholder="Nima uchun siz bu pozitsiya uchun mos ekanligingizni qisqacha yozing..."
+                        maxlength="500"
+                        oninput="updateApplyCharCount(this, 'charCount1')"></textarea>
+                    <div class="apply-character-count">
+                        <span id="charCount1">0</span>/500 belgi
+                    </div>
+                </div>
+
+                <!-- Hidden inputs -->
+                <input type="hidden" id="jobIdInput" name="job_id">
+                <input type="hidden" id="offerIdInput" name="offer_id">
+
+                <div class="button">
+                    <button type="submit" class="btn">Ariza berish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 3: Ko'p offerlar -->
+<div class="apply-modal" id="multipleOffersModal">
+    <div class="apply-modal-dialog">
+        <div class="apply-modal-main" style="position: relative;">
+            <button class="apply-close-modal" onclick="closeApplyModal('multipleOffersModal')">&times;</button>
+            <div class="heading">
+                <h3>Ishga ariza berish</h3>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Profilingizni tanlang</label>
+                <select class="form-control" name="offer_id" id="offerSelect">
+                    <option value="">Profil tanlang...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label">Cover Letter (ixtiyoriy)</label>
+                <textarea
+                    class="form-control"
+                    name="cover_letter"
+                    placeholder="Nima uchun siz bu pozitsiya uchun mos ekanligingizni qisqacha yozing..."
+                    maxlength="500"
+                    oninput="updateApplyCharCount(this, 'charCount2')"></textarea>
+                <div class="apply-character-count">
+                    <span id="charCount2">0</span>/500 belgi
+                </div>
+            </div>
+
+            <input type="hidden" id="jobIdInputMultiple" name="job_id">
+
+            <div class="button">
+                <button class="btn" onclick="submitApplication()">Ariza berish</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

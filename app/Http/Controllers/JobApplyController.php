@@ -2,63 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobApplyStoreRequest;
+use App\Services\JobApplyService;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JobApplyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(private JobApplyService $jobApplyService) {}
+
+    public function index(Request $request)
     {
-        //
+        try {
+            if ($request->ajax() && $request->has('job_id')) {
+                $status = $this->jobApplyService->checkApplyStatus(auth()->id());
+                return response()->json($status);
+            }
+
+            $applications = $this->jobApplyService->getUserApplications(auth()->id());
+            return view('job-applies.index', compact('applications'));
+        } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+            throw $e;
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(JobApplyStoreRequest $request)
     {
-        //
+        $result = $this->jobApplyService->createApplication($request->validated());
+
+        if ($result['success']) {
+            Alert::success('Muvaffaqiyat!', $result['message']);
+            return redirect()->back();
+        } else {
+            Alert::error('Xatolik!', $result['message']);
+            return redirect()->back();
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show(int $id)
     {
-        //
+        $applications = $this->jobApplyService->getUserApplications(auth()->id());
+        $application = $applications->where('pivot.id', $id)->first();
+
+        if (!$application) {
+            abort(404, 'Ariza topilmadi!');
+        }
+
+        return view('job-applies.show', compact('application'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function destroy(int $id)
     {
-        //
-    }
+        // Pivot table'dan o'chirish logikasi
+        // try {
+        //     $user = auth()->user();
+        //     $deleted = $user->appliedJobs()->wherePivot('id', $id)->detach();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        //     if ($deleted) {
+        //         return response()->json([
+        //             'success' => true,
+        //             'message' => 'Ariza muvaffaqiyatli bekor qilindi!'
+        //         ]);
+        //     } else {
+        //         return response()->json([
+        //             'success' => false,
+        //             'message' => 'Ariza topilmadi!'
+        //         ], 404);
+        //     }
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'success' => false,
+        //         'message' => 'Arizani bekor qilishda xatolik yuz berdi.'
+        //     ], 500);
+        // }
     }
 }
