@@ -2,7 +2,6 @@
 <html class="no-js" lang="zxx">
 
 
-
 <head>
     @include('partials.user.head')
 
@@ -11,6 +10,10 @@
 
 <body>
     <div id="loading-area"></div>
+
+    @include('auth.user.login-modal')
+
+    @include('auth.user.sign-up-modal')
 
     @include('sweetalert::alert')
 

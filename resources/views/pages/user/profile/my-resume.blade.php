@@ -14,7 +14,7 @@ $sectionClass = 'resume';
                 <div class="col-lg-5 col-md-5 col-12">
                     <div class="name-head">
                         <a class="mb-2" href="#"><img class="circle-54"
-                                src="{{ asset('assets/images/resume/avater.png') }}" alt=""></a>
+                                src="{{ asset('assets/user/images/resume/avater.png') }}" alt=""></a>
                         <h4><a class="name" href="#">{{ $offer->user->first_name }} {{ $offer->user->last_name }}</a></h4>
                         <p><a class="deg" href="#">{{ $offer->subcategory->translated_name }}</a></p>
                         <ul class="social">

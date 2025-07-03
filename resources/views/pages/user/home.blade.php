@@ -15,8 +15,4 @@
 
 @include('sections.user.featured')
 
-@include('sections.user.login-modal')
-
-@include('sections.user.sign-up-modal')
-
 @endsection

@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand logo" href="{{ route('home') }}">
-                            <img class="logo1" src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo" />
+                            <img class="logo1" src="{{asset('assets/user/images/logo/logo.svg')}}" alt="Logo" />
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -16,51 +16,65 @@
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ml-auto">
+                                <!-- Home -->
                                 <li class="nav-item">
-                                    <a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">{{ __('Home') }}</a>
+                                    <a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">
+                                        {{ __('Home') }}
+                                    </a>
                                 </li>
+
+                                <!-- Jobs Dropdown -->
                                 <li class="nav-item">
-                                    <a href="{{ route('categories.index') }}" class="{{ Route::is('categories.index') ? 'active' : '' }}">{{ __('Categories') }}</a>
-                                </li>
-                                <li class="nav-item"><a href="#">{{ __('Pages') }}</a>
+                                    <a href="#" class="{{ Route::is('jobs.*') ? 'active' : '' }}">
+                                        {{ __('Jobs') }}
+                                    </a>
                                     <ul class="sub-menu">
-                                        <li><a href="about-us.html">{{ __('About Us') }}</a></li>
-                                        <li><a href="job-list.html">{{ __('Job List') }}</a></li>
-                                        <li><a href="job-details.html">{{ __('Job Details') }}</a></li>
-                                        <li><a href="resume.html">{{ __('Resume Page') }}</a></li>
-                                        <li><a href="privacy-policy.html">{{ __('Privacy Policy') }}</a></li>
-                                        <li><a href="faq.html">{{ __('Faq') }}</a></li>
-                                        <li><a href="pricing.html">{{ __('Our Pricing') }}</a></li>
-                                        <li><a href="404.html">{{ __('404 Error') }}</a></li>
-                                        <li><a href="mail-success.html">{{ __('Mail Success') }}</a></li>
+                                        <li><a href="{{ route('jobs.index') }}">{{ __('Browse Jobs') }}</a></li>
+                                        @auth
+                                        <li><a href="{{ route('jobs.create') }}">{{ __('Post Job') }}</a></li>
+                                        <li><a href="#">{{ __('My Jobs') }}</a></li>
+                                        @endauth
                                     </ul>
                                 </li>
-                                <li class="nav-item"><a href="#">{{ __('Candidates') }}</a>
+
+                                <!-- Offers Dropdown -->
+                                <li class="nav-item">
+                                    <a href="#" class="{{ Route::is('offers.*') ? 'active' : '' }}">
+                                        {{ __('Offers') }}
+                                    </a>
                                     <ul class="sub-menu">
-                                        <li><a href="browse-jobs.html">{{ __('Browse Jobs') }}</a></li>
-                                        <li><a href="browse-categories.html">{{ __('Browse Categories') }}</a></li>
-                                        <li><a href="{{ route('offers.create') }}">{{ __('Add Resume') }}</a></li>
-                                        <li><a href="job-alerts.html">{{ __('Job Alerts') }}</a></li>
+                                        <li><a href="{{ route('offers.index') }}">{{ __('Browse Offers') }}</a></li>
+                                        @auth
+                                        <li><a href="{{ route('offers.create') }}">{{ __('Post Offer') }}</a></li>
+                                        <li><a href="#">{{ __('My Offers') }}</a></li>
+                                        @endauth
                                     </ul>
                                 </li>
-                                <li class="nav-item"><a href="#">{{ __('Employers') }}</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="post-job.html">{{ __('Add Job') }}</a></li>
-                                        <li><a href="manage-jobs.html">{{ __('Manage Jobs') }}</a></li>
-                                        <li><a href="manage-applications.html">{{ __('Manage Applications') }}</a></li>
-                                        <li><a href="manage-resumes.html">{{ __('Manage Resume') }}</a></li>
-                                        <li><a href="browse-resumes.html">{{ __('Browse Resumes') }}</a></li>
-                                    </ul>
+
+                                <!-- Categories -->
+                                <li class="nav-item">
+                                    <a href="{{ route('categories.index') }}" class="{{ Route::is('categories.*') ? 'active' : '' }}">
+                                        {{ __('Categories') }}
+                                    </a>
                                 </li>
-                                <li class="nav-item"><a href="#">{{ __('Blog') }}</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-grid-sidebar.html">{{ __('Blog Grid Sidebar') }}</a></li>
-                                        <li><a href="blog-single.html">{{ __('Blog Single') }}</a></li>
-                                        <li><a href="blog-single-sidebar.html">{{ __('Blog Single Sidebar') }}</a></li>
-                                    </ul>
+
+                                <!-- About -->
+                                <li class="nav-item">
+                                    <a href="#}" class="{{ Route::is('about') ? 'active' : '' }}">
+                                        {{ __('About') }}
+                                    </a>
+                                </li>
+
+                                <!-- Contact -->
+                                <li class="nav-item">
+                                    <a href="#" class="{{ Route::is('contact') ? 'active' : '' }}">
+                                        {{ __('Contact') }}
+                                    </a>
                                 </li>
                             </ul>
                         </div>
+
+                        <!-- Language Dropdown -->
                         <div class="dropdown">
                             <button class="dropdown-toggle" type="button" id="languageDropdown" aria-expanded="false">
                                 🌐 {{__(app()->getLocale()) }}
@@ -71,6 +85,8 @@
                                 <li><a class="dropdown-item" href="{{ route('home', ['locale' => 'kr']) }}">{{__('kr')}}</a></li>
                             </ul>
                         </div>
+
+                        <!-- Auth Section -->
                         <div class="d-flex align-items-center">
                             @auth
                             <!-- Profile Dropdown Button -->
@@ -80,9 +96,11 @@
                                 </a>
                                 <ul class="profile-dropdown-menu">
                                     <li><a href="{{ route('profile.index') }}"><i class="lni lni-user"></i> {{ __('My Profile') }}</a></li>
-                                    <li><a href="3"><i class="lni lni-files"></i> {{ __('My Applications') }}</a></li>
-                                    <li><a href="3"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
-                                    <li><a href="3"><i class="lni lni-cog"></i> {{ __('Settings') }}</a></li>
+                                    <li><a href="#"><i class="lni lni-dashboard"></i> {{ __('Dashboard') }}</a></li>
+                                    <li><a href="#"><i class="lni lni-briefcase"></i> {{ __('My Jobs') }}</a></li>
+                                    <li><a href="#"><i class="lni lni-files"></i> {{ __('My Offers') }}</a></li>
+                                    <li><a href="#"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
+                                    <li><a href="#"><i class="lni lni-heart-filled"></i> {{ __('Saved Offers') }}</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <i class="lni lni-exit"></i> {{ __('Logout') }}

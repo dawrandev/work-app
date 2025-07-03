@@ -119,7 +119,7 @@
                                     data-title="{{ str_replace('"', '&quot;', $job->title) }}"
                                     data-address="{{ str_replace('"', '&quot;', $job->address) }}"
                                     data-phone="{{ $job->phone }}"
-                                    style="height: 400px; width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                    style="height: 400px; width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1; position: relative;">
                                 </div>
                             </div>
                         </div>
@@ -137,6 +137,7 @@
                         <div class="inner">
                             <div class="row m-n2 button">
                                 <div class="col-12 p-1 mb-2">
+                                    @if (auth()->check())
                                     <form action="{{ route('save-jobs.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="job_id" value="{{ $job->id }}">
@@ -144,6 +145,7 @@
                                             <i class="lni lni-bookmark mr-1"></i>{{__('Save Job')}}
                                         </button>
                                     </form>
+                                    @endif
                                 </div>
                                 <div class="col-6 p-1">
                                     @if($job->phone)
@@ -153,8 +155,8 @@
                                     @endif
                                 </div>
                                 <div class="col-6 p-1">
-                                    <a href="#" class="d-block btn btn-alt" onclick="handleApply({{ $job->id }})">
-                                        <i class=" lni lni-send mr-1"></i>{{__('Apply')}}
+                                    <a href="#" class="d-block btn btn-alt" onclick='handleApply({{ $job->id }})'>
+                                        <i class="lni lni-pointer-right mr-1"></i>{{__('Apply')}}
                                     </a>
                                 </div>
                             </div>
@@ -318,6 +320,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal 1 -->
 <div class="apply-modal" id="noOfferModal">
     <div class="apply-modal-dialog">
@@ -415,4 +418,5 @@
         </div>
     </div>
 </div>
+
 @endsection

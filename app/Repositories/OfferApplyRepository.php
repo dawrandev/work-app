@@ -8,7 +8,7 @@ class OfferApplyRepository
 {
     public function getUserJobs(int $userId)
     {
-        $user = User::with('jobs.district')->find($userId);
+        $user = User::find($userId);
 
         if (!$user) {
             return collect();

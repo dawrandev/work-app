@@ -26,7 +26,7 @@
                     <!-- Single Widget -->
                     <div class="f-about single-footer">
                         <div class="logo">
-                            <a href="index-2.html"><img src="{{asset('assets/images/logo/logo.svg')}}" alt="Logo"></a>
+                            <a href="index-2.html"><img src="{{asset('assets/user/images/logo/logo.svg')}}" alt="Logo"></a>
                         </div>
                         <p>Start building your creative website with our awesome template Massive.</p>
                         <ul class="contact-address">

@@ -107,7 +107,7 @@
                                         @csrf
                                         <input type="hidden" name="offer_id" value="{{ $offer->id }}">
                                         <button type="submit" class="d-block btn w-100">
-                                            <i class="fa fa-heart-o mr-1"></i>{{__('Save Offer')}}
+                                            <i class="lni lni-bookmark mr-1"></i>{{__('Save Offer')}}
                                         </button>
                                     </form>
                                     @endif
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="col-6 p-1">
                                     <a href="#" class="d-block btn btn-alt" onclick="handleOfferApply({{ $offer->id }})">
-                                        <i class="lni lni-send mr-1"></i>{{__('Apply')}}
+                                        <i class="lni lni-pointer-right mr-1"></i>{{__('Apply')}}
                                     </a>
                                 </div>
                             </div>

@@ -20,8 +20,18 @@ class UserSeeder extends Seeder
                 'role' => 'user',
                 'first_name' => 'Dawranbek',
                 'last_name' => 'Sipatdinov',
-                'phone' => '933651302',
+                'phone' => '912731302',
                 'password' => Hash::make(12345678),
+                'remember_token' => Str::random(9),
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'role' => 'admin',
+                'first_name' => 'Dawranbek',
+                'last_name' => 'Sipatdinov',
+                'phone' => '933651302',
+                'password' => Hash::make(87654321),
                 'remember_token' => Str::random(9),
                 'created_at' => now(),
                 'updated_at' => now()

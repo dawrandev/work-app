@@ -18,12 +18,12 @@
         rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/LineIcons.2.0.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/LineIcons.2.0.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/animate.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/tiny-slider.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/glightbox.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/main.css') }}" />
 
 </head>
 
@@ -57,10 +57,10 @@
     <!-- End Error Area -->
 
     <!-- ========================= JS here ========================= -->
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
-    <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/tiny-slider.js') }}"></script>
+    <script src="{{ asset('assets/user/js/glightbox.min.js') }}"></script>
     <script>
         window.onload = function() {
             window.setTimeout(fadeout, 500);

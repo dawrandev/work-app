@@ -1,14 +1,14 @@
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/wow.min.js') }}"></script>
-    <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
-    <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/language-dropdown.js') }}"></script>
-    <script src="{{ asset('assets/js/dropzone.min.js') }}"></script>
-    <script src="{{ asset('assets/js/cleave.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.inputmask.min.js') }}"></script>
-    <script src="{{ asset('assets/js/leaflet.js') }}"></script>
+    <script src="{{ asset('assets/user/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/tiny-slider.js') }}"></script>
+    <script src="{{ asset('assets/user/js/glightbox.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/main.js') }}"></script>
+    <script src="{{ asset('assets/user/js/language-dropdown.js') }}"></script>
+    <script src="{{ asset('assets/user/js/dropzone.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/cleave.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('assets/user/js/leaflet.js') }}"></script>
 
 
     <script>

@@ -66,12 +66,6 @@ class JobApplyService
                 'message' => 'Ariza muvaffaqiyatli yuborildi!'
             ];
         } catch (\Exception $e) {
-            dd([
-                'message' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-                'data' => $data
-            ]);
             return [
                 'success' => false,
                 'message' => 'Arizani yuborishda xatolik yuz berdi. Qaytadan urinib ko\'ring.'

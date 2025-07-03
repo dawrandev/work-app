@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobApplyController;
@@ -38,12 +40,19 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     })->name('home');
 
     // Authcontroller 
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('/register', 'register')->name('register');
-        Route::post('/login', 'login')->name('login');
-        Route::post('/logout', 'logout')->name('logout')->middleware('auth');
-        Route::get('/edit', 'edit')->name('auth.edit')->middleware('auth');
-        Route::post('/update', 'update')->name('auth.update')->middleware('auth');
+    Route::middleware('guest')->group(function () {
+        Route::controller(AuthController::class)->group(function () {
+            Route::post('/register', 'register')->name('register');
+            Route::post('/login', 'login')->name('login');
+        });
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::controller(AuthController::class)->group(function () {
+            Route::post('/logout', 'logout')->name('logout');
+            Route::get('/edit', 'edit')->name('auth.edit');
+            Route::post('/update', 'update')->name('auth.update');
+        });
     });
 
     // JobController 
@@ -114,7 +123,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::post('/store', [JobApplyController::class, 'store'])->name('store');
         });
     });
-
     // OfferApplyController
     Route::middleware(['auth'])->group(function () {
         Route::prefix('offer-applies')->as('offer-applies.')->group(function () {
@@ -124,7 +132,18 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::delete('destroy/{id}', [OfferApplyController::class, 'destroy'])->name('destroy');
         });
     });
+
+    // Admin Routes
+    Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+        Route::get('/', [AdminAuthController::class, 'showLogin'])->name('showLogin');
+        Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
+
+        Route::middleware('admin')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+        });
+    });
 });
+
 
 
 Route::get('/', function () {
