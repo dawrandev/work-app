@@ -32,7 +32,7 @@
                                         <li><a href="{{ route('jobs.index') }}">{{ __('Browse Jobs') }}</a></li>
                                         @auth
                                         <li><a href="{{ route('jobs.create') }}">{{ __('Post Job') }}</a></li>
-                                        <li><a href="#">{{ __('My Jobs') }}</a></li>
+                                        <li><a href="{{ route('profile.manage-jobs') }}">{{ __('My Jobs') }}</a></li>
                                         @endauth
                                     </ul>
                                 </li>
@@ -46,7 +46,7 @@
                                         <li><a href="{{ route('offers.index') }}">{{ __('Browse Offers') }}</a></li>
                                         @auth
                                         <li><a href="{{ route('offers.create') }}">{{ __('Post Offer') }}</a></li>
-                                        <li><a href="#">{{ __('My Offers') }}</a></li>
+                                        <li><a href="{{ route('profile.manage-offers') }}">{{ __('My Offers') }}</a></li>
                                         @endauth
                                     </ul>
                                 </li>

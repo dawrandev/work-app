@@ -145,9 +145,7 @@
                                 </a>
                                 <button type="button"
                                     class="btn btn-outline-danger"
-                                    wire:click="deleteJob({{ $job->id }})"
-                                    wire:loading.attr="disabled"
-                                    onclick="confirm('{{ __('Are you sure?') }}') || event.stopImmediatePropagation()"
+                                    onclick="deleteJob({{ $job->id }}, '{{ $job->title }}')"
                                     title="{{ __('Delete') }}">
                                     <i class="lni lni-trash"></i>
                                 </button>
@@ -180,3 +178,45 @@
     </div>
     @endif
 </div>
+
+<script>
+    const locale = '{{ app()->getlocale() }}';
+
+    function deleteJob(jobId, jobTitle) {
+        Swal.fire({
+            title: '{{ __("Are you sure?") }}',
+            text: '{{ __("You want to delete this job:") }} ' + jobTitle,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '{{ __("Yes, delete it!") }}',
+            cancelButtonText: '{{ __("Cancel") }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Create form and submit
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/' + locale + '/jobs/destroy/' + jobId;
+
+                // CSRF token
+                var csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = '{{ csrf_token() }}';
+                form.appendChild(csrfToken);
+
+                // Method field
+                var methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+                form.appendChild(methodField);
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>

@@ -214,10 +214,9 @@
     <!-- End Pagination -->
 </div>
 
-@include('sweetalert::alert')
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    const locale = '{{ app()->getLocale() }}';
+
     function deleteOffer(offerId, offerTitle) {
         Swal.fire({
             title: '{{ __("Are you sure?") }}',
@@ -233,7 +232,7 @@
                 // Create form and submit
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '/offers/' + offerId;
+                form.action = '/' + locale + '/offers/destroy/' + offerId;
 
                 // CSRF token
                 var csrfToken = document.createElement('input');
@@ -255,3 +254,4 @@
         });
     }
 </script>
+<script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>

@@ -18,10 +18,9 @@
                             <p class="lan-2">Dashboards,widgets & layout.</p>
                         </div>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span class="lan-6">{{__('Category')}}</span></a>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>{{__('Category')}}</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="general-widget.html">General</a></li>
-                            <li><a href="chart-widget.html">Chart</a></li>
+                            <li><a href="{{ route('admin.categories.index') }}">{{__('Category List')}}</a></li>
                         </ul>
                     </li>
                 </ul>

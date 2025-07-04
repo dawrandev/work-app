@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,8 +147,20 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
 
         Route::middleware('admin')->group(function () {
-            Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
             Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+
+            // DashboardController
+            Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+            // CategoryController
+            Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+                Route::get('/index', [AdminCategoryController::class, 'index'])->name('index');
+                Route::get('/create', [AdminCategoryController::class, 'create'])->name('create');
+                Route::post('/store', [AdminCategoryController::class, 'store'])->name('store');
+                Route::get('/show/{category}', [AdminCategoryController::class, 'show'])->name('show');
+                Route::delete('/destroy/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
+                Route::put('/update/{category}', [AdminCategoryController::class, 'update'])->name('update');
+            });
         });
     });
 });
