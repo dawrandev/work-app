@@ -9,27 +9,28 @@ use Livewire\Component;
 class ServiceStore extends Component
 {
     public $selectedCategory = '';
-    public $selectedSubCategory = '';
-
+    public $selectedSubCategory = ''; // Bu nomni o'zgartirdik
     public $categories = [];
-    public $subCategories = [];
+    public $subCategories = []; // Bu nomni o'zgartirdik
 
-    public function mount()
+    public function mount($selectedCategoryId = null, $selectedSubcategoryId = null)
     {
         $this->categories = Category::all();
-        $this->subCategories = collect();
+
+        if ($selectedCategoryId) {
+            $this->selectedCategory = $selectedCategoryId;
+            $this->subCategories = SubCategory::where('category_id', $selectedCategoryId)->get();
+
+            if ($selectedSubcategoryId) {
+                $this->selectedSubCategory = $selectedSubcategoryId;
+            }
+        }
     }
 
-    public function updatedSelectedCategory($categoryId)
+    public function updatedSelectedCategory()
     {
-        if ($categoryId) {
-            $this->subCategories = SubCategory::where('category_id', $categoryId)->get();
-        } else {
-            $this->subCategories = collect();
-        }
-
-        // Reset subcategory selection when category changes
         $this->selectedSubCategory = '';
+        $this->subCategories = SubCategory::where('category_id', $this->selectedCategory)->get();
     }
 
     public function render()

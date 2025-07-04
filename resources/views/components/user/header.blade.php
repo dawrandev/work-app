@@ -97,8 +97,8 @@
                                 <ul class="profile-dropdown-menu">
                                     <li><a href="{{ route('profile.index') }}"><i class="lni lni-user"></i> {{ __('My Profile') }}</a></li>
                                     <li><a href="#"><i class="lni lni-dashboard"></i> {{ __('Dashboard') }}</a></li>
-                                    <li><a href="#"><i class="lni lni-briefcase"></i> {{ __('My Jobs') }}</a></li>
-                                    <li><a href="#"><i class="lni lni-files"></i> {{ __('My Offers') }}</a></li>
+                                    <li><a href="{{ route('profile.manage-jobs') }}"><i class="lni lni-briefcase"></i> {{ __('My Jobs') }}</a></li>
+                                    <li><a href="{{ route('profile.manage-offers') }}"><i class="lni lni-files"></i> {{ __('My Offers') }}</a></li>
                                     <li><a href="#"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
                                     <li><a href="#"><i class="lni lni-heart-filled"></i> {{ __('Saved Offers') }}</a></li>
                                     <li>

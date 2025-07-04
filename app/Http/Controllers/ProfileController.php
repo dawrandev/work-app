@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Offer;
 use App\Services\JobSaveService;
 use App\Services\JobService;
+use App\Services\OfferService;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
     public function __construct(
         protected JobSaveService $jobSaveService,
-        protected JobService $jobService
+        protected JobService $jobService,
+        protected OfferService $offerService
     ) {
         //
     }
@@ -19,48 +21,6 @@ class ProfileController extends Controller
     public function index()
     {
         return view('pages.user.profile.index');
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 
     public function changePassword()
@@ -89,5 +49,12 @@ class ProfileController extends Controller
         $jobs = $this->jobService->getUserJobs(auth()->id());
 
         return view('pages.user.profile.manage-jobs', compact('jobs'));
+    }
+
+    public function manageOffers()
+    {
+        $offers = $this->offerService->getUserOffers(auth()->id());
+
+        return view('pages.user.profile.manage-offers');
     }
 }

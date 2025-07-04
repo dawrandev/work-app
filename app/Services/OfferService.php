@@ -38,4 +38,34 @@ class OfferService
             throw $e;
         }
     }
+
+    public function getUserOffers($user_id)
+    {
+        return $this->offerRepository->getUserOffers($user_id);
+    }
+
+    public function updateOffer($offer, array $data, $request)
+    {
+        try {
+            DB::transaction(function () use ($offer, $data, $request) {
+                $data['user_id'] = auth()->id();
+                $data['status'] = 'active';
+                $data['approval_status'] = 'pending';
+
+                $offer = $this->offerRepository->update($offer, $data);
+
+                if ($request->hasFile('service_images')) {
+                    foreach ($request->file('service_images') as $image) {
+                        $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
+                        $path = $image->storeAs("offers", $filename, 'public');
+                        $offer->images()->update([
+                            'image_path' => $filename,
+                        ]);
+                    }
+                }
+            });
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

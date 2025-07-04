@@ -12,7 +12,7 @@
             </div>
         </form>
         <div class="header-logo-wrapper col-auto p-0">
-            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="../assets/images/logo/logo.png" alt=""></a></div>
+            <div class="logo-wrapper"><a href="index.html"><img class="img-fluid" src="{{ asset('/assets/images/logo/logo.png') }}" alt=""></a></div>
             <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i></div>
         </div>
         <div class="left-header col horizontal-wrapper ps-0">
@@ -215,7 +215,7 @@
                             <h6 class="mb-0 f-20">Shoping Bag</h6><i data-feather="shopping-cart"></i>
                         </li>
                         <li class="mt-0">
-                            <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="../assets/images/ecommerce/01.jpg" alt="">
+                            <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="{{ asset('/assets/images/ecommerce/01.jpg') }}" alt="">
                                 <div class="media-body"><span>V-Neck Shawl Collar Woman's Solid T-Shirt</span>
                                     <p>Yellow(#fcb102)</p>
                                     <div class="qty-box">
@@ -231,7 +231,7 @@
                             </div>
                         </li>
                         <li class="mt-0">
-                            <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="../assets/images/ecommerce/03.jpg" alt="">
+                            <div class="media"><img class="img-fluid rounded-circle me-3 img-60" src="{{ asset('/assets/images/ecommerce/03.jpg') }}" alt="">
                                 <div class="media-body"><span>V-Neck Shawl Collar Woman's Solid T-Shirt</span>
                                     <p>Yellow(#fcb102)</p>
                                     <div class="qty-box">
@@ -260,7 +260,7 @@
                             <h6 class="f-18 mb-0">Message Box </h6>
                         </li>
                         <li>
-                            <div class="media"><img class="img-fluid rounded-circle me-3" src="../assets/images/user/1.jpg" alt="">
+                            <div class="media"><img class="img-fluid rounded-circle me-3" src="{{ asset('/assets/images/user/1.jpg') }}" alt="">
                                 <div class="status-circle online"></div>
                                 <div class="media-body"><span>Erica Hughes</span>
                                     <p>Lorem Ipsum is simply dummy...</p>
@@ -269,7 +269,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="media"><img class="img-fluid rounded-circle me-3" src="../assets/images/user/2.jpg" alt="">
+                            <div class="media"><img class="img-fluid rounded-circle me-3" src="{{ asset('/assets/images/user/2.jpg') }}" alt="">
                                 <div class="status-circle online"></div>
                                 <div class="media-body"><span>Kori Thomas</span>
                                     <p>Lorem Ipsum is simply dummy...</p>
@@ -278,7 +278,7 @@
                             </div>
                         </li>
                         <li>
-                            <div class="media"><img class="img-fluid rounded-circle me-3" src="../assets/images/user/4.jpg" alt="">
+                            <div class="media"><img class="img-fluid rounded-circle me-3" src="{{ asset('/assets/images/user/4.jpg') }}" alt="">
                                 <div class="status-circle offline"></div>
                                 <div class="media-body"><span>Ain Chavez</span>
                                     <p>Lorem Ipsum is simply dummy...</p>
@@ -291,7 +291,7 @@
                 </li>
                 <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
                 <li class="profile-nav onhover-dropdown p-0 me-0">
-                    <div class="media profile-media"><img class="b-r-10" src="../assets/images/dashboard/profile.jpg" alt="">
+                    <div class="media profile-media"><img class="b-r-10" src="{{ asset('/assets/images/dashboard/profile.jpg') }}" alt="">
                         <div class="media-body"><span>Emay Walter</span>
                             <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                         </div>
@@ -301,7 +301,16 @@
                         <li><a href="#"><i data-feather="mail"></i><span>Inbox</span></a></li>
                         <li><a href="#"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                         <li><a href="#"><i data-feather="settings"></i><span>Settings</span></a></li>
-                        <li><a href="#"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+                        <li>
+                            <form method="POST" action="{{ route('admin.logout') }}" style="display: inline;">
+                                @csrf
+                                <button type="submit" style="border: none; background: none; padding: 0; margin: 0; cursor: pointer;">
+                                    <i data-feather="log-in"></i>
+                                    <span>Log out</span>
+                                </button>
+                            </form>
+                        </li>
+
                     </ul>
                 </li>
             </ul>

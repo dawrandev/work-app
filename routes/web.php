@@ -77,6 +77,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::post('/store', [OfferController::class, 'store'])->name('store');
             Route::get('/index', [OfferController::class, 'index'])->name('index');
             Route::get('/show/{offer}', [OfferController::class, 'show'])->name('show');
+            Route::get('/edit/{offer}', [OfferController::class, 'edit'])->name('edit');
+            Route::put('/update/{offer}', [OfferController::class, 'update'])->name('update');
+            Route::delete('/destroy/{offer}', [OfferController::class, 'destroy'])->name('destroy');
         });
     });
 
@@ -92,6 +95,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::get('/my-resume', [ProfileController::class, 'myResume'])->name('my-resume');
             Route::get('/bookmarked', [ProfileController::class, 'bookmarked'])->name('bookmarked');
             Route::get('/manage-jobs', [ProfileController::class, 'manageJobs'])->name('manage-jobs');
+            Route::get('/manage-offers', [ProfileController::class, 'manageOffers'])->name('manage-offers');
         });
     });
 
@@ -135,11 +139,14 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
 
     // Admin Routes
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+
+        // AuthController
         Route::get('/', [AdminAuthController::class, 'showLogin'])->name('showLogin');
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
 
         Route::middleware('admin')->group(function () {
             Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+            Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
         });
     });
 });

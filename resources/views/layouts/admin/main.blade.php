@@ -17,16 +17,28 @@
         </svg>
     </div>
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
-    @include('sweetalert::alert')
     <div class="page-wrapper compact-wrapper" id="pageWrapper">
         @include('components.admin.header')
 
-        @include('components.admin.sidebar')
+        <div class="page-body-wrapper">
 
-        @yield('content')
 
-        @include('components.admin.footer')
+            @include('components.admin.sidebar')
+
+            <div class="page-body">
+
+
+                @yield('content')
+
+            </div>
+
+            @include('components.admin.footer')
+
+        </div>
+
     </div>
+    @include('sweetalert::alert')
+
     @include('partials.admin.script')
 </body>
 

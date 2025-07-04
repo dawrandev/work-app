@@ -59,4 +59,9 @@ class Offer extends Model
     {
         return $this->morphMany(\App\Models\Image::class, 'imageable');
     }
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }
