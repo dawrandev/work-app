@@ -57,4 +57,9 @@ class ProfileController extends Controller
 
         return view('pages.user.profile.manage-offers');
     }
+
+    public function savedOffers()
+    {
+        return view('pages.user.profile.saved-offers');
+    }
 }

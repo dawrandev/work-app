@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -25,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
         if (request()->route()?->parameter('locale')) {
             URL::defaults(['locale' => request()->route('locale')]);
         }
+
+        Paginator::useBootstrapFive();
+        Paginator::useBootstrapFour();
     }
 }

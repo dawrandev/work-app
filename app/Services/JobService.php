@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Http\Requests\JobStoreRequest;
+use App\Models\Job;
 use App\Repositories\JobRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -48,36 +50,38 @@ class JobService
     {
         try {
             DB::transaction(function () use ($job, $data, $request) {
-                // 1. Job ma'lumotlarini yangilash
+                // Debug uchun
+                Log::info('Job update data:', $data);
+                Log::info('Delete images:', $request->input('delete_images', []));
+
+                // Job ma'lumotlarini yangilash
                 $job = $this->jobRepository->update($job, $data);
 
-                // 2. O'chirilishi kerak bo'lgan image'larni handle qilish
-                if ($request->has('delete_images')) {
+                // Delete images
+                if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
                     $deleteImageIds = $request->input('delete_images');
 
                     foreach ($deleteImageIds as $imageId) {
                         $image = \App\Models\Image::find($imageId);
 
-                        // Image mavjud va shu job'ga tegishli ekanligini tekshir
-                        if ($image && $image->imageable_id === $job->id && $image->imageable_type === Job::class) {
-                            // Storage'dan file o'chirish (full path bilan)
-                            if (Storage::disk('public')->exists('jobs/' . $image->image_path)) {
-                                Storage::disk('public')->delete('jobs/' . $image->image_path);
+                        if ($image && $image->imageable_id == $job->id && $image->imageable_type == Job::class) {
+                            $fullPath = 'jobs/' . $image->image_path;
+                            if (Storage::disk('public')->exists($fullPath)) {
+                                Storage::disk('public')->delete($fullPath);
                             }
 
-                            // Database'dan o'chirish
                             $image->delete();
                         }
                     }
+                    Log::info('Image found:', ['image' => $image, 'check' => ($image->imageable_type == Job::class)]);
                 }
 
-                // 3. Yangi image'larni upload qilish
+                // Yangi images upload
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                        $image->storeAs("jobs", $filename, 'public');
+                        $image->storeAs('jobs', $filename, 'public');
 
-                        // Faqat filename saqlash (jobs/ yo'q)
                         $job->images()->create([
                             'image_path' => $filename,
                         ]);
@@ -87,6 +91,7 @@ class JobService
 
             return $job;
         } catch (Exception $e) {
+            Log::error('Job update error:', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

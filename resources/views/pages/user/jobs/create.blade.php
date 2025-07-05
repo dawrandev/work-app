@@ -148,7 +148,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Job Description*') }}</label>
-                                    <textarea name="description" class="form-control" rows="5">{{ old('description') }}</textarea>
+                                    <textarea name="description" id="summernote" class="form-control">{{ old('description') }}</textarea>
                                     @error('description')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -188,3 +188,36 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        // Summernote Lite initialization
+        $('#summernote').summernote({
+            placeholder: '{{ __("Enter job description here...") }}',
+            height: 300,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link']],
+                ['view', ['codeview', 'help']]
+            ],
+            callbacks: {
+                // Form submit qilishdan oldin code view'dan chiqish
+                onInit: function() {
+                    // Form submit event'ga listener qo'shish
+                    $('#jobPostForm').on('submit', function() {
+                        // Agar code view ochiq bo'lsa, uni yopish
+                        if ($('#summernote').summernote('codeview.isActivated')) {
+                            $('#summernote').summernote('codeview.deactivate');
+                        }
+                    });
+                }
+            }
+        });
+    });
+    console.log('Scripts section ishlayapti');
+    console.log('Summernote element:', $('#summernote').length);
+</script>
+@endpush

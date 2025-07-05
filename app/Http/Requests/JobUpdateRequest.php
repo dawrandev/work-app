@@ -19,21 +19,30 @@ class JobUpdateRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'subcategory_id' => 'nullable|exists:subcategories,id',
             'type_id' => 'required|exists:types,id',
-            'district_id' => 'required|exists:districts,id',
-            'description' => 'required|string',
-            'salary_from' => 'numeric',
-            'salary_to' => 'numeric',
+            'employment_type_id' => 'required|exists:employment_types,id',
+            'district_id' => 'nullable|exists:districts,id',
+            'phone' => 'nullable|string',
+            'salary_from' => 'nullable|numeric|min:0',
+            'salary_to' => 'nullable|numeric|min:0|gte:salary_from',
             'deadline' => 'nullable|date',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif',
-            'address' => 'string'
+            'address' => 'required|string',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
+            'description' => 'required|string',
+            'images' => 'nullable|array|max:3',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:5120',
+            'delete_images' => 'nullable|array',
+            'delete_images.*' => 'numeric|exists:images,id',
         ];
     }
+
     protected function prepareForValidation()
     {
         $this->merge([

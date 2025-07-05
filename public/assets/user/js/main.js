@@ -97,6 +97,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Leaflet Map functions
 function initMap() {
+    // Map container mavjudligini tekshirish
+    const mapContainer = document.getElementById("map");
+    if (!mapContainer) {
+        console.log("Map container topilmadi, skip initialization");
+        return;
+    }
+
     // Nukus coordinates
     const defaultLocation = [42.4611, 59.6166];
 

@@ -7,10 +7,6 @@ use App\Models\Job;
 use App\Models\SubCategory;
 use App\Models\Type;
 
-function getDistricts()
-{
-    return District::all();
-}
 
 function getTypes()
 {
@@ -38,4 +34,18 @@ function getJobs()
 function getEmploymentTypes()
 {
     return EmploymentType::all();
+}
+
+if (!function_exists('getDistricts')) {
+    function getDistricts()
+    {
+        return District::all();
+    }
+}
+
+if (!function_exists('getTypes')) {
+    function getTypes()
+    {
+        return Type::all();
+    }
 }

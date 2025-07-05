@@ -12,6 +12,7 @@
     rel="stylesheet">
 
 <!-- ========================= CSS here ========================= -->
+<script src="{{ asset('assets/user/js/jquery-3.6.0.min.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('assets/user/css/bootstrap.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/LineIcons.2.0.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/animate.css') }}" />
@@ -22,4 +23,4 @@
 <link rel="stylesheet" href="{{ asset('assets/user/css/dropzone.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/custom-style.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/leaflet.css') }}" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="{{ asset('assets/user/css/summernote-lite.min.css') }}" rel="stylesheet" />

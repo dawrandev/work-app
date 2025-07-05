@@ -9,8 +9,10 @@
     let imagesToDelete = [];
 
     function deleteImage(imageId) {
-        // Image ID ni delete array'ga qo'sh
-        imagesToDelete.push(imageId);
+        // Duplicate check qilish
+        if (!imagesToDelete.includes(imageId)) {
+            imagesToDelete.push(imageId);
+        }
 
         // DOM'dan image'ni o'chir (visual effect)
         const imageContainer = event.target.closest('.col-md-3');
@@ -24,11 +26,14 @@
     }
 
     // Form submit qilganda hidden input'lar qo'shish
+    // Form submit qilganda
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('jobEditForm');
 
-        form.addEventListener('submit', function() {
-            // O'chirilishi kerak bo'lgan image'lar uchun hidden input'lar qo'sh
+        form.addEventListener('submit', function(e) {
+            console.log('=== FORM SUBMISSION ===');
+
+            // Delete images array'ni qo'shish
             imagesToDelete.forEach(imageId => {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -36,6 +41,14 @@
                 hiddenInput.value = imageId;
                 form.appendChild(hiddenInput);
             });
+
+            // Subcategory value tekshirish
+            const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
+            console.log('Selected subcategory:', subcategorySelect.value);
+
+            // Coordinates tekshirish
+            console.log('Latitude:', document.getElementById('latitude').value);
+            console.log('Longitude:', document.getElementById('longitude').value);
         });
     });
 </script>
@@ -109,7 +122,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Phone') }}</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', $job->phone) }}">
+                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone_edit" value="{{ old('phone', $job->phone) }}">
                                     @error('phone')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -250,6 +263,9 @@
 
 <!-- MAIN JAVASCRIPT - PAGE OXIRIDA -->
 <script>
+    // Map o'zgaruvchilarini global qilish
+    let map, marker;
+
     // Edit mode da existing coordinates setup
     document.addEventListener('DOMContentLoaded', function() {
         const existingLat = {
@@ -263,41 +279,84 @@
             }
         };
 
-        // Map setup uchun kuting (main.js load bo'lguncha)
-        setTimeout(() => {
-            // Agar mavjud coordinates bor bo'lsa va map tayyor bo'lsa
-            if (existingLat && existingLng && typeof map !== 'undefined' && map) {
-                const location = L.latLng(existingLat, existingLng);
+        // Map container mavjudligini tekshirish
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) {
+            console.error('Map container topilmadi');
+            return;
+        }
 
-                // Mavjud marker bor bo'lsa o'chir
-                if (typeof marker !== 'undefined' && marker) {
-                    map.removeLayer(marker);
-                }
+        // Map initialization
+        try {
+            // Default location (Nukus)
+            const defaultLocation = [42.4611, 59.6166];
+            const initialLocation = (existingLat && existingLng) ? [existingLat, existingLng] :
+                defaultLocation;
 
-                // Yangi marker qo'sh
-                marker = L.marker(location, {
-                    draggable: true
-                }).addTo(map);
+            // Initialize map
+            map = L.map('map').setView(initialLocation, 12);
 
-                // Map'ni center qil
-                map.setView(location, 14);
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
 
-                // Coordinates display'ni yangiyla
-                if (typeof updateCoordinates === 'function') {
-                    updateCoordinates(existingLat, existingLng);
-                }
+            // Map click event
+            map.on('click', function(e) {
+                placeMarker(e.latlng);
+                updateCoordinates(e.latlng.lat, e.latlng.lng);
+                reverseGeocode(e.latlng.lat, e.latlng.lng);
+            });
 
-                // Drag event qo'sh
-                marker.on('dragend', function(e) {
-                    const position = marker.getLatLng();
-                    updateCoordinates(position.lat, position.lng);
-                    if (typeof reverseGeocode === 'function') {
-                        reverseGeocode(position.lat, position.lng);
-                    }
-                });
+            // Agar coordinates mavjud bo'lsa, marker qo'sh
+            if (existingLat && existingLng) {
+                placeMarker(L.latLng(existingLat, existingLng));
+                updateCoordinates(existingLat, existingLng);
             }
-        }, 1000); // 1 sekund kutish - main.js load bo'lishi uchun
+        } catch (error) {
+            console.error('Map initialization error:', error);
+        }
     });
+
+    // Place marker function
+    function placeMarker(location) {
+        if (marker) {
+            marker.setLatLng(location);
+        } else {
+            marker = L.marker(location, {
+                draggable: true
+            }).addTo(map);
+
+            marker.on('dragend', function(e) {
+                const position = marker.getLatLng();
+                updateCoordinates(position.lat, position.lng);
+                reverseGeocode(position.lat, position.lng);
+            });
+        }
+        map.setView(location, 14);
+    }
+
+    // Update coordinates function
+    function updateCoordinates(lat, lng) {
+        document.getElementById('latitude').value = lat.toFixed(8);
+        document.getElementById('longitude').value = lng.toFixed(8);
+        document.getElementById('latDisplay').textContent = lat.toFixed(6);
+        document.getElementById('lngDisplay').textContent = lng.toFixed(6);
+    }
+
+    // Reverse geocode function
+    function reverseGeocode(lat, lng) {
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=uz`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.display_name) {
+                    document.getElementById('address').value = data.display_name;
+                }
+            })
+            .catch(error => console.error('Reverse geocoding error:', error));
+    }
+
+    // getCurrentLocation, searchAddress, clearLocation funksiyalari main.js'dan keladi
 </script>
 
 <style>
@@ -369,5 +428,4 @@
         justify-content: center;
     }
 </style>
-
 @endsection

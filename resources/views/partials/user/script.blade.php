@@ -6,9 +6,9 @@
     <script src="{{ asset('assets/user/js/language-dropdown.js') }}"></script>
     <script src="{{ asset('assets/user/js/dropzone.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/cleave.min.js') }}"></script>
-    <script src="{{ asset('assets/user/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/leaflet.js') }}"></script>
+    <script src="{{ asset('assets/user/js/summernote-lite.min.js') }}"></script>
 
 
     <script>

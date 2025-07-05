@@ -98,6 +98,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::get('/bookmarked', [ProfileController::class, 'bookmarked'])->name('bookmarked');
             Route::get('/manage-jobs', [ProfileController::class, 'manageJobs'])->name('manage-jobs');
             Route::get('/manage-offers', [ProfileController::class, 'manageOffers'])->name('manage-offers');
+            Route::get('/saved-offers', [ProfileController::class, 'savedOffers'])->name('saved-offers');
         });
     });
 
@@ -157,6 +158,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/index', [AdminCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [AdminCategoryController::class, 'create'])->name('create');
                 Route::post('/store', [AdminCategoryController::class, 'store'])->name('store');
+                Route::get('/edit', [AdminCategoryController::class, 'edit'])->name('edit');
                 Route::get('/show/{category}', [AdminCategoryController::class, 'show'])->name('show');
                 Route::delete('/destroy/{category}', [AdminCategoryController::class, 'destroy'])->name('destroy');
                 Route::put('/update/{category}', [AdminCategoryController::class, 'update'])->name('update');

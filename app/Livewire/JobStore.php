@@ -14,10 +14,20 @@ class JobStore extends Component
     public $categories = [];
     public $subCategories = [];
 
-    public function mount()
+    public function mount($selectedCategoryId = null, $selectedSubcategoryId = null)
     {
         $this->categories = Category::all();
-        $this->subCategories = collect();
+
+        if ($selectedCategoryId) {
+            $this->selectedCategory = $selectedCategoryId;
+            $this->subCategories = SubCategory::where('category_id', $selectedCategoryId)->get();
+
+            if ($selectedSubcategoryId) {
+                $this->selectedSubCategory = $selectedSubcategoryId;
+            }
+        } else {
+            $this->subCategories = collect();
+        }
     }
 
     public function updatedSelectedCategory($categoryId)
