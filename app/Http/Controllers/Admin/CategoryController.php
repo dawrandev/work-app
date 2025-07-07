@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Models\Category;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -22,12 +24,16 @@ class CategoryController extends Controller
 
     public function create()
     {
-        //
+        return view('pages.admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        $category = $this->categoryService->createCategory($request->validated());
+
+        Alert::success(__('Category created succesfully'));
+
+        return redirect()->route('admin.categories.index');
     }
 
     public function show(string $id)

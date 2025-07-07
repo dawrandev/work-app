@@ -28,11 +28,11 @@ class OfferSaveRepository
         );
     }
 
-    public function delete($userId, $offerId)
+    public function destroy($offer_id)
     {
         return DB::table('save_offers')
-            ->where('user_id', $userId)
-            ->where('offer_id', $offerId)
+            ->where('user_id', auth()->id())
+            ->where('offer_id', $offer_id)
             ->delete();
     }
 

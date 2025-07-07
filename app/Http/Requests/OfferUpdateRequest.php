@@ -34,7 +34,7 @@ class OfferUpdateRequest extends FormRequest
             'images' => 'nullable|array|max:3',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'delete_images' => 'nullable|array',
-            'delete_images.*' => 'nullable|exists:offer_images,id',
+            'delete_images.*' => 'nullable|exists:images,id',
         ];
     }
 

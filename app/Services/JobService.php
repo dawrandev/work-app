@@ -33,7 +33,6 @@ class JobService
                     foreach ($request->file('images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $path = $image->storeAs("jobs", $filename, 'public');
-
                         $job->images()->create([
                             'image_path' => $filename,
                         ]);
@@ -50,14 +49,11 @@ class JobService
     {
         try {
             DB::transaction(function () use ($job, $data, $request) {
-                // Debug uchun
                 Log::info('Job update data:', $data);
                 Log::info('Delete images:', $request->input('delete_images', []));
 
-                // Job ma'lumotlarini yangilash
                 $job = $this->jobRepository->update($job, $data);
 
-                // Delete images
                 if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
                     $deleteImageIds = $request->input('delete_images');
 

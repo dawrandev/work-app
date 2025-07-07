@@ -35,7 +35,7 @@ class OfferStoreRequest extends FormRequest
                 'address' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'images' => 'nullable|array|max:3',
-                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'images.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ];
     }
     protected function prepareForValidation()

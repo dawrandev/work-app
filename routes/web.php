@@ -120,6 +120,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     Route::middleware('auth')->group(function () {
         Route::prefix('save-offers')->as('save-offers.')->group(function () {
             Route::post('/store', [OfferSaveController::class, 'store'])->name('store');
+            Route::delete('/destroy', [OfferSaveController::class, 'destroy'])->name('destroy');
         });
     });
 

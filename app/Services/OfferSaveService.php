@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\OfferSaveRepository;
+use Exception;
 
 class OfferSaveService
 {
@@ -27,5 +28,12 @@ class OfferSaveService
     public function getUserSavedOffers($user_id)
     {
         return $this->offerSaveRepository->savedOffers($user_id);
+    }
+
+    public function destroyOffer($offer_id): void
+    {
+        if (!$this->offerSaveRepository->destroy($offer_id)) {
+            throw new Exception('Saved offer not found or already deleted');
+        };
     }
 }

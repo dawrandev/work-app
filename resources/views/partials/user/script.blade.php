@@ -8,7 +8,7 @@
     <script src="{{ asset('assets/user/js/cleave.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/leaflet.js') }}"></script>
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
         $('#salary_from').inputmask('decimal', {

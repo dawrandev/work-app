@@ -72,8 +72,12 @@ class OfferSaveController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($locale, string $id)
     {
-        //
+        $this->offerSaveService->destroyOffer($id);
+
+        Alert::success(__('Offer deleted succesfully'));
+
+        return redirect()->back();
     }
 }

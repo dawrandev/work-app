@@ -41,7 +41,7 @@ class OfferController extends Controller
 
     public function show($locale, Offer $offer)
     {
-        $offer->load(['images', 'category', 'district', 'type']);
+        $offer->load(['images', 'category', 'district', 'type', 'user']);
 
         return view('pages.user.offers.show', compact('offer'));
     }

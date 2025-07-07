@@ -21,6 +21,7 @@
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>{{__('Category')}}</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.categories.index') }}">{{__('Category List')}}</a></li>
+                            <li><a href="{{ route('admin.categories.create') }}">{{__('Create Category')}}</a></li>
                         </ul>
                     </li>
                 </ul>

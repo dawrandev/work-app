@@ -1,55 +1,89 @@
 @extends('layouts.user.main')
 
 @section('content')
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@endpush
+
 <x-user.breadcrumb :title="__('Edit Service')" :description="__('Edit your service')" :page="__('Edit Service')" />
-<section class="add-resume section">
+
+<!-- DELETE IMAGE FUNCTION - HEAD SECTION'DA -->
+<script>
+    // O'chirilishi kerak bo'lgan image IDs
+    let imagesToDelete = [];
+
+    function deleteImage(imageId) {
+        // Duplicate check qilish
+        if (!imagesToDelete.includes(imageId)) {
+            imagesToDelete.push(imageId);
+        }
+
+        // DOM'dan image'ni o'chir (visual effect)
+        const imageContainer = event.target.closest('.col-md-3');
+        if (imageContainer) {
+            imageContainer.style.transition = 'opacity 0.3s ease';
+            imageContainer.style.opacity = '0';
+            setTimeout(() => {
+                imageContainer.remove();
+            }, 300);
+        }
+    }
+
+    // Form submit qilganda hidden input'lar qo'shish
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('offerEditForm');
+
+        form.addEventListener('submit', function(e) {
+            console.log('=== FORM SUBMISSION ===');
+
+            // Delete images array'ni qo'shish
+            imagesToDelete.forEach(imageId => {
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'delete_images[]';
+                hiddenInput.value = imageId;
+                form.appendChild(hiddenInput);
+            });
+
+            // Subcategory value tekshirish
+            const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
+            console.log('Selected subcategory:', subcategorySelect.value);
+        });
+    });
+</script>
+
+<section class="job-post section">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1 col-12">
-                <div class="add-resume-inner box">
-                    <div class="row">
-                        <div class="post-header align-items-center justify-content-center">
-                            <div class="text-right mb-3" style="font-size: 1rem; font-weight: normal;">
-                                @auth
-                                <h3>Edit Service Information</h3>
-                                {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
-                            </div>
-                        </div>
-                        @endauth
+                <div class="job-information">
+                    <h3 class="title">{{ __('Edit Offer Information') }}</h3>
+                    @auth
+                    <div class="text-right mb-3" style="font-size: 1rem; font-weight: normal;">
+                        {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                     </div>
-                    <form class="form-ad" action="{{ route('offers.update', $offer->id) }}" method="post" enctype="multipart/form-data">
+                    @endauth
+                    <form action="{{ route('offers.update', $offer->id) }}" method="POST" enctype="multipart/form-data" id="offerEditForm">
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-lg-6 col-12">
+                            <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label">Profession Title</label>
-                                    <input type="text" class="form-control" placeholder="Title" name="title" value="{{ old('title', $offer->title) }}">
+                                    <label>{{ __('Profession Title') }}</label>
+                                    <input class="form-control" name="title" type="text" value="{{ old('title', $offer->title) }}">
                                     @error('title')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-12">
-                                <div class="form-group">
-                                    <label class="control-label">District</label>
-                                    <select class="form-control" name="district_id">
-                                        <option value="">Select District</option>
-                                        @foreach (getDistricts() as $district)
-                                        <option value="{{ $district->id }}" {{ old('district_id', $offer->district_id) == $district->id ? 'selected' : '' }}>{{ $district->translated_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('district_id')
-                                    <li style="color: red;">{{ $message }}</li>
-                                    @enderror
-                                </div>
-                            </div>
+
                             @livewire('service-store', ['selectedCategoryId' => old('category_id', $offer->category_id), 'selectedSubcategoryId' => old('subcategory_id', $offer->subcategory_id)])
-                            <div class="col-lg-6 col-12">
+
+                            <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Type</label>
-                                    <select class="form-control" name="type_id">
-                                        <option value="">Select Type</option>
+                                    <label>{{ __('Type') }}</label>
+                                    <select class="select" name="type_id">
+                                        <option value="">{{__('Select Type') }}</option>
                                         @foreach (getTypes() as $type)
                                         <option value="{{ $type->id }}" {{ old('type_id', $offer->type_id) == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
                                         @endforeach
@@ -59,11 +93,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-12">
+
+                            <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Employment Type</label>
-                                    <select class="form-control" name="employment_type_id">
-                                        <option value="">Select Employment Type</option>
+                                    <label>{{ __('Employment Type') }}</label>
+                                    <select class="select" name="employment_type_id">
+                                        <option value="">{{ __('Select Employment Type') }}</option>
                                         @foreach (getEmploymentTypes() as $type)
                                         <option value="{{ $type->id }}" {{ old('employment_type_id', $offer->employment_type_id) == $type->id ? 'selected' : '' }}>{{ $type->translated_name }}</option>
                                         @endforeach
@@ -73,6 +108,32 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('District') }}</label>
+                                    <select class="select" name="district_id">
+                                        <option value="">{{ __('Select District') }}</option>
+                                        @foreach (getDistricts() as $district)
+                                        <option value="{{ $district->id }}" {{ old('district_id', $offer->district_id) == $district->id ? 'selected' : '' }}>{{ $district->translated_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('district_id')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Phone') }}</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone_edit" value="{{ old('phone', $offer->phone) }}">
+                                    @error('phone')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
+
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary From') }}</label>
@@ -82,6 +143,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary To') }}</label>
@@ -91,82 +153,75 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-12">
+
+                            <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label">Location</label>
-                                    <input type="text" class="form-control" placeholder="Location, e.g" name="address" value="{{ old('address', $offer->address) }}">
+                                    <label>{{ __('Location') }}</label>
+                                    <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $offer->address) }}" placeholder="{{ __('Enter address') }}">
                                     @error('address')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-12">
+
+                            <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label class="control-label">Phone</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', $offer->phone) }}">
-                                    @error('phone')
+                                    <label>{{ __('Description') }}</label>
+                                    <div class="editor-container">
+                                        <textarea name="description" id="description" class="form-control">{{ old('description', $offer->description) }}</textarea>
+                                    </div>
+                                    @error('description')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Description</label>
-                            <textarea class="form-control" name="description">{{ old('description', $offer->description) }}</textarea>
-                            @error('description')
-                            <li style="color: red;">{{ $message }}</li>
-                            @enderror
-                        </div>
 
-                        <!-- Existing Images -->
-                        @if($offer->images && count($offer->images) > 0)
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>{{ __('Current Images') }}</label>
-                                <div class="current-images-container">
-                                    <div class="row">
-                                        @foreach($offer->images as $image)
-                                        <div class="col-md-3 mb-3">
-                                            <div class="image-item position-relative">
-                                                <img src="{{ asset('storage/' . $image->path) }}" alt="Offer Image" class="img-thumbnail" style="width: 100%; height: 150px; object-fit: cover;">
-                                                <div class="form-check mt-2">
-                                                    <input class="form-check-input" type="checkbox" name="delete_images[]" value="{{ $image->id }}" id="delete_image_{{ $image->id }}">
-                                                    <label class="form-check-label text-danger" for="delete_image_{{ $image->id }}">
-                                                        {{ __('Delete this image') }}
-                                                    </label>
+                            <!-- Image Upload with existing images -->
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>{{ __('Upload Images') }}</label>
+
+                                    <!-- Existing Images -->
+                                    @if($offer->images && count($offer->images) > 0)
+                                    <div class="existing-images mb-3">
+                                        <h5>{{ __('Current Images') }}</h5>
+                                        <div class="row">
+                                            @foreach($offer->images as $image)
+                                            <div class="col-md-3 mb-3">
+                                                <div class="image-item position-relative">
+                                                    <img src="{{ asset('storage/offers/' . $image->image_path) }}" alt="Offer Image" class="img-fluid" style="height: 150px; object-fit: cover; border-radius: 8px;">
+                                                    <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px;" onclick="deleteImage({{ $image->id }})">
+                                                        <i class="lni lni-trash"></i>
+                                                    </button>
                                                 </div>
                                             </div>
+                                            @endforeach
                                         </div>
-                                        @endforeach
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
+                                    @endif
 
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>{{ __('Upload New Images') }}</label>
-                                <div class="custom-file-upload" id="fileUploadArea">
-                                    <div class="upload-area" onclick="document.getElementById('imageInput').click()">
-                                        <i class="lni lni-cloud-upload"></i>
-                                        <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                        <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                    <!-- New Images Upload -->
+                                    <div class="custom-file-upload" id="fileUploadArea">
+                                        <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                                            <i class="lni lni-cloud-upload"></i>
+                                            <h4>{{ __('Click to upload or drag and drop') }}</h4>
+                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                        </div>
+                                        <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
+                                        <div id="imagePreview" class="image-preview-container"></div>
                                     </div>
-                                    <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
-                                    <div id="imagePreview" class="image-preview-container"></div>
+                                    @error('images')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
                                 </div>
-                                @error('images')
-                                <li style="color: red;">{{ $message }}</li>
-                                @enderror
                             </div>
+
                         </div>
+                        <br>
                         <div class="row">
-                            <div class="col-12 d-flex justify-content-end">
-                                <div class="button">
-                                    <a href="{{ route('offers.index') }}" class="btn btn-secondary me-2">Cancel</a>
-                                    <input type="submit" value="Update" class="btn btn-alt">
-                                </div>
+                            <div class="col-lg-12 button">
+                                <button class="btn" type="submit">{{ __('Update Offer') }}</button>
+                                <a href="{{ route('offers.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                             </div>
                         </div>
                     </form>
@@ -176,15 +231,90 @@
     </div>
 </section>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Reset uploaded files array when page loads
-        uploadedFiles = [];
+<style>
+    .existing-images img {
+        border: 2px solid #ddd;
+        transition: border-color 0.3s;
+    }
 
-        // Initialize file upload if elements exist
-        if (document.getElementById('imageInput') && document.getElementById('imagePreview')) {
-            setupFileUpload();
-        }
+    .existing-images .image-item:hover img {
+        border-color: #007bff;
+    }
+
+    /* Upload area styling */
+    .upload-area {
+        border: 2px dashed #ddd;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.3s;
+    }
+
+    .upload-area:hover {
+        border-color: #007bff;
+    }
+
+    .upload-area.drag-over {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+    }
+
+    /* Image preview styling */
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .image-preview-item {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 2px solid #ddd;
+    }
+
+    .image-preview-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-preview-item .remove-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: #ff4757;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+@endsection
+
+@push('js')
+<script src="{{ asset('assets/user/js/summernote-lite.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            placeholder: 'Offer tavsifini kiriting...',
+            tabsize: 2,
+            height: 300,
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline', 'clear']]
+            ]
+        });
     });
 </script>
-@endsection
+@endpush

@@ -17,23 +17,25 @@ class OfferService
     public function createOffer(array $data, $request)
     {
         try {
-            DB::transaction(function () use ($data, $request) {
+            $offer = DB::transaction(function () use ($data, $request) {
                 $data['user_id'] = auth()->id();
                 $data['status'] = 'active';
                 $data['approval_status'] = 'pending';
 
                 $offer = $this->offerRepository->create($data);
 
-                if ($request->hasFile('service_images')) {
-                    foreach ($request->file('service_images') as $image) {
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                        $path = $image->storeAs("offers", $filename, 'public');
+                        $image->storeAs('offers', $filename, 'public');
                         $offer->images()->create([
                             'image_path' => $filename,
                         ]);
                     }
                 }
+                return $offer;
             });
+            return $offer;
         } catch (Exception $e) {
             throw $e;
         }
@@ -48,22 +50,35 @@ class OfferService
     {
         try {
             DB::transaction(function () use ($offer, $data, $request) {
-                $data['user_id'] = auth()->id();
-                $data['status'] = 'active';
-                $data['approval_status'] = 'pending';
-
                 $offer = $this->offerRepository->update($offer, $data);
 
-                if ($request->hasFile('service_images')) {
-                    foreach ($request->file('service_images') as $image) {
-                        $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
-                        $path = $image->storeAs("offers", $filename, 'public');
-                        $offer->images()->update([
+                // Delete selected images
+                if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
+                    $deleteImageIds = $request->input('delete_images');
+
+                    foreach ($deleteImageIds as $imageId) {
+                        $image = \App\Models\Image::find($imageId);
+                        if ($image && $image->imageable_id == $offer->id && $image->imageable_type == Offer::class) {
+                            $fullPath = 'offers/' . $image->image_path;
+                            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($fullPath)) {
+                                \Illuminate\Support\Facades\Storage::disk('public')->delete($fullPath);
+                            }
+                            $image->delete();
+                        }
+                    }
+                }
+
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $image) {
+                        $filename = time() . '_' . \Illuminate\Support\Str::random(8) . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('offers', $filename, 'public');
+                        $offer->images()->create([
                             'image_path' => $filename,
                         ]);
                     }
                 }
             });
+            return $offer;
         } catch (Exception $e) {
             throw $e;
         }

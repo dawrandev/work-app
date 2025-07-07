@@ -117,9 +117,8 @@ $sectionClass = 'manage-jobs';
                                 <div class="empty-content">
                                     <i class="lni lni-briefcase" style="font-size: 3rem; color: #dee2e6;"></i>
                                     <p class="mt-3 mb-1">{{ __('No jobs found') }}</p>
-                                    <p class="text-muted mb-4">{{ __('Try adjusting your filters or create a new job.') }}</p>
-                                    <a href="{{ route('jobs.create') }}" class="btn btn-primary">
-                                        <i class="lni lni-plus"></i> {{ __('Post New Job') }}
+                                    <a href="{{ route('jobs.index') }}" class="btn btn-primary">
+                                        <i class="lni lni-plus"></i> {{ __('Browse Jobs') }}
                                     </a>
                                 </div>
                             </td>
@@ -146,7 +145,7 @@ $sectionClass = 'manage-jobs';
     function deleteJob(jobId, jobTitle) {
         Swal.fire({
             title: '{{ __("Are you sure?") }}',
-            text: '{{ __("You want to delete this job:") }} ' + jobTitle,
+            text: '{{ __("You want to delete this job?") }} ',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -158,7 +157,7 @@ $sectionClass = 'manage-jobs';
                 // Create form and submit
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '/' + locale + '/jobs/destroy/' + jobId;
+                form.action = '/' + locale + '/save-jobs/destroy/' + jobId;
 
                 // CSRF token
                 var csrfToken = document.createElement('input');

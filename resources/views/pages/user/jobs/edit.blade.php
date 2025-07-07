@@ -1,6 +1,10 @@
 @extends('layouts.user.main')
 
 @section('content')
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@endpush
+
 <x-user.breadcrumb :title="__('Edit Job')" :description="__('Update your job information to attract the best talent.')" :page="__('Edit Job')" />
 
 <!-- DELETE IMAGE FUNCTION - HEAD SECTION'DA -->
@@ -199,7 +203,9 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Job Description*') }}</label>
-                                    <textarea name="description" id="description" class="form-control summernote" rows="5">{{ old('description', $job->description) }}</textarea>
+                                    <div class="editor-container">
+                                        <textarea name="description" id="description" class="form-control">{{ old('description', $job->description) }}</textarea>
+                                    </div>
                                     @error('description')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -429,5 +435,26 @@
     }
 </style>
 
-@section('scripts')
 @endsection
+
+@push('js')
+<script src="{{ asset('assets/user/js/summernote-lite.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#description').summernote({
+            placeholder: 'Job tavsifini kiriting...',
+            tabsize: 2,
+            height: 300,
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline', 'clear']]
+            ]
+        });
+    });
+
+    L.Icon.Default.mergeOptions({
+        iconUrl: '/assets/user/images/leaflet/marker-icon.png',
+        iconRetinaUrl: '/assets/user/images/leaflet/marker-icon-2x.png',
+        shadowUrl: '/assets/user/images/leaflet/marker-shadow.png'
+    });
+</script>
+@endpush

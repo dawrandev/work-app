@@ -85,7 +85,6 @@
                             </div>
                         </div>
                         @endif
-
                         <!-- Location Map -->
                         @if($offer->latitude && $offer->longitude)
                         <div class="job-location mt-4">
