@@ -63,7 +63,7 @@
                     <div class="job-details-body">
                         <!-- Job Description -->
                         <h6 class="mb-3">{{__('Job Description')}}</h6>
-                        <p>{{ $job->description }}</p>
+                        <p>{!! $job->description !!}</p>
 
                         <!-- Images Gallery -->
                         @if (!empty($job->images) && count($job->images) > 0)

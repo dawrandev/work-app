@@ -17,7 +17,15 @@ class JobSaveRepository
         ]);
     }
 
-    public function getUserJobs($user_id)
+    public function destroy(string $jobId): bool
+    {
+        return DB::table('save_jobs')
+            ->where('user_id', auth()->user()->id)
+            ->where('job_id', $jobId)
+            ->delete();
+    }
+
+    public function savedJobs($user_id)
     {
         $user = User::find($user_id);
 
@@ -26,13 +34,5 @@ class JobSaveRepository
         }
 
         return $user->savedJobs()->paginate(5)->appends(request()->query());
-    }
-
-    public function destroy(string $jobId): bool
-    {
-        return DB::table('save_jobs')
-            ->where('user_id', auth()->user()->id)
-            ->where('job_id', $jobId)
-            ->delete();
     }
 }

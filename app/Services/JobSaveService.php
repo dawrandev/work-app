@@ -9,7 +9,10 @@ class JobSaveService
 {
     public function __construct(
         protected JobSaveRepository $jobSaveRepository
-    ) {}
+    ) {
+        // 
+    }
+
     public function saveJob(array $data)
     {
         try {
@@ -35,15 +38,15 @@ class JobSaveService
         }
     }
 
-    public function getUserJobs($user_id)
-    {
-        return $this->jobSaveRepository->getUserJobs($user_id);
-    }
-
     public function destroy($jobId): void
     {
         if (!$this->jobSaveRepository->destroy($jobId)) {
             throw new \Exception('Saved job not found or already deleted');
         }
+    }
+
+    public function getUserSavedJobs($user_id)
+    {
+        return $this->jobSaveRepository->savedJobs($user_id);
     }
 }

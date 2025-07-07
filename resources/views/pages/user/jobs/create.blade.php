@@ -1,6 +1,10 @@
 @extends('layouts.user.main')
 
 @section('content')
+@push('css')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+@endpush
 <x-user.breadcrumb :title="__('Post a Job')" :description="__('Post your job vacancies and attract the best talent for your business.')" :page="__('Post a Job')" />
 
 <section class="job-post section">
@@ -144,17 +148,18 @@
                                     <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude') }}">
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Job Description*') }}</label>
-                                    <textarea name="description" id="summernote" class="form-control">{{ old('description') }}</textarea>
+                                    <div class="editor-container">
+
+                                        <textarea name="description" id="description" class="form-control">{{ old('description', $job->description ?? '') }}</textarea>
+                                    </div>
                                     @error('description')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
                                 </div>
                             </div>
-
                             <!-- Simple File Upload (Dropzone o'rniga) -->
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -188,36 +193,18 @@
     </div>
 </section>
 @endsection
-
-@push('scripts')
+@push('js')
+<script src="{{ asset('assets/user/js/summernote-lite.min.js') }}"></script>
 <script>
     $(document).ready(function() {
-        // Summernote Lite initialization
-        $('#summernote').summernote({
-            placeholder: '{{ __("Enter job description here...") }}',
+        $('#description').summernote({
+            placeholder: 'Job tavsifini kiriting...',
+            tabsize: 2,
             height: 300,
             toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link']],
-                ['view', ['codeview', 'help']]
-            ],
-            callbacks: {
-                // Form submit qilishdan oldin code view'dan chiqish
-                onInit: function() {
-                    // Form submit event'ga listener qo'shish
-                    $('#jobPostForm').on('submit', function() {
-                        // Agar code view ochiq bo'lsa, uni yopish
-                        if ($('#summernote').summernote('codeview.isActivated')) {
-                            $('#summernote').summernote('codeview.deactivate');
-                        }
-                    });
-                }
-            }
+                ['font', ['bold', 'italic', 'underline', 'clear']]
+            ]
         });
     });
-    console.log('Scripts section ishlayapti');
-    console.log('Summernote element:', $('#summernote').length);
 </script>
 @endpush

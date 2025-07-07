@@ -95,10 +95,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::prefix('profile')->as('profile.')->group(function () {
             Route::get('/index', [ProfileController::class, 'index'])->name('index');
             Route::get('/my-resume', [ProfileController::class, 'myResume'])->name('my-resume');
-            Route::get('/bookmarked', [ProfileController::class, 'bookmarked'])->name('bookmarked');
             Route::get('/manage-jobs', [ProfileController::class, 'manageJobs'])->name('manage-jobs');
             Route::get('/manage-offers', [ProfileController::class, 'manageOffers'])->name('manage-offers');
             Route::get('/saved-offers', [ProfileController::class, 'savedOffers'])->name('saved-offers');
+            Route::get('/saved-jobs', [ProfileController::class, 'savedJobs'])->name('saved-jobs');
         });
     });
 

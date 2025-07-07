@@ -99,7 +99,7 @@
                                     <li><a href="#"><i class="lni lni-dashboard"></i> {{ __('Dashboard') }}</a></li>
                                     <li><a href="{{ route('profile.manage-jobs') }}"><i class="lni lni-briefcase"></i> {{ __('My Jobs') }}</a></li>
                                     <li><a href="{{ route('profile.manage-offers') }}"><i class="lni lni-files"></i> {{ __('My Offers') }}</a></li>
-                                    <li><a href="#"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
+                                    <li><a href="{{ route('profile.saved-jobs') }}"><i class="lni lni-heart"></i> {{ __('Saved Jobs') }}</a></li>
                                     <li><a href="{{ route('profile.saved-offers') }}"><i class="lni lni-heart-filled"></i> {{ __('Saved Offers') }}</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

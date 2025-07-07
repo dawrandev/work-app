@@ -8,7 +8,6 @@
     <script src="{{ asset('assets/user/js/cleave.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('assets/user/js/leaflet.js') }}"></script>
-    <script src="{{ asset('assets/user/js/summernote-lite.min.js') }}"></script>
 
 
     <script>

@@ -4,16 +4,16 @@
 
 <x-user.breadcrumb :title="__('Offer Details')" :description="__('View detailed information about the offer, including requirements, salary, and application process')" :page="__('Offer Details')" />
 
-<!-- Start Offer Details -->
-<div class="offer-details section">
+<!-- Start Job Details -->
+<div class="job-details section">
     <div class="container">
         <div class="row mb-n5">
-            <!-- Offer List Details Start -->
+            <!-- Job List Details Start -->
             <div class="col-lg-8 col-12">
-                <div class="offer-details-inner">
-                    <div class="offer-details-head row mx-0">
+                <div class="job-details-inner">
+                    <div class="job-details-head row mx-0">
                         <div class="company-logo col-auto">
-                            <div class="offer-image">
+                            <div class="job-image">
                                 <i class="{{ $offer->category->icon }}" style="font-size: 3rem;"></i>
                             </div>
                         </div>
@@ -31,8 +31,18 @@
                             @else
                             <span class="salary-range">{{ __('Negotiable') }}</span>
                             @endif
-                            <div class="offer-badges mt-2">
-                                <span class="badge badge-success">{{ $offer->type->translated_name }}</span>
+                            <div class="job-badges mt-2">
+                                @if ($offer->type->id == 1)
+                                <span class="badge badge-success">
+                                    <i class="lni lni-briefcase"></i>
+                                    {{ $offer->type->translated_name }}
+                                </span>
+                                @else
+                                <span class="badge badge-success">
+                                    <i class="lni lni-timer"></i>
+                                    {{ $offer->type->translated_name }}
+                                </span>
+                                @endif
                                 @if($offer->employmentType)
                                 <span class="badge badge-employment">
                                     <i class="lni lni-users"></i>
@@ -46,28 +56,14 @@
                             <ul class="meta">
                                 <li><strong class="text-primary"><a href="{{ route('categories.show', $offer->category_id) }}">{{ $offer->category->translated_name }}</a></strong></li>
                                 <li><strong class="text-primary"><a href="{{ route('subcategories.show', $offer->subcategory_id) }}">{{ $offer->subcategory->translated_name }}</a></strong></li>
-                                <li><i class="lni lni-map-marker"></i><strong class="text-primary">{{ $offer->district->translated_name ?? __('Not specified') }}</strong></li>
-                                @if($offer->address)
-                                <li>{{ $offer->address }}</li>
-                                @endif
                             </ul>
-
-                            <!-- Employment Type Info -->
-                            @if($offer->employmentType)
-                            <div class="employment-info mt-2">
-                                <span class="employment-tag">
-                                    <i class="lni lni-briefcase-alt"></i>
-                                    <span class="employment-text">{{ $offer->employmentType->translated_name }}</span>
-                                </span>
-                            </div>
-                            @endif
                         </div>
                     </div>
 
-                    <div class="offer-details-body">
-                        <!-- Offer Description -->
+                    <div class="job-details-body">
+                        <!-- Job Description -->
                         <h6 class="mb-3">{{__('Offer Description')}}</h6>
-                        <p>{{ $offer->description }}</p>
+                        <p>{!! $offer->description !!}</p>
 
                         <!-- Images Gallery -->
                         @if (!empty($offer->images) && count($offer->images) > 0)
@@ -80,7 +76,7 @@
                                         <div class="image-wrapper mb-3">
                                             <img src="{{ asset('storage/offers/' . $image['image_path']) }}"
                                                 alt="Offer image {{ $index + 1 }}"
-                                                class="img-thumbnail offer-image-thumb"
+                                                class="img-thumbnail job-image-thumb"
                                                 style="cursor: pointer; height: 150px; width: 100%; object-fit: cover;">
                                         </div>
                                     </div>
@@ -89,14 +85,53 @@
                             </div>
                         </div>
                         @endif
+
+                        <!-- Location Map -->
+                        @if($offer->latitude && $offer->longitude)
+                        <div class="job-location mt-4">
+                            <h6 class="mb-3">{{__('Location')}}</h6>
+
+                            <!-- Address Block -->
+                            @if($offer->address)
+                            <div class="address-block mb-3">
+                                <div class="address-content">
+                                    <div class="address-icon">
+                                        <i class="lni lni-map-marker"></i>
+                                    </div>
+                                    <div class="address-text">
+                                        <h6 class="address-title">{{ __('Offer Address') }}</h6>
+                                        <p class="address-detail">{{ $offer->address }}</p>
+                                        @if($offer->district)
+                                        <span class="district-badge">
+                                            <i class="lni lni-map"></i>
+                                            {{ $offer->district->translated_name }}
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
+                            <div class="map-container">
+                                <div id="jobMap"
+                                    data-lat="{{ $offer->latitude }}"
+                                    data-lng="{{ $offer->longitude }}"
+                                    data-title="{{ str_replace('"', '&quot;', $offer->title) }}"
+                                    data-address="{{ str_replace('"', '&quot;', $offer->address) }}"
+                                    data-phone="{{ $offer->phone }}"
+                                    style="height: 400px; width: 100%; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1; position: relative;">
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
-            <!-- Offer List Details End -->
+            <!-- Job List Details End -->
 
-            <!-- Offer Sidebar Wrap Start -->
+            <!-- Job Sidebar Wrap Start -->
             <div class="col-lg-4 col-12">
-                <div class="offer-details-sidebar">
+                <div class="job-details-sidebar">
                     <!-- Sidebar (Apply Buttons) Start -->
                     <div class="sidebar-widget">
                         <div class="inner">
@@ -120,7 +155,7 @@
                                     @endif
                                 </div>
                                 <div class="col-6 p-1">
-                                    <a href="#" class="d-block btn btn-alt" onclick="handleOfferApply({{ $offer->id }})">
+                                    <a href="#" class="d-block btn btn-alt" onclick='handleOfferApply({{ $offer->id }})'>
                                         <i class="lni lni-pointer-right mr-1"></i>{{__('Apply')}}
                                     </a>
                                 </div>
@@ -129,16 +164,17 @@
                     </div>
                     <!-- Sidebar (Apply Buttons) End -->
 
-                    <!-- Sidebar (Offer Overview) Start -->
-                    <div class="sidebar-widget offer-overview-widget">
+                    <!-- Sidebar (Job Overview) Start -->
+                    <div class="sidebar-widget job-overview-widget">
                         <div class="inner">
                             <h6 class="title">
                                 <i class="lni lni-clipboard"></i>
                                 {{__('Offer Overview')}}
                             </h6>
-                            <ul class="offer-overview list-unstyled">
+                            <ul class="job-overview list-unstyled">
                                 @php
                                 use Carbon\Carbon;
+                                $deadline = $offer->deadline ? Carbon::parse($offer->deadline)->format('d.m.Y') : __('Not specified');
                                 $published = Carbon::parse($offer->created_at)->format('d.m.Y');
                                 @endphp
 
@@ -173,16 +209,6 @@
                                     </div>
                                 </li>
 
-                                @if($offer->address)
-                                <li>
-                                    <div class="overview-content">
-                                        <i class="lni lni-map-marker"></i>
-                                        <strong>{{__('Address')}}:</strong>
-                                        <span>{{ $offer->address }}</span>
-                                    </div>
-                                </li>
-                                @endif
-
                                 @if($offer->phone)
                                 <li>
                                     <div class="overview-content">
@@ -213,6 +239,16 @@
                                     </div>
                                 </li>
 
+                                @if(isset($offer->deadline))
+                                <li>
+                                    <div class="overview-content">
+                                        <i class="lni lni-alarm-clock"></i>
+                                        <strong>{{__('Deadline')}}:</strong>
+                                        <span>{{ $deadline }}</span>
+                                    </div>
+                                </li>
+                                @endif
+
                                 @if($offer->status)
                                 <li>
                                     <div class="overview-content">
@@ -228,7 +264,7 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- Sidebar (Offer Overview) End -->
+                    <!-- Sidebar (Job Overview) End -->
 
                     <!-- Sidebar (Posted By) Start -->
                     @if($offer->user)
@@ -248,7 +284,6 @@
                                         @if($offer->user->phone)
                                         <small class="text-muted d-block">{{ __('Phone') }}: {{ $offer->user->phone }}</small>
                                         @endif
-                                        <small class="text-muted">{{ __('Member since') }} {{ $offer->user->created_at->format('Y') }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -258,11 +293,11 @@
                     <!-- Sidebar (Posted By) End -->
                 </div>
             </div>
-            <!-- Offer Sidebar Wrap End -->
+            <!-- Job Sidebar Wrap End -->
         </div>
     </div>
 </div>
-<!-- End Offer Details -->
+<!-- End Job Details -->
 
 <!-- Lightbox Modal -->
 <div id="imageLightbox" class="lightbox-overlay" onclick="closeLightbox()">

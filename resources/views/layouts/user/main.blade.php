@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
-
 <head>
     @include('partials.user.head')
 
     @livewireStyles
+
+    @stack('css')
 </head>
 
 <body>
@@ -28,6 +29,8 @@
     @include('partials.user.script')
 
     @livewireScripts
+
+    @stack('js')
 </body>
 
 </html>

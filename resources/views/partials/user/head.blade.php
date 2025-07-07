@@ -23,4 +23,4 @@
 <link rel="stylesheet" href="{{ asset('assets/user/css/dropzone.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/custom-style.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/user/css/leaflet.css') }}" />
-<link rel="stylesheet" href="{{ asset('assets/user/css/summernote-lite.min.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('assets/user/css/summernote-fixes.css') }}" />

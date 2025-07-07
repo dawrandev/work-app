@@ -199,7 +199,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Job Description*') }}</label>
-                                    <textarea name="description" class="form-control" rows="5">{{ old('description', $job->description) }}</textarea>
+                                    <textarea name="description" id="description" class="form-control summernote" rows="5">{{ old('description', $job->description) }}</textarea>
                                     @error('description')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
@@ -428,4 +428,6 @@
         justify-content: center;
     }
 </style>
+
+@section('scripts')
 @endsection

@@ -23,5 +23,9 @@ class OfferSaveService
             'offer_id' => $data['offer_id'],
         ]);
     }
+
+    public function getUserSavedOffers($user_id)
+    {
+        return $this->offerSaveRepository->savedOffers($user_id);
+    }
 }
-    

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\OfferSave;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class OfferSaveRepository
@@ -35,10 +36,14 @@ class OfferSaveRepository
             ->delete();
     }
 
-    public function getUserSavedOffers($userId)
+    public function SavedOffers($user_id)
     {
-        return DB::table('save_offers')
-            ->where('user_id', $userId)
-            ->get();
+        $user = User::find($user_id);
+
+        if (!$user) {
+            return collect();
+        }
+
+        return $user->savedOffers()->paginate(5)->appends(request()->query());
     }
 }
