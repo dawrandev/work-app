@@ -9,7 +9,8 @@ class CategoryRepository
     public function getAll()
     {
         return Category::with('subCategories')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
+            ->limit(8)
             ->get();
     }
 

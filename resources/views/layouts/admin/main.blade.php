@@ -40,6 +40,7 @@
     @include('sweetalert::alert')
 
     @include('partials.admin.script')
+
 </body>
 
 </html>

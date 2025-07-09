@@ -24,6 +24,12 @@
                             <li><a href="{{ route('admin.categories.create') }}">{{__('Create Category')}}</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="package"></i><span>{{__('SubCategory')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.subcategories.index') }}">{{__('SubCategory List')}}</a></li>
+                            <li><a href="{{ route('admin.subcategories.create') }}">{{__('Create SubCategory')}}</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>

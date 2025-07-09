@@ -65,7 +65,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        Alert::succes(__('Category deleted succesfully'));
+        Alert::success(__('Category deleted succesfully'));
 
         return redirect()->back();
     }
