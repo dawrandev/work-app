@@ -85,7 +85,11 @@ return [
 
     'locale' => 'kr',
 
-    'all_locales' => ['kr', 'uz', 'ru'],
+    'all_locales' => [
+        'kr' => 'Karakalpak',
+        'uz' => 'Uzbek',
+        'ru' => 'Russian',
+    ],
 
     'all_names' =>
     [

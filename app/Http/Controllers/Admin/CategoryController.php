@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Services\Admin\CategoryService;
 use Illuminate\Http\Request;
@@ -41,18 +42,31 @@ class CategoryController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit($locale, Category $category)
     {
-        //
+        return view('pages.admin.categories.edit', compact('category'));
     }
 
-    public function update(Request $request, string $id)
+    public function update($locale, CategoryUpdateRequest $request, Category $category)
     {
-        //
+        $result = $this->categoryService->updateCategory($request->validated(), $category);
+
+        if ($result) {
+
+            Alert::success(__('Category updated succesfully'));
+        } else {
+            Alert::success(__('Error updating category'));
+        }
+
+        return redirect()->route('admin.categories.index');
     }
 
-    public function destroy(string $id)
+    public function destroy($locale, Category $category)
     {
-        //
+        $category->delete();
+
+        Alert::succes(__('Category deleted succesfully'));
+
+        return redirect()->back();
     }
 }

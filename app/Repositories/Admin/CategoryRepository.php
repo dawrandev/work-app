@@ -3,6 +3,7 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class CategoryRepository
 {
@@ -13,14 +14,20 @@ class CategoryRepository
 
     public function create($data)
     {
-        $icon = $data['icon'];
+        $categoryData = [
+            'icon' => $data['icon'],
+            'name' => json_encode($data['name'], JSON_UNESCAPED_UNICODE)
+        ];
 
-        foreach ($data->name as $name) {
-            $category = Category::creaet([
-                'icon' => $icon,
-                'name' => $name
-            ]);
-        }
+        return Category::create($categoryData);
+    }
+
+    public function update($data, $category)
+    {
+        $category->update([
+            'icon' => $data['icon'],
+            'name' => json_encode($data['name'], JSON_UNESCAPED_UNICODE)
+        ]);
 
         return $category;
     }

@@ -10,6 +10,7 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
+        'icon',
         'name'
     ];
 
@@ -32,6 +33,19 @@ class Category extends Model
     {
         $locale = session('locale', 'kr');
 
-        return $this->name[$locale] ?? $this->name['kr'];
+        if (is_string($this->name)) {
+            $names = json_decode($this->name, true);
+        } else {
+            $names = $this->name;
+        }
+
+        return $names[$locale] ?? $names['kr'] ?? 'No translation';
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = is_array($value)
+            ? json_encode($value, JSON_UNESCAPED_UNICODE)
+            : $value;
     }
 }

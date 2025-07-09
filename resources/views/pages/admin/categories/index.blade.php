@@ -45,15 +45,16 @@
                                                 title="Edit">
                                                 <i class="icon-pencil-alt"></i>
                                             </a>
-                                            <form action="{{ route('admin.categories.destroy', $category->id) }}"
+                                            <form id="delete-category-form-{{ $category->id }}"
+                                                action="{{ route('admin.categories.destroy', $category->id) }}"
                                                 method="POST"
-                                                style="display:inline;"
-                                                onsubmit="return confirm('Are you sure you want to delete this category?')">
+                                                style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit"
+                                                <button type="button"
                                                     class="btn btn-sm btn-outline-danger"
-                                                    title="Delete">
+                                                    title="Delete"
+                                                    onclick="confirmDeleteCategory({{ $category->id }}, '{{ $category->translated_name }}')">
                                                     <i class="icon-trash"></i>
                                                 </button>
                                             </form>
@@ -87,3 +88,24 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function confirmDeleteCategory(categoryId, categoryName) {
+        Swal.fire({
+            title: '{{ __("Are you sure?") }}',
+            text: '{{ __("You want to delete this category:") }} ' + categoryName,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '{{ __("Yes, delete it!") }}',
+            cancelButtonText: '{{ __("Cancel") }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-category-form-' + categoryId).submit();
+            }
+        });
+    }
+</script>
+@endpush
