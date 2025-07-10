@@ -52,7 +52,6 @@ class CategoryController extends Controller
         $result = $this->categoryService->updateCategory($request->validated(), $category);
 
         if ($result) {
-
             Alert::success(__('Category updated succesfully'));
         } else {
             Alert::success(__('Error updating category'));

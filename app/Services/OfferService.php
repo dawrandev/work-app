@@ -52,7 +52,6 @@ class OfferService
             DB::transaction(function () use ($offer, $data, $request) {
                 $offer = $this->offerRepository->update($offer, $data);
 
-                // Delete selected images
                 if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
                     $deleteImageIds = $request->input('delete_images');
 

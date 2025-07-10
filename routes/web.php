@@ -170,10 +170,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/index', [AdminSubCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [AdminSubCategoryController::class, 'create'])->name('create');
                 Route::post('/store', [AdminSubCategoryController::class, 'store'])->name('store');
-                Route::get('/edit/{category}', [AdminSubCategoryController::class, 'edit'])->name('edit');
-                Route::get('/show/{category}', [AdminSubCategoryController::class, 'show'])->name('show');
-                Route::delete('/destroy/{category}', [AdminSubCategoryController::class, 'destroy'])->name('destroy');
-                Route::put('/update/{category}', [AdminSubCategoryController::class, 'update'])->name('update');
+                Route::get('/edit/{subcategory}', [AdminSubCategoryController::class, 'edit'])->name('edit');
+                Route::get('/show/{subcategory}', [AdminSubCategoryController::class, 'show'])->name('show');
+                Route::delete('/destroy/{subcategory}', [AdminSubCategoryController::class, 'destroy'])->name('destroy');
+                Route::put('/update/{subcategory}', [AdminSubCategoryController::class, 'update'])->name('update');
             });
         });
     });

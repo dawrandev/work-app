@@ -34,8 +34,18 @@ class SubCategory extends Model
     {
         $locale = session('locale', 'kr');
 
-        $name = is_array($this->name) ? $this->name : json_decode($this->name, true);
+        if (is_string($this->name)) {
+            $names = json_decode($this->name, true);
+        } else {
+            $names = $this->name;
+        }
+        return $names[$locale] ?? $names['kr'] ?? 'No translation';
+    }
 
-        return $this->name[$locale] ?? $this->name['kr'];
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = is_array($value)
+            ? json_encode($value, JSON_UNESCAPED_UNICODE)
+            : $value;
     }
 }

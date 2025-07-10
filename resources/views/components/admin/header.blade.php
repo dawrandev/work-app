@@ -26,19 +26,16 @@
                             <div class="lang"><i class="flag-icon flag-icon-us"></i><span class="lang-txt">EN </span></div>
                         </div>
                         <div class="more_lang">
-                            <!-- Russian -->
                             <div class="lang {{ app()->getLocale() == 'ru' ? 'selected' : '' }}" data-value="ru">
                                 <i class="flag-icon flag-icon-ru"></i>
                                 <span class="lang-txt">Русский</span>
                             </div>
 
-                            <!-- Uzbek -->
                             <div class="lang {{ app()->getLocale() == 'uz' ? 'selected' : '' }}" data-value="uz">
                                 <i class="flag-icon flag-icon-uz"></i>
                                 <span class="lang-txt">Oʻzbekcha</span>
                             </div>
 
-                            <!-- Qaraqalpaq -->
                             <div class="lang {{ app()->getLocale() == 'kaa' ? 'selected' : '' }}" data-value="kaa">
                                 <i class="flag-icon flag-icon-kaa"></i>
                                 <span class="lang-txt">Qaraqalpaqsha</span>
