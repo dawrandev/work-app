@@ -30,6 +30,12 @@ class Job extends Model
         'approval_status',
     ];
 
+    protected $casts = [
+        'deadline' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

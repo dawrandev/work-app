@@ -11,16 +11,16 @@ class UserSearch extends Component
     use WithPagination;
 
     public $search = '';
-    public $roleFilter = '';
+    public $selectedRole = '';
 
     protected $paginationTheme = 'bootstrap';
 
-    public function updatingSearch()
+    public function updatedSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingRoleFilter()
+    public function updatedSelectedRole()
     {
         $this->resetPage();
     }
@@ -37,8 +37,9 @@ class UserSearch extends Component
             });
         }
 
-        if (!empty($this->roleFilter)) {
-            $query->where('role', $this->roleFilter);
+        // Filter by role
+        if (!empty($this->selectedRole)) {
+            $query->where('role', $this->selectedRole);
         }
 
         $users = $query->latest()->paginate(10);

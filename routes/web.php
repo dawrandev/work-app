@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryControll
 use App\Http\Controllers\Admin\TypeController as AdminTypeController;
 use App\Http\Controllers\Admin\EmploymentTypeController as AdminEmploymentTypeController;
 use App\Http\Controllers\Admin\DistrictController as AdminDistrictController;
+use App\Http\Controllers\Admin\JobController as AdminJobController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -170,6 +171,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::put('/update/{category}', [AdminCategoryController::class, 'update'])->name('update');
             });
 
+            // AdminSubCategoryController
             Route::group(['prefix' => 'subcategories', 'as' => 'subcategories.'], function () {
                 Route::get('/index', [AdminSubCategoryController::class, 'index'])->name('index');
                 Route::get('/create', [AdminSubCategoryController::class, 'create'])->name('create');
@@ -180,6 +182,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::put('/update/{subcategory}', [AdminSubCategoryController::class, 'update'])->name('update');
             });
 
+            // AdminTypeController
             Route::group(['prefix' => 'types', 'as' => 'types.'], function () {
                 Route::get('/index', [AdminTypeController::class, 'index'])->name('index');
                 Route::get('/create', [AdminTypeController::class, 'create'])->name('create');
@@ -190,6 +193,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::put('/update/{type}', [AdminTypeController::class, 'update'])->name('update');
             });
 
+            // AdminEmploymentTypeController
             Route::group(['prefix' => 'employment-types', 'as' => 'employment-types.'], function () {
                 Route::get('/index', [AdminEmploymentTypeController::class, 'index'])->name('index');
                 Route::get('/create', [AdminEmploymentTypeController::class, 'create'])->name('create');
@@ -200,6 +204,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::put('/update/{employmentType}', [AdminEmploymentTypeController::class, 'update'])->name('update');
             });
 
+            // AdminEmploymentTypeController
             Route::group(['prefix' => 'districts', 'as' => 'districts.'], function () {
                 Route::get('/index', [AdminDistrictController::class, 'index'])->name('index');
                 Route::get('/create', [AdminDistrictController::class, 'create'])->name('create');
@@ -210,9 +215,18 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::put('/update/{district}', [AdminDistrictController::class, 'update'])->name('update');
             });
 
+            // AdminUserController
             Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
                 Route::get('/index', [AdminUserController::class, 'index'])->name('index');
                 Route::get('/show/{user}', [AdminUserController::class, 'show'])->name('show');
+                Route::delete('/destroy/{user}', [AdminUserController::class, 'destroy'])->name('destroy');
+            });
+
+            // AdminJobController
+            Route::group(['prefix' => 'jobs', 'as' => 'jobs.'], function () {
+                Route::get('/index', [AdminJobController::class, 'index'])->name('index');
+                Route::get('/show/{job}', [AdminJobController::class, 'show'])->name('show');
+                Route::delete('/destroy/{job}', [AdminJobController::class, 'destroy'])->name('destroy');
             });
         });
     });

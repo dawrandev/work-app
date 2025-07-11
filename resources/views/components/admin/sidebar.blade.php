@@ -17,6 +17,11 @@
                             <li><a href="{{ route('admin.users.index') }}">{{__('User List')}}</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="briefcase"></i><span>{{__('Jobs')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.jobs.index') }}">{{__('Job List')}}</a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>{{__('Category')}}</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.categories.index') }}">{{__('Category List')}}</a></li>
