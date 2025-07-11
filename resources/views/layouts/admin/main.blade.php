@@ -3,6 +3,8 @@
 
 <head>
     @include('partials.admin.head')
+
+    @livewireStyles()
 </head>
 
 <body onload="startTime()">
@@ -41,6 +43,7 @@
 
     @include('partials.admin.script')
 
+    @livewireScripts()
 </body>
 
 </html>

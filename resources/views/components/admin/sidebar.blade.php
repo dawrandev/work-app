@@ -12,11 +12,10 @@
                     <li class="back-btn"><a href="index.html"><img class="img-fluid" src="{{ asset('assets/admin/images/logo/logo-icon.png') }}" alt=""></a>
                         <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                     </li>
-                    <li class="sidebar-main-title">
-                        <div>
-                            <h6 class="lan-1">General</h6>
-                            <p class="lan-2">Dashboards,widgets & layout.</p>
-                        </div>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="users"></i><span>{{__('Users')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.users.index') }}">{{__('User List')}}</a></li>
+                        </ul>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="box"></i><span>{{__('Category')}}</span></a>
                         <ul class="sidebar-submenu">
@@ -28,6 +27,24 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.subcategories.index') }}">{{__('SubCategory List')}}</a></li>
                             <li><a href="{{ route('admin.subcategories.create') }}">{{__('Create SubCategory')}}</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="clock"></i><span>{{__('Type')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.types.index') }}">{{__('Types List')}}</a></li>
+                            <li><a href="{{ route('admin.types.create') }}">{{__('Create Type')}}</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="briefcase"></i><span>{{__('Employment Type')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.employment-types.index') }}">{{__('Employment Types List')}}</a></li>
+                            <li><a href="{{ route('admin.employment-types.create') }}">{{__('Create Employment Type')}}</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i data-feather="map-pin"></i><span>{{__('District')}}</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.districts.index') }}">{{__('Districts List')}}</a></li>
+                            <li><a href="{{ route('admin.districts.create') }}">{{__('Create District')}}</a></li>
                         </ul>
                     </li>
                 </ul>

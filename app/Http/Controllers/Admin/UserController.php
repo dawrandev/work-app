@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\EmploymentType;
+use App\Http\Controllers\Controller;
+use App\Services\Admin\UserService;
 use Illuminate\Http\Request;
 
-class EmploymentTypeController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected UserService $userService)
+    {
+        // 
+    }
     public function index()
     {
-        //
+        return view('pages.admin.users.index');
     }
 
     /**
@@ -34,7 +36,7 @@ class EmploymentTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EmploymentType $employmentType)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +44,7 @@ class EmploymentTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmploymentType $employmentType)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +52,7 @@ class EmploymentTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmploymentType $employmentType)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +60,7 @@ class EmploymentTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmploymentType $employmentType)
+    public function destroy(string $id)
     {
         //
     }

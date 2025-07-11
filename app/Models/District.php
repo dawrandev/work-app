@@ -18,15 +18,28 @@ class District extends Model
         'name' => 'array'
     ];
 
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
     public function getTranslatedNameAttribute()
     {
         $locale = session('locale', 'kr');
 
-        return $this->name[$locale] ?? $this->name['kr'];
+        if (is_string($this->name)) {
+            $names = json_decode($this->name, true);
+        } else {
+            $names = $this->name;
+        }
+
+        return $names[$locale] ?? $names['kr'] ?? 'No translation';
     }
 
-    public function orders()
+    public function setNameAttribute($value)
     {
-        return $this->hasMany(Order::class);
+        $this->attributes['name'] = is_array($value)
+            ? json_encode($value, JSON_UNESCAPED_UNICODE)
+            : $value;
     }
 }

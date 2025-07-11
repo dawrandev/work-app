@@ -23,25 +23,33 @@
                 <li class="language-nav">
                     <div class="translate_wrapper">
                         <div class="current_lang">
-                            <div class="lang"><i class="flag-icon flag-icon-us"></i><span class="lang-txt">EN </span></div>
+                            <div class="lang">
+                                <i class="flag-icon flag-icon-{{ app()->getlocale() }}"></i>
+                                <span class="lang-txt">{{ app()->getlocale() }} </span>
+                            </div>
                         </div>
                         <div class="more_lang">
                             <div class="lang {{ app()->getLocale() == 'ru' ? 'selected' : '' }}" data-value="ru">
-                                <i class="flag-icon flag-icon-ru"></i>
-                                <span class="lang-txt">Русский</span>
+                                <a href="{{ route('admin.dashboard', ['locale' => 'ru']) }}" class="lang-link">
+                                    <i class="flag-icon flag-icon-ru"></i>
+                                    <span class="lang-txt">Русский</span>
+                                </a>
                             </div>
 
                             <div class="lang {{ app()->getLocale() == 'uz' ? 'selected' : '' }}" data-value="uz">
-                                <i class="flag-icon flag-icon-uz"></i>
-                                <span class="lang-txt">Oʻzbekcha</span>
+                                <a href="{{ route('admin.dashboard', ['locale' => 'uz']) }}" class="lang-link">
+                                    <i class="flag-icon flag-icon-uz"></i>
+                                    <span class="lang-txt">Oʻzbekcha</span>
+                                </a>
                             </div>
 
-                            <div class="lang {{ app()->getLocale() == 'kaa' ? 'selected' : '' }}" data-value="kaa">
-                                <i class="flag-icon flag-icon-kaa"></i>
-                                <span class="lang-txt">Qaraqalpaqsha</span>
+                            <div class="lang {{ app()->getLocale() == 'kaa' ? 'selected' : '' }}" data-value="kr">
+                                <a href="{{ route('admin.dashboard', ['locale' => 'kr']) }}" class="lang-link">
+                                    <i class="flag-icon flag-icon-"></i>
+                                    <span class="lang-txt">Qaraqalpaqsha</span>
+                                </a>
                             </div>
                         </div>
-
                     </div>
                 </li>
                 <li class="onhover-dropdown">
@@ -106,7 +114,7 @@
                 <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
                 <li class="profile-nav onhover-dropdown p-0 me-0">
                     <div class="media profile-media"><img class="b-r-10" src="{{ asset('/assets/images/dashboard/profile.jpg') }}" alt="">
-                        <div class="media-body"><span>Emay Walter</span>
+                        <div class="media-body"><span>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
                             <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
                         </div>
                     </div>

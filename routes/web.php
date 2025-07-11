@@ -4,6 +4,10 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryController;
+use App\Http\Controllers\Admin\TypeController as AdminTypeController;
+use App\Http\Controllers\Admin\EmploymentTypeController as AdminEmploymentTypeController;
+use App\Http\Controllers\Admin\DistrictController as AdminDistrictController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobApplyController;
@@ -30,13 +34,13 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Global Livewire routes 
+Route::post('/livewire/update', \Livewire\Mechanisms\HandleRequests\HandleRequests::class . '@handleUpdate')
+    ->name('livewire.update');
+Route::get('/livewire/livewire.js', \Livewire\Mechanisms\FrontendAssets\FrontendAssets::class . '@returnJavaScriptAsFile')
+    ->name('livewire.js');
 
 Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () {
-    Route::post('/livewire/update', \Livewire\Mechanisms\HandleRequests\HandleRequests::class . '@handleUpdate')
-        ->name('livewire.update');
-
-    Route::get('/livewire/livewire.js', \Livewire\Mechanisms\FrontendAssets\FrontendAssets::class . '@returnJavaScriptAsFile')
-        ->name('livewire.js');
 
     Route::get('/', function () {
         return view('pages.user.home');
@@ -174,6 +178,41 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/show/{subcategory}', [AdminSubCategoryController::class, 'show'])->name('show');
                 Route::delete('/destroy/{subcategory}', [AdminSubCategoryController::class, 'destroy'])->name('destroy');
                 Route::put('/update/{subcategory}', [AdminSubCategoryController::class, 'update'])->name('update');
+            });
+
+            Route::group(['prefix' => 'types', 'as' => 'types.'], function () {
+                Route::get('/index', [AdminTypeController::class, 'index'])->name('index');
+                Route::get('/create', [AdminTypeController::class, 'create'])->name('create');
+                Route::post('/store', [AdminTypeController::class, 'store'])->name('store');
+                Route::get('/edit/{type}', [AdminTypeController::class, 'edit'])->name('edit');
+                Route::get('/show/{type}', [AdminTypeController::class, 'show'])->name('show');
+                Route::delete('/destroy/{type}', [AdminTypeController::class, 'destroy'])->name('destroy');
+                Route::put('/update/{type}', [AdminTypeController::class, 'update'])->name('update');
+            });
+
+            Route::group(['prefix' => 'employment-types', 'as' => 'employment-types.'], function () {
+                Route::get('/index', [AdminEmploymentTypeController::class, 'index'])->name('index');
+                Route::get('/create', [AdminEmploymentTypeController::class, 'create'])->name('create');
+                Route::post('/store', [AdminEmploymentTypeController::class, 'store'])->name('store');
+                Route::get('/edit/{employmentType}', [AdminEmploymentTypeController::class, 'edit'])->name('edit');
+                Route::get('/show/{employmentType}', [AdminEmploymentTypeController::class, 'show'])->name('show');
+                Route::delete('/destroy/{employmentType}', [AdminEmploymentTypeController::class, 'destroy'])->name('destroy');
+                Route::put('/update/{employmentType}', [AdminEmploymentTypeController::class, 'update'])->name('update');
+            });
+
+            Route::group(['prefix' => 'districts', 'as' => 'districts.'], function () {
+                Route::get('/index', [AdminDistrictController::class, 'index'])->name('index');
+                Route::get('/create', [AdminDistrictController::class, 'create'])->name('create');
+                Route::post('/store', [AdminDistrictController::class, 'store'])->name('store');
+                Route::get('/edit/{district}', [AdminDistrictController::class, 'edit'])->name('edit');
+                Route::get('/show/{district}', [AdminDistrictController::class, 'show'])->name('show');
+                Route::delete('/destroy/{district}', [AdminDistrictController::class, 'destroy'])->name('destroy');
+                Route::put('/update/{district}', [AdminDistrictController::class, 'update'])->name('update');
+            });
+
+            Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+                Route::get('/index', [AdminUserController::class, 'index'])->name('index');
+                Route::get('/show/{user}', [AdminUserController::class, 'show'])->name('show');
             });
         });
     });

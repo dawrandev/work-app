@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
         $users = [
             [
                 'role' => 'user',
+                'image' => 'user-icon',
                 'first_name' => 'Dawranbek',
                 'last_name' => 'Sipatdinov',
                 'phone' => '912731302',
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'role' => 'admin',
+                'image' => 'user-icon',
                 'first_name' => 'Dawranbek',
                 'last_name' => 'Sipatdinov',
                 'phone' => '933651302',
