@@ -1,11 +1,11 @@
 @extends('layouts.admin.main')
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/feather-icon.css') }}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/themify.css')}}">
 @endpush
 
 @section('content')
-<x-admin.breadcrumb :title="'Jobs Management'">
+<x-admin.breadcrumb :title="'Offers Management'">
     <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
         <i class="icon-home"></i>
         Dashboard
@@ -20,8 +20,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-1">{{ $jobs->total() }}</h3>
-                            <p class="mb-0">Total Jobs</p>
+                            <h3 class="mb-1">{{ $offers->total() }}</h3>
+                            <p class="mb-0">Total Offers</p>
                         </div>
                         <div class="text-white-50">
                             <i class="icon-briefcase" style="font-size: 2.5rem;"></i>
@@ -35,8 +35,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-1">{{ $jobs->where('status', 'active')->count() }}</h3>
-                            <p class="mb-0">Active Jobs</p>
+                            <h3 class="mb-1">{{ $offers->where('status', 'active')->count() }}</h3>
+                            <p class="mb-0">Active Offers</p>
                         </div>
                         <div class="text-white-50">
                             <i class="icon-check-box" style="font-size: 2.5rem;"></i>
@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-1">{{ $jobs->where('approval_status', 'pending')->count() }}</h3>
+                            <h3 class="mb-1">{{ $offers->where('approval_status', 'pending')->count() }}</h3>
                             <p class="mb-0">Pending Approval</p>
                         </div>
                         <div class="text-white-50">
@@ -65,8 +65,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-1">{{ $jobs->where('status', 'expired')->count() }}</h3>
-                            <p class="mb-0">Expired Jobs</p>
+                            <h3 class="mb-1">{{ $offers->where('status', 'expired')->count() }}</h3>
+                            <p class="mb-0">Expired Offers</p>
                         </div>
                         <div class="text-white-50">
                             <i class="icon-close" style="font-size: 2.5rem;"></i>
@@ -80,7 +80,7 @@
     <!-- Filters Section -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
-            <form method="GET" action="{{ route('admin.jobs.index') }}">
+            <form method="GET" action="{{ route('admin.offers.index') }}">
                 <div class="row g-3">
                     <div class="col-md-3">
                         <label class="form-label">Search</label>
@@ -123,7 +123,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="icon-search"></i> Filter
                             </button>
-                            <a href="{{ route('admin.jobs.index') }}" class="btn btn-outline-secondary">
+                            <a href="{{ route('admin.offers.index') }}" class="btn btn-outline-secondary">
                                 <i class="icon-refresh-cw"></i> Reset
                             </a>
                         </div>
@@ -133,68 +133,67 @@
         </div>
     </div>
 
-    <!-- Jobs Table -->
+    <!-- Offers Table -->
     <div class="card shadow-sm">
         <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
                 <i class="icon-list text-primary"></i>
-                All Jobs
+                All Offers
             </h5>
             <div class="d-flex align-items-center">
-                <span class="text-muted me-2">Showing {{ $jobs->firstItem() ?? 0 }} to {{ $jobs->lastItem() ?? 0 }} of {{ $jobs->total() }} jobs</span>
+                <span class="text-muted me-2">Showing {{ $offers->firstItem() ?? 0 }} to {{ $offers->lastItem() ?? 0 }} of {{ $offers->total() }} offers</span>
             </div>
         </div>
         <div class="card-body">
-            @if($jobs->count() > 0)
+            @if($offers->count() > 0)
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>Job Info</th>
+                            <th>Offer Info</th>
                             <th>Category</th>
                             <th>Salary Range</th>
                             <th>Location</th>
                             <th>Status</th>
                             <th>Approval</th>
-                            <th>Deadline</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($jobs as $job)
+                        @foreach($offers as $offer)
                         <tr>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                    <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3"
                                         style="width: 40px; height: 40px;">
-                                        <i class="icon-briefcase text-white"></i>
+                                        <i class="icon-user-check text-white"></i>
                                     </div>
                                     <div>
-                                        <h6 class="mb-0">{{ Str::limit($job->title, 35) }}</h6>
-                                        <small class="text-muted">ID: #{{ str_pad($job->id, 5, '0', STR_PAD_LEFT) }}</small>
+                                        <h6 class="mb-0">{{ Str::limit($offer->title, 35) }}</h6>
+                                        <small class="text-muted">ID: #{{ str_pad($offer->id, 5, '0', STR_PAD_LEFT) }}</small>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="badge bg-light text-dark">{{ $job->category->name[app()->getLocale()] ?? $job->category->name['uz'] ?? 'N/A' }}</span>
+                                <span class="badge bg-light text-dark">{{ $offer->category->name[app()->getLocale()] ?? $offer->category->name['uz'] ?? 'N/A' }}</span>
                                 <br>
-                                <small class="text-muted">{{ $job->subcategory->name[app()->getLocale()] ?? $job->subcategory->name['uz'] ?? 'N/A' }}</small>
+                                <small class="text-muted">{{ $offer->subcategory->name[app()->getLocale()] ?? $offer->subcategory->name['uz'] ?? 'N/A' }}</small>
                             </td>
                             <td>
-                                <strong class="text-success">{{ number_format($job->salary_from) }}</strong>
+                                <strong class="text-success">{{ number_format($offer->salary_from) }}</strong>
                                 <span class="text-muted">-</span>
-                                <strong class="text-success">{{ number_format($job->salary_to) }}</strong>
+                                <strong class="text-success">{{ number_format($offer->salary_to) }}</strong>
                                 <small class="text-muted d-block">UZS</small>
                             </td>
                             <td>
                                 <div>
-                                    <h6 class="mb-0">{{ $job->district->name[app()->getLocale()] ?? $job->district->name['uz'] ?? 'N/A' }}</h6>
-                                    <small class="text-muted">{{ $job->type->name[app()->getLocale()] ?? $job->type->name['uz'] ?? 'N/A' }}</small>
+                                    <h6 class="mb-0">{{ $offer->district->name[app()->getLocale()] ?? $offer->district->name['uz'] ?? 'N/A' }}</h6>
+                                    <small class="text-muted">{{ $offer->type->name[app()->getLocale()] ?? $offer->type->name['uz'] ?? 'N/A' }}</small>
                                 </div>
                             </td>
                             <td>
-                                @switch($job->status)
+                                @switch($offer->status)
                                 @case('active')
                                 <span class="badge bg-success">Active</span>
                                 @break
@@ -213,7 +212,7 @@
                                 @endswitch
                             </td>
                             <td>
-                                @switch($job->approval_status)
+                                @switch($offer->approval_status)
                                 @case('pending')
                                 <span class="badge bg-warning">Pending</span>
                                 @break
@@ -226,18 +225,11 @@
                                 @endswitch
                             </td>
                             <td>
-                                <span class="fw-medium">{{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</span>
-                                <small class="text-muted d-block">{{ \Carbon\Carbon::parse($job->deadline)->format('H:i') }}</small>
-                                @if(\Carbon\Carbon::parse($job->deadline)->isPast())
-                                <small class="text-danger"><i class="icon-alert-triangle"></i> Expired</small>
-                                @endif
+                                <span class="fw-medium">{{ $offer->created_at->format('d M, Y') }}</span>
+                                <small class="text-muted d-block">{{ $offer->created_at->format('H:i') }}</small>
                             </td>
                             <td>
-                                <span class="fw-medium">{{ $job->created_at->format('d M, Y') }}</span>
-                                <small class="text-muted d-block">{{ $job->created_at->format('H:i') }}</small>
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.jobs.show', $job->id) }}"
+                                <a href="{{ route('admin.offers.show', $offer->id) }}"
                                     class="btn btn-sm btn-outline-primary"
                                     title="View Details">
                                     <i class="icon-eye"></i>
@@ -252,18 +244,18 @@
             <!-- Pagination -->
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="text-muted">
-                    Showing {{ $jobs->firstItem() ?? 0 }} to {{ $jobs->lastItem() ?? 0 }} of {{ $jobs->total() }} results
+                    Showing {{ $offers->firstItem() ?? 0 }} to {{ $offers->lastItem() ?? 0 }} of {{ $offers->total() }} results
                 </div>
                 <div>
-                    {{ $jobs->links() }}
+                    {{ $offers->links() }}
                 </div>
             </div>
             @else
             <div class="text-center py-5">
-                <i class="icon-briefcase text-muted" style="font-size: 4rem;"></i>
-                <h4 class="text-muted mt-3">No Jobs Found</h4>
-                <p class="text-muted">No jobs match your current filters. Try adjusting your search criteria.</p>
-                <a href="{{ route('admin.jobs.index') }}" class="btn btn-primary">
+                <i class="icon-user-check text-muted" style="font-size: 4rem;"></i>
+                <h4 class="text-muted mt-3">No Offers Found</h4>
+                <p class="text-muted">No offers match your current filters. Try adjusting your search criteria.</p>
+                <a href="{{ route('admin.offers.index') }}" class="btn btn-primary">
                     <i class="icon-refresh-cw"></i> Clear Filters
                 </a>
             </div>
@@ -272,9 +264,3 @@
     </div>
 </div>
 @endsection
-
-@push('js')
-<script src="{{asset('assets/admin/js/icons/feather-icon/feather-icon-clipart.js')}}"></script>
-<script src="{{asset('assets/admin/js/icons/feather-icon/feather.min.js')}}"></script>
-<script src="{{asset('assets/admin/js/icons/feather-icon/feather-icon.js')}}"></script>
-@endpush

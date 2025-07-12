@@ -37,7 +37,6 @@ class JobController extends Controller
             ->paginate(15);
 
         $categories = Category::all();
-
         return view('pages.admin.jobs.index', compact('jobs', 'categories'));
     }
 
@@ -62,6 +61,8 @@ class JobController extends Controller
      */
     public function show($locale, Job $job)
     {
+        $job->load(['images', 'category', 'subcategory', 'type', 'employmentType', 'district']);
+
         return view('pages.admin.jobs.show', compact('job'));
     }
 
@@ -87,5 +88,15 @@ class JobController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function reject()
+    {
+        // 
+    }
+
+    public function approve()
+    {
+        // 
     }
 }

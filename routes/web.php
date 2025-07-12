@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TypeController as AdminTypeController;
 use App\Http\Controllers\Admin\EmploymentTypeController as AdminEmploymentTypeController;
 use App\Http\Controllers\Admin\DistrictController as AdminDistrictController;
 use App\Http\Controllers\Admin\JobController as AdminJobController;
+use App\Http\Controllers\Admin\OfferController as AdminOfferController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
@@ -227,6 +228,17 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/index', [AdminJobController::class, 'index'])->name('index');
                 Route::get('/show/{job}', [AdminJobController::class, 'show'])->name('show');
                 Route::delete('/destroy/{job}', [AdminJobController::class, 'destroy'])->name('destroy');
+                Route::post('/approve/{job}', [AdminJobController::class, 'approve'])->name('approve');
+                Route::post('/reject/{job}', [AdminJobController::class, 'reject'])->name('reject');
+            });
+
+            // AdminOfferController
+            Route::group(['prefix' => 'offers', 'as' => 'offers.'], function () {
+                Route::get('/index', [AdminOfferController::class, 'index'])->name('index');
+                Route::get('/show/{offer}', [AdminOfferController::class, 'show'])->name('show');
+                Route::delete('/destroy/{offer}', [AdminOfferController::class, 'destroy'])->name('destroy');
+                Route::post('/approve/{offer}', [AdminOfferController::class, 'approve'])->name('approve');
+                Route::post('/reject/{offer}', [AdminOfferController::class, 'reject'])->name('reject');
             });
         });
     });
