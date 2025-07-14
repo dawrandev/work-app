@@ -18,6 +18,10 @@ class Category extends Model
     {
         return $this->hasMany(Job::class);
     }
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 
     public function subCategories()
     {

@@ -56,7 +56,6 @@
                                     </td>
                                 </tr>
 
-                                <!-- Delete Modal for each category -->
                                 <div class="modal fade" id="deleteModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $category->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
@@ -98,7 +97,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 @empty
                                 <tr>
                                     <td colspan="3" class="text-center py-5">

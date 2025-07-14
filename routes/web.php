@@ -148,6 +148,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
+
+
     // Admin Routes
     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 

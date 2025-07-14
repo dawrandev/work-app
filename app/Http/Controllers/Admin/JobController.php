@@ -49,18 +49,21 @@ class JobController extends Controller
 
     public function update($locale, JobUpdateRequest $request, Job $job)
     {
-        try {
-            $job = $this->jobService->updateJobStatus($request->status, $job);
-            return redirect()->route('admin.jobs.index')
-                ->with('success', 'Job status updated successfully');
-        } catch (Exception $e) {
-            return redirect()->back()
-                ->with('error', $e->getMessage());
+        $job = $this->jobService->updateJobStatus($request->status, $job);
+        if ($job) {
+            Alert::success(__('Job approval status updated successfully'));
+        } else {
+            Alert::error(__('Error updating approval status'));
         }
+        return redirect()->route('admin.jobs.index');
     }
 
-    public function destroy(string $id)
+    public function destroy($locale, Job $job)
     {
-        //
+        $job->delete();
+
+        Alert::success(__('Job deleted successfully'));
+
+        return redirect()->route('admin.jobs.index');
     }
 }

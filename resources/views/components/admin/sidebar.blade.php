@@ -20,12 +20,12 @@
             <div id="sidebar-menu">
                 <ul class="sidebar-links" id="simple-bar">
                     {{-- Dashboard --}}
-                    <li class="sidebar-list {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                            <i data-feather="home"></i><span>{{ __('Dashboard') }}</span>
+                    <li class="sidebar-list {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="#">
+                            <i data-feather="monitor"></i><span>{{ __('Users') }}</span>
                         </a>
                     </li>
-
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('admin.dashboard') }}"><i data-feather="monitor"> </i><span>{{__('Dashboard') }}</span></a></li>
                     {{-- Users --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="#">

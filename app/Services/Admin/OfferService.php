@@ -15,10 +15,10 @@ class OfferService
         //
     }
 
-    public function updateOfferStatus(Offer $offer, string $status)
+    public function updateOfferStatus(Offer $offer, string $approval_status)
     {
         try {
-            return $this->offerRepository->updateStatus($offer->id, $status);
+            return $this->offerRepository->updateStatus($offer->id, $approval_status);
         } catch (Exception $e) {
             throw new Exception("offer status update failed: " . $e->getMessage());
         }

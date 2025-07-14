@@ -133,7 +133,7 @@
                         <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" name="status" value="approved" class="btn btn-success btn-block">
+                            <button type="submit" name="status" value="approved" class="btn btn-success w-100">
                                 <i class="icon-check"></i>
                                 Approve Job
                             </button>
@@ -146,7 +146,7 @@
                         <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" name="status" value="rejected" class="btn btn-warning btn-block">
+                            <button type="submit" name="status" value="rejected" class="btn btn-warning w-100">
                                 <i class="icon-close"></i>
                                 Reject Job
                             </button>
@@ -160,7 +160,7 @@
                         <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" name="status" value="rejected" class="btn btn-warning btn-block">
+                            <button type="submit" name="status" value="rejected" class="btn btn-warning w-100">
                                 <i class="icon-close"></i>
                                 Reject Job
                             </button>
@@ -174,7 +174,7 @@
                         <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" name="status" value="approved" class="btn btn-success btn-block">
+                            <button type="submit" name="status" value="approved" class="btn btn-success w-100">
                                 <i class="icon-check"></i>
                                 Approve Job
                             </button>
@@ -184,15 +184,10 @@
                         <hr class="my-2">
 
                         {{-- Delete Button --}}
-                        <form method="POST" action="{{ route('admin.jobs.destroy', $job->id) }}"
-                            onsubmit="return confirm('Are you sure you want to delete this job?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-block">
-                                <i class="icon-trash"></i>
-                                Delete Job
-                            </button>
-                        </form>
+                        <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $job->id }}">
+                            <i class="icon-trash"></i>
+                            Delete Job
+                        </button>
                     </div>
                 </div>
             </div>
@@ -349,6 +344,48 @@
                 </div>
             </div>
             @endif
+
+            <div class="modal fade" id="deleteModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $job->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel{{ $job->id }}">
+                                <i class="icon-trash text-danger me-2"></i>
+                                {{ __('Delete Job') }}
+                            </h5>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center mb-3">
+                                <i class="icon-alert-triangle text-warning" style="font-size: 3rem;"></i>
+                            </div>
+                            <p class="text-center">
+                                {{ __('Are you sure you want to delete this job?') }}
+                            </p>
+                            <div class="alert alert-warning" role="alert">
+                                <strong>{{ __('Job:') }}</strong> {{ $job->title }}
+                            </div>
+                            <p class="text-muted small">
+                                {{ __('This action cannot be undone. All data related to this job will be permanently deleted.') }}
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
+                                <i class="icon-x me-1"></i>
+                                {{ __('Cancel') }}
+                            </button>
+                            <form action="{{ route('admin.jobs.destroy', $job->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="icon-trash me-1"></i>
+                                    {{ __('Yes, Delete') }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

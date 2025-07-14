@@ -23,6 +23,11 @@ class District extends Model
         return $this->hasMany(Offer::class);
     }
 
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
+    }
+
     public function getTranslatedNameAttribute()
     {
         $locale = session('locale', 'kr');

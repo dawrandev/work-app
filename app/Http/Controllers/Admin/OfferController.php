@@ -20,32 +20,21 @@ class OfferController extends Controller
 
     public function index(Request $request)
     {
-        $filters = $request->only(['search', 'status', 'approval_status', 'category_id']);
-        $offers = $this->offerService->getOffers($filters);
-        $categories = Category::all();
+        $offers = $this->offerService->getOffers($request->only(['search', 'status', 'approval_status', 'category_id']));
 
-        return view('pages.admin.offers.index', compact('offers', 'categories'));
+        return view('pages.admin.offers.index', compact('offers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($locale, Offer $offer)
     {
         $offer = $this->offerService->getOfferById($offer->id);
@@ -53,35 +42,30 @@ class OfferController extends Controller
         return view('pages.admin.offers.show', compact('offer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($locale, Offer $offer)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update($locale, Request $request, Offer $offer)
+    public function update($locale, OfferUpdateRequest $request, Offer $offer)
     {
-        try {
-            $offer = $this->offerService->updateOfferStatus($request->approval_status, $offer);
-            return redirect()->route('admin.offers.index');
+
+        $offer = $this->offerService->updateOfferStatus($offer, $request->approval_status);
+
+        if ($offer) {
             Alert::success(__('Offer approval status updated successfully'));
-        } catch (Exception $e) {
-            return redirect()->back()
-                ->with('error', $e->getMessage());
+        } else {
+            Alert::error(__('Error updating approval status'));
         }
+
+        return redirect()->route('admin.offers.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($locale, Offer $offer)
     {
         $this->offerService->deleteOffer($offer->id);
+
+        Alert::success(__('Offer deleted successfully'));
 
         return redirect()->route('admin.offers.index');
     }
