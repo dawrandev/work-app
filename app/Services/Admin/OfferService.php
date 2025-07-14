@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\Offer;
 use App\Repositories\Admin\OfferRepository;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -14,45 +15,26 @@ class OfferService
         //
     }
 
-    /**
-     * Get all offers with pagination and filters
-     */
+    public function updateOfferStatus(Offer $offer, string $status)
+    {
+        try {
+            return $this->offerRepository->updateStatus($offer->id, $status);
+        } catch (Exception $e) {
+            throw new Exception("offer status update failed: " . $e->getMessage());
+        }
+    }
+
     public function getOffers(array $filters = []): LengthAwarePaginator
     {
         return $this->offerRepository->getOffers($filters);
     }
 
-    /**
-     * Get offer by ID with relationships
-     */
+
     public function getOfferById(int $id): ?Offer
     {
         return $this->offerRepository->getOfferById($id);
     }
 
-    /**
-     * Get offers statistics
-     */
-    public function getOffersStats(): array
-    {
-        return $this->offerRepository->getOffersStats();
-    }
-
-    /**
-     * Approve an offer
-     */
-    public function approveOffer(int $id): bool
-    {
-        return $this->offerRepository->approveOffer($id);
-    }
-
-    /**
-     * Reject an offer
-     */
-    public function rejectOffer(int $id): bool
-    {
-        return $this->offerRepository->rejectOffer($id);
-    }
 
     /**
      * Delete an offer

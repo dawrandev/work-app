@@ -58,13 +58,14 @@
                 <thead class="bg-light">
                     <tr>
                         <th width="5%" class="text-center">#</th>
-                        <th width="25%">{{ __('Job Title') }}</th>
-                        <th width="15%">{{ __('Category') }}</th>
-                        <th width="15%">{{ __('Location') }}</th>
-                        <th width="10%">{{ __('Type') }}</th>
+                        <th width="20%">{{ __('Job Title') }}</th>
+                        <th width="12%">{{ __('Category') }}</th>
+                        <th width="12%">{{ __('Location') }}</th>
+                        <th width="8%">{{ __('Type') }}</th>
                         <th width="10%" class="text-center">{{ __('Status') }}</th>
-                        <th width="10%" class="text-center">{{ __('Posted') }}</th>
-                        <th width="10%" class="text-center">{{ __('Actions') }}</th>
+                        <th width="10%" class="text-center">{{ __('Approval') }}</th>
+                        <th width="8%" class="text-center">{{ __('Posted') }}</th>
+                        <th width="15%" class="text-center">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,6 +130,25 @@
                             @endif
                         </td>
                         <td class="text-center">
+                            @if($job->approval_status == 'approved')
+                            <span class="badge" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-checkmark"></i> {{ __('Approved') }}
+                            </span>
+                            @elseif($job->approval_status == 'rejected')
+                            <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-close"></i> {{ __('Rejected') }}
+                            </span>
+                            @elseif($job->approval_status == 'pending')
+                            <span class="badge" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-hourglass"></i> {{ __('Pending') }}
+                            </span>
+                            @else
+                            <span class="badge" style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-question-circle"></i> {{ __('Unknown') }}
+                            </span>
+                            @endif
+                        </td>
+                        <td class="text-center">
                             <small class="text-muted">{{ $job->created_at->format('d M, Y') }}</small>
                         </td>
                         <td class="text-center">
@@ -154,7 +174,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center py-5">
+                        <td colspan="9" class="text-center py-5">
                             <div class="empty-content">
                                 <i class="lni lni-briefcase" style="font-size: 3rem; color: #dee2e6;"></i>
                                 <p class="mt-3 mb-1">{{ __('No jobs found') }}</p>

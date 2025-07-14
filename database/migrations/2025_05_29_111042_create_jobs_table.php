@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('salary_from');
             $table->string('salary_to');
-            $table->timestamp('deadline');
+            $table->timestamp('deadline')->nullable();
             $table->longText('description');
             $table->string('address');
             $table->decimal('latitude', 10, 8)->nullable();

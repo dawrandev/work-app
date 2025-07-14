@@ -15,7 +15,8 @@ class Filter
                 return $query->where('district_id', $filters['district_id']);
             })->when(!empty($filters['type_id']), function ($query) use ($filters) {
                 return $query->where('type_id', $filters['type_id']);
-            })->with(['category', 'subcategory', 'district', 'type'])
+            })->where('approval_status', 'approved')
+            ->with(['category', 'subcategory', 'district', 'type'])
             ->latest()->paginate($filters['per_page'] ?? 10)->appends($filters);
     }
 

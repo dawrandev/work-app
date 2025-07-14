@@ -21,14 +21,14 @@
                 <ul class="sidebar-links" id="simple-bar">
                     {{-- Dashboard --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="{{ route('admin.dashboard') }}">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
                             <i data-feather="home"></i><span>{{ __('Dashboard') }}</span>
                         </a>
                     </li>
 
                     {{-- Users --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="#">
                             <i data-feather="users"></i><span>{{ __('Users') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.users.*') ? 'display: block;' : '' }}">
@@ -38,7 +38,7 @@
 
                     {{-- Jobs --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}" href="#">
                             <i data-feather="briefcase"></i><span>{{ __('Jobs') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.jobs.*') ? 'display: block;' : '' }}">
@@ -48,7 +48,7 @@
 
                     {{-- Offers --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.offers.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.offers.*') ? 'active' : '' }}" href="#">
                             <i data-feather="clipboard"></i><span>{{ __('Offers') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.offers.*') ? 'display: block;' : '' }}">
@@ -58,7 +58,7 @@
 
                     {{-- Category --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}" href="#">
                             <i data-feather="box"></i><span>{{ __('Category') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.categories.*') ? 'display: block;' : '' }}">
@@ -69,7 +69,7 @@
 
                     {{-- SubCategory --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.subcategories.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.subcategories.*') ? 'active' : '' }}" href="#">
                             <i data-feather="package"></i><span>{{ __('SubCategory') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.subcategories.*') ? 'display: block;' : '' }}">
@@ -80,7 +80,7 @@
 
                     {{-- Type --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.types.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.types.*') ? 'active' : '' }}" href="#">
                             <i data-feather="clock"></i><span>{{ __('Type') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.types.*') ? 'display: block;' : '' }}">
@@ -91,7 +91,7 @@
 
                     {{-- Employment Type --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.employment-types.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.employment-types.*') ? 'active' : '' }}" href="#">
                             <i data-feather="briefcase"></i><span>{{ __('Employment Type') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.employment-types.*') ? 'display: block;' : '' }}">
@@ -102,7 +102,7 @@
 
                     {{-- District --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.districts.*') ? 'active' : '' }}">
-                        <a class="sidebar-link sidebar-title" href="#">
+                        <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.districts.*') ? 'active' : '' }}" href="#">
                             <i data-feather="map-pin"></i><span>{{ __('District') }}</span>
                         </a>
                         <ul class="sidebar-submenu" style="{{ request()->routeIs('admin.districts.*') ? 'display: block;' : '' }}">

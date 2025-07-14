@@ -16,7 +16,6 @@ $sectionClass = 'manage-jobs';
             </div>
         </div>
 
-        <!-- Livewire Filter Component -->
         @livewire('manage-jobs-filter')
     </div>
 </div>

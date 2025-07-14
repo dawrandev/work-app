@@ -8,14 +8,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class OfferRepository
 {
-    /**
-     * Get all offers with pagination and filters
-     */
+    protected $offer;
+
+    public function __construct(Offer $offer)
+    {
+        $this->offer = $offer;
+    }
+
     public function getOffers(array $filters = []): LengthAwarePaginator
     {
         $query = Offer::with(['user', 'category', 'subcategory', 'district', 'type']);
 
-        // Apply search filter
         if (isset($filters['search']) && !empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
@@ -27,17 +30,14 @@ class OfferRepository
             });
         }
 
-        // Apply status filter
         if (isset($filters['status']) && !empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
 
-        // Apply approval status filter
         if (isset($filters['approval_status']) && !empty($filters['approval_status'])) {
             $query->where('approval_status', $filters['approval_status']);
         }
 
-        // Apply category filter
         if (isset($filters['category_id']) && !empty($filters['category_id'])) {
             $query->where('category_id', $filters['category_id']);
         }
@@ -45,57 +45,20 @@ class OfferRepository
         return $query->latest()->paginate(15);
     }
 
-    /**
-     * Get offer by ID with relationships
-     */
     public function getOfferById(int $id): ?Offer
     {
         return Offer::with(['images', 'category', 'subcategory', 'type', 'employmentType', 'district', 'user'])
             ->find($id);
     }
 
-    /**
-     * Get offers statistics
-     */
-    public function getOffersStats(): array
+    public function updateStatus($id, string $status)
     {
-        return [
-            'total' => Offer::count(),
-            'active' => Offer::where('status', 'active')->count(),
-            'pending_approval' => Offer::where('approval_status', 'pending')->count(),
-            'expired' => Offer::where('status', 'expired')->count(),
-            'approved' => Offer::where('approval_status', 'approved')->count(),
-            'rejected' => Offer::where('approval_status', 'rejected')->count(),
-        ];
+        $offer = $this->offer->findOrFail($id);
+        $offer->update(['approval_status' => $status]);
+        return $offer;
     }
 
-    /**
-     * Approve an offer
-     */
-    public function approveOffer(int $id): bool
-    {
-        $offer = Offer::find($id);
-        if ($offer) {
-            return $offer->update(['approval_status' => 'approved']);
-        }
-        return false;
-    }
 
-    /**
-     * Reject an offer
-     */
-    public function rejectOffer(int $id): bool
-    {
-        $offer = Offer::find($id);
-        if ($offer) {
-            return $offer->update(['approval_status' => 'rejected']);
-        }
-        return false;
-    }
-
-    /**
-     * Delete an offer
-     */
     public function deleteOffer(int $id): bool
     {
         $offer = Offer::find($id);

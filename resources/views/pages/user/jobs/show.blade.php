@@ -259,6 +259,30 @@
                                     </div>
                                 </li>
                                 @endif
+
+                                @if($job->approval_status)
+                                <li>
+                                    <div class="overview-content">
+                                        <i class="lni lni-shield"></i>
+                                        <strong>{{ __('Approval Status') }}:</strong>
+                                        <span class="status-badge status-{{ strtolower($job->approval_status) }}">
+                                            @if($job->approval_status == 'approved')
+                                            <i class="lni lni-checkmark"></i>
+                                            {{ __('Approved') }}
+                                            @elseif($job->approval_status == 'rejected')
+                                            <i class="lni lni-close"></i>
+                                            {{ __('Rejected') }}
+                                            @elseif($job->approval_status == 'pending')
+                                            <i class="lni lni-hourglass"></i>
+                                            {{ __('Pending') }}
+                                            @else
+                                            <i class="lni lni-question-circle"></i>
+                                            {{ __(ucfirst($job->approval_status)) }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

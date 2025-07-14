@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OfferUpdateRequest;
 use App\Models\Category;
 use App\Models\Offer;
 use App\Services\Admin\OfferService;
+use Exception;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OfferController extends Controller
 {
@@ -61,9 +64,16 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update($locale, Request $request, Offer $offer)
     {
-        //
+        try {
+            $offer = $this->offerService->updateOfferStatus($request->approval_status, $offer);
+            return redirect()->route('admin.offers.index');
+            Alert::success(__('Offer approval status updated successfully'));
+        } catch (Exception $e) {
+            return redirect()->back()
+                ->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -74,25 +84,5 @@ class OfferController extends Controller
         $this->offerService->deleteOffer($offer->id);
 
         return redirect()->route('admin.offers.index');
-    }
-
-    /**
-     * Approve the specified offer.
-     */
-    public function approve($locale, Offer $offer)
-    {
-        $this->offerService->approveOffer($offer->id);
-
-        return redirect()->back();
-    }
-
-    /**
-     * Reject the specified offer.
-     */
-    public function reject($locale, Offer $offer)
-    {
-        $this->offerService->rejectOffer($offer->id);
-
-        return redirect()->back();
     }
 }

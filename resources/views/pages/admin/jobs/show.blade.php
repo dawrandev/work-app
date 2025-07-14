@@ -129,37 +129,53 @@
                 <div class="card-body">
                     <div class="d-grid gap-2">
                         @if($job->approval_status == 'pending')
-                        <form method="POST" action="{{ route('admin.jobs.approve', $job->id) }}" class="d-inline">
+                        {{-- Approve Button --}}
+                        <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-success btn-block">
-                                <i class="icon-check-circle"></i>
+                            <button type="submit" name="status" value="approved" class="btn btn-success btn-block">
+                                <i class="icon-check"></i>
                                 Approve Job
                             </button>
+                            @error('status')
+                            <li style="color:red">{{ $message }}</li>
+                            @enderror
                         </form>
-                        <form method="POST" action="{{ route('admin.jobs.reject', $job->id) }}" class="d-inline">
+
+                        {{-- Reject Button --}}
+                        <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-warning btn-block">
-                                <i class="icon-x-circle"></i>
+                            <button type="submit" name="status" value="rejected" class="btn btn-warning btn-block">
+                                <i class="icon-close"></i>
                                 Reject Job
                             </button>
+                            @error('status')
+                            <li style="color:red">{{ $message }}</li>
+                            @enderror
                         </form>
+
                         @elseif($job->approval_status == 'approved')
-                        <form method="POST" action="{{ route('admin.jobs.reject', $job->id) }}" class="d-inline">
+                        {{-- Reject Button --}}
+                        <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-warning btn-block">
-                                <i class="icon-x-circle"></i>
+                            <button type="submit" name="status" value="rejected" class="btn btn-warning btn-block">
+                                <i class="icon-close"></i>
                                 Reject Job
                             </button>
+                            @error('status')
+                            <li style="color:red">{{ $messsage }}</li>
+                            @enderror
                         </form>
+
                         @elseif($job->approval_status == 'rejected')
-                        <form method="POST" action="{{ route('admin.jobs.approve', $job->id) }}" class="d-inline">
+                        {{-- Approve Button --}}
+                        <form method="POST" action="{{ route('admin.jobs.update', $job->id) }}">
                             @csrf
                             @method('PATCH')
-                            <button type="submit" class="btn btn-success btn-block">
-                                <i class="icon-check-circle"></i>
+                            <button type="submit" name="status" value="approved" class="btn btn-success btn-block">
+                                <i class="icon-check"></i>
                                 Approve Job
                             </button>
                         </form>
@@ -167,11 +183,13 @@
 
                         <hr class="my-2">
 
-                        <form method="POST" action="{{ route('admin.jobs.destroy', $job->id) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                        {{-- Delete Button --}}
+                        <form method="POST" action="{{ route('admin.jobs.destroy', $job->id) }}"
+                            onsubmit="return confirm('Are you sure you want to delete this job?');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-block">
-                                <i class="icon-trash-2"></i>
+                                <i class="icon-trash"></i>
                                 Delete Job
                             </button>
                         </form>
@@ -189,6 +207,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
+                        {{-- Published Date --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-calendar text-info me-2"></i>
@@ -197,46 +216,52 @@
                             <span class="fw-medium">{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</span>
                         </li>
 
+                        {{-- Deadline --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
-                                <i class="icon-clock text-warning me-2"></i>
+                                <i class="icon-timer text-warning me-2"></i>
                                 <span class="text-muted">Deadline</span>
                             </div>
                             <div class="text-end">
+                                <i class="ti-calendar text-info me-2"></i>
                                 <span class="fw-medium">{{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</span>
                                 @if(\Carbon\Carbon::parse($job->deadline)->isPast())
-                                <br><small class="text-danger">Expired</small>
+                                <br><small class="text-danger"><i class="ti-na me-1"></i>Expired</small>
                                 @endif
                             </div>
                         </li>
 
+                        {{-- Job Type --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-briefcase text-primary me-2"></i>
                                 <span class="text-muted">Job Type</span>
                             </div>
-                            <span class="fw-medium">{{ $job->type->name[app()->getLocale()] ?? $job->type->name['uz'] ?? 'N/A' }}</span>
+                            <span class="fw-medium">{{ $job->type->translated_name }}</span>
                         </li>
 
+                        {{-- Employment --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
-                                <i class="icon-users text-success me-2"></i>
+                                <i class="icon-user text-success me-2"></i>
                                 <span class="text-muted">Employment</span>
                             </div>
                             <span class="fw-medium">{{ $job->employment_type->name[app()->getLocale()] ?? $job->employment_type->name['uz'] ?? 'N/A' }}</span>
                         </li>
 
+                        {{-- Contact --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
-                                <i class="icon-phone text-success me-2"></i>
+                                <i class="icon-mobile text-success me-2"></i>
                                 <span class="text-muted">Contact</span>
                             </div>
                             <span class="fw-medium">+998 {{ $job->phone }}</span>
                         </li>
 
+                        {{-- Status --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
-                                <i class="icon-activity text-info me-2"></i>
+                                <i class="icon-pulse text-info me-2"></i>
                                 <span class="text-muted">Status</span>
                             </div>
                             @switch($job->status)
@@ -250,7 +275,7 @@
                             <span class="badge badge-light-secondary">Closed</span>
                             @break
                             @case('expired')
-                            <span class="badge badge-light-danger">Expired</span>
+                            <span class="badge badge-light-danger"><i class="ti-na me-1"></i>Expired</span>
                             @break
                             @case('draft')
                             <span class="badge badge-light-info">Draft</span>
@@ -258,6 +283,7 @@
                             @endswitch
                         </li>
 
+                        {{-- Approval --}}
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-shield text-warning me-2"></i>
@@ -277,6 +303,7 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
 
             <!-- Posted By Card -->

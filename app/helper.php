@@ -36,6 +36,26 @@ function getEmploymentTypes()
     return EmploymentType::all();
 }
 
+function statuses()
+{
+    return [
+        'active' => 'Active',
+        'paused' => 'Paused',
+        'closed' => 'Closed',
+        'expired' => 'Expired',
+        'draft' => 'Draft'
+    ];
+}
+
+function approvalStatuses()
+{
+    return [
+        'pending' => 'Pending',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected'
+    ];
+}
+
 if (!function_exists('getDistricts')) {
     function getDistricts()
     {

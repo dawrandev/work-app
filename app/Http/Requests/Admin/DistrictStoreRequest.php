@@ -24,7 +24,7 @@ class DistrictStoreRequest extends FormRequest
         return [
             'name' => 'required|array',
             'name.uz' => 'required|string|max:255',
-            'name.kaa' => 'required|string|max:255',
+            'name.kr' => 'required|string|max:255',
             'name.ru' => 'required|string|max:255',
         ];
     }
@@ -39,7 +39,7 @@ class DistrictStoreRequest extends FormRequest
         return [
             'name.required' => __('District name is required'),
             'name.uz.required' => __('Uzbek name is required'),
-            'name.kaa.required' => __('Karakalpak name is required'),
+            'name.kr.required' => __('Karakalpak name is required'),
             'name.ru.required' => __('Russian name is required'),
         ];
     }

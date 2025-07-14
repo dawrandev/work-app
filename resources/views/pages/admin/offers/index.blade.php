@@ -90,27 +90,29 @@
                         <label class="form-label">Status</label>
                         <select name="status" class="form-select">
                             <option value="">All Status</option>
-                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                            <option value="paused" {{ request('status') == 'paused' ? 'selected' : '' }}>Paused</option>
-                            <option value="closed" {{ request('status') == 'closed' ? 'selected' : '' }}>Closed</option>
-                            <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Expired</option>
-                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                            @foreach(statuses() as $key => $status)
+                            <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
+                                {{ $status }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Approval</label>
                         <select name="approval_status" class="form-select">
                             <option value="">All Approvals</option>
-                            <option value="pending" {{ request('approval_status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="approved" {{ request('approval_status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                            <option value="rejected" {{ request('approval_status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                            @foreach(approvalStatuses() as $value => $label)
+                            <option value="{{ $value }}" {{ request('approval_status') == $value ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Category</label>
                         <select name="category_id" class="form-select">
                             <option value="">All Categories</option>
-                            @foreach($categories as $category)
+                            @foreach(getCategories() as $category)
                             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                                 {{ $category->name[app()->getLocale()] ?? $category->name['uz'] ?? $category->name }}
                             </option>

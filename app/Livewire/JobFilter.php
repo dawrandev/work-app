@@ -110,7 +110,8 @@ class JobFilter extends Component
                 'subcategory',
                 'district',
                 'type'
-            ]);
+            ])
+            ->where('approval_status', 'approved');
 
         if (!empty($this->selectedCategory)) {
             $query->where('category_id', $this->selectedCategory);

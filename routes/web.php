@@ -228,8 +228,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/index', [AdminJobController::class, 'index'])->name('index');
                 Route::get('/show/{job}', [AdminJobController::class, 'show'])->name('show');
                 Route::delete('/destroy/{job}', [AdminJobController::class, 'destroy'])->name('destroy');
-                Route::post('/approve/{job}', [AdminJobController::class, 'approve'])->name('approve');
-                Route::post('/reject/{job}', [AdminJobController::class, 'reject'])->name('reject');
+                Route::patch('/update/{job}', [AdminJobController::class, 'update'])->name('update');
             });
 
             // AdminOfferController
@@ -237,8 +236,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
                 Route::get('/index', [AdminOfferController::class, 'index'])->name('index');
                 Route::get('/show/{offer}', [AdminOfferController::class, 'show'])->name('show');
                 Route::delete('/destroy/{offer}', [AdminOfferController::class, 'destroy'])->name('destroy');
-                Route::post('/approve/{offer}', [AdminOfferController::class, 'approve'])->name('approve');
-                Route::post('/reject/{offer}', [AdminOfferController::class, 'reject'])->name('reject');
+                Route::patch('/update/{offer}', [AdminOfferController::class, 'update'])->name('update');
             });
         });
     });

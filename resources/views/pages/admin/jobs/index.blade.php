@@ -1,7 +1,7 @@
 @extends('layouts.admin.main')
 
 @push('css')
-<link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/feather-icon.css') }}">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/themify.css')}}">
 @endpush
 
 @section('content')
@@ -65,8 +65,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h3 class="mb-1">{{ $jobs->where('status', 'expired')->count() }}</h3>
-                            <p class="mb-0">Expired Jobs</p>
+                            <h3 class="mb-1">{{ $jobs->where('approval_status', 'rejected')->count() }}</h3>
+                            <p class="mb-0">Rejected Jobs</p>
                         </div>
                         <div class="text-white-50">
                             <i class="icon-close" style="font-size: 2.5rem;"></i>
@@ -90,29 +90,31 @@
                         <label class="form-label">Status</label>
                         <select name="status" class="form-select">
                             <option value="">All Status</option>
-                            <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
-                            <option value="paused" {{ request('status') == 'paused' ? 'selected' : '' }}>Paused</option>
-                            <option value="closed" {{ request('status') == 'closed' ? 'selected' : '' }}>Closed</option>
-                            <option value="expired" {{ request('status') == 'expired' ? 'selected' : '' }}>Expired</option>
-                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                            @foreach(statuses() as $key => $status)
+                            <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
+                                {{ $status }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Approval</label>
                         <select name="approval_status" class="form-select">
                             <option value="">All Approvals</option>
-                            <option value="pending" {{ request('approval_status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="approved" {{ request('approval_status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                            <option value="rejected" {{ request('approval_status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                            @foreach(approvalStatuses() as $value => $label)
+                            <option value="{{ $value }}" {{ request('approval_status') == $value ? 'selected' : '' }}>
+                                {{ $label }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
                         <label class="form-label">Category</label>
                         <select name="category_id" class="form-select">
                             <option value="">All Categories</option>
-                            @foreach($categories as $category)
+                            @foreach(getCategories() as $category)
                             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
-                                {{ $category->name[app()->getLocale()] ?? $category->name['uz'] ?? $category->name }}
+                                {{ $category->translated_name }}
                             </option>
                             @endforeach
                         </select>
@@ -140,9 +142,6 @@
                 <i class="icon-list text-primary"></i>
                 All Jobs
             </h5>
-            <div class="d-flex align-items-center">
-                <span class="text-muted me-2">Showing {{ $jobs->firstItem() ?? 0 }} to {{ $jobs->lastItem() ?? 0 }} of {{ $jobs->total() }} jobs</span>
-            </div>
         </div>
         <div class="card-body">
             @if($jobs->count() > 0)
@@ -156,7 +155,6 @@
                             <th>Location</th>
                             <th>Status</th>
                             <th>Approval</th>
-                            <th>Deadline</th>
                             <th>Created</th>
                             <th>Actions</th>
                         </tr>
@@ -172,14 +170,13 @@
                                     </div>
                                     <div>
                                         <h6 class="mb-0">{{ Str::limit($job->title, 35) }}</h6>
-                                        <small class="text-muted">ID: #{{ str_pad($job->id, 5, '0', STR_PAD_LEFT) }}</small>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="badge bg-light text-dark">{{ $job->category->name[app()->getLocale()] ?? $job->category->name['uz'] ?? 'N/A' }}</span>
+                                <span class="badge bg-light text-dark">{{ $job->category->translated_name }}</span>
                                 <br>
-                                <small class="text-muted">{{ $job->subcategory->name[app()->getLocale()] ?? $job->subcategory->name['uz'] ?? 'N/A' }}</small>
+                                <small class="text-muted">{{ $job->subcategory->translated_name }}</small>
                             </td>
                             <td>
                                 <strong class="text-success">{{ number_format($job->salary_from) }}</strong>
@@ -189,8 +186,8 @@
                             </td>
                             <td>
                                 <div>
-                                    <h6 class="mb-0">{{ $job->district->name[app()->getLocale()] ?? $job->district->name['uz'] ?? 'N/A' }}</h6>
-                                    <small class="text-muted">{{ $job->type->name[app()->getLocale()] ?? $job->type->name['uz'] ?? 'N/A' }}</small>
+                                    <h6 class="mb-0">{{ $job->district->translated_name }}</h6>
+                                    <small class="text-muted">{{ $job->type->translated_name }}</small>
                                 </div>
                             </td>
                             <td>
@@ -224,13 +221,6 @@
                                 <span class="badge bg-danger">Rejected</span>
                                 @break
                                 @endswitch
-                            </td>
-                            <td>
-                                <span class="fw-medium">{{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</span>
-                                <small class="text-muted d-block">{{ \Carbon\Carbon::parse($job->deadline)->format('H:i') }}</small>
-                                @if(\Carbon\Carbon::parse($job->deadline)->isPast())
-                                <small class="text-danger"><i class="icon-alert-triangle"></i> Expired</small>
-                                @endif
                             </td>
                             <td>
                                 <span class="fw-medium">{{ $job->created_at->format('d M, Y') }}</span>
