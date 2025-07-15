@@ -162,6 +162,9 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
 
             // DashboardController
             Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+            Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+                Route::get('/chart-data/{data}', [DashboardController::class, 'getChartData'])->name('chart-data');
+            });
 
             // CategoryController
             Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {

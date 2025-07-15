@@ -327,11 +327,6 @@
                                                 title="View Details">
                                                 <i class="icon-eye"></i>
                                             </a>
-                                            <a href="{{ route('admin.offers.edit', $offer->id) }}"
-                                                class="btn btn-sm btn-outline-warning"
-                                                title="Edit">
-                                                <i class="icon-edit"></i>
-                                            </a>
                                         </div>
                                     </td>
                                 </tr>

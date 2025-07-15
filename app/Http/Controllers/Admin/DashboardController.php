@@ -9,37 +9,33 @@ use App\Models\EmploymentType;
 use App\Models\Job;
 use App\Models\Offer;
 use App\Models\User;
+use App\Services\Admin\DashboardService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    protected $period = 6;
+
+    public function __construct(protected DashboardService $dashboardService)
+    {
+        // 
+    }
+
     public function dashboard()
     {
-        $stats = [
-            'total_users' => User::where('role', 'user')->count(),
-            'total_jobs' => Job::count(),
-            'total_offers' => Offer::count(),
-            'today_count' => Job::whereDate('created_at', Carbon::today())->count() +
-                Offer::whereDate('created_at', Carbon::today())->count()
-        ];
+        $stats = $this->dashboardService->stats();
 
-        // Oylik dinamika (oxirgi 6 oy)
-        $monthlyData = $this->getMonthlyData();
+        $monthlyData = $this->dashboardService->getMonthlyData($this->period ?? 6);
 
-        // Kategoriyalar bo'yicha taqsimot
-        $categoryDistribution = $this->getCategoryDistribution();
+        $categoryDistribution = $this->dashboardService->getCategoryDistribution();
 
-        // Tumanlar bo'yicha taqsimot
-        $districtDistribution = $this->getDistrictDistribution();
+        $districtDistribution = $this->dashboardService->getDistrictDistribution();
 
-        // Ish turlari bo'yicha taqsimot
         $employmentDistribution = $this->getEmploymentDistribution();
 
-        // Status bo'yicha taqsimot
         $statusDistribution = $this->getStatusDistribution();
 
-        // So'nggi qo'shilgan ishlar
         $recentJobs = Job::with(['category', 'district', 'user'])
             ->latest()
             ->take(7)
@@ -58,7 +54,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // So'nggi qo'shilgan takliflar
         $recentOffers = Offer::with(['category', 'district', 'user'])
             ->latest()
             ->take(7)
@@ -77,7 +72,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Filterlar uchun ma'lumotlar
         $filters = [
             'categories' => Category::all()->map(function ($cat) {
                 return [
@@ -112,58 +106,13 @@ class DashboardController extends Controller
         ));
     }
 
-    private function getMonthlyData()
+    public function getChartData($locale, $data)
     {
-        $months = [];
-        $jobsData = [];
-        $offersData = [];
+        $period = (int) $data;
 
-        for ($i = 5; $i >= 0; $i--) {
-            $month = Carbon::now()->subMonths($i);
-            $months[] = $month->translatedFormat('F');
+        $this->period = $period;
 
-            $jobsData[] = Job::whereYear('created_at', $month->year)
-                ->whereMonth('created_at', $month->month)
-                ->count();
-
-            $offersData[] = Offer::whereYear('created_at', $month->year)
-                ->whereMonth('created_at', $month->month)
-                ->count();
-        }
-
-        return [
-            'months' => $months,
-            'jobs' => $jobsData,
-            'offers' => $offersData
-        ];
-    }
-
-    private function getCategoryDistribution()
-    {
-        $categories = Category::withCount(['jobs', 'offers'])->get();
-
-        return $categories->map(function ($category) {
-            return [
-                'name' => $category->translated_name,
-                'jobs_count' => $category->jobs_count,
-                'offers_count' => $category->offers_count,
-                'total' => $category->jobs_count + $category->offers_count
-            ];
-        });
-    }
-
-    private function getDistrictDistribution()
-    {
-        $districts = District::withCount(['jobs', 'offers'])->get();
-
-        return $districts->map(function ($district) {
-            return [
-                'name' => $district->translated_name,
-                'jobs_count' => $district->jobs_count,
-                'offers_count' => $district->offers_count,
-                'total' => $district->jobs_count + $district->offers_count
-            ];
-        })->sortByDesc('total')->take(10)->values();
+        return $this->dashboard();
     }
 
     private function getEmploymentDistribution()

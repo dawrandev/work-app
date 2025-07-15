@@ -5,6 +5,9 @@
     @include('partials.admin.head')
 
     @livewireStyles()
+
+    @stack('css')
+
 </head>
 
 <body onload="startTime()">
@@ -44,6 +47,8 @@
     @include('partials.admin.script')
 
     @livewireScripts()
+
+    @stack('js')
 </body>
 
 </html>
