@@ -1,7 +1,6 @@
 @extends('layouts.user.main')
 
 @section('content')
-<x-user.breadcrumb :title="__('Profile')" :description="''" :page="__('Profile')" />
 
 <div class="{{ $sectionClass ?? 'default-section' }} section">
     <div class="container">

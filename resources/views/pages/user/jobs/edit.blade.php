@@ -6,14 +6,10 @@
 @endpush
 
 <x-user.breadcrumb :title="__('Edit Job')" :description="__('Update your job information to attract the best talent.')" :page="__('Edit Job')" />
-
-<!-- DELETE IMAGE FUNCTION - HEAD SECTION'DA -->
 <script>
-    // O'chirilishi kerak bo'lgan image IDs
     let imagesToDelete = [];
 
     function deleteImage(imageId) {
-        // Duplicate check qilish
         if (!imagesToDelete.includes(imageId)) {
             imagesToDelete.push(imageId);
         }
@@ -29,15 +25,12 @@
         }
     }
 
-    // Form submit qilganda hidden input'lar qo'shish
-    // Form submit qilganda
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('jobEditForm');
 
         form.addEventListener('submit', function(e) {
             console.log('=== FORM SUBMISSION ===');
 
-            // Delete images array'ni qo'shish
             imagesToDelete.forEach(imageId => {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -46,11 +39,9 @@
                 form.appendChild(hiddenInput);
             });
 
-            // Subcategory value tekshirish
             const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
             console.log('Selected subcategory:', subcategorySelect.value);
 
-            // Coordinates tekshirish
             console.log('Latitude:', document.getElementById('latitude').value);
             console.log('Longitude:', document.getElementById('longitude').value);
         });
@@ -123,6 +114,7 @@
                                     @enderror
                                 </div>
                             </div>
+
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Phone') }}</label>
@@ -172,6 +164,21 @@
                                         <span class="input-group-addon"></span>
                                         <i class="bx bx-calendar"></i>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Job Status') }}</label>
+                                    <select class="select" name="status">
+                                        <option value="">{{ __('Select Status') }}</option>
+                                        @foreach (statuses() as $key => $value)
+                                        <option value="{{ $key }}" {{ old('status', $job->status) == $key ? 'selected' : '' }}>{{ __($value) }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('status')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
                                 </div>
                             </div>
 

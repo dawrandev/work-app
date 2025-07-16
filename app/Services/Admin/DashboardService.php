@@ -12,10 +12,10 @@ class DashboardService
         // 
     }
 
-    public function stats()
+    public function firstCardStats()
     {
         try {
-            return $this->dashboardRepository->stats();
+            return $this->dashboardRepository->firstCardStats();
         } catch (Exception $e) {
             report($e);
             throw new Exception('An error occurred while retrieving statistics.');
@@ -50,5 +50,16 @@ class DashboardService
             report($e);
             throw new Exception('An error occurred while retrieving District distribution.');
         }
+    }
+
+    public function secondCardStats($timeFilter, $categoryId, $districtId)
+    {
+        return [
+            'users' => $this->dashboardRepository->getUsersCount($timeFilter, $categoryId, $districtId),
+            'jobs' => $this->dashboardRepository->getJobsCount($timeFilter, $categoryId, $districtId),
+            'offers' => $this->dashboardRepository->getOffersCount($timeFilter, $categoryId, $districtId),
+            'applies' => $this->dashboardRepository->getAppliesCount($timeFilter, $categoryId, $districtId),
+            'accepted_applies' => $this->dashboardRepository->getAcceptedAppliesCount($timeFilter, $categoryId, $districtId),
+        ];
     }
 }
