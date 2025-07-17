@@ -50,6 +50,7 @@ class OfferService
     {
         try {
             DB::transaction(function () use ($offer, $data, $request) {
+                $data['approval_status'] = 'pending';
                 $offer = $this->offerRepository->update($offer, $data);
 
                 if ($request->has('delete_images') && is_array($request->input('delete_images'))) {

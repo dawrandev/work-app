@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Livewire\Livewire;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +107,10 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::get('/manage-offers', [ProfileController::class, 'manageOffers'])->name('manage-offers');
             Route::get('/saved-offers', [ProfileController::class, 'savedOffers'])->name('saved-offers');
             Route::get('/saved-jobs', [ProfileController::class, 'savedJobs'])->name('saved-jobs');
+            Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+            Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+            Route::post('/update_image', [ProfileController::class, 'updateImage'])->name('update-image');
+            Route::put('/update', [ProfileController::class, 'update'])->name('update');
         });
     });
 

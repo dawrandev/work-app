@@ -260,6 +260,30 @@
                                     </div>
                                 </li>
                                 @endif
+
+                                @if($offer->approval_status)
+                                <li>
+                                    <div class="overview-content">
+                                        <i class="lni lni-shield"></i>
+                                        <strong>{{ __('Approval Status') }}:</strong>
+                                        <span class="status-badge status-{{ strtolower($offer->approval_status) }}">
+                                            @if($offer->approval_status == 'approved')
+                                            <i class="lni lni-checkmark"></i>
+                                            {{ __('Approved') }}
+                                            @elseif($offer->approval_status == 'rejected')
+                                            <i class="lni lni-close"></i>
+                                            {{ __('Rejected') }}
+                                            @elseif($offer->approval_status == 'pending')
+                                            <i class="lni lni-hourglass"></i>
+                                            {{ __('Pending') }}
+                                            @else
+                                            <i class="lni lni-question-circle"></i>
+                                            {{ __(ucfirst($offer->approval_status)) }}
+                                            @endif
+                                        </span>
+                                    </div>
+                                </li>
+                                @endif
                             </ul>
                         </div>
                     </div>

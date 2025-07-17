@@ -30,6 +30,7 @@ class OfferUpdateRequest extends FormRequest
             'salary_from' => 'required|numeric',
             'salary_to' => 'required|numeric',
             'address' => 'required|string|max:255',
+            'status' => 'required|string',
             'description' => 'required|string|max:255',
             'images' => 'nullable|array|max:3',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

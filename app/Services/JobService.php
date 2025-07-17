@@ -52,6 +52,8 @@ class JobService
                 Log::info('Job update data:', $data);
                 Log::info('Delete images:', $request->input('delete_images', []));
 
+                $data['approval_status'] = 'pending';
+
                 $job = $this->jobRepository->update($job, $data);
 
                 if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
@@ -72,7 +74,6 @@ class JobService
                     Log::info('Image found:', ['image' => $image, 'check' => ($image->imageable_type == Job::class)]);
                 }
 
-                // Yangi images upload
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();

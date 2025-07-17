@@ -7,9 +7,7 @@
 
 <x-user.breadcrumb :title="__('Edit Service')" :description="__('Edit your service')" :page="__('Edit Service')" />
 
-<!-- DELETE IMAGE FUNCTION - HEAD SECTION'DA -->
 <script>
-    // O'chirilishi kerak bo'lgan image IDs
     let imagesToDelete = [];
 
     function deleteImage(imageId) {
@@ -29,14 +27,12 @@
         }
     }
 
-    // Form submit qilganda hidden input'lar qo'shish
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('offerEditForm');
 
         form.addEventListener('submit', function(e) {
             console.log('=== FORM SUBMISSION ===');
 
-            // Delete images array'ni qo'shish
             imagesToDelete.forEach(imageId => {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -45,7 +41,6 @@
                 form.appendChild(hiddenInput);
             });
 
-            // Subcategory value tekshirish
             const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
             console.log('Selected subcategory:', subcategorySelect.value);
         });
@@ -159,6 +154,21 @@
                                     <label>{{ __('Location') }}</label>
                                     <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $offer->address) }}" placeholder="{{ __('Enter address') }}">
                                     @error('address')
+                                    <li style="color: red;">{{ $message }}</li>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label>{{ __('Offer Status') }}</label>
+                                    <select class="select" name="status">
+                                        <option value="">{{ __('Select Status') }}</option>
+                                        @foreach (statuses() as $key => $value)
+                                        <option value="{{ $key }}" {{ old('status', $offer->status) == $key ? 'selected' : '' }}>{{ __($value) }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('status')
                                     <li style="color: red;">{{ $message }}</li>
                                     @enderror
                                 </div>

@@ -42,8 +42,6 @@ function statuses()
         'active' => 'Active',
         'paused' => 'Paused',
         'closed' => 'Closed',
-        'expired' => 'Expired',
-        'draft' => 'Draft'
     ];
 }
 

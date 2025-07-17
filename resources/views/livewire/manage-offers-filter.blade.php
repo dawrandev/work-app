@@ -66,10 +66,11 @@
                     <tr>
                         <th width="5%" class="text-center">#</th>
                         <th width="25%">{{ __('Offer Title') }}</th>
-                        <th width="15%">{{ __('Address') }}</th>
                         <th width="15%">{{ __('Category') }}</th>
+                        <th width="15%">{{ __('Address') }}</th>
                         <th width="10%">{{ __('Type') }}</th>
                         <th width="10%" class="text-center">{{ __('Status') }}</th>
+                        <th width="10%" class="text-center">{{ __('Approval') }}</th>
                         <th width="10%" class="text-center">{{ __('Applied') }}</th>
                         <th width="10%" class="text-center">{{ __('Actions') }}</th>
                     </tr>
@@ -94,14 +95,14 @@
                             </div>
                         </td>
                         <td>
-                            <div class="address-info">
-                                <span class="fw-bold">{{ $offer->address ?? 'N/A' }}</span>
-                            </div>
-                        </td>
-                        <td>
                             <span class="badge" style="background-color: #0ea5e9; color: white;">
                                 {{ $offer->category->translated_name }}
                             </span>
+                        </td>
+                        <td>
+                            <div class="address-info">
+                                <span class="fw-bold">{{ $offer->address ?? 'N/A' }}</span>
+                            </div>
                         </td>
                         <td>
                             @if($offer->type->slug == 'full-time')
@@ -117,33 +118,41 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            @if($offer->status == 'pending')
-                            <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">
-                                <i class="lni lni-timer"></i> {{ __('Pending') }}
-                            </span>
-                            @elseif($offer->status == 'accepted')
+                            @if($offer->status == 'active')
                             <span class="badge" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 6px 12px;">
-                                <i class="lni lni-checkmark-circle"></i> {{ __('Accepted') }}
+                                <i class="lni lni-checkmark-circle"></i> {{ __('Active') }}
                             </span>
-                            @elseif($offer->status == 'rejected')
-                            <span class="badge" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 6px 12px;">
-                                <i class="lni lni-close"></i> {{ __('Rejected') }}
+                            @elseif($offer->status == 'paused')
+                            <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-timer"></i> {{ __('Paused') }}
                             </span>
-                            @elseif($offer->status == 'withdrawn')
-                            <span class="badge" style="background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%); color: white; padding: 6px 12px;">
-                                <i class="lni lni-ban"></i> {{ __('Withdrawn') }}
-                            </span>
-                            @elseif($offer->status == 'active')
-                            <span class="badge" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 6px 12px;">
-                                <i class="lni lni-bolt"></i> {{ __('Active') }}
+                            @elseif ($offer->status = 'closed')
+                            <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-ban"></i> {{ __('Closed') }}
                             </span>
                             @endif
                         </td>
-
+                        <td class="text-center">
+                            @if($offer->approval_status == 'approved')
+                            <span class="badge" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-checkmark"></i> {{ __('Approved') }}
+                            </span>
+                            @elseif($offer->approval_status == 'rejected')
+                            <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-close"></i> {{ __('Rejected') }}
+                            </span>
+                            @elseif($offer->approval_status == 'pending')
+                            <span class="badge" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-hourglass"></i> {{ __('Pending') }}
+                            </span>
+                            @else
+                            <span class="badge" style="background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); color: white; padding: 6px 12px;">
+                                <i class="lni lni-question-circle"></i> {{ __('Unknown') }}
+                            </span>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <small class="text-muted">{{ $offer->created_at->format('d M, Y') }}</small>
-                            <br>
-                            <small class="text-muted">{{ $offer->created_at->diffForHumans() }}</small>
                         </td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group">

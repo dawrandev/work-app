@@ -147,6 +147,7 @@
                                     </form>
                                     @endif
                                 </div>
+
                                 <div class="col-6 p-1">
                                     @if($job->phone)
                                     <a href="tel:{{ $job->phone }}" class="d-block btn btn-alt">
@@ -309,6 +310,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Applicants Button - Only for job owner -->
+                            @if(auth()->check() && auth()->user()->id == $job->user_id)
+                            <div class="mt-3">
+                                <a href="#" class="d-block btn btn-success">
+                                    <i class="lni lni-users mr-1"></i>{{__('View Applicants')}}
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @endif

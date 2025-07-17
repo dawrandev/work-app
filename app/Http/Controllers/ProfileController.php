@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Offer;
+use App\Models\User;
 use App\Services\JobSaveService;
 use App\Services\JobService;
 use App\Services\OfferSaveService;
 use App\Services\OfferService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -22,7 +27,9 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('pages.user.profile.index');
+        $user = auth()->user();
+
+        return view('pages.user.profile.index', compact('user'));
     }
 
     public function changePassword()
@@ -65,5 +72,55 @@ class ProfileController extends Controller
         $jobs = $this->jobSaveService->getUserSavedJobs(auth()->id());
 
         return view('pages.user.profile.saved-jobs', compact('jobs'));
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+
+        return view('pages.user.profile.profile', compact('user'));
+    }
+
+    public function updateImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        if ($user->image && file_exists(public_path('storage/users/' . $user->image))) {
+            unlink(public_path('storage/users/' . $user->image));
+        }
+
+        $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
+        $request->image->move(public_path('storage/users'), $imageName);
+
+        $user->update([
+            'image' => $imageName,
+        ]);
+
+        Alert::success(__('Profile image updated successfully'));
+
+        return redirect()->route('profile.profile');
+    }
+
+
+    public function update(ProfileUpdateRequest $request)
+    {
+        $user = auth()->user();
+
+        $data = $request->only(['first_name', 'last_name', 'phone']);
+        $data['role'] = 'user';
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        Alert::success(__('Successfully Updated'));
+
+        return redirect()->route('profile.profile');
     }
 }

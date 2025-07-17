@@ -32,6 +32,7 @@ class JobUpdateRequest extends FormRequest
             'salary_from' => 'nullable|numeric|min:0',
             'salary_to' => 'nullable|numeric|min:0|gte:salary_from',
             'deadline' => 'nullable|date',
+            'status' => 'required|string',
             'address' => 'required|string',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',

@@ -105,6 +105,7 @@ class OfferFilter extends Component
     {
         $query = Offer::query()
             ->select('offers.*')
+            ->where('approval_status', 'approved')
             ->with([
                 'category',
                 'subcategory',
