@@ -54,7 +54,7 @@
                             <div class="avatar avatar-sm">
                                 @if($user->image && $user->image != 'user-icon')
                                 <img src="{{ asset('storage/users/' . $user->image) }}"
-                                    alt="{{ $user->first_name }}"
+                                    alt="{{ $user->iamge }}"
                                     class="rounded-circle"
                                     style="width: 40px; height: 40px; object-fit: cover;">
                                 @else

@@ -89,10 +89,6 @@ class ProfileController extends Controller
 
         $user = auth()->user();
 
-        if ($user->image && file_exists(public_path('storage/users/' . $user->image))) {
-            unlink(public_path('storage/users/' . $user->image));
-        }
-
         $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
         $request->image->move(public_path('storage/users'), $imageName);
 
@@ -104,6 +100,7 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.profile');
     }
+
 
 
     public function update(ProfileUpdateRequest $request)

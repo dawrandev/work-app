@@ -55,6 +55,26 @@ class JobApplyController extends Controller
         return view('job-applies.show', compact('application'));
     }
 
+    public function applicants($locale, $jobId)
+    {
+        $applicants = $this->jobApplyService->applicants($jobId);
+
+        return view('pages.user.profile.applicants', compact('applicants'));
+    }
+
+    public function respond($locale, Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:accepted,rejected',
+        ]);
+
+        $applicant = $this->jobApplyService->updateApprovalStatus($id, $request->status);
+
+        Alert::success(__('The applicant was responded to'));
+
+        return redirect()->route('job-applies.applicants');
+    }
+
     public function destroy(int $id)
     {
         // Pivot table'dan o'chirish logikasi

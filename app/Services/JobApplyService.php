@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\JobApplyRepository;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class JobApplyService
 {
@@ -76,5 +78,20 @@ class JobApplyService
     public function getUserApplications(int $userId)
     {
         return $this->jobApplyRepository->getUserApplications($userId);
+    }
+
+    public function applicants($jobId)
+    {
+        return $this->jobApplyRepository->getApplicants($jobId);
+    }
+
+    public function updateApprovalStatus($id, $status)
+    {
+        try {
+            return $this->jobApplyRepository->updateStatus($id, $status);
+        } catch (Exception $e) {
+            Log::error('Job approval status error:', ['error' => $e->getMessage()]);
+            throw $e;
+        }
     }
 }

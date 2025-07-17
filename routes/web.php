@@ -141,6 +141,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::prefix('job-applies')->as('job-applies.')->group(function () {
             Route::get('/index', [JobApplyController::class, 'index'])->name('index');
             Route::post('/store', [JobApplyController::class, 'store'])->name('store');
+            Route::get('/applicants/{jobId}', [JobApplyController::class, 'applicants'])->name('applicants');
+            Route::patch('/respond/{id}', [JobApplyController::class, 'respond'])->name('respond');
         });
     });
     // OfferApplyController

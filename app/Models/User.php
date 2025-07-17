@@ -73,4 +73,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Offer::class);
     }
+
+    public function appliedJobs()
+    {
+        return $this->belongsToMany(Job::class, 'job_applies', 'user_id', 'job_id')
+            ->withPivot(['id', 'offer_id', 'cover_letter', 'status', 'created_at', 'updated_at'])
+            ->withTimestamps();
+    }
 }
