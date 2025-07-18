@@ -33,6 +33,25 @@ class JobApplyService
 
     public function canUserApply(int $userId, int $jobId): array
     {
+        $userOffers = $this->jobApplyRepository->getUserOffers($userId);
+
+        if (!$userOffers || $userOffers->isEmpty()) {
+            return [
+                'can_apply' => false,
+                'message' => 'Sizning offeringiz topilmadi. Iltimos, avval offer yarating.'
+            ];
+        }
+
+        $activeOffer = $userOffers->where('approval_status', 'active')->first();
+
+        if (!$activeOffer) {
+            return [
+                'can_apply' => false,
+                'message' => 'Sizning offeringiz hali tasdiqlanmagan. Offer tasdiqlangandan so\'ng ariza yuborishingiz mumkin.'
+            ];
+        }
+
+        // Oldindan ariza yuborgan yoki yubormaganligini tekshirish
         $hasApplied = $this->jobApplyRepository->hasUserAppliedToJob($userId, $jobId);
 
         if ($hasApplied) {

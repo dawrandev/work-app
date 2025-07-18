@@ -33,6 +33,27 @@ class OfferApplyService
 
     public function canUserApply(int $userId, int $offerId): array
     {
+        // Foydalanuvchining joblarini tekshirish
+        $userJobs = $this->offerApplyRepository->getUserJobs($userId);
+
+        if (!$userJobs || $userJobs->isEmpty()) {
+            return [
+                'can_apply' => false,
+                'message' => 'Sizning ishingiz topilmadi. Iltimos, avval ish yarating.'
+            ];
+        }
+
+        // Faol (active) job borligini tekshirish
+        $activeJob = $userJobs->where('approval_status', 'active')->first();
+
+        if (!$activeJob) {
+            return [
+                'can_apply' => false,
+                'message' => 'Sizning ishingiz hali tasdiqlanmagan. Ish tasdiqlangandan so\'ng ariza yuborishingiz mumkin.'
+            ];
+        }
+
+        // Oldindan ariza yuborgan yoki yubormaganligini tekshirish
         $hasApplied = $this->offerApplyRepository->hasUserAppliedToOffer($userId, $offerId);
 
         if ($hasApplied) {

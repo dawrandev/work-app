@@ -79,7 +79,9 @@ class ManageOffersFilter extends Component
             ->with(['category', 'district', 'type'])
             ->withCount([
                 'applicants as applications_count',
-                'view as unique_views_count'
+                'views as unique_views_count' => function ($query) {
+                    $query->where('viewable_type', Offer::class);
+                }
             ])
             ->latest()
             ->paginate(10);

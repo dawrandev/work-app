@@ -75,7 +75,7 @@
                                     </a>
                                 </h6>
                                 <small class="text-muted">
-                                    <i class="lni lni-eye"></i> {{ $job->unique_views_count ?? 0 }} unique views •
+                                    <i class="lni lni-eye"></i> {{ $job->unique_views_count ?? 0 }} views •
                                     <i class="lni lni-users"></i> {{ $job->applications_count ?? 0 }} applicants
                                 </small>
                             </div>

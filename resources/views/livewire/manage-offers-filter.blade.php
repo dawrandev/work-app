@@ -89,7 +89,7 @@
                                     </a>
                                 </h6>
                                 <small class="text-muted">
-                                    <i class="lni lni-eye"></i> {{ $offer->views ?? 0 }} views •
+                                    <i class="lni lni-eye"></i> {{ $offer->unique_views_count ?? 0 }} views •
                                     <i class="lni lni-users"></i> {{ $offer->applications_count ?? 0 }} applicants
                                 </small>
                             </div>

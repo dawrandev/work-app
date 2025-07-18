@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use HasViews;
+use App\Traits\HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

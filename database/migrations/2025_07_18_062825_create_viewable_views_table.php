@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('viewable_view', function (Blueprint $table) {
+        Schema::create('viewable_views', function (Blueprint $table) {
             $table->id();
             $table->morphs('viewable');
             $table->string('ip_address');
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('viewed_at');
             $table->timestamps();
 
-            $table->uniqie(['viewable_id', 'viewable_type', 'ip_address']);
+            $table->unique(['viewable_id', 'viewable_type', 'ip_address']);
             $table->unique(['viewable_id', 'viewable_type', 'user_id']);
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('viewable_view');
+        Schema::dropIfExists('viewable_views');
     }
 };

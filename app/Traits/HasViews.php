@@ -1,6 +1,9 @@
 <?php
 
+namespace App\Traits;
+
 use App\Models\ViewableView;
+
 
 trait HasViews
 {

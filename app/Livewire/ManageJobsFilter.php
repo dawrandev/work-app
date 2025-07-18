@@ -76,7 +76,9 @@ class ManageJobsFilter extends Component
             ->with(['category', 'district', 'type'])
             ->withCount([
                 'applicants as applications_count',
-                'views as unique_views_count'
+                'views as unique_views_count' => function ($query) {
+                    $query->where('viewable_type', Job::class);
+                }
             ])
             ->latest()
             ->paginate(10);
