@@ -76,7 +76,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
     Route::prefix('jobs')->as('jobs.')->group(function () {
-        Route::get('/show/{job}', [JobController::class, 'show'])->name('show');
+        Route::get('/show/{job}', [JobController::class, 'show'])->name('show')->middleware('track.views');
         Route::get('/index', [JobController::class, 'index'])->name('index');
     });
 
@@ -85,11 +85,13 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::prefix('offers')->as('offers.')->group(function () {
             Route::get('/create', [OfferController::class, 'create'])->name('create');
             Route::post('/store', [OfferController::class, 'store'])->name('store');
-            Route::get('/index', [OfferController::class, 'index'])->name('index');
-            Route::get('/show/{offer}', [OfferController::class, 'show'])->name('show');
             Route::get('/edit/{offer}', [OfferController::class, 'edit'])->name('edit');
             Route::put('/update/{offer}', [OfferController::class, 'update'])->name('update');
             Route::delete('/destroy/{offer}', [OfferController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('offers')->as('offers.')->group(function () {
+            Route::get('/index', [OfferController::class, 'index'])->name('index');
+            Route::get('/show/{offer}', [OfferController::class, 'show'])->name('show')->middleware('track.views');
         });
     });
 

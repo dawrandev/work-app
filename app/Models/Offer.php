@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use HasViews;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Offer extends Model
 {
     use HasFactory;
+    use HasViews;
 
     protected $fillable = [
         'user_id',

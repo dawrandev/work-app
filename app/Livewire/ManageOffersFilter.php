@@ -77,7 +77,10 @@ class ManageOffersFilter extends Component
                 $q->where('status', $this->selectedStatus);
             })
             ->with(['category', 'district', 'type'])
-            ->withCount(['applicants as applications_count'])
+            ->withCount([
+                'applicants as applications_count',
+                'view as unique_views_count'
+            ])
             ->latest()
             ->paginate(10);
 
