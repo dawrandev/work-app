@@ -37,6 +37,7 @@ class JobRepository
     {
         return Job::where('user_id', $user_id)
             ->with(['category', 'district', 'type', 'images'])
+            ->withCount(['applicants as applications_count'])
             ->latest()
             ->paginate(5)
             ->appends(request()->query());

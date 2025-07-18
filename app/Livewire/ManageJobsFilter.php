@@ -74,7 +74,7 @@ class ManageJobsFilter extends Component
                 $query->where('status', $this->selectedStatus);
             })
             ->with(['category', 'district', 'type'])
-            ->withCount('applicants')
+            ->withCount(['applicants as applications_count'])
             ->latest()
             ->paginate(10);
 

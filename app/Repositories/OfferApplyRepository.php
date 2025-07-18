@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class OfferApplyRepository
 {
@@ -54,5 +55,42 @@ class OfferApplyRepository
             'cover_letter',
             'status',
         ])->orderBy('offer_applies.created_at', 'desc')->get();
+    }
+
+    public function getApplicants($offerId)
+    {
+        $applicants = DB::table('offer_applies')
+            ->join('users', 'offer_applies.user_id', '=', 'users.id')
+            ->join('offers', 'offer_applies.offer_id', '=', 'offers.id')
+            ->join('jobs', 'offer_applies.job_id', '=', 'jobs.id')
+            ->select(
+                'offer_applies.id as id',
+                'users.image',
+                'users.first_name',
+                'users.last_name',
+                'users.phone',
+                'jobs.id as job_id',
+                'jobs.title as job_title',
+                'jobs.status as job_status',
+                'offer_applies.cover_letter',
+                'offer_applies.status as approval_status',
+                'offer_applies.created_at as applied_at'
+            )
+            ->where('offer_applies.offer_id', $offerId)
+            ->paginate(10)
+            ->appends(request()->query());
+
+        return $applicants;
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $applicant = DB::table('offer_applies')
+            ->where('id', $id)
+            ->update([
+                'status' => $status
+            ]);
+
+        return $applicant;
     }
 }

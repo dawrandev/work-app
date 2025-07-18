@@ -145,6 +145,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::patch('/respond/{id}', [JobApplyController::class, 'respond'])->name('respond');
         });
     });
+
     // OfferApplyController
     Route::middleware(['auth'])->group(function () {
         Route::prefix('offer-applies')->as('offer-applies.')->group(function () {
@@ -152,6 +153,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
             Route::post('/store', [OfferApplyController::class, 'store'])->name('store');
             Route::get('show/{id}', [OfferApplyController::class, 'show'])->name('show');
             Route::delete('destroy/{id}', [OfferApplyController::class, 'destroy'])->name('destroy');
+            Route::get('/applicants/{offerId}', [OfferApplyController::class, 'applicants'])->name('applicants');
+            Route::patch('/respond/{id}', [OfferApplyController::class, 'respond'])->name('respond');
         });
     });
 

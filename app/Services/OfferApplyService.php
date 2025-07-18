@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\OfferApplyRepository;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class OfferApplyService
 {
@@ -76,5 +78,20 @@ class OfferApplyService
     public function getUserApplications(int $userId)
     {
         return $this->offerApplyRepository->getUserApplications($userId);
+    }
+
+    public function applicants($offerId)
+    {
+        return $this->offerApplyRepository->getApplicants($offerId);
+    }
+
+    public function updateApprovalStatus($id, $status)
+    {
+        try {
+            return $this->offerApplyRepository->updateStatus($id, $status);
+        } catch (Exception $e) {
+            Log::error('offer approval status error:', ['error' => $e->getMessage()]);
+            throw $e;
+        }
     }
 }

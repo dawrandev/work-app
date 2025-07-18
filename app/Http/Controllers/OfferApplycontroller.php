@@ -55,6 +55,26 @@ class OfferApplyController extends Controller
         return view('offer-applies.show', compact('application'));
     }
 
+    public function applicants($locale, $offerId)
+    {
+        $applicants = $this->offerApplyService->applicants($offerId);
+        // return $applicants;
+        return view('pages.user.profile.offer-applicants', compact('applicants'));
+    }
+
+    public function respond($locale, Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:approved,rejected',
+        ]);
+
+        $applicant = $this->offerApplyService->updateApprovalStatus($id, $request->status);
+
+        Alert::success(__('The applicant was responded to'));
+
+        return redirect()->back();
+    }
+
     public function destroy(int $id)
     {
         // Pivot table'dan o'chirish logikasi

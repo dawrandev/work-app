@@ -58,7 +58,7 @@ class ManageOffersFilter extends Component
 
     public function render()
     {
-        $query = Offer::query()
+        $offers = Offer::query()
             ->where('user_id', auth()->id())
             ->when($this->search, function ($q) {
                 $q->where(function ($searchQuery) {
@@ -75,9 +75,11 @@ class ManageOffersFilter extends Component
             })
             ->when($this->selectedStatus, function ($q) {
                 $q->where('status', $this->selectedStatus);
-            });
-
-        $offers = $query->latest()->paginate(10);
+            })
+            ->with(['category', 'district', 'type'])
+            ->withCount(['applicants as applications_count'])
+            ->latest()
+            ->paginate(10);
 
         return view('livewire.manage-offers-filter', [
             'offers' => $offers,

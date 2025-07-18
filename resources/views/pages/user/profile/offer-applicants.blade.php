@@ -42,22 +42,22 @@ $sectionClass = 'manage-jobs';
                                 <img src="{{ $applicant->image ? asset('storage/users/' . $applicant->image) : asset('assets/user/images/default-user.png') }}" alt="{{ $applicant->first_name }}" class="rounded-circle shadow" style="width: 48px; height: 48px; object-fit: cover; border: 2px solid #e5e7eb;">
                             </td>
                             <td>
-                                <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
+                                <a href="{{ route('jobs.show', ['job' => $applicant->job_id]) }}" class="text-dark text-decoration-none">
                                     {{ $applicant->first_name }}
                                 </a>
                             </td>
-                            <td> <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
+                            <td> <a href="{{ route('jobs.show', ['job' => $applicant->job_id]) }}" class="text-dark text-decoration-none">
                                     {{ $applicant->last_name }}
                                 </a></td>
-                            <td> <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
+                            <td> <a href="{{ route('jobs.show', ['job' => $applicant->job_id]) }}" class="text-dark text-decoration-none">
                                     {{ $applicant->phone }}
                                 </a></td>
                             <td class="text-center">
-                                @if($applicant->offer_status == 'active')
+                                @if($applicant->job_status == 'active')
                                 <span class="badge" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 6px 12px;">{{ __('Active')}}</span>
-                                @elseif($applicant->offer_status == 'paused')
+                                @elseif($applicant->job_status == 'paused')
                                 <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">{{ __('Paused')}}</span>
-                                @elseif($applicant->apply_status == 'closed')
+                                @elseif($applicant->job_status == 'closed')
                                 <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">{{ __('Closed')}}</span>
                                 @endif
                             </td>
@@ -95,7 +95,7 @@ $sectionClass = 'manage-jobs';
                                     </button>
 
                                     {{-- Reject button --}}
-                                    <form action="{{ route('job-applies.respond', $applicant->id) }}" method="POST" style="display: inline;">
+                                    <form action="{{ route('offer-applies.respond', $applicant->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('PATCH')
                                         <input type="hidden" name="status" value="rejected">
@@ -105,11 +105,11 @@ $sectionClass = 'manage-jobs';
                                     </form>
 
                                     {{-- Accept button --}}
-                                    <form action="{{ route('job-applies.respond', $applicant->id) }}" method="POST" style="display: inline;" class="ms-1">
+                                    <form action="{{ route('offer-applies.respond', $applicant->id) }}" method="POST" style="display: inline;" class="ms-1">
                                         @csrf
                                         @method('PATCH')
-                                        <input type="hidden" name="status" value="accepted">
-                                        <button type="submit" class="btn btn-outline-success" title="{{ __('Accept') }}">
+                                        <input type="hidden" name="status" value="approved">
+                                        <button type="submit" class="btn btn-outline-success" title="{{ __('Approved') }}">
                                             <i class="lni lni-checkmark"></i>
                                         </button>
                                     </form>

@@ -89,8 +89,8 @@
                                     </a>
                                 </h6>
                                 <small class="text-muted">
-                                    <i class="lni lni-map-marker"></i>
-                                    {{ $offer->district?->translated_name ?? 'N/A' }}
+                                    <i class="lni lni-eye"></i> {{ $offer->views ?? 0 }} views •
+                                    <i class="lni lni-users"></i> {{ $offer->applications_count ?? 0 }} applicants
                                 </small>
                             </div>
                         </td>
@@ -177,7 +177,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8" class="text-center py-5">
+                        <td colspan="9" class="text-center py-5">
                             <div class="empty-content">
                                 <i class="lni lni-inbox" style="font-size: 3rem; color: #dee2e6;"></i>
                                 <p class="mt-3 mb-1">{{ __('No offers found') }}</p>

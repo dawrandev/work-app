@@ -59,7 +59,7 @@ class JobApplyController extends Controller
     {
         $applicants = $this->jobApplyService->applicants($jobId);
 
-        return view('pages.user.profile.applicants', compact('applicants'));
+        return view('pages.user.profile.job-applicants', compact('applicants'));
     }
 
     public function respond($locale, Request $request, $id)
@@ -72,7 +72,7 @@ class JobApplyController extends Controller
 
         Alert::success(__('The applicant was responded to'));
 
-        return redirect()->route('job-applies.applicants');
+        return redirect()->back();
     }
 
     public function destroy(int $id)

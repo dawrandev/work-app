@@ -310,6 +310,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Applicants Button - Only for offer owner -->
+                            @if(auth()->check() && auth()->user()->id == $offer->user_id)
+                            <div class="mt-3">
+                                <a href="{{ route('offer-applies.applicants', $offer->id) }}" class="d-block btn btn-success">
+                                    <i class="lni lni-users mr-1"></i>{{__('View Applicants')}}
+                                </a>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @endif

@@ -64,4 +64,11 @@ class Offer extends Model
     {
         return $this->belongsTo(Job::class);
     }
+
+    public function applicants()
+    {
+        return $this->belongsToMany(User::class, 'offer_applies', 'offer_id', 'user_id')
+            ->withPivot(['job_id', 'cover_letter', 'status'])
+            ->withTimestamps();
+    }
 }
