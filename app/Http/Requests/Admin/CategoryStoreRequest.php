@@ -28,4 +28,25 @@ class CategoryStoreRequest extends FormRequest
             'name.kr' => 'required|string|max:255',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'icon.required' => __('The icon field is required.'),
+            'icon.string' => __('The icon must be a string.'),
+            'icon.max' => __('The icon may not be greater than 255 characters.'),
+
+            'name.uz.required' => __('The Uzbek name field is required.'),
+            'name.uz.string' => __('The Uzbek name must be a string.'),
+            'name.uz.max' => __('The Uzbek name may not be greater than 255 characters.'),
+
+            'name.ru.required' => __('The Russian name field is required.'),
+            'name.ru.string' => __('The Russian name must be a string.'),
+            'name.ru.max' => __('The Russian name may not be greater than 255 characters.'),
+
+            'name.kr.required' => __('The Karakalpak name field is required.'),
+            'name.kr.string' => __('The Karakalpak name must be a string.'),
+            'name.kr.max' => __('The Karakalpak name may not be greater than 255 characters.'),
+        ];
+    }
 }

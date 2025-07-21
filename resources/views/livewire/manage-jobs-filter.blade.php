@@ -27,10 +27,11 @@
             <div class="col-md-3">
                 <select wire:model.live="selectedStatus" class="form-control">
                     <option value="">{{ __('All Status') }}</option>
-                    <option value="active">{{ __('Active') }}</option>
-                    <option value="inactive">{{ __('Inactive') }}</option>
-                    <option value="pending">{{ __('Pending') }}</option>
-                    <option value="expired">{{ __('Expired') }}</option>
+                    @foreach (statuses() as $key => $value)
+                    <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
+                        {{ __($value) }}
+                    </option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -70,7 +71,7 @@
                         <td>
                             <div class="job-title-wrap">
                                 <h6 class="mb-1">
-                                    <a href="{{ route('jobs.show', $job->id) }}" class="text-dark text-decoration-none">
+                                    <a href="{{ route('jobs.show', ['locale'=> app()->getLocale(), 'job' => $job->id]) }}" class="text-dark text-decoration-none">
                                         {{ $job->title }}
                                     </a>
                                 </h6>
@@ -142,12 +143,12 @@
                         </td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group">
-                                <a href="{{ route('jobs.show', $job->id) }}"
+                                <a href="{{ route('jobs.show',  ['locale'=> app()->getLocale(), 'job' => $job->id]) }}"
                                     class="btn btn-outline-primary"
                                     title="{{ __('View') }}">
                                     <i class="lni lni-eye"></i>
                                 </a>
-                                <a href="{{ route('jobs.edit', $job->id) }}"
+                                <a href="{{ route('jobs.edit',  ['locale'=> app()->getLocale(), 'job' => $job->id]) }}"
                                     class="btn btn-outline-warning"
                                     title="{{ __('Edit') }}">
                                     <i class="lni lni-pencil"></i>
@@ -168,7 +169,7 @@
                                 <i class="lni lni-briefcase" style="font-size: 3rem; color: #dee2e6;"></i>
                                 <p class="mt-3 mb-1">{{ __('No jobs found') }}</p>
                                 <p class="text-muted mb-4">{{ __('Try adjusting your filters or create a new job.') }}</p>
-                                <a href="{{ route('jobs.create') }}" class="btn btn-primary">
+                                <a href="{{ route('jobs.create', app()->getLocale()) }}" class="btn btn-primary">
                                     <i class="lni lni-plus"></i> {{ __('Post New Job') }}
                                 </a>
                             </div>

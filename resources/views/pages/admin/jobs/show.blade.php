@@ -138,7 +138,7 @@
                                 Approve Job
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 
@@ -151,7 +151,7 @@
                                 Reject Job
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 
@@ -165,7 +165,7 @@
                                 Reject Job
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $messsage }}</li>
+                            <div class="text-danger">{{ $messsage }}</div>
                             @enderror
                         </form>
 

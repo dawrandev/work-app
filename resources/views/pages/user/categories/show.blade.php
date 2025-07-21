@@ -6,7 +6,7 @@
     <div class="container">
         <div class="single-head">
             <div class="row">
-                @foreach ($jobs as $job)
+                @forelse ($jobs as $job)
                 <div class="col-lg-6 col-12">
                     <div class="single-job">
                         <div class="job-image">
@@ -29,7 +29,27 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @empty
+                <div class="col-12">
+                    <div class="text-center" style="padding: 60px 20px;">
+                        <div style="font-size: 4rem; color: #e0e0e0; margin-bottom: 20px;">
+                            <i class="lni lni-briefcase"></i>
+                        </div>
+                        <h3 style="color: #666; margin-bottom: 15px;">{{ __('No Jobs Found') }}</h3>
+                        <p style="color: #999; font-size: 1.1rem; margin-bottom: 30px;">
+                            {{ __('There are currently no job listings in this category. Please check back later or explore other categories.') }}
+                        </p>
+                        <div>
+                            <a href="{{ route('jobs.index') }}" class="btn btn-primary" style="margin-right: 10px;">
+                                <i class="lni lni-search"></i> {{ __('Browse All Jobs') }}
+                            </a>
+                            <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+                                <i class="lni lni-arrow-left"></i> {{ __('Go Back') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforelse
             </div>
             <!-- Pagination -->
             @if ($jobs->hasPages())

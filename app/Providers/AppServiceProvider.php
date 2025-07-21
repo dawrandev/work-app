@@ -23,8 +23,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (request()->route()?->parameter('locale')) {
-            URL::defaults(['locale' => request()->route('locale')]);
+        if (request()->route()) {
+            $locale = request()->route()->parameter('locale');
+            if ($locale) {
+                app()->setLocale($locale);
+                URL::defaults(['locale' => $locale]);
+            }
         }
 
         Paginator::useBootstrapFive();

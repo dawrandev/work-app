@@ -65,13 +65,11 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
-    // JobController - OWNER MIDDLEWARE QO'SHILDI
+    // JobController 
     Route::middleware('auth')->group(function () {
         Route::prefix('jobs')->as('jobs.')->group(function () {
             Route::get('/create', [JobController::class, 'create'])->name('create');
             Route::post('/store', [JobController::class, 'store'])->name('store');
-
-            // ⭐ OWNER MIDDLEWARE: Faqat job egasi edit/update/delete qila oladi
             Route::get('/edit/{job}', [JobController::class, 'edit'])->name('edit')
                 ->middleware('owner');
             Route::put('/update/{job}', [JobController::class, 'update'])->name('update')
@@ -85,7 +83,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::get('/index', [JobController::class, 'index'])->name('index');
     });
 
-    // Offer Controller - OWNER MIDDLEWARE QO'SHILDI
+    // Offer Controller 
     Route::middleware('auth')->group(function () {
         Route::prefix('offers')->as('offers.')->group(function () {
             Route::get('/create', [OfferController::class, 'create'])->name('create');
@@ -132,7 +130,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         Route::get('/show/{category}', [CategoryController::class, 'show'])->name('show');
     });
 
-    // JobSaveController - OWNER MIDDLEWARE QO'SHILDI
+    // JobSaveController 
     Route::middleware('auth')->group(function () {
         Route::prefix('save-jobs')->as('save-jobs.')->group(function () {
             Route::post('/store', [JobSaveController::class, 'store'])->name('store');
@@ -143,7 +141,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
-    // OfferSaveController - OWNER MIDDLEWARE QO'SHILDI
+    // OfferSaveController 
     Route::middleware('auth')->group(function () {
         Route::prefix('save-offers')->as('save-offers.')->group(function () {
             Route::post('/store', [OfferSaveController::class, 'store'])->name('store');
@@ -154,7 +152,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
-    // JobApplyController - OWNER MIDDLEWARE QO'SHILDI
+    // JobApplyController 
     Route::middleware('auth')->group(function () {
         Route::prefix('job-applies')->as('job-applies.')->group(function () {
             Route::get('/index', [JobApplyController::class, 'index'])->name('index');
@@ -167,7 +165,7 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         });
     });
 
-    // OfferApplyController - OWNER MIDDLEWARE QO'SHILDI
+    // OfferApplyController 
     Route::middleware(['auth'])->group(function () {
         Route::prefix('offer-applies')->as('offer-applies.')->group(function () {
             Route::get('/index', [OfferApplyController::class, 'index'])->name('index');

@@ -25,4 +25,12 @@ class JobSaveStoreRequest extends FormRequest
             'job_id' => 'required|exists:jobs,id',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'job_id.required' => __('The job field is required.'),
+            'job_id.exists' => __('The selected job is invalid.'),
+        ];
+    }
 }

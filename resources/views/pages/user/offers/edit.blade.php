@@ -9,30 +9,86 @@
 
 <script>
     let imagesToDelete = [];
+    let newImageFiles = [];
+    const MAX_IMAGES = 3;
 
     function deleteImage(imageId) {
-        // Duplicate check qilish
         if (!imagesToDelete.includes(imageId)) {
             imagesToDelete.push(imageId);
         }
-
-        // DOM'dan image'ni o'chir (visual effect)
         const imageContainer = event.target.closest('.col-md-3');
         if (imageContainer) {
             imageContainer.style.transition = 'opacity 0.3s ease';
             imageContainer.style.opacity = '0';
             setTimeout(() => {
                 imageContainer.remove();
+                updateImageCounts();
             }, 300);
         }
     }
 
+    function updateImageCounts() {
+        const currentImages = document.querySelectorAll('.existing-images .col-md-3').length;
+        const newImages = newImageFiles.length;
+        const totalImages = currentImages + newImages;
+        const statusElement = document.getElementById('imageCountStatus');
+        if (statusElement) {
+            statusElement.textContent = `${totalImages}/3 images`;
+            if (totalImages >= MAX_IMAGES) {
+                statusElement.classList.add('text-warning');
+                document.getElementById('fileUploadArea').style.display = 'none';
+            } else {
+                statusElement.classList.remove('text-warning');
+                document.getElementById('fileUploadArea').style.display = 'block';
+            }
+        }
+    }
+
+    function removeNewImage(index) {
+        newImageFiles.splice(index, 1);
+        updateImagePreview();
+        updateImageCounts();
+    }
+
+    function updateImagePreview() {
+        const previewContainer = document.getElementById('imagePreview');
+        previewContainer.innerHTML = '';
+        newImageFiles.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'image-preview-item';
+                previewItem.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview">
+                    <button type="button" class="remove-btn" onclick="removeNewImage(${index})">×</button>
+                `;
+                previewContainer.appendChild(previewItem);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('offerEditForm');
-
+        const imageInput = document.getElementById('imageInput');
+        imageInput.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            const currentImages = document.querySelectorAll('.existing-images .col-md-3').length;
+            const totalPossibleImages = currentImages + newImageFiles.length + files.length;
+            if (totalPossibleImages > MAX_IMAGES) {
+                const allowedCount = MAX_IMAGES - (currentImages + newImageFiles.length);
+                alert(`Maksimal ${MAX_IMAGES} ta rasm yuklash mumkun. Siz ${allowedCount} ta rasm qo'sha olasiz.`);
+                if (allowedCount > 0) {
+                    newImageFiles.push(...files.slice(0, allowedCount));
+                }
+            } else {
+                newImageFiles.push(...files);
+            }
+            updateImagePreview();
+            updateImageCounts();
+            e.target.value = '';
+        });
         form.addEventListener('submit', function(e) {
-            console.log('=== FORM SUBMISSION ===');
-
             imagesToDelete.forEach(imageId => {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -40,10 +96,13 @@
                 hiddenInput.value = imageId;
                 form.appendChild(hiddenInput);
             });
-
-            const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
-            console.log('Selected subcategory:', subcategorySelect.value);
+            const dataTransfer = new DataTransfer();
+            newImageFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+            imageInput.files = dataTransfer.files;
         });
+        updateImageCounts();
     });
 </script>
 
@@ -67,7 +126,7 @@
                                     <label>{{ __('Profession Title') }}</label>
                                     <input class="form-control" name="title" type="text" value="{{ old('title', $offer->title) }}">
                                     @error('title')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -84,7 +143,7 @@
                                         @endforeach
                                     </select>
                                     @error('type_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -99,7 +158,7 @@
                                         @endforeach
                                     </select>
                                     @error('employment_type_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -114,7 +173,7 @@
                                         @endforeach
                                     </select>
                                     @error('district_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -124,7 +183,7 @@
                                     <label>{{ __('Phone') }}</label>
                                     <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone_edit" value="{{ old('phone', $offer->phone) }}">
                                     @error('phone')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -134,7 +193,7 @@
                                     <label>{{ __('Salary From') }}</label>
                                     <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="Uzs" value="{{ old('salary_from', $offer->salary_from) }}">
                                     @error('salary_from')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -144,7 +203,7 @@
                                     <label>{{ __('Salary To') }}</label>
                                     <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $offer->salary_to) }}" placeholder="Uzs">
                                     @error('salary_to')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -154,7 +213,7 @@
                                     <label>{{ __('Location') }}</label>
                                     <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $offer->address) }}" placeholder="{{ __('Enter address') }}">
                                     @error('address')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -169,7 +228,7 @@
                                         @endforeach
                                     </select>
                                     @error('status')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -181,7 +240,7 @@
                                         <textarea name="description" id="description" class="form-control">{{ old('description', $offer->description) }}</textarea>
                                     </div>
                                     @error('description')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -189,7 +248,7 @@
                             <!-- Image Upload with existing images -->
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>{{ __('Upload Images') }}</label>
+                                    <label>{{ __('Upload Images') }} <span id="imageCountStatus" class="badge badge-info"></span></label>
 
                                     <!-- Existing Images -->
                                     @if($offer->images && count($offer->images) > 0)
@@ -215,14 +274,17 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images total, 5MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>
                                     </div>
                                     @error('images')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
+                                    <small class="text-muted">
+                                        {{ __('You can upload up to 3 images in total. Delete existing images to upload new ones if needed.') }}
+                                    </small>
                                 </div>
                             </div>
 

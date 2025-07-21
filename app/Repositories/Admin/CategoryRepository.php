@@ -25,7 +25,7 @@ class CategoryRepository
     public function update($data, $category)
     {
         $category->update([
-            'icon' => $data['icon'],
+            'icon' => $data['icon'] ?? $category->icon,
             'name' => json_encode($data['name'], JSON_UNESCAPED_UNICODE)
         ]);
 

@@ -74,7 +74,6 @@ class JobStoreRequest extends FormRequest
                 $validator->errors()->add('salary_to', __('Salary "to" must be greater than or equal to salary "from".'));
             }
 
-            // Validate that if coordinates are provided, both must be present
             if (($this->latitude && !$this->longitude) || (!$this->latitude && $this->longitude)) {
                 $validator->errors()->add('latitude', __('Both latitude and longitude must be provided together.'));
             }
@@ -84,21 +83,53 @@ class JobStoreRequest extends FormRequest
     /**
      * Get custom messages for validator errors.
      */
-    public function messages()
+    public function messages(): array
     {
         return [
-            'title.required' => __('Job title is required.'),
+            'title.required' => __('The title field is required.'),
+            'title.string' => __('The title must be a string.'),
+            'title.max' => __('The title may not be greater than 255 characters.'),
+
             'category_id.required' => __('Please select a category.'),
+            'category_id.exists' => __('The selected category is invalid.'),
+
             'subcategory_id.required' => __('Please select a subcategory.'),
-            'type_id.required' => __('Please select a job type.'),
+            'subcategory_id.exists' => __('The selected subcategory is invalid.'),
+
+            'type_id.required' => __('Please select a type.'),
+            'type_id.exists' => __('The selected type is invalid.'),
+
             'employment_type_id.required' => __('Please select an employment type.'),
-            'description.required' => __('Job description is required.'),
-            'address.required' => __('Address is required.'),
-            'images.max' => __('You can upload a maximum of 5 images.'),
-            'images.*.max' => __('Each image must not exceed 5MB.'),
-            'salary_to.gte' => __('Salary "to" must be greater than or equal to salary "from".'),
-            'latitude.between' => __('Invalid latitude value.'),
-            'longitude.between' => __('Invalid longitude value.'),
+            'employment_type_id.exists' => __('The selected employment type is invalid.'),
+
+            'district_id.exists' => __('The selected district is invalid.'),
+
+            'phone.required' => __('The phone number is required.'),
+            'phone.digits' => __('The phone number must be exactly 9 digits.'),
+
+            'description.required' => __('The description field is required.'),
+            'description.string' => __('The description must be a string.'),
+
+            'salary_from.numeric' => __('The salary from must be a number.'),
+            'salary_to.numeric' => __('The salary to must be a number.'),
+            'salary_to.gte' => __('The salary to must be greater than or equal to salary from.'),
+
+            'deadline.date' => __('The deadline must be a valid date.'),
+
+            'address.required' => __('The address field is required.'),
+            'address.string' => __('The address must be a string.'),
+            'address.max' => __('The address may not be greater than 500 characters.'),
+
+            'latitude.numeric' => __('The latitude must be a number.'),
+            'latitude.between' => __('The latitude must be between -90 and 90.'),
+            'longitude.numeric' => __('The longitude must be a number.'),
+            'longitude.between' => __('The longitude must be between -180 and 180.'),
+
+            'images.array' => __('Images must be an array.'),
+            'images.max' => __('You can upload maximum 3 images.'),
+            'images.*.image' => __('Each file must be an image.'),
+            'images.*.mimes' => __('Images must be jpeg, png, or jpg format.'),
+            'images.*.max' => __('Each image may not be greater than 2MB.'),
         ];
     }
 }

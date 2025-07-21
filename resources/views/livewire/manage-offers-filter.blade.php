@@ -84,7 +84,7 @@
                         <td>
                             <div class="job-title-wrap">
                                 <h6 class="mb-1">
-                                    <a href="{{ route('offers.show', $offer->id) }}" class="text-dark text-decoration-none">
+                                    <a href="{{ route('offers.show', ['locale'=>app()->getLocale(), 'offer'=>$offer->id]) }}" class="text-dark text-decoration-none">
                                         {{ $offer->title }}
                                     </a>
                                 </h6>

@@ -27,4 +27,19 @@ class JobApplyStoreRequest extends FormRequest
             'cover_letter' => 'required|string|max:1000'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'job_id.required' => __('The job field is required.'),
+            'job_id.exists' => __('The selected job is invalid.'),
+
+            'offer_id.required' => __('The offer field is required.'),
+            'offer_id.exists' => __('The selected offer is invalid.'),
+
+            'cover_letter.required' => __('The cover letter field is required.'),
+            'cover_letter.string' => __('The cover letter must be a string.'),
+            'cover_letter.max' => __('The cover letter may not be greater than 1000 characters.'),
+        ];
+    }
 }

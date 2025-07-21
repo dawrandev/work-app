@@ -25,4 +25,14 @@ class JobUpdateRequest extends FormRequest
             'status' => 'string|required|in:rejected,approved'
         ];
     }
+
+    public function messages(): array
+{
+    return [
+        'status.required' => __('The status field is required.'),
+        'status.string' => __('The status must be a string.'),
+        'status.in' => __('The selected status is invalid. It must be either "rejected" or "approved".'),
+    ];
+}
+
 }

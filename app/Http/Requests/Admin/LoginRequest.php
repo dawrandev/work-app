@@ -26,4 +26,16 @@ class LoginRequest extends FormRequest
             'password' => 'required|min:8|string'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'phone.required' => __('The phone field is required.'),
+            'phone.digits' => __('The phone number must be exactly 9 digits.'),
+
+            'password.required' => __('The password field is required.'),
+            'password.min' => __('The password must be at least 8 characters.'),
+            'password.string' => __('The password must be a string.'),
+        ];
+    }
 }

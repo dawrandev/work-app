@@ -62,60 +62,68 @@ class OfferUpdateRequest extends FormRequest
             if ($from !== null && $to !== null && $to < $from) {
                 $validator->errors()->add('salary_to', __('Salary "to" must be greater than or equal to salary "from".'));
             }
+
+            // Image count validation
+            $offer = $this->route('offer');
+            $existingCount = $offer ? $offer->images()->count() : 0;
+            $deleteCount = is_array($this->delete_images) ? count($this->delete_images) : 0;
+            $newCount = is_array($this->images) ? count($this->images) : 0;
+            $total = $existingCount - $deleteCount + $newCount;
+            if ($total > 3) {
+                $validator->errors()->add('images', __('You can upload a maximum of 3 images in total.'));
+            }
         });
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
-            'title.required' => 'Kasb nomi majburiy.',
-            'title.string' => 'Kasb nomi matn bo\'lishi kerak.',
-            'title.max' => 'Kasb nomi 255 ta belgidan oshmasligi kerak.',
+            'title.required' => __('The title field is required.'),
+            'title.string' => __('The title must be a string.'),
+            'title.max' => __('The title may not be greater than 255 characters.'),
 
-            'phone.required' => 'Telefon raqami majburiy.',
-            'phone.string' => 'Telefon raqami matn bo\'lishi kerak.',
-            'phone.max' => 'Telefon raqami 255 ta belgidan oshmasligi kerak.',
+            'phone.required' => __('The phone number is required.'),
+            'phone.max' => __('The phone number may not be greater than 255 characters.'),
 
-            'category_id.required' => 'Kategoriya tanlash majburiy.',
-            'category_id.exists' => 'Tanlangan kategoriya mavjud emas.',
+            'category_id.required' => __('Please select a category.'),
+            'category_id.exists' => __('The selected category is invalid.'),
 
-            'subcategory_id.required' => 'Subkategoriya tanlash majburiy.',
-            'subcategory_id.exists' => 'Tanlangan subkategoriya mavjud emas.',
+            'subcategory_id.required' => __('Please select a subcategory.'),
+            'subcategory_id.exists' => __('The selected subcategory is invalid.'),
 
-            'district_id.required' => 'Tuman tanlash majburiy.',
-            'district_id.exists' => 'Tanlangan tuman mavjud emas.',
+            'district_id.required' => __('Please select a district.'),
+            'district_id.exists' => __('The selected district is invalid.'),
 
-            'type_id.required' => 'Ish turi tanlash majburiy.',
-            'type_id.exists' => 'Tanlangan ish turi mavjud emas.',
+            'type_id.required' => __('Please select a type.'),
+            'type_id.exists' => __('The selected type is invalid.'),
 
-            'employment_type_id.required' => 'Bandlik turi tanlash majburiy.',
-            'employment_type_id.exists' => 'Tanlangan bandlik turi mavjud emas.',
+            'employment_type_id.required' => __('Please select an employment type.'),
+            'employment_type_id.exists' => __('The selected employment type is invalid.'),
 
-            'salary_from.required' => 'Maosh (dan) majburiy.',
-            'salary_from.numeric' => 'Maosh (dan) raqam bo\'lishi kerak.',
+            'salary_from.required' => __('The salary from field is required.'),
+            'salary_from.numeric' => __('The salary from must be a number.'),
+            'salary_to.required' => __('The salary to field is required.'),
+            'salary_to.numeric' => __('The salary to must be a number.'),
 
-            'salary_to.required' => 'Maosh (gacha) majburiy.',
-            'salary_to.numeric' => 'Maosh (gacha) raqam bo\'lishi kerak.',
+            'address.required' => __('The address field is required.'),
+            'address.string' => __('The address must be a string.'),
+            'address.max' => __('The address may not be greater than 255 characters.'),
 
-            'address.required' => 'Manzil majburiy.',
-            'address.string' => 'Manzil matn bo\'lishi kerak.',
-            'address.max' => 'Manzil 255 ta belgidan oshmasligi kerak.',
+            'status.required' => __('The status field is required.'),
+            'status.string' => __('The status must be a string.'),
 
-            'description.required' => 'Tavsif majburiy.',
-            'description.string' => 'Tavsif matn bo\'lishi kerak.',
-            'description.max' => 'Tavsif 255 ta belgidan oshmasligi kerak.',
+            'description.required' => __('The description field is required.'),
+            'description.string' => __('The description must be a string.'),
+            'description.max' => __('The description may not be greater than 255 characters.'),
 
-            'images.array' => 'Rasmlar massiv bo\'lishi kerak.',
-            'images.max' => 'Maksimal 3 ta rasm yuklash mumkin.',
+            'images.array' => __('Images must be an array.'),
+            'images.max' => __('You can upload maximum 3 images.'),
+            'images.*.image' => __('Each file must be an image.'),
+            'images.*.mimes' => __('Images must be jpeg, png, jpg, or gif format.'),
+            'images.*.max' => __('Each image may not be greater than 2MB.'),
 
-            'images.*.image' => 'Fayl rasm bo\'lishi kerak.',
-            'images.*.mimes' => 'Rasm formati jpeg, png, jpg yoki gif bo\'lishi kerak.',
-            'images.*.max' => 'Rasm hajmi 2MB dan oshmasligi kerak.',
-
-            'delete_images.array' => 'O\'chiriladigan rasmlar massiv bo\'lishi kerak.',
-            'delete_images.*.exists' => 'O\'chiriladigan rasm mavjud emas.',
-
-            'salary_to' => 'Maosh "gacha" qiymati maosh "dan" qiymatidan katta yoki teng bo\'lishi kerak.',
+            'delete_images.array' => __('Delete images must be an array.'),
+            'delete_images.*.exists' => __('The selected image does not exist.'),
         ];
     }
 }

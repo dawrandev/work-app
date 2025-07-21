@@ -1,0 +1,58 @@
+/* Image Upload Component Styles */
+.existing-images img {
+    border: 2px solid #ddd;
+    transition: border-color 0.3s;
+}
+.existing-images .image-item:hover img {
+    border-color: #007bff;
+}
+.upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+.upload-area:hover {
+    border-color: #007bff;
+}
+.upload-area.drag-over {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+}
+.image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+.image-preview-item {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #ddd;
+}
+.image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.image-preview-item .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

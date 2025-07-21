@@ -25,4 +25,12 @@ class OfferSaveStoreRequest extends FormRequest
             'offer_id' => 'required|exists:offers,id',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'offer_id.required' => __('The offer field is required.'),
+            'offer_id.exists' => __('The selected offer is invalid.'),
+        ];
+    }
 }

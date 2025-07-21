@@ -37,10 +37,20 @@ class TypeUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => __('Type name is required'),
-            'name.uz.required' => __('Uzbek name is required'),
-            'name.kaa.required' => __('Karakalpak name is required'),
-            'name.ru.required' => __('Russian name is required'),
+            'name.required' => __('The name field is required.'),
+            'name.array' => __('The name must be an array.'),
+
+            'name.uz.required' => __('The Uzbek name field is required.'),
+            'name.uz.string' => __('The Uzbek name must be a string.'),
+            'name.uz.max' => __('The Uzbek name may not be greater than 255 characters.'),
+
+            'name.kaa.required' => __('The Karakalpak name field is required.'),
+            'name.kaa.string' => __('The Karakalpak name must be a string.'),
+            'name.kaa.max' => __('The Karakalpak name may not be greater than 255 characters.'),
+
+            'name.ru.required' => __('The Russian name field is required.'),
+            'name.ru.string' => __('The Russian name must be a string.'),
+            'name.ru.max' => __('The Russian name may not be greater than 255 characters.'),
         ];
     }
 }

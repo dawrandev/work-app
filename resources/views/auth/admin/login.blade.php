@@ -46,7 +46,7 @@
                                     <input class="form-control" type="number" name="phone" value="{{ old('phone') }}" placeholder="{{ __('Your Phone') }}">
                                 </div>
                                 @error('phone')
-                                <li style="color: red;">{{ $message }}</li>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
 
                                 <div class="form-group">
@@ -54,7 +54,7 @@
                                     <div class="form-input position-relative">
                                         <input class="form-control" type="password" name="password" value="{{ old('password') }}" placeholder="{{ __('********') }}">
                                         @error('password')
-                                        <li style="color: red;">{{ $message }}</li>
+                                        <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         <div class="show-hide"><span class="show"> </span></div>
                                     </div>

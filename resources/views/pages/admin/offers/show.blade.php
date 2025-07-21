@@ -138,7 +138,7 @@
                                 Approve Offer
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 
@@ -151,7 +151,7 @@
                                 Reject Offer
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 
@@ -165,7 +165,7 @@
                                 Reject Offer
                             </button>
                             @error('status')
-                            <li style="color:red">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 

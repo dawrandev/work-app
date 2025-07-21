@@ -280,7 +280,7 @@ $sectionClass = 'change-password';
                             <label class="form-label">Ism</label>
                             <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
                             @error('first_name')
-                            <li style="color: red;">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -288,7 +288,7 @@ $sectionClass = 'change-password';
                             <label class="form-label">Familiya</label>
                             <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
                             @error('last_name')
-                            <li style="color: red;">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -296,7 +296,7 @@ $sectionClass = 'change-password';
                             <label class="form-label">Telefon raqam</label>
                             <input type="number" name="phone" class="form-control" value="{{ $user->phone }}">
                             @error('phone')
-                            <li style="color: red;">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -304,7 +304,7 @@ $sectionClass = 'change-password';
                             <label class="form-label">Yangi parol (ixtiyoriy)</label>
                             <input type="password" name="password" class="form-control" placeholder="Yangi parol kiriting">
                             @error('password')
-                            <li style="color: red;">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -312,7 +312,7 @@ $sectionClass = 'change-password';
                             <label class="form-label">Parolni tasdiqlash</label>
                             <input type="password" name="password_confirmation" class="form-control" placeholder="Parolni qayta kiriting">
                             @error('password_confirmation')
-                            <li style="color: red;">{{ $message }}</li>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 

@@ -25,4 +25,14 @@ class ProfileImageUpdateRequest extends FormRequest
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'image.required' => __('The image field is required.'),
+            'image.image' => __('The file must be an image.'),
+            'image.mimes' => __('The image must be jpeg, png, or jpg format.'),
+            'image.max' => __('The image may not be greater than 2MB.'),
+        ];
+    }
 }

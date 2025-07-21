@@ -69,12 +69,22 @@ class JobService
                             }
 
                             $image->delete();
+                            Log::info('Image deleted:', ['image_id' => $imageId]);
                         }
                     }
-                    Log::info('Image found:', ['image' => $image, 'check' => ($image->imageable_type == Job::class)]);
                 }
 
                 if ($request->hasFile('images')) {
+                    $currentImagesCount = $job->images()->count();
+                    $newImagesCount = count($request->file('images'));
+
+                    if ($currentImagesCount + $newImagesCount > 3) {
+                        throw new \Exception(__('Cannot upload :new images. Current images: :current. Maximum allowed: 3', [
+                            'new' => $newImagesCount,
+                            'current' => $currentImagesCount
+                        ]));
+                    }
+
                     foreach ($request->file('images') as $image) {
                         $filename = time() . '_' . Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $image->storeAs('jobs', $filename, 'public');
@@ -82,7 +92,16 @@ class JobService
                         $job->images()->create([
                             'image_path' => $filename,
                         ]);
+
+                        Log::info('New image uploaded:', ['filename' => $filename]);
                     }
+                }
+
+                $finalImageCount = $job->images()->count();
+                Log::info('Final image count after update:', ['count' => $finalImageCount]);
+
+                if ($finalImageCount > 3) {
+                    throw new \Exception(__('Image limit exceeded. Final count: :count', ['count' => $finalImageCount]));
                 }
             });
 

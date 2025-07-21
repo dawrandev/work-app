@@ -8,6 +8,8 @@
 <x-user.breadcrumb :title="__('Edit Job')" :description="__('Update your job information to attract the best talent.')" :page="__('Edit Job')" />
 <script>
     let imagesToDelete = [];
+    let newImageFiles = []; // Track new images
+    const MAX_IMAGES = 3;
 
     function deleteImage(imageId) {
         if (!imagesToDelete.includes(imageId)) {
@@ -21,16 +23,89 @@
             imageContainer.style.opacity = '0';
             setTimeout(() => {
                 imageContainer.remove();
+                updateImageCounts();
             }, 300);
         }
     }
 
+    function updateImageCounts() {
+        const currentImages = document.querySelectorAll('.existing-images .col-md-3').length;
+        const newImages = newImageFiles.length;
+        const totalImages = currentImages + newImages;
+
+        // Update UI to show current status
+        const statusElement = document.getElementById('imageCountStatus');
+        if (statusElement) {
+            statusElement.textContent = `${totalImages}/3 images`;
+
+            if (totalImages >= MAX_IMAGES) {
+                statusElement.classList.add('text-warning');
+                document.getElementById('fileUploadArea').style.display = 'none';
+            } else {
+                statusElement.classList.remove('text-warning');
+                document.getElementById('fileUploadArea').style.display = 'block';
+            }
+        }
+    }
+
+    function removeNewImage(index) {
+        newImageFiles.splice(index, 1);
+        updateImagePreview();
+        updateImageCounts();
+    }
+
+    function updateImagePreview() {
+        const previewContainer = document.getElementById('imagePreview');
+        previewContainer.innerHTML = '';
+
+        newImageFiles.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'image-preview-item';
+                previewItem.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview">
+                    <button type="button" class="remove-btn" onclick="removeNewImage(${index})">×</button>
+                `;
+                previewContainer.appendChild(previewItem);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('jobEditForm');
+        const imageInput = document.getElementById('imageInput');
+
+        // Handle new image selection
+        imageInput.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            const currentImages = document.querySelectorAll('.existing-images .col-md-3').length;
+            const totalPossibleImages = currentImages + newImageFiles.length + files.length;
+
+            if (totalPossibleImages > MAX_IMAGES) {
+                const allowedCount = MAX_IMAGES - (currentImages + newImageFiles.length);
+                alert(`Maksimal ${MAX_IMAGES} ta rasm yuklash mumkun. Siz ${allowedCount} ta rasm qo'sha olasiz.`);
+
+                // Only add allowed number of files
+                if (allowedCount > 0) {
+                    newImageFiles.push(...files.slice(0, allowedCount));
+                }
+            } else {
+                newImageFiles.push(...files);
+            }
+
+            updateImagePreview();
+            updateImageCounts();
+
+            // Clear the input
+            e.target.value = '';
+        });
 
         form.addEventListener('submit', function(e) {
             console.log('=== FORM SUBMISSION ===');
 
+            // Add deleted images to form
             imagesToDelete.forEach(imageId => {
                 const hiddenInput = document.createElement('input');
                 hiddenInput.type = 'hidden';
@@ -39,12 +114,24 @@
                 form.appendChild(hiddenInput);
             });
 
+            // Update file input with new images
+            const dataTransfer = new DataTransfer();
+            newImageFiles.forEach(file => {
+                dataTransfer.items.add(file);
+            });
+            imageInput.files = dataTransfer.files;
+
             const subcategorySelect = document.querySelector('select[name="subcategory_id"]');
             console.log('Selected subcategory:', subcategorySelect.value);
 
             console.log('Latitude:', document.getElementById('latitude').value);
             console.log('Longitude:', document.getElementById('longitude').value);
+            console.log('Images to delete:', imagesToDelete);
+            console.log('New images count:', newImageFiles.length);
         });
+
+        // Initial count update
+        updateImageCounts();
     });
 </script>
 
@@ -63,7 +150,7 @@
                                     <label>{{ __('Job title*') }}</label>
                                     <input class="form-control" name="title" type="text" value="{{ old('title', $job->title) }}">
                                     @error('title')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -80,7 +167,7 @@
                                         @endforeach
                                     </select>
                                     @error('type_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -95,7 +182,7 @@
                                         @endforeach
                                     </select>
                                     @error('employment_type_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -110,7 +197,7 @@
                                         @endforeach
                                     </select>
                                     @error('district_id')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -120,7 +207,7 @@
                                     <label>{{ __('Phone') }}</label>
                                     <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone_edit" value="{{ old('phone', $job->phone) }}">
                                     @error('phone')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -129,7 +216,7 @@
                                     <label>{{ __('Salary From') }}</label>
                                     <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="Uzs" value="{{ old('salary_from', $job->salary_from) }}">
                                     @error('salary_from')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -138,7 +225,7 @@
                                     <label>{{ __('Salary To') }}</label>
                                     <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $job->salary_to) }}" placeholder="Uzs">
                                     @error('salary_to')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -148,7 +235,7 @@
                                     <label>{{ __('Address*') }}</label>
                                     <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $job->address) }}" placeholder="{{ __('Enter address or select on map') }}">
                                     @error('address')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -159,7 +246,7 @@
                                     <div class="input-group date" id="datetimepicker">
                                         <input type="datetime-local" name="deadline" class="form-control" placeholder="" value="{{ old('deadline', $job->deadline ? date('Y-m-d\TH:i', strtotime($job->deadline)) : '') }}">
                                         @error('deadline')
-                                        <li style="color: red;">{{ $message }}</li>
+                                        <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                         <span class="input-group-addon"></span>
                                         <i class="bx bx-calendar"></i>
@@ -177,7 +264,7 @@
                                         @endforeach
                                     </select>
                                     @error('status')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -214,7 +301,7 @@
                                         <textarea name="description" id="description" class="form-control">{{ old('description', $job->description) }}</textarea>
                                     </div>
                                     @error('description')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -222,7 +309,7 @@
                             <!-- Image Upload with existing images -->
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>{{ __('Upload Images') }}</label>
+                                    <label>{{ __('Upload Images') }} <span id="imageCountStatus" class="badge badge-info"></span></label>
 
                                     <!-- Existing Images -->
                                     @if($job->images->count() > 0)
@@ -248,14 +335,19 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images total, 5MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>
                                     </div>
                                     @error('images')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
+
+                                    <!-- Instructions -->
+                                    <small class="text-muted">
+                                        {{ __('You can upload up to 3 images in total. Delete existing images to upload new ones if needed.') }}
+                                    </small>
                                 </div>
                             </div>
 

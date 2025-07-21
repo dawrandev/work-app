@@ -34,11 +34,14 @@ class OfferApplyStoreRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'offer_id.required' => 'Taklif tanlanishi shart.',
-            'offer_id.exists' => 'Tanlangan taklif mavjud emas.',
-            'job_id.required' => 'Ish e\'loni tanlanishi shart.',
-            'job_id.exists' => 'Tanlangan ish e\'loni mavjud emas.',
-            'cover_letter.max' => 'Cover letter maksimal 500 ta belgidan iborat bo\'lishi mumkin.',
+            'offer_id.required' => __('The offer field is required.'),
+            'offer_id.exists' => __('The selected offer is invalid.'),
+
+            'job_id.required' => __('The job field is required.'),
+            'job_id.exists' => __('The selected job is invalid.'),
+
+            'cover_letter.string' => __('The cover letter must be a string.'),
+            'cover_letter.max' => __('The cover letter may not be greater than 500 characters.'),
         ];
     }
 }

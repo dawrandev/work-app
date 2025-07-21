@@ -63,8 +63,7 @@ class ManageOffersFilter extends Component
             ->when($this->search, function ($q) {
                 $q->where(function ($searchQuery) {
                     $searchQuery->where('title', 'like', '%' . $this->search . '%')
-                        ->orWhere('description', 'like', '%' . $this->search . '%')
-                        ->orWhere('skills', 'like', '%' . $this->search . '%');
+                        ->orWhere('description', 'like', '%' . $this->search . '%');
                 });
             })
             ->when($this->selectedCategory, function ($q) {

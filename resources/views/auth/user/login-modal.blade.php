@@ -16,7 +16,7 @@
                                 <label for="phone" class="label">{{__('Phone')}}</label>
                                 <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone') }}">
                                 @error('phone')
-                                <li style="color: red;">{{ $message }}</li>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
@@ -25,7 +25,7 @@
                                     <input type="password" name="password" class="form-control" id="password"
                                         placeholder="{{__('Enter password')}}" value="{{ old('password') }}">
                                     @error('password')
-                                    <li style="color: red;">{{ $message }}</li>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

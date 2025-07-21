@@ -55,7 +55,6 @@ class OfferService
 
                 if ($request->has('delete_images') && is_array($request->input('delete_images'))) {
                     $deleteImageIds = $request->input('delete_images');
-
                     foreach ($deleteImageIds as $imageId) {
                         $image = \App\Models\Image::find($imageId);
                         if ($image && $image->imageable_id == $offer->id && $image->imageable_type == Offer::class) {
@@ -68,8 +67,16 @@ class OfferService
                     }
                 }
 
+                // Enforce image upload limit
+                $existingCount = $offer->images()->count();
+                $deleteCount = $request->has('delete_images') && is_array($request->input('delete_images')) ? count($request->input('delete_images')) : 0;
+                $allowedNew = 3 - ($existingCount - $deleteCount);
+                $allowedNew = max(0, $allowedNew);
+
                 if ($request->hasFile('images')) {
-                    foreach ($request->file('images') as $image) {
+                    $files = $request->file('images');
+                    $files = array_slice($files, 0, $allowedNew); // Only allow up to allowed
+                    foreach ($files as $image) {
                         $filename = time() . '_' . \Illuminate\Support\Str::random(8) . '.' . $image->getClientOriginalExtension();
                         $image->storeAs('offers', $filename, 'public');
                         $offer->images()->create([
