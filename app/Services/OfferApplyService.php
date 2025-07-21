@@ -43,8 +43,7 @@ class OfferApplyService
             ];
         }
 
-        // Faol (active) job borligini tekshirish
-        $activeJob = $userJobs->where('approval_status', 'active')->first();
+        $activeJob = $userJobs->where('approval_status', 'approved')->first();
 
         if (!$activeJob) {
             return [
@@ -53,7 +52,6 @@ class OfferApplyService
             ];
         }
 
-        // Oldindan ariza yuborgan yoki yubormaganligini tekshirish
         $hasApplied = $this->offerApplyRepository->hasUserAppliedToOffer($userId, $offerId);
 
         if ($hasApplied) {

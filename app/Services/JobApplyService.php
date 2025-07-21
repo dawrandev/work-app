@@ -42,7 +42,7 @@ class JobApplyService
             ];
         }
 
-        $activeOffer = $userOffers->where('approval_status', 'active')->first();
+        $activeOffer = $userOffers->where('approval_status', 'approved')->first();
 
         if (!$activeOffer) {
             return [

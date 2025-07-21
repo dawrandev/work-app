@@ -58,7 +58,7 @@ class OfferApplyController extends Controller
     public function applicants($locale, $offerId)
     {
         $applicants = $this->offerApplyService->applicants($offerId);
-        // return $applicants;
+
         return view('pages.user.profile.offer-applicants', compact('applicants'));
     }
 
