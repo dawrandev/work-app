@@ -7,25 +7,24 @@
                             <div calss="col-lg-6 col-12">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-6">
-                                        <img class="single-img" src="assets/images/about/small1.jpg" alt="#">
+                                        <img class="single-img" src="{{ asset('assets/user/images/about/small1.jpg') }}" alt="#">
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-6">
-                                        <img class="single-img mt-50" src="assets/images/about/small2.jpg" alt="#">
+                                        <img class="single-img mt-50" src="{{ asset('assets/user/images/about/small2.jpg') }}" alt="#">
                                     </div>
                                 </div>
                             </div>
                             <div calss="col-lg-6 col-12">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-6">
-                                        <img class="single-img minus-margin" src="assets/images/about/small3.jpg" alt="#">
+                                        <img class="single-img minus-margin" src="{{ asset('assets/user/images/about/small3.jpg') }}" alt="#">
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-6">
                                         <!-- media body start -->
                                         <div class="media-body">
                                             <i class="lni lni-checkmark"></i>
                                             <h6 class="">{{__('Job alert!')}}</h6>
-                                            <p class="">{{__('104 new jobs are available in this week!')}}
-                                            </p>
+                                            <p>{{ __(':count new jobs are available this week!', ['count' => weeklyJobsCount()]) }}</p>
                                         </div>
                                         <!-- media body start -->
                                     </div>
@@ -47,9 +46,8 @@
                             <i class="lni lni-grid-alt"></i>
                             <!-- List body start -->
                             <div class="list-bod">
-                                <h5>{{__('#1 Jobs site in UK')}}</h5>
-                                <p>{{__('Leverage agile frameworks to provide a
-                                robust synopsis for high level overviews. Iterative')}}</p>
+                                <h5>{{__('#1 Jobs site in KK')}}</h5>
+                                <p>{{__('Leverage agile frameworks to provide a robust synopsis for high level overviews')}}</p>
                             </div>
                             <!-- List body start -->
                         </div>

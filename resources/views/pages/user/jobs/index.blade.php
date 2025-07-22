@@ -5,7 +5,10 @@
 
 <!-- Start Find Job Area -->
 <section class="find-job section">
-    @livewire('job-filter')
+    @livewire('job-filter', [
+    'initialJobsData' => $jobsData ?? null,
+    'initialFilters' => $filters ?? []
+    ])
 </section>
 <!-- /End Find Job Area -->
 @endsection

@@ -6,6 +6,7 @@ use App\Models\EmploymentType;
 use App\Models\Job;
 use App\Models\SubCategory;
 use App\Models\Type;
+use Carbon\Carbon;
 
 
 function getTypes()
@@ -28,9 +29,26 @@ function getSubCategories()
 function getJobs()
 {
     return Job::with(['category', 'subcategory', 'district', 'type', 'images'])
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        ->latest()
+        ->limit(8)
+        ->get();
 }
+
+function getMostViewedJobs($limit = 8)
+{
+    return Job::select('jobs.*')
+        ->with(['category', 'subcategory', 'district', 'type', 'images'])
+        ->join('viewable_views', function ($join) {
+            $join->on('jobs.id', '=', 'viewable_views.viewable_id')
+                ->where('viewable_views.viewable_type', Job::class);
+        })
+        ->selectRaw('COUNT(viewable_views.id) as views_count')
+        ->groupBy('jobs.id')
+        ->orderByDesc('views_count')
+        ->limit($limit)
+        ->get();
+}
+
 function getEmploymentTypes()
 {
     return EmploymentType::all();
@@ -66,4 +84,12 @@ if (!function_exists('getTypes')) {
     {
         return Type::all();
     }
+}
+
+function weeklyJobsCount()
+{
+    $startOfWeek = Carbon::now()->startOfWeek();
+    $endOfWeek = Carbon::now()->endOfWeek();
+
+    return Job::whereBetween('created_at', [$startOfWeek, $endOfWeek])->count();
 }

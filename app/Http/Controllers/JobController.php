@@ -8,6 +8,7 @@ use App\Http\Requests\JobUpdateRequest;
 use App\Models\Job;
 use App\Services\JobService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 
@@ -20,9 +21,31 @@ class JobController extends Controller
 
     public function index(Request $request, Filter $filter)
     {
-        $jobs = $filter->apply(Job::query(), $request->all());
+        $jobsData = null;
+        $filters = [];
 
-        return view('pages.user.jobs.index', ['jobs' => $jobs]);
+        if ($request->hasAny(['category_id', 'subcategory_id', 'district_id', 'type_id', 'salary_from', 'salary_to'])) {
+            $jobs = $filter->apply(Job::query(), $request->all());
+            $filters = $request->only(['category_id', 'subcategory_id', 'district_id', 'type_id', 'salary_from', 'salary_to']);
+
+            $jobsData = [
+                'items' => $jobs->items(),
+                'total' => $jobs->total(),
+                'per_page' => $jobs->perPage(),
+                'current_page' => $jobs->currentPage(),
+                'last_page' => $jobs->lastPage(),
+            ];
+
+            Log::info('Controller Filter Applied:', [
+                'filters' => $filters,
+                'jobs_count' => $jobs->total()
+            ]);
+        }
+
+        return view('pages.user.jobs.index', [
+            'jobsData' => $jobsData,
+            'filters' => $filters
+        ]);
     }
 
     public function create()

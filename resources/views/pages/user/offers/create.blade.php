@@ -5,7 +5,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endpush
 
-<x-user.breadcrumb :title="__('Create Service')" :description="__('Create a new service')" :page="__('Create Service')" />
+<x-user.breadcrumb :title="__('Create Offer')" :description="__('Create a new offer')" :page="__('Create Offer')" />
 
 <section class="job-post section">
     <div class="container">
@@ -31,7 +31,7 @@
                                 </div>
                             </div>
 
-                            @livewire('service-store')
+                            @livewire('service-store') {{-- Bu ham kerak bo‘lsa 'offer-store' deb nomini o‘zgartiring --}}
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
@@ -80,7 +80,7 @@
 
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Phone') }}</label>
+                                    <label>{{ __('Contact phone number') }}</label>
                                     <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', auth()->user()->phone ?? '') }}">
                                     @error('phone')
                                     <div class="text-danger">{{ $message }}</div>
@@ -111,7 +111,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Location') }}</label>
-                                    <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}" placeholder="{{ __('Enter address or select on map') }}">
+                                    <input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}" placeholder="{{ __('Enter address') }}">
                                     @error('address')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -137,7 +137,7 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images, 2MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>
@@ -151,8 +151,8 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-lg-12 button">
-                                <button class="btn" type="submit">{{__('Save')}}</button>
+                            <div class="col-lg-12 button d-flex justify-content-end">
+                                <button class="btn" type="submit">{{__('Post a Offer')}}</button>
                             </div>
                         </div>
                     </form>
@@ -168,7 +168,7 @@
 <script>
     $(document).ready(function() {
         $('#description').summernote({
-            placeholder: 'Service tavsifini kiriting...',
+            placeholder: '{{ __("Enter offer description...") }}',
             tabsize: 2,
             height: 300,
             toolbar: [

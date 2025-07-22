@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
-                                    <label>{{ __('Phone') }}</label>
+                                    <label>{{ __('Contact phone number') }}</label>
                                     <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone" value="{{ old('phone', auth()->user()->phone ?? '') }}">
                                     @error('address')
                                     <div class="text-danger">{{ $message }}</div>
@@ -124,15 +124,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Leaflet Maps (Google Maps o'rniga) -->
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Select Location on Map') }}</label>
                                     <div id="map" style="height: 400px; border-radius: 8px; overflow: hidden; z-index: 1;"></div>
                                     <div class="mt-2">
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="getCurrentLocation()">
-                                            <i class="lni lni-map-marker"></i> {{ __('Use Current Location') }}
-                                        </button>
                                         <button type="button" class="btn btn-sm btn-info" onclick="searchAddress()">
                                             <i class="lni lni-search"></i> {{ __('Find Address') }}
                                         </button>
@@ -140,10 +136,6 @@
                                             <i class="lni lni-trash"></i> {{ __('Clear') }}
                                         </button>
                                     </div>
-                                    <div class="coordinates-info mt-2">
-                                        <small>{{ __('Latitude') }}: <span id="latDisplay">-</span> | {{ __('Longitude') }}: <span id="lngDisplay">-</span></small>
-                                    </div>
-                                    <!-- Hidden coordinates -->
                                     <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude') }}">
                                     <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude') }}">
                                 </div>
@@ -160,7 +152,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!-- Simple File Upload (Dropzone o'rniga) -->
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>{{ __('Upload Images') }}</label>
@@ -168,7 +159,7 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 3 images, 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images, 2MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>
@@ -182,7 +173,7 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-lg-12 button">
+                            <div class="col-lg-12 button d-flex justify-content-end">
                                 <button class="btn" type="submit">{{__('Post a Job')}}</button>
                             </div>
                         </div>
@@ -198,7 +189,7 @@
 <script>
     $(document).ready(function() {
         $('#description').summernote({
-            placeholder: 'Job tavsifini kiriting...',
+            placeholder: '{{ __("Enter job description...") }}',
             tabsize: 2,
             height: 300,
             toolbar: [
@@ -207,4 +198,5 @@
         });
     });
 </script>
+
 @endpush

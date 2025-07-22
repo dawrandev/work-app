@@ -23,6 +23,13 @@ class JobFilter extends Component
     public $salaryTo = '';
     public $subCategories = [];
 
+    // Controllerdan kelgan initial ma'lumotlar
+    public $initialJobsData = null;
+    public $useInitialJobs = false;
+
+    // Controllerdan kelgan filterlar
+    public $initialFilters = [];
+
     protected $queryString = [
         'selectedCategory' => ['except' => ''],
         'selectedSubCategory' => ['except' => ''],
@@ -33,14 +40,31 @@ class JobFilter extends Component
         'page' => ['except' => 1],
     ];
 
-    public function mount()
+    public function mount($initialJobsData = null, $initialFilters = [])
     {
-        $this->selectedCategory = request('selectedCategory', '');
-        $this->selectedSubCategory = request('selectedSubCategory', '');
-        $this->selectedDistrict = request('selectedDistrict', '');
-        $this->selectedType = request('selectedType', '');
-        $this->salaryFrom = request('salaryFrom', '');
-        $this->salaryTo = request('salaryTo', '');
+        // Agar controllerdan jobs kelgan bo'lsa
+        if ($initialJobsData !== null) {
+            $this->initialJobsData = $initialJobsData;
+            $this->useInitialJobs = true;
+
+            // Controllerdan kelgan filterlarni o'rnatish
+            if (!empty($initialFilters)) {
+                $this->selectedCategory = $initialFilters['category_id'] ?? '';
+                $this->selectedSubCategory = $initialFilters['subcategory_id'] ?? '';
+                $this->selectedDistrict = $initialFilters['district_id'] ?? '';
+                $this->selectedType = $initialFilters['type_id'] ?? '';
+                $this->salaryFrom = $initialFilters['salary_from'] ?? '';
+                $this->salaryTo = $initialFilters['salary_to'] ?? '';
+            }
+        } else {
+            // URL parametrlardan olish
+            $this->selectedCategory = request('selectedCategory', '');
+            $this->selectedSubCategory = request('selectedSubCategory', '');
+            $this->selectedDistrict = request('selectedDistrict', '');
+            $this->selectedType = request('selectedType', '');
+            $this->salaryFrom = request('salaryFrom', '');
+            $this->salaryTo = request('salaryTo', '');
+        }
 
         if ($this->selectedCategory) {
             $this->loadSubCategories();
@@ -59,6 +83,7 @@ class JobFilter extends Component
 
     public function updatedSelectedCategory()
     {
+        $this->useInitialJobs = false; // Filter o'zgarganda initial jobsdan foydalanishni to'xtatish
         $this->selectedSubCategory = '';
         $this->loadSubCategories();
         $this->resetPage();
@@ -66,26 +91,31 @@ class JobFilter extends Component
 
     public function updatedSelectedSubCategory()
     {
+        $this->useInitialJobs = false;
         $this->resetPage();
     }
 
     public function updatedSelectedDistrict()
     {
+        $this->useInitialJobs = false;
         $this->resetPage();
     }
 
     public function updatedSelectedType()
     {
+        $this->useInitialJobs = false;
         $this->resetPage();
     }
 
     public function updatedSalaryFrom()
     {
+        $this->useInitialJobs = false;
         $this->resetPage();
     }
 
     public function updatedSalaryTo()
     {
+        $this->useInitialJobs = false;
         $this->resetPage();
     }
 
@@ -98,11 +128,47 @@ class JobFilter extends Component
         $this->salaryFrom = '';
         $this->salaryTo = '';
         $this->subCategories = collect();
+        $this->useInitialJobs = false;
         $this->resetPage();
+    }
+
+    private function convertInitialJobsToCollection()
+    {
+        if (!$this->initialJobsData) {
+            return null;
+        }
+
+        // Job modellarini to'liq yuklash
+        $jobs = collect($this->initialJobsData['items'])->map(function ($jobData) {
+            return Job::with(['category', 'subcategory', 'district', 'type'])
+                ->find($jobData['id']);
+        });
+
+        // Custom paginator yaratish
+        return new \Illuminate\Pagination\LengthAwarePaginator(
+            $jobs,
+            $this->initialJobsData['total'],
+            $this->initialJobsData['per_page'],
+            $this->initialJobsData['current_page'],
+            ['path' => request()->url()]
+        );
     }
 
     public function render()
     {
+        // Agar initial jobs mavjud bo'lsa va filter o'zgartirilmagan bo'lsa
+        if ($this->useInitialJobs && $this->initialJobsData !== null) {
+            $jobs = $this->convertInitialJobsToCollection();
+
+            return view('livewire.job-filter', [
+                'jobs' => $jobs,
+                'categories' => Category::all(),
+                'districts' => District::all(),
+                'types' => Type::all(),
+            ]);
+        }
+
+        // Aks holda oddiy filter logikasi
         $query = Job::query()
             ->select('jobs.*')
             ->with([

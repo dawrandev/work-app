@@ -83,7 +83,7 @@
             <div class="row mb-4">
                 <div class="col-12 text-center">
                     <p class="results-count fw-bold fs-5 text-secondary">
-                        {{ __('Found') }} {{ $offers->total() }} {{ __('offers') }}
+                        {{ __('Found :count offers', ['count' => $offers->total()]) }}
                     </p>
                 </div>
             </div>
