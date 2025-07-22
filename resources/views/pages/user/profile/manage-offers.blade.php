@@ -11,7 +11,6 @@ $sectionClass = 'manage-jobs';
             <div class="row align-items-center">
                 <div class="col-sm-8">
                     <h3 class="page-title">{{ __('Manage Offers') }}</h3>
-                    <p class="text-muted mb-0">{{ __('Manage your offer postings') }}</p>
                 </div>
             </div>
         </div>

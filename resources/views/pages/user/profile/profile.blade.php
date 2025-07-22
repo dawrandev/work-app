@@ -221,7 +221,7 @@ $sectionClass = 'change-password';
     <div class="col-lg-8">
         @if(session('success'))
         <div class="alert alert-success">
-            {{ session('success') }}
+            {{ __('Profile updated successfully.') }}
         </div>
         @endif
 
@@ -245,39 +245,39 @@ $sectionClass = 'change-password';
                 <!-- View Mode -->
                 <div id="viewMode">
                     <div class="info-item">
-                        <div class="info-label">Ism</div>
+                        <div class="info-label">{{ __('First Name') }}</div>
                         <div class="info-value">{{ $user->first_name }}</div>
                     </div>
 
                     <div class="info-item">
-                        <div class="info-label">Familiya</div>
+                        <div class="info-label">{{ __('Last Name') }}</div>
                         <div class="info-value">{{ $user->last_name }}</div>
                     </div>
 
                     <div class="info-item">
-                        <div class="info-label">Telefon raqam</div>
+                        <div class="info-label">{{ __('Phone Number') }}</div>
                         <div class="info-value">+998 {{ $user->phone }}</div>
                     </div>
 
                     <div class="info-item">
-                        <div class="info-label">Ro'yxatdan o'tgan sana</div>
+                        <div class="info-label">{{ __('Registered At') }}</div>
                         <div class="info-value">{{ $user->created_at->format('d M, Y') }}</div>
                     </div>
 
                     <button class="edit-button" onclick="toggleEditMode()">
                         <i class="fas fa-edit"></i>
-                        Ma'lumotlarni o'zgartirish
+                        {{ __('Edit Profile') }}
                     </button>
                 </div>
 
                 <!-- Edit Mode -->
-                <div id="editMode" class="edit-form">
+                <div id="editMode" class="edit-form" style="display: none;">
                     <form action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="form-group">
-                            <label class="form-label">Ism</label>
+                            <label class="form-label">{{ __('First Name') }}</label>
                             <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
                             @error('first_name')
                             <div class="text-danger">{{ $message }}</div>
@@ -285,7 +285,7 @@ $sectionClass = 'change-password';
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Familiya</label>
+                            <label class="form-label">{{ __('Last Name') }}</label>
                             <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
                             @error('last_name')
                             <div class="text-danger">{{ $message }}</div>
@@ -293,7 +293,7 @@ $sectionClass = 'change-password';
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Telefon raqam</label>
+                            <label class="form-label">{{ __('Phone Number') }}</label>
                             <input type="number" name="phone" class="form-control" value="{{ $user->phone }}">
                             @error('phone')
                             <div class="text-danger">{{ $message }}</div>
@@ -301,16 +301,16 @@ $sectionClass = 'change-password';
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Yangi parol (ixtiyoriy)</label>
-                            <input type="password" name="password" class="form-control" placeholder="Yangi parol kiriting">
+                            <label class="form-label">{{ __('New Password') }}</label>
+                            <input type="password" name="password" class="form-control" placeholder="{{ __('Enter new password') }}">
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Parolni tasdiqlash</label>
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="Parolni qayta kiriting">
+                            <label class="form-label">{{ __('Confirm Password') }}</label>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="{{ __('Re-enter password') }}">
                             @error('password_confirmation')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -319,11 +319,11 @@ $sectionClass = 'change-password';
                         <div class="button-group">
                             <button type="submit" class="btn-save">
                                 <i class="fas fa-save"></i>
-                                Saqlash
+                                {{ __('Save') }}
                             </button>
                             <button type="button" class="btn-cancel" onclick="toggleEditMode()">
                                 <i class="fas fa-times"></i>
-                                Bekor qilish
+                                {{ __('Cancel') }}
                             </button>
                         </div>
                     </form>
@@ -332,6 +332,7 @@ $sectionClass = 'change-password';
         </div>
     </div>
 </div>
+
 @endsection
 <script>
     function toggleEditMode() {

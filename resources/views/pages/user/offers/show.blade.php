@@ -360,13 +360,13 @@
         <div class="apply-modal-main" style="position: relative;">
             <button class="apply-close-modal" onclick="closeOfferApplyModal('noJobModal')">&times;</button>
             <div class="heading">
-                <h3>Avval ish e'lonini yarating</h3>
+                <h3>{{__('Create a job posting first')}}</h3>
             </div>
             <p style="color: #666; margin-bottom: 30px;">
-                Taklifga ariza berish uchun avval ish e'lonini yaratishingiz kerak.
+                {{__('To apply for an offer, you need to create a job posting first.')}}
             </p>
             <div class="button">
-                <button class="btn" onclick="createJob()">Ish e'loni yaratish</button>
+                <button class="btn" onclick="createJob()">{{__('Create Job Posting')}}</button>
             </div>
         </div>
     </div>
@@ -378,21 +378,21 @@
         <div class="apply-modal-main" style="position: relative;">
             <button class="apply-close-modal" onclick="closeOfferApplyModal('singleJobModal')">&times;</button>
             <div class="heading">
-                <h3>Taklifga ariza berish</h3>
+                <h3>{{__('Apply for offer')}}</h3>
             </div>
 
             <form id="singleJobForm" action="{{ route('offer-applies.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label class="label">Cover Letter (ixtiyoriy)</label>
+                    <label class="label">{{__('Cover Letter (optional)')}}</label>
                     <textarea
                         class="form-control"
                         name="cover_letter"
-                        placeholder="Nima uchun siz bu taklif uchun mos ekanligingizni qisqacha yozing..."
+                        placeholder="{{__('Briefly write why you are suitable for this offer...')}}"
                         maxlength="500"
                         oninput="updateOfferApplyCharCount(this, 'offerCharCount1')"></textarea>
                     <div class="apply-character-count">
-                        <span id="offerCharCount1">0</span>/500 belgi
+                        <span id="offerCharCount1">0</span>/500 {{__('characters')}}
                     </div>
                 </div>
 
@@ -401,7 +401,7 @@
                 <input type="hidden" id="jobIdInput" name="job_id">
 
                 <div class="button">
-                    <button type="submit" class="btn">Ariza berish</button>
+                    <button type="submit" class="btn">{{__('Apply')}}</button>
                 </div>
             </form>
         </div>
@@ -414,29 +414,29 @@
         <div class="apply-modal-main" style="position: relative;">
             <button class="apply-close-modal" onclick="closeOfferApplyModal('multipleJobsModal')">&times;</button>
             <div class="heading">
-                <h3>Taklifga ariza berish</h3>
+                <h3>{{__('Apply for offer')}}</h3>
             </div>
 
             <form action="{{ route('offer-applies.store') }}" method="POST" id="offer-apply-form">
                 @csrf
 
                 <div class="form-group">
-                    <label class="label">Ish e'loningizni tanlang</label>
+                    <label class="label">{{__('Select your job posting')}}</label>
                     <select class="form-control" name="job_id" id="jobSelect" required>
-                        <option value="">Ish e'lonini tanlang...</option>
+                        <option value="">{{__('Select job posting...')}}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label class="label">Cover Letter (ixtiyoriy)</label>
+                    <label class="label">{{__('Cover Letter (optional)')}}</label>
                     <textarea
                         class="form-control"
                         name="cover_letter"
-                        placeholder="Nima uchun siz bu taklif uchun mos ekanligingizni qisqacha yozing..."
+                        placeholder="{{__('Briefly write why you are suitable for this offer...')}}"
                         maxlength="500"
                         oninput="updateOfferApplyCharCount(this, 'offerCharCount2')"></textarea>
                     <div class="apply-character-count">
-                        <span id="offerCharCount2">0</span>/500 belgi
+                        <span id="offerCharCount2">0</span>/500 {{__('characters')}}
                     </div>
                 </div>
 
@@ -444,7 +444,7 @@
                 <input type="hidden" name="user_id" value="{{ auth()->id() }}">
 
                 <div class="button">
-                    <button type="submit" class="btn">Ariza berish</button>
+                    <button type="submit" class="btn">{{__('Apply')}}</button>
                 </div>
             </form>
         </div>

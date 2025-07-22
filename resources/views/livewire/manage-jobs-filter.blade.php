@@ -76,8 +76,8 @@
                                     </a>
                                 </h6>
                                 <small class="text-muted">
-                                    <i class="lni lni-eye"></i> {{ $job->unique_views_count ?? 0 }} views •
-                                    <i class="lni lni-users"></i> {{ $job->applications_count ?? 0 }} applicants
+                                    <i class="lni lni-eye"></i> {{ $job->unique_views_count ?? 0 }} {{__('views')}} •
+                                    <i class="lni lni-users"></i> {{ $job->applications_count ?? 0 }} {{__('applicants')}}
                                 </small>
                             </div>
                         </td>
@@ -139,7 +139,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <small class="text-muted">{{ $job->created_at->format('d M, Y') }}</small>
+                            <small class="text-muted">{{ $job->created_at->format('d/m/Y') }}</small>
                         </td>
                         <td class="text-center">
                             <div class="btn-group btn-group-sm" role="group">

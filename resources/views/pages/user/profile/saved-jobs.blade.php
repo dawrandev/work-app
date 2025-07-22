@@ -45,8 +45,8 @@ $sectionClass = 'manage-jobs';
                                         </a>
                                     </h6>
                                     <small class="text-muted">
-                                        <i class="lni lni-eye"></i> {{ $job->views ?? 0 }} views •
-                                        <i class="lni lni-users"></i> {{ $job->applications_count ?? 0 }} applicants
+                                        <i class="lni lni-eye"></i> {{ $job->current_views ?? 0 }} {{__('views')}} •
+                                        <i class="lni lni-users"></i> {{ $job->applications_count ?? 0 }} {{__('applicants')}}
                                     </small>
                                 </div>
                             </td>
@@ -78,22 +78,18 @@ $sectionClass = 'manage-jobs';
                                 <span class="badge" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 6px 12px;">
                                     <i class="lni lni-checkmark-circle"></i> {{ __('Active') }}
                                 </span>
-                                @elseif($job->status == 'inactive')
-                                <span class="badge" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; padding: 6px 12px;">
-                                    <i class="lni lni-close"></i> {{ __('Inactive') }}
-                                </span>
-                                @elseif($job->status == 'pending')
+                                @elseif($job->status == 'paused')
                                 <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">
-                                    <i class="lni lni-timer"></i> {{ __('Pending') }}
+                                    <i class="lni lni-timer"></i> {{ __('Paused') }}
                                 </span>
-                                @else
-                                <span class="badge" style="background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%); color: white; padding: 6px 12px;">
-                                    <i class="lni lni-ban"></i> {{ __('Expired') }}
+                                @elseif ($job->status = 'closed')
+                                <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">
+                                    <i class="lni lni-ban"></i> {{ __('Closed') }}
                                 </span>
                                 @endif
                             </td>
                             <td class="text-center">
-                                <small class="text-muted">{{ $job->created_at->format('d M, Y') }}</small>
+                                <small class="text-muted">{{ $job->created_at->format('d/m/Y') }}</small>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm" role="group">

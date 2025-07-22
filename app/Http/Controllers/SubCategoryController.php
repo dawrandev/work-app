@@ -43,10 +43,7 @@ class SubCategoryController extends Controller
      */
     public function show($locale, SubCategory $subCategory, Filter $filter)
     {
-        $jobs = $filter->apply(
-            $subCategory->jobs()->with(['category', 'subcategory', 'district', 'type']),
-            request()->all()
-        );
+        $jobs = $filter->apply($subCategory->jobs()->with(['category', 'subcategory', 'district', 'type']), request()->all());
 
         return view('pages.user.categories.show', compact('jobs'));
     }

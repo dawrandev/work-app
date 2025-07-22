@@ -11,7 +11,6 @@ $sectionClass = 'manage-jobs';
             <div class="row align-items-center">
                 <div class="col-sm-8">
                     <h3 class="page-title">{{ __('Saved Offers') }}</h3>
-                    <p class="text-muted mb-0">{{ __('Manage your saved job offers') }}</p>
                 </div>
             </div>
         </div>
@@ -45,8 +44,8 @@ $sectionClass = 'manage-jobs';
                                         </a>
                                     </h6>
                                     <small class="text-muted">
-                                        <i class="lni lni-eye"></i> {{ $offer->views ?? 0 }} views •
-                                        <i class="lni lni-users"></i> {{ $offer->applications_count ?? 0 }} applicants
+                                        <i class="lni lni-eye"></i> {{ $offer->current_views ?? 0 }} {{__('views')}} •
+                                        <i class="lni lni-users"></i> {{ $offer->applications_count ?? 0 }} {{__('applicants')}}
                                     </small>
                                 </div>
                             </td>
