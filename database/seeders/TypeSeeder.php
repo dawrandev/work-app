@@ -16,16 +16,16 @@ class TypeSeeder extends Seeder
         $types = [
             [
                 'name' => json_encode([
-                    'uz' => 'doimiy ish',
-                    'kr' => 'dawamlı jumıs',
-                    'ru' => 'постоянная работа'
+                    'uz' => 'Doimiy ish',
+                    'kr' => 'Dawamlı jumıs',
+                    'ru' => 'Постоянная работа'
                 ]),
             ],
             [
                 'name' => json_encode([
-                    'uz' => 'vaqtinchalik ish',
-                    'kr' => 'waqtınshalıq jumıs',
-                    'ru' => 'временная работа'
+                    'uz' => 'Vaqtinchalik ish',
+                    'kr' => 'Waqtınshalıq jumıs',
+                    'ru' => 'Временная работа'
                 ]),
             ]
         ];

@@ -33,7 +33,7 @@
         const totalImages = currentImages + newImages;
         const statusElement = document.getElementById('imageCountStatus');
         if (statusElement) {
-            statusElement.textContent = `${totalImages}/3 images`;
+            statusElement.textContent = `${totalImages}/3 {{ __('images') }}`;
             if (totalImages >= MAX_IMAGES) {
                 statusElement.classList.add('text-warning');
                 document.getElementById('fileUploadArea').style.display = 'none';
@@ -77,7 +77,7 @@
             const totalPossibleImages = currentImages + newImageFiles.length + files.length;
             if (totalPossibleImages > MAX_IMAGES) {
                 const allowedCount = MAX_IMAGES - (currentImages + newImageFiles.length);
-                alert(`Maksimal ${MAX_IMAGES} ta rasm yuklash mumkun. Siz ${allowedCount} ta rasm qo'sha olasiz.`);
+                alert(`{{ __('You can upload maximum :max images. You can add :allowed more images.', ['max' => '${MAX_IMAGES}', 'allowed' => '${allowedCount}']) }}`);
                 if (allowedCount > 0) {
                     newImageFiles.push(...files.slice(0, allowedCount));
                 }
@@ -191,7 +191,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary From') }}</label>
-                                    <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="Uzs" value="{{ old('salary_from', $offer->salary_from) }}">
+                                    <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="{{ __('Uzs') }}" value="{{ old('salary_from', $offer->salary_from) }}">
                                     @error('salary_from')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -201,7 +201,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary To') }}</label>
-                                    <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $offer->salary_to) }}" placeholder="Uzs">
+                                    <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $offer->salary_to) }}" placeholder="{{ __('Uzs') }}">
                                     @error('salary_to')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -258,7 +258,7 @@
                                             @foreach($offer->images as $image)
                                             <div class="col-md-3 mb-3">
                                                 <div class="image-item position-relative">
-                                                    <img src="{{ asset('storage/offers/' . $image->image_path) }}" alt="Offer Image" class="img-fluid" style="height: 150px; object-fit: cover; border-radius: 8px;">
+                                                    <img src="{{ asset('storage/offers/' . $image->image_path) }}" alt="{{ __('Offer Image') }}" class="img-fluid" style="height: 150px; object-fit: cover; border-radius: 8px;">
                                                     <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px;" onclick="deleteImage({{ $image->id }})">
                                                         <i class="lni lni-trash"></i>
                                                     </button>
@@ -380,7 +380,7 @@
 <script>
     $(document).ready(function() {
         $('#description').summernote({
-            placeholder: 'Offer tavsifini kiriting...',
+            placeholder: '{{ __("Enter offer description...") }}',
             tabsize: 2,
             height: 300,
             toolbar: [

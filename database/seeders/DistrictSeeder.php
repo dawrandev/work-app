@@ -32,7 +32,7 @@ class DistrictSeeder extends Seeder
                 'name' => json_encode([
                     'uz' => 'Boʻzatov tumani',
                     'ru' => 'Бозатов район',
-                    'kr' => 'Bozatov rayonı'
+                    'kr' => 'Bozataw rayonı'
                 ]),
             ],
             [
@@ -109,7 +109,7 @@ class DistrictSeeder extends Seeder
                 'name' => json_encode([
                     'uz' => 'Taxiatosh tumani',
                     'ru' => 'Тахиаташ район',
-                    'kr' => 'Taqiyatas rayonı'
+                    'kr' => 'Taqıyatash rayonı'
                 ]),
             ],
             [
@@ -124,6 +124,90 @@ class DistrictSeeder extends Seeder
                     'uz' => 'Xoʻjayli tumani',
                     'ru' => 'Ходжейли район',
                     'kr' => 'Xojeli rayonı'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Nukus shahri',
+                    'ru' => 'Город Нукус',
+                    'kr' => 'Nókis qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Taxiatosh shahri',
+                    'ru' => 'Город Тахиаташ',
+                    'kr' => 'Taqıyatash qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Beruniy shahri',
+                    'ru' => 'Город Беруни',
+                    'kr' => 'Beruniy qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Toʻrtkoʻl shahri',
+                    'ru' => 'Город Турткуль',
+                    'kr' => 'Tórtkúl qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Qoʻngʻirot shahri',
+                    'ru' => 'Город Кунград',
+                    'kr' => 'Qońırat qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Xoʻjayli shahri',
+                    'ru' => 'Город Ходжейли',
+                    'kr' => 'Xojeli qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Chimboy shahri',
+                    'ru' => 'Город Чимбай',
+                    'kr' => 'Shımbay qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Moʻynoq shahri',
+                    'ru' => 'Город Муйнак',
+                    'kr' => 'Moynaq qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Amudaryo shahri',
+                    'ru' => 'Город Амударья',
+                    'kr' => 'Amudarya qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Kegeyli shahri',
+                    'ru' => 'Город Кегейли',
+                    'kr' => 'Kegeyli qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Shumanay shahri',
+                    'ru' => 'Город Шуманай',
+                    'kr' => 'Shomanay qalası'
+                ]),
+            ],
+            [
+                'name' => json_encode([
+                    'uz' => 'Qanlikoʻl shahri',
+                    'ru' => 'Город Канлыкуль',
+                    'kr' => 'Qanlıkól qalası'
                 ]),
             ],
         ];

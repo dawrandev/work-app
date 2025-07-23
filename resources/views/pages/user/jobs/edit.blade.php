@@ -85,7 +85,7 @@
 
             if (totalPossibleImages > MAX_IMAGES) {
                 const allowedCount = MAX_IMAGES - (currentImages + newImageFiles.length);
-                alert(`Maksimal ${MAX_IMAGES} ta rasm yuklash mumkun. Siz ${allowedCount} ta rasm qo'sha olasiz.`);
+                alert(`{{ __('Maximum 3 images can be uploaded. You can add :count images.', ['count' => '']) }}`.replace(':count', allowedCount));
 
                 // Only add allowed number of files
                 if (allowedCount > 0) {
@@ -205,7 +205,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Phone') }}</label>
-                                    <input type="text" name="phone" class="form-control" placeholder="99 999 99 99" id="phone_edit" value="{{ old('phone', $job->phone) }}">
+                                    <input type="text" name="phone" class="form-control" placeholder="{{ __('99 999 99 99') }}" id="phone_edit" value="{{ old('phone', $job->phone) }}">
                                     @error('phone')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -214,7 +214,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary From') }}</label>
-                                    <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="Uzs" value="{{ old('salary_from', $job->salary_from) }}">
+                                    <input type="text" name="salary_from" id="salary_from" class="form-control" placeholder="{{ __('Uzs') }}" value="{{ old('salary_from', $job->salary_from) }}">
                                     @error('salary_from')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -223,7 +223,7 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     <label>{{ __('Salary To') }}</label>
-                                    <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $job->salary_to) }}" placeholder="Uzs">
+                                    <input type="text" name="salary_to" id="salary_to" class="form-control" value="{{ old('salary_to', $job->salary_to) }}" placeholder="{{ __('Uzs') }}">
                                     @error('salary_to')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -275,18 +275,9 @@
                                     <label>{{ __('Select Location on Map') }}</label>
                                     <div id="map" style="height: 400px; border-radius: 8px; overflow: hidden; z-index: 1;"></div>
                                     <div class="mt-2">
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="getCurrentLocation()">
-                                            <i class="lni lni-map-marker"></i> {{ __('Use Current Location') }}
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-info" onclick="searchAddress()">
-                                            <i class="lni lni-search"></i> {{ __('Find Address') }}
-                                        </button>
                                         <button type="button" class="btn btn-sm btn-warning" onclick="clearLocation()">
                                             <i class="lni lni-trash"></i> {{ __('Clear') }}
                                         </button>
-                                    </div>
-                                    <div class="coordinates-info mt-2">
-                                        <small>{{ __('Latitude') }}: <span id="latDisplay">{{ $job->latitude ?? '-' }}</span> | {{ __('Longitude') }}: <span id="lngDisplay">{{ $job->longitude ?? '-' }}</span></small>
                                     </div>
                                     <!-- Hidden coordinates -->
                                     <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude', $job->latitude) }}">
@@ -319,7 +310,7 @@
                                             @foreach($job->images as $image)
                                             <div class="col-md-3 mb-3">
                                                 <div class="image-item position-relative">
-                                                    <img src="{{ asset('storage/jobs/' . $image->image_path) }}" alt="Job Image" class="img-fluid" style="height: 150px; object-fit: cover; border-radius: 8px;">
+                                                    <img src="{{ asset('storage/jobs/' . $image->image_path) }}" alt="{{ __('Job Image') }}" class="img-fluid" style="height: 150px; object-fit: cover; border-radius: 8px;">
                                                     <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 5px; right: 5px;" onclick="deleteImage({{ $image->id }})">
                                                         <i class="lni lni-trash"></i>
                                                     </button>
@@ -335,7 +326,7 @@
                                         <div class="upload-area" onclick="document.getElementById('imageInput').click()">
                                             <i class="lni lni-cloud-upload"></i>
                                             <h4>{{ __('Click to upload or drag and drop') }}</h4>
-                                            <p>{{ __('Maximum 3 images total, 5MB per file') }}</p>
+                                            <p>{{ __('Maximum 3 images total, 2MB per file') }}</p>
                                         </div>
                                         <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
                                         <div id="imagePreview" class="image-preview-container"></div>
@@ -387,7 +378,8 @@
         // Map container mavjudligini tekshirish
         const mapContainer = document.getElementById('map');
         if (!mapContainer) {
-            console.error('Map container topilmadi');
+            console.error('{{ __('
+                Map container not found ') }}');
             return;
         }
 
@@ -419,7 +411,8 @@
                 updateCoordinates(existingLat, existingLng);
             }
         } catch (error) {
-            console.error('Map initialization error:', error);
+            console.error('{{ __('
+                Map initialization error ') }}:', error);
         }
     });
 
@@ -458,7 +451,8 @@
                     document.getElementById('address').value = data.display_name;
                 }
             })
-            .catch(error => console.error('Reverse geocoding error:', error));
+            .catch(error => console.error('{{ __('
+                Reverse geocoding error ') }}:', error));
     }
 
     // getCurrentLocation, searchAddress, clearLocation funksiyalari main.js'dan keladi
@@ -541,7 +535,8 @@
 <script>
     $(document).ready(function() {
         $('#description').summernote({
-            placeholder: 'Job tavsifini kiriting...',
+            placeholder: '{{ __('
+            Enter job description...') }}',
             tabsize: 2,
             height: 300,
             toolbar: [

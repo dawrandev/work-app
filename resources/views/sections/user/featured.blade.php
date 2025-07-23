@@ -19,6 +19,8 @@
                             <div class="image">
                                 @if($job->images->isNotEmpty())
                                 <img src="{{ asset('storage/jobs/' . $job->images->first()->image_path) }}" alt="#">
+                                @elseif ($job->images->empty())
+                                <img src="{{ asset('storage/jobs/' . 'job-vacancy.jpg') }}" alt="#">
                                 @endif
                             </div>
                             <div class="content">
@@ -29,13 +31,13 @@
                                     <li><i class="lni lni-map-marker"></i>{{ $job->district->translated_name }}</li>
                                     <li><i class="lni lni-briefcase"></i>{{ $job->type->translated_name }}</li>
                                     <li><i class="lni lni-dollar"></i>{{ number_format($job->salary_from, 0, ',', ' ') }} - {{ number_format($job->salary_to, 0, ',', ' ') }}</li>
-                                    {{-- 👁 View count --}}
                                     <li><i class="lni lni-eye"></i> {{ $job->views_count ?? 0 }} {{ __('views') }}</li>
                                 </ul>
-                                <p>{{ $job->title }}</p>
+                                <div class="job-description">
+                                    <p>{{ $job->title }}</p>
+                                </div>
                                 <div class="button" style="display: flex; gap: 10px;">
                                     <a href="{{ route('jobs.show', $job->id) }}" class="btn">{{ __('Details') }}</a>
-
                                     <form action="{{ route('save-jobs.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="job_id" value="{{ $job->id }}">
@@ -45,7 +47,6 @@
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     @endforeach

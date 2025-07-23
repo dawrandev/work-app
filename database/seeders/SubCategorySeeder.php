@@ -19,7 +19,7 @@ class SubCategorySeeder extends Seeder
                 'name' => [
                     'uz' => 'Haydovchi',
                     'ru' => 'Водитель',
-                    'kr' => 'aydawshı'
+                    'kr' => 'Aydawshı'
                 ],
             ],
             [
@@ -27,7 +27,7 @@ class SubCategorySeeder extends Seeder
                 'name' => [
                     'uz' => 'Yuk tashuvchi',
                     'ru' => 'Грузоперевозчик',
-                    'kr' => 'Yük tasıwshı'
+                    'kr' => 'Júk tasıwshı'
                 ],
             ],
             [
@@ -36,6 +36,30 @@ class SubCategorySeeder extends Seeder
                     'uz' => 'Taksi',
                     'ru' => 'Такси',
                     'kr' => 'Taksi'
+                ],
+            ],
+            [
+                'category_id' => 1,
+                'name' => [
+                    'uz' => 'Avto mexanik',
+                    'ru' => 'Автомеханик',
+                    'kr' => 'Avto mexanik'
+                ],
+            ],
+            [
+                'category_id' => 1,
+                'name' => [
+                    'uz' => 'Avto yuvuvchi',
+                    'ru' => 'Автомойщик',
+                    'kr' => 'Avtomobil juwıwshı'
+                ],
+            ],
+            [
+                'category_id' => 1,
+                'name' => [
+                    'uz' => 'Kuryer',
+                    'ru' => 'Курьер',
+                    'kr' => 'Kúryer'
                 ],
             ],
             [
@@ -63,6 +87,30 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 2,
+                'name' => [
+                    'uz' => 'G‘isht teruvchi',
+                    'ru' => 'Каменщик',
+                    'kr' => 'Gishtshı'
+                ],
+            ],
+            [
+                'category_id' => 2,
+                'name' => [
+                    'uz' => 'Bo‘yoqchi',
+                    'ru' => 'Маляр',
+                    'kr' => 'Boǵawshı'
+                ],
+            ],
+            [
+                'category_id' => 2,
+                'name' => [
+                    'uz' => 'Gips suvoqchi',
+                    'ru' => 'Штукатур',
+                    'kr' => 'Suwaqshı'
+                ],
+            ],
+            [
                 'category_id' => 3,
                 'name' => [
                     'uz' => 'Oshpaz',
@@ -87,11 +135,27 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 3,
+                'name' => [
+                    'uz' => 'Qadoqlovchi',
+                    'ru' => 'Упаковщик',
+                    'kr' => 'Qaplawshı'
+                ],
+            ],
+            [
+                'category_id' => 3,
+                'name' => [
+                    'uz' => 'Ovqat yetkazuvchi',
+                    'ru' => 'Доставщик еды',
+                    'kr' => 'Awqat jetkiziwshı'
+                ],
+            ],
+            [
                 'category_id' => 4,
                 'name' => [
                     'uz' => 'Qabulxona xodimi',
                     'ru' => 'Сотрудник ресепшн',
-                    'kr' => 'Qabulxana xızmetkeri'
+                    'kr' => 'Qabıllawxana xızmetkeri'
                 ],
             ],
             [
@@ -108,6 +172,22 @@ class SubCategorySeeder extends Seeder
                     'uz' => 'Farrosh',
                     'ru' => 'уборщица',
                     'kr' => 'Tazalawshı'
+                ],
+            ],
+            [
+                'category_id' => 4,
+                'name' => [
+                    'uz' => 'Xavfsizlik xodimi',
+                    'ru' => 'Охранник',
+                    'kr' => 'Qawipsizlik xızmetkeri'
+                ],
+            ],
+            [
+                'category_id' => 4,
+                'name' => [
+                    'uz' => 'Xona xizmatkori',
+                    'ru' => 'Горничная',
+                    'kr' => 'Bólme xızmetshisi'
                 ],
             ],
             [
@@ -135,11 +215,27 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 5,
+                'name' => [
+                    'uz' => 'O‘quv markazi o‘qituvchisi',
+                    'ru' => 'Преподаватель учебного центра',
+                    'kr' => 'Oqıw ortalığı oqıtıwshısı'
+                ],
+            ],
+            [
+                'category_id' => 5,
+                'name' => [
+                    'uz' => 'Online dars beruvchi',
+                    'ru' => 'Онлайн преподаватель',
+                    'kr' => 'Online oqıtıwshı'
+                ],
+            ],
+            [
                 'category_id' => 6,
                 'name' => [
                     'uz' => "Sotuvchi",
                     "ru" => "Продавец",
-                    "kr" => "Satwshı"
+                    "kr" => "Satıwshı"
                 ],
             ],
             [
@@ -167,6 +263,22 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 6,
+                'name' => [
+                    'uz' => 'Sklad xodimi',
+                    'ru' => 'Складской работник',
+                    'kr' => 'Qoraxana xızmetkeri'
+                ],
+            ],
+            [
+                'category_id' => 6,
+                'name' => [
+                    'uz' => 'Yetkazib beruvchi',
+                    'ru' => 'Доставщик',
+                    'kr' => 'Jetkiziwshı'
+                ],
+            ],
+            [
                 'category_id' => 7,
                 'name' => [
                     "uz" => "Uy tozalovchi",
@@ -183,6 +295,22 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 7,
+                'name' => [
+                    'uz' => 'Boǵbon',
+                    'ru' => 'Садовник',
+                    'kr' => 'Baǵban'
+                ],
+            ],
+            [
+                'category_id' => 7,
+                'name' => [
+                    'uz' => 'Uy oshpazi',
+                    'ru' => 'Домашний повар',
+                    'kr' => 'Úy aspazı'
+                ],
+            ],
+            [
                 'category_id' => 8,
                 'name' => [
                     "uz" => "Sanitarka",
@@ -195,7 +323,7 @@ class SubCategorySeeder extends Seeder
                 'name' => [
                     "uz" => "Shifokor",
                     "ru" => "Врач",
-                    "kr" => "Shifakor"
+                    "kr" => "Shıpaker"
                 ],
             ],
             [
@@ -207,11 +335,27 @@ class SubCategorySeeder extends Seeder
                 ],
             ],
             [
+                'category_id' => 8,
+                'name' => [
+                    'uz' => 'Tibbiy yordamchi',
+                    'ru' => 'Медицинский помощник',
+                    'kr' => 'Meditsinalıq járdemshi'
+                ],
+            ],
+            [
+                'category_id' => 8,
+                'name' => [
+                    'uz' => 'Laborant',
+                    'ru' => 'Лаборант',
+                    'kr' => 'Laborant'
+                ],
+            ],
+            [
                 'category_id' => 9,
                 'name' => [
                     "uz" => "Programmist",
                     "ru" => "Программист",
-                    "kr" => "Dasturchı"
+                    "kr" => "Programmist"
                 ],
             ],
             [
@@ -228,6 +372,22 @@ class SubCategorySeeder extends Seeder
                     "uz" => "Call Center operator",
                     "ru" => "Оператор Call Center",
                     "kr" => "Call Center operatorı"
+                ],
+            ],
+            [
+                'category_id' => 9,
+                'name' => [
+                    'uz' => 'Mobil ilova dasturchisi',
+                    'ru' => 'Разработчик мобильных приложений',
+                    'kr' => 'Mobil qosımsha programmist'
+                ],
+            ],
+            [
+                'category_id' => 9,
+                'name' => [
+                    'uz' => 'Texnik qo‘llab-quvvatlash',
+                    'ru' => 'Техническая поддержка',
+                    'kr' => 'Texnik qollaw'
                 ],
             ],
         ];
