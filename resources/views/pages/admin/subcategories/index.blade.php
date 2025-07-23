@@ -1,12 +1,11 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="''">
+<x-admin.breadcrumb :title="__('Subcategories')">
     <a href="{{ route('admin.subcategories.create') }}" class="btn btn-primary">
         <i class="icon-plus"></i>
-        Add Subcategory
+        {{__('Add Subcategory')}}
     </a>
-
 </x-admin.breadcrumb>
 
 <div class="container-fluid">
@@ -16,11 +15,11 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-layers text-primary"></i>
-                        Subcategories Management
+                        {{__('Subcategories Management')}}
                     </h5><br>
                     <div class="d-flex justify-content-between align-items-center mb-3 end">
                         <span class="text-muted">
-                            Found: <strong>{{ $subcategories->total() }}</strong> subcategories
+                            {{__('Found')}}: <strong>{{ $subcategories->total() }}</strong> {{__('subcategories')}}
                         </span>
                     </div>
                 </div>
@@ -30,7 +29,7 @@
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="icon-check-circle me-2"></i>
                         {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{__('Close')}}"></button>
                     </div>
                     @endif
 
@@ -46,12 +45,12 @@
                                         class="form-control"
                                         name="search"
                                         value="{{ request('search') }}"
-                                        placeholder="Search subcategories...">
+                                        placeholder="{{__('Search subcategories...')}}">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <select class="form-select" name="category_id">
-                                    <option value="">All Categories</option>
+                                    <option value="">{{__('All Categories')}}</option>
                                     @foreach(getCategories() as $category)
                                     <option value="{{ $category->id }}"
                                         {{ request('category_id') == $category->id ? 'selected' : '' }}>
@@ -62,21 +61,21 @@
                             </div>
                             <div class="col-md-2">
                                 <select class="form-select" name="per_page">
-                                    <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10 per page</option>
-                                    <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25 per page</option>
-                                    <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50 per page</option>
-                                    <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100 per page</option>
+                                    <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>{{__('10 per page')}}</option>
+                                    <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>{{__('25 per page')}}</option>
+                                    <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>{{__('50 per page')}}</option>
+                                    <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>{{__('100 per page')}}</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="icon-filter me-1"></i>
-                                    Filter
+                                    {{__('Filter')}}
                                 </button>
                                 @if(request()->hasAny(['search', 'category_id']))
                                 <a href="{{ route('admin.subcategories.index') }}" class="btn btn-secondary ms-2">
                                     <i class="icon-x me-1"></i>
-                                    Clear
+                                    {{__('Clear')}}
                                 </a>
                                 @endif
                             </div>
@@ -89,9 +88,9 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" width="10%">#</th>
-                                    <th scope="col">Subcategory Name</th>
-                                    <th scope="col">Parent Category</th>
-                                    <th scope="col" width="200px" class="text-center">Actions</th>
+                                    <th scope="col">{{__('Subcategory Name')}}</th>
+                                    <th scope="col">{{__('Parent Category')}}</th>
+                                    <th scope="col" width="200px" class="text-center">{{__('Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -117,12 +116,12 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('admin.subcategories.edit', $subcategory->id) }}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="Edit">
+                                                title="{{__('Edit')}}">
                                                 <i class="icon-pencil-alt"></i>
                                             </a>
                                             <button type="button"
                                                 class="btn btn-sm btn-outline-danger"
-                                                title="Delete"
+                                                title="{{__('Delete')}}"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal{{ $subcategory->id }}">
                                                 <i class="icon-trash"></i>
@@ -140,7 +139,7 @@
                                                     <i class="icon-trash text-danger me-2"></i>
                                                     {{ __('Delete Subcategory') }}
                                                 </h5>
-                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="{{__('Close')}}"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="text-center mb-3">
@@ -185,19 +184,19 @@
                                         <div class="text-muted">
                                             @if(request()->hasAny(['search', 'category_id']))
                                             <i class="icon-search mb-3" style="font-size: 3rem;"></i>
-                                            <h5>No results found</h5>
-                                            <p>Try adjusting your search or filter criteria</p>
+                                            <h5>{{__('No results found')}}</h5>
+                                            <p>{{__('Try adjusting your search or filter criteria')}}</p>
                                             <a href="{{ route('admin.subcategories.index') }}" class="btn btn-secondary">
                                                 <i class="icon-x me-2"></i>
-                                                Clear filters
+                                                {{__('Clear filters')}}
                                             </a>
                                             @else
                                             <i class="icon-layers mb-3" style="font-size: 3rem;"></i>
-                                            <h5>No subcategories found</h5>
-                                            <p>Start by creating your first subcategory</p>
+                                            <h5>{{__('No subcategories found')}}</h5>
+                                            <p>{{__('Start by creating your first subcategory')}}</p>
                                             <a href="{{ route('admin.subcategories.create') }}" class="btn btn-primary">
                                                 <i class="icon-plus me-2"></i>
-                                                Create Subcategory
+                                                {{__('Create Subcategory')}}
                                             </a>
                                             @endif
                                         </div>

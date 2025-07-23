@@ -25,16 +25,6 @@ class JobController extends Controller
         return view('pages.admin.jobs.index', compact('jobs'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show($locale, Job $job)
     {
         $job->load(['images', 'category', 'subcategory', 'type', 'employment_type', 'district', 'user']);
@@ -42,18 +32,13 @@ class JobController extends Controller
         return view('pages.admin.jobs.show', compact('job'));
     }
 
-    public function edit(string $id)
-    {
-        //
-    }
-
     public function update($locale, JobUpdateRequest $request, Job $job)
     {
         $job = $this->jobService->updateJobStatus($request->status, $job);
         if ($job) {
-            Alert::success(__('Job approval status updated successfully'));
+            Alert::success(__('Job approval status updated successfully!'));
         } else {
-            Alert::error(__('Error updating approval status'));
+            Alert::error(__('Error updating approval status!'));
         }
         return redirect()->route('admin.jobs.index');
     }
@@ -62,7 +47,7 @@ class JobController extends Controller
     {
         $job->delete();
 
-        Alert::success(__('Job deleted successfully'));
+        Alert::success(__('Job deleted successfully!'));
 
         return redirect()->route('admin.jobs.index');
     }

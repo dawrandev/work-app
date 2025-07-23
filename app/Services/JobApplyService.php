@@ -38,7 +38,7 @@ class JobApplyService
         if (!$userOffers || $userOffers->isEmpty()) {
             return [
                 'can_apply' => false,
-                'message' => 'Sizning offeringiz topilmadi. Iltimos, avval offer yarating.'
+                'message' => __('Your offer was not found. Please create an offer first.')
             ];
         }
 
@@ -47,17 +47,17 @@ class JobApplyService
         if (!$activeOffer) {
             return [
                 'can_apply' => false,
-                'message' => 'Sizning offeringiz hali tasdiqlanmagan. Offer tasdiqlangandan so\'ng ariza yuborishingiz mumkin.'
+                'message' => __('Your offer has not been confirmed yet. You can submit an application after the offer is confirmed.')
             ];
         }
 
-        // Oldindan ariza yuborgan yoki yubormaganligini tekshirish
+        // Check if user has already applied
         $hasApplied = $this->jobApplyRepository->hasUserAppliedToJob($userId, $jobId);
 
         if ($hasApplied) {
             return [
                 'can_apply' => false,
-                'message' => 'Siz bu ishga allaqachon ariza bergan ekansiz!'
+                'message' => __('You have already applied for this job!')
             ];
         }
 
@@ -76,7 +76,7 @@ class JobApplyService
             if (!$canApply['can_apply']) {
                 return [
                     'success' => false,
-                    'message' => $canApply['message']
+                    'message' => __($canApply['message'])
                 ];
             }
 
@@ -84,12 +84,12 @@ class JobApplyService
 
             return [
                 'success' => true,
-                'message' => 'Ariza muvaffaqiyatli yuborildi!'
+                'message' => __('Application sent successfully!')
             ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'message' => 'Arizani yuborishda xatolik yuz berdi. Qaytadan urinib ko\'ring.'
+                'message' => __('There was an error submitting the application. Please try again.')
             ];
         }
     }

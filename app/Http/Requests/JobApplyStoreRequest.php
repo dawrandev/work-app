@@ -24,7 +24,7 @@ class JobApplyStoreRequest extends FormRequest
         return [
             'job_id' => 'required|exists:jobs,id',
             'offer_id' => 'required|exists:offers,id',
-            'cover_letter' => 'required|string|max:1000'
+            'cover_letter' => 'nullable|string|max:500'
         ];
     }
 

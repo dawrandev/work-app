@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="'User Details'">
+<x-admin.breadcrumb :title="__('User Details')">
     <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
         <i class="icon-arrow-left"></i>
-        Back to List
+        {{__('Back to List')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -31,9 +31,9 @@
 
                     <div class="mb-3">
                         @if($user->role == 'admin')
-                        <span class="badge bg-danger fs-6">Administrator</span>
+                        <span class="badge bg-danger fs-6">{{__('Administrator')}}</span>
                         @else
-                        <span class="badge bg-success fs-6">User</span>
+                        <span class="badge bg-success fs-6">{{__('User')}}</span>
                         @endif
                     </div>
                 </div>
@@ -45,13 +45,13 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-info text-primary"></i>
-                        User Information
+                        {{__('User Information')}}
                     </h5>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-sm-4">
-                            <h6 class="text-muted mb-0">First Name</h6>
+                            <h6 class="text-muted mb-0">{{__('First Name')}}</h6>
                         </div>
                         <div class="col-sm-8">
                             <p class="mb-0 fw-medium">{{ $user->first_name }}</p>
@@ -62,7 +62,7 @@
 
                     <div class="row mb-3">
                         <div class="col-sm-4">
-                            <h6 class="text-muted mb-0">Last Name</h6>
+                            <h6 class="text-muted mb-0">{{__('Last Name')}}</h6>
                         </div>
                         <div class="col-sm-8">
                             <p class="mb-0 fw-medium">{{ $user->last_name }}</p>
@@ -73,7 +73,7 @@
 
                     <div class="row mb-3">
                         <div class="col-sm-4">
-                            <h6 class="text-muted mb-0">Phone Number</h6>
+                            <h6 class="text-muted mb-0">{{__('Phone Number')}}</h6>
                         </div>
                         <div class="col-sm-8">
                             <p class="mb-0 fw-medium">
@@ -87,14 +87,14 @@
 
                     <div class="row mb-3">
                         <div class="col-sm-4">
-                            <h6 class="text-muted mb-0">User Role</h6>
+                            <h6 class="text-muted mb-0">{{__('User Role')}}</h6>
                         </div>
                         <div class="col-sm-8">
                             <p class="mb-0">
                                 @if($user->role == 'admin')
-                                <span class="badge bg-danger">Administrator</span>
+                                <span class="badge bg-danger">{{__('Administrator')}}</span>
                                 @else
-                                <span class="badge bg-success">User</span>
+                                <span class="badge bg-success">{{__('User')}}</span>
                                 @endif
                             </p>
                         </div>
@@ -104,7 +104,7 @@
 
                     <div class="row mb-3">
                         <div class="col-sm-4">
-                            <h6 class="text-muted mb-0">Account Created</h6>
+                            <h6 class="text-muted mb-0">{{__('Account Created')}}</h6>
                         </div>
                         <div class="col-sm-8">
                             <p class="mb-0 fw-medium">
@@ -125,9 +125,9 @@
                 <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i class="icon-briefcase text-primary"></i>
-                        User Jobs
+                        {{__('User Jobs')}}
                     </h5>
-                    <span class="badge bg-primary">{{ $user->jobs->count() }} Jobs</span>
+                    <span class="badge bg-primary">{{ $user->jobs->count() }} {{__('Jobs')}}</span>
                 </div>
                 <div class="card-body">
                     @if($user->jobs->count() > 0)
@@ -135,13 +135,13 @@
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Salary Range</th>
-                                    <th>Status</th>
-                                    <th>Approval</th>
-                                    <th>Deadline</th>
-                                    <th>Actions</th>
+                                    <th>{{__('Title')}}</th>
+                                    <th>{{__('Category')}}</th>
+                                    <th>{{__('Salary Range')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Approval')}}</th>
+                                    <th>{{__('Deadline')}}</th>
+                                    <th>{{__('Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -173,32 +173,32 @@
                                     <td>
                                         @switch($job->status)
                                         @case('active')
-                                        <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-success">{{__('Active')}}</span>
                                         @break
                                         @case('paused')
-                                        <span class="badge bg-warning">Paused</span>
+                                        <span class="badge bg-warning">{{__('Paused')}}</span>
                                         @break
                                         @case('closed')
-                                        <span class="badge bg-secondary">Closed</span>
+                                        <span class="badge bg-secondary">{{__('Closed')}}</span>
                                         @break
                                         @case('expired')
-                                        <span class="badge bg-danger">Expired</span>
+                                        <span class="badge bg-danger">{{__('Expired')}}</span>
                                         @break
                                         @case('draft')
-                                        <span class="badge bg-info">Draft</span>
+                                        <span class="badge bg-info">{{__('Draft')}}</span>
                                         @break
                                         @endswitch
                                     </td>
                                     <td>
                                         @switch($job->approval_status)
                                         @case('pending')
-                                        <span class="badge bg-warning">Pending</span>
+                                        <span class="badge bg-warning">{{__('Pending')}}</span>
                                         @break
                                         @case('approved')
-                                        <span class="badge bg-success">Approved</span>
+                                        <span class="badge bg-success">{{__('Approved')}}</span>
                                         @break
                                         @case('rejected')
-                                        <span class="badge bg-danger">Rejected</span>
+                                        <span class="badge bg-danger">{{__('Rejected')}}</span>
                                         @break
                                         @endswitch
                                     </td>
@@ -210,7 +210,7 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('admin.jobs.show', $job->id) }}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="View Details">
+                                                title="{{__('View Details')}}">
                                                 <i class="icon-eye"></i>
                                             </a>
                                         </div>
@@ -223,8 +223,8 @@
                     @else
                     <div class="text-center py-4">
                         <i class="icon-briefcase text-muted" style="font-size: 3rem;"></i>
-                        <h5 class="text-muted mt-2">No Jobs Found</h5>
-                        <p class="text-muted">This user hasn't posted any jobs yet.</p>
+                        <h5 class="text-muted mt-2">{{__('No Jobs Found')}}</h5>
+                        <p class="text-muted">{{__('This user has not posted any jobs yet.')}}</p>
                     </div>
                     @endif
                 </div>
@@ -239,9 +239,9 @@
                 <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">
                         <i class="icon-user-check text-success"></i>
-                        User Service Offers
+                        {{__('User Service Offers')}}
                     </h5>
-                    <span class="badge bg-success">{{ $user->offers->count() }} Offers</span>
+                    <span class="badge bg-success">{{ $user->offers->count() }} {{__('Offers')}}</span>
                 </div>
                 <div class="card-body">
                     @if($user->offers->count() > 0)
@@ -249,13 +249,13 @@
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Title</th>
-                                    <th>Category</th>
-                                    <th>Salary Range</th>
-                                    <th>Status</th>
-                                    <th>Approval</th>
-                                    <th>Created</th>
-                                    <th>Actions</th>
+                                    <th>{{__('Title')}}</th>
+                                    <th>{{__('Category')}}</th>
+                                    <th>{{__('Salary Range')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Approval')}}</th>
+                                    <th>{{__('Created')}}</th>
+                                    <th>{{__('Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -287,32 +287,32 @@
                                     <td>
                                         @switch($offer->status)
                                         @case('active')
-                                        <span class="badge bg-success">Active</span>
+                                        <span class="badge bg-success">{{__('Active')}}</span>
                                         @break
                                         @case('paused')
-                                        <span class="badge bg-warning">Paused</span>
+                                        <span class="badge bg-warning">{{__('Paused')}}</span>
                                         @break
                                         @case('closed')
-                                        <span class="badge bg-secondary">Closed</span>
+                                        <span class="badge bg-secondary">{{__('Closed')}}</span>
                                         @break
                                         @case('expired')
-                                        <span class="badge bg-danger">Expired</span>
+                                        <span class="badge bg-danger">{{__('Expired')}}</span>
                                         @break
                                         @case('draft')
-                                        <span class="badge bg-info">Draft</span>
+                                        <span class="badge bg-info">{{__('Draft')}}</span>
                                         @break
                                         @endswitch
                                     </td>
                                     <td>
                                         @switch($offer->approval_status)
                                         @case('pending')
-                                        <span class="badge bg-warning">Pending</span>
+                                        <span class="badge bg-warning">{{__('Pending')}}</span>
                                         @break
                                         @case('approved')
-                                        <span class="badge bg-success">Approved</span>
+                                        <span class="badge bg-success">{{__('Approved')}}</span>
                                         @break
                                         @case('rejected')
-                                        <span class="badge bg-danger">Rejected</span>
+                                        <span class="badge bg-danger">{{__('Rejected')}}</span>
                                         @break
                                         @endswitch
                                     </td>
@@ -324,7 +324,7 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('admin.offers.show', $offer->id) }}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="View Details">
+                                                title="{{__('View Details')}}">
                                                 <i class="icon-eye"></i>
                                             </a>
                                         </div>
@@ -337,8 +337,8 @@
                     @else
                     <div class="text-center py-4">
                         <i class="icon-user-check text-muted" style="font-size: 3rem;"></i>
-                        <h5 class="text-muted mt-2">No Service Offers Found</h5>
-                        <p class="text-muted">This user hasn't created any service offers yet.</p>
+                        <h5 class="text-muted mt-2">{{__('No Offers Found')}}</h5>
+                        <p class="text-muted">{{__('This user has not created any service offers yet.')}}</p>
                     </div>
                     @endif
                 </div>

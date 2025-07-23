@@ -33,14 +33,9 @@ class TypeController extends Controller
     {
         $type = $this->typeService->createType($request->validated());
 
-        Alert::success(__('Type created successfully'));
+        Alert::success(__('Type created successfully!'));
 
         return redirect()->route('admin.types.index');
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit($locale, Type $type)
@@ -53,9 +48,9 @@ class TypeController extends Controller
         $result = $this->typeService->updateType($request->validated(), $type);
 
         if ($result) {
-            Alert::success(__('Type updated successfully'));
+            Alert::success(__('Type updated successfully!'));
         } else {
-            Alert::error(__('Error updating type'));
+            Alert::error(__('Error updating type!'));
         }
 
         return redirect()->route('admin.types.index');
@@ -65,7 +60,7 @@ class TypeController extends Controller
     {
         $type->delete();
 
-        Alert::success(__('Type deleted successfully'));
+        Alert::success(__('Type deleted successfully!'));
 
         return redirect()->back();
     }

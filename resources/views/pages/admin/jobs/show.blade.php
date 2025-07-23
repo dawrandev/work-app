@@ -5,10 +5,10 @@
 @endpush
 
 @section('content')
-<x-admin.breadcrumb :title="'Job Details'">
+<x-admin.breadcrumb :title="__('Job Details')">
     <a href="{{ route('admin.jobs.index') }}" class="btn btn-secondary">
         <i class="icon-arrow-left"></i>
-        Back to Jobs
+        {{__('Back to Jobs')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -38,7 +38,7 @@
                         </div>
                         <div class="text-end">
                             <h4 class="text-success mb-0">{{ number_format($job->salary_from) }} - {{ number_format($job->salary_to) }} UZS</h4>
-                            <small class="text-muted">Salary Range</small>
+                            <small class="text-muted">{{__('Salary Range')}}</small>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-file-text text-primary"></i>
-                        Job Description
+                        {{__('Job Description')}}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -65,7 +65,7 @@
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-image text-primary"></i>
-                        Job Images
+                        {{__('Job Images')}}
                         <span class="badge badge-primary ms-2">{{ $job->images->count() }}</span>
                     </h5>
                 </div>
@@ -78,7 +78,7 @@
                                     <img src="{{ asset('storage/jobs/' . $image->image_path) }}"
                                         class="img-thumbnail"
                                         itemprop="thumbnail"
-                                        alt="Job Image">
+                                        alt="{{__('Job Image')}}">
                                 </div>
                             </a>
                         </figure>
@@ -88,25 +88,25 @@
             </div>
             @endif
 
-            <!-- Location Card with Map -->
+            <!-- Location Card -->
             <div class="card">
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-map-pin text-primary"></i>
-                        Location
+                        {{__('Location')}}
                     </h5>
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">
                         <div class="col-md-8">
-                            <h6 class="text-muted mb-2">Job Address</h6>
+                            <h6 class="text-muted mb-2">{{__('Job Address')}}</h6>
                             <p class="mb-0">
                                 <i class="icon-map-pin text-success me-2"></i>
                                 {{ $job->address }}
                             </p>
                         </div>
                         <div class="col-md-4">
-                            <h6 class="text-muted mb-2">District</h6>
+                            <h6 class="text-muted mb-2">{{__('District')}}</h6>
                             <p class="mb-0">
                                 <span class="badge badge-light-info">{{ $job->district->name[app()->getLocale()] ?? $job->district->name['uz'] ?? 'N/A' }}</span>
                             </p>
@@ -123,7 +123,7 @@
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-settings text-primary"></i>
-                        Admin Actions
+                        {{__('Admin Actions')}}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -135,7 +135,7 @@
                             @method('PATCH')
                             <button type="submit" name="status" value="approved" class="btn btn-success w-100">
                                 <i class="icon-check"></i>
-                                Approve Job
+                                {{__('Approve Job')}}
                             </button>
                             @error('status')
                             <div class="text-danger">{{ $message }}</div>
@@ -148,7 +148,7 @@
                             @method('PATCH')
                             <button type="submit" name="status" value="rejected" class="btn btn-warning w-100">
                                 <i class="icon-close"></i>
-                                Reject Job
+                                {{__('Reject Job')}}
                             </button>
                             @error('status')
                             <div class="text-danger">{{ $message }}</div>
@@ -162,10 +162,10 @@
                             @method('PATCH')
                             <button type="submit" name="status" value="rejected" class="btn btn-warning w-100">
                                 <i class="icon-close"></i>
-                                Reject Job
+                                {{__('Reject Job')}}
                             </button>
                             @error('status')
-                            <div class="text-danger">{{ $messsage }}</div>
+                            <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </form>
 
@@ -176,7 +176,7 @@
                             @method('PATCH')
                             <button type="submit" name="status" value="approved" class="btn btn-success w-100">
                                 <i class="icon-check"></i>
-                                Approve Job
+                                {{__('Approve Job')}}
                             </button>
                         </form>
                         @endif
@@ -186,7 +186,7 @@
                         {{-- Delete Button --}}
                         <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $job->id }}">
                             <i class="icon-trash"></i>
-                            Delete Job
+                            {{__('Delete Job')}}
                         </button>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-info text-primary"></i>
-                        Job Information
+                        {{__('Job Information')}}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -206,7 +206,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-calendar text-info me-2"></i>
-                                <span class="text-muted">Published Date</span>
+                                <span class="text-muted">{{__('Published Date')}}</span>
                             </div>
                             <span class="fw-medium">{{ \Carbon\Carbon::parse($job->created_at)->format('d M, Y') }}</span>
                         </li>
@@ -215,13 +215,13 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-timer text-warning me-2"></i>
-                                <span class="text-muted">Deadline</span>
+                                <span class="text-muted">{{__('Deadline')}}</span>
                             </div>
                             <div class="text-end">
                                 <i class="ti-calendar text-info me-2"></i>
                                 <span class="fw-medium">{{ \Carbon\Carbon::parse($job->deadline)->format('d M, Y') }}</span>
                                 @if(\Carbon\Carbon::parse($job->deadline)->isPast())
-                                <br><small class="text-danger"><i class="ti-na me-1"></i>Expired</small>
+                                <br><small class="text-danger"><i class="ti-na me-1"></i>{{__('Expired')}}</small>
                                 @endif
                             </div>
                         </li>
@@ -230,7 +230,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-briefcase text-primary me-2"></i>
-                                <span class="text-muted">Job Type</span>
+                                <span class="text-muted">{{__('Job Type')}}</span>
                             </div>
                             <span class="fw-medium">{{ $job->type->translated_name }}</span>
                         </li>
@@ -239,7 +239,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-user text-success me-2"></i>
-                                <span class="text-muted">Employment</span>
+                                <span class="text-muted">{{__('Employment')}}</span>
                             </div>
                             <span class="fw-medium">{{ $job->employment_type->name[app()->getLocale()] ?? $job->employment_type->name['uz'] ?? 'N/A' }}</span>
                         </li>
@@ -248,7 +248,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-mobile text-success me-2"></i>
-                                <span class="text-muted">Contact</span>
+                                <span class="text-muted">{{__('Contact')}}</span>
                             </div>
                             <span class="fw-medium">+998 {{ $job->phone }}</span>
                         </li>
@@ -257,23 +257,23 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-pulse text-info me-2"></i>
-                                <span class="text-muted">Status</span>
+                                <span class="text-muted">{{__('Status')}}</span>
                             </div>
                             @switch($job->status)
                             @case('active')
-                            <span class="badge badge-light-success">Active</span>
+                            <span class="badge badge-light-success">{{__('Active')}}</span>
                             @break
                             @case('paused')
-                            <span class="badge badge-light-warning">Paused</span>
+                            <span class="badge badge-light-warning">{{__('Paused')}}</span>
                             @break
                             @case('closed')
-                            <span class="badge badge-light-secondary">Closed</span>
+                            <span class="badge badge-light-secondary">{{__('Closed')}}</span>
                             @break
                             @case('expired')
-                            <span class="badge badge-light-danger"><i class="ti-na me-1"></i>Expired</span>
+                            <span class="badge badge-light-danger"><i class="ti-na me-1"></i>{{__('Expired')}}</span>
                             @break
                             @case('draft')
-                            <span class="badge badge-light-info">Draft</span>
+                            <span class="badge badge-light-info">{{__('Draft')}}</span>
                             @break
                             @endswitch
                         </li>
@@ -282,23 +282,22 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div>
                                 <i class="icon-shield text-warning me-2"></i>
-                                <span class="text-muted">Approval</span>
+                                <span class="text-muted">{{__('Approval')}}</span>
                             </div>
                             @switch($job->approval_status)
                             @case('pending')
-                            <span class="badge badge-light-warning">Pending</span>
+                            <span class="badge badge-light-warning">{{__('Pending')}}</span>
                             @break
                             @case('approved')
-                            <span class="badge badge-light-success">Approved</span>
+                            <span class="badge badge-light-success">{{__('Approved')}}</span>
                             @break
                             @case('rejected')
-                            <span class="badge badge-light-danger">Rejected</span>
+                            <span class="badge badge-light-danger">{{__('Rejected')}}</span>
                             @break
                             @endswitch
                         </li>
                     </ul>
                 </div>
-
             </div>
 
             <!-- Posted By Card -->
@@ -307,7 +306,7 @@
                 <div class="card-header pb-0">
                     <h5>
                         <i class="icon-user text-primary"></i>
-                        Posted By
+                        {{__('Posted By')}}
                     </h5>
                 </div>
                 <div class="card-body text-center">
@@ -329,22 +328,23 @@
                         </div>
                     </div>
 
-                    <h6 class="mt-3 mb-1">{{ $job->user->first_name ?? 'Unknown' }} {{ $job->user->last_name ?? 'User' }}</h6>
+                    <h6 class="mt-3 mb-1">{{ $job->user->first_name ?? __('Unknown') }} {{ $job->user->last_name ?? __('User') }}</h6>
                     <p class="text-muted mb-2">
                         <i class="icon-phone me-1"></i>
-                        {{ $job->user->phone ?? 'No phone' }}
+                        {{ $job->user->phone ?? __('No phone') }}
                     </p>
 
                     <div class="d-grid">
                         <a href="{{ route('admin.users.show', $job->user->id) }}" class="btn btn-outline-primary btn-sm">
                             <i class="icon-eye"></i>
-                            View Profile
+                            {{__('View Profile')}}
                         </a>
                     </div>
                 </div>
             </div>
             @endif
 
+            <!-- Delete Modal -->
             <div class="modal fade" id="deleteModal{{ $job->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $job->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -353,7 +353,7 @@
                                 <i class="icon-trash text-danger me-2"></i>
                                 {{ __('Delete Job') }}
                             </h5>
-                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="{{__('Close')}}"></button>
                         </div>
                         <div class="modal-body">
                             <div class="text-center mb-3">

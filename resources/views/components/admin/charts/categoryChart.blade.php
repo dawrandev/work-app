@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h5>{{ $title ?? 'Kategoriyalar bo\'yicha' }}</h5>
+        <h5>{{ $title ?? __('By Categories') }}</h5>
     </div>
     <div class="card-body">
         <div class="loader-box">
@@ -12,19 +12,19 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // Controllerdan kelgan category ma'lumotlarini olish
+        // Get category data from controller
         const categoryDistribution = @json($categoryDistribution ?? []);
 
-        // Faqat total > 0 bo'lgan kategoriyalarni olish
+        // Get only categories with total > 0
         const filteredData = categoryDistribution.filter(item => item.total > 0);
 
-        // Ma'lumotlarni chart uchun tayyorlash
+        // Prepare data for chart
         const chartLabels = filteredData.length > 0 ?
-            filteredData.map(item => item.name) : ['Ma\'lumot yo\'q'];
+            filteredData.map(item => item.name) : ["{{ __('No data') }}"];
 
         const chartSeries = filteredData.length > 0 ? filteredData.map(item => item.total) : [1];
 
-        // Ranglar
+        // Colors
         const chartColors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57', '#DDA0DD', '#98D8C8', '#F7DC6F'];
 
         // donut chart options
@@ -37,7 +37,7 @@
                     dataPointMouseEnter: function(event, chartContext, config) {
                         if (filteredData.length > 0 && config.dataPointIndex >= 0) {
                             const category = filteredData[config.dataPointIndex];
-                            // Markazdagi label-ni yangilash
+                            // Update center label
                             chartContext.updateOptions({
                                 plotOptions: {
                                     pie: {
@@ -46,7 +46,7 @@
                                                 total: {
                                                     label: category.name,
                                                     formatter: function() {
-                                                        return 'Ish: ' + category.jobs_count + ' | Taklif: ' + category.offers_count;
+                                                        return "{{ __('Jobs') }}: " + category.jobs_count + " | {{ __('Offers') }}: " + category.offers_count;
                                                     }
                                                 }
                                             }
@@ -57,7 +57,7 @@
                         }
                     },
                     dataPointMouseLeave: function(event, chartContext, config) {
-                        // Mouse ketganda umumiy statistikaga qaytish
+                        // Return to general statistics when mouse leaves
                         const totalJobs = filteredData.reduce((sum, item) => sum + item.jobs_count, 0);
                         const totalOffers = filteredData.reduce((sum, item) => sum + item.offers_count, 0);
 
@@ -67,10 +67,10 @@
                                     donut: {
                                         labels: {
                                             total: {
-                                                label: 'Jami',
+                                                label: "{{ __('Total') }}",
                                                 formatter: function(w) {
                                                     const total = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
-                                                    return total + '\nIsh: ' + totalJobs + ' | Taklif: ' + totalOffers;
+                                                    return total + "\n{{ __('Jobs') }}: " + totalJobs + " | {{ __('Offers') }}: " + totalOffers;
                                                 }
                                             }
                                         }
@@ -94,7 +94,7 @@
             }],
             colors: chartColors,
             legend: {
-                show: false // Legend-ni o'chirish
+                show: false // Hide legend
             },
             plotOptions: {
                 pie: {
@@ -122,7 +122,7 @@
                             total: {
                                 show: true,
                                 showAlways: true,
-                                label: 'Jami',
+                                label: "{{ __('Total') }}",
                                 fontSize: '16px',
                                 fontWeight: 600,
                                 color: '#666',
@@ -130,7 +130,7 @@
                                     const total = w.globals.seriesTotals.reduce((a, b) => a + b, 0);
                                     const totalJobs = filteredData.reduce((sum, item) => sum + item.jobs_count, 0);
                                     const totalOffers = filteredData.reduce((sum, item) => sum + item.offers_count, 0);
-                                    return total + '\nIsh: ' + totalJobs + ' | Taklif: ' + totalOffers;
+                                    return total + "\n{{ __('Jobs') }}: " + totalJobs + " | {{ __('Offers') }}: " + totalOffers;
                                 }
                             }
                         }
@@ -138,7 +138,7 @@
                 }
             },
             tooltip: {
-                enabled: false // Tooltip-ni o'chirish, chunki markazda ko'rsatamiz
+                enabled: false // Disable tooltip, since we show in center
             },
             dataLabels: {
                 enabled: true,
@@ -173,15 +173,15 @@
             }
         };
 
-        // Loader ni yashirish va Chart render qilish
+        // Hide loader and render chart
         setTimeout(() => {
-            // Loader ni yashirish
+            // Hide loader
             const loaderBox = document.querySelector('.loader-box');
             if (loaderBox) {
                 loaderBox.style.display = 'none';
             }
 
-            // Chart render qilish
+            // Render chart
             try {
                 var chart9 = new ApexCharts(
                     document.querySelector("#donutchart"),
@@ -190,25 +190,25 @@
                 chart9.render();
             } catch (error) {
                 console.error('Chart render error:', error);
-                document.querySelector("#donutchart").innerHTML = '<p class="text-center text-muted">Chart yuklanishda xatolik yuz berdi</p>';
+                document.querySelector("#donutchart").innerHTML = '<p class="text-center text-muted">{{ __("Chart loading error") }}</p>';
             }
         }, 500);
     });
 </script>
 
 <style>
-    /* Markazdagi yozuvlar uchun stil */
+    /* Style for center text */
     .apexcharts-datalabels-group {
         cursor: pointer;
     }
 
-    /* Hover effekti */
+    /* Hover effect */
     .apexcharts-pie-slice {
         cursor: pointer;
         transition: all 0.3s ease;
     }
 
-    /* Markazdagi matn */
+    /* Center text */
     .apexcharts-text {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }

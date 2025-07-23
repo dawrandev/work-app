@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="'Create Employment Type'">
+<x-admin.breadcrumb :title="__('Create Employment Type')">
     <a href="{{ route('admin.employment-types.index') }}" class="btn btn-secondary">
         <i class="icon-arrow-left"></i>
-        Back to Employment Types
+        {{__('Back to Employment Types')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -15,7 +15,7 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-plus text-primary"></i>
-                        Create New Employment Type
+                        {{__('Create New Employment Type')}}
                     </h5>
                 </div>
                 <div class="card-body">

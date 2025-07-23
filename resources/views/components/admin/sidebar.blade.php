@@ -22,7 +22,7 @@
                     {{-- Dashboard --}}
                     <li class="sidebar-list {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
                         <a class="sidebar-link sidebar-title {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="#">
-                            <i data-feather="monitor"></i><span>{{ __('Users') }}</span>
+                            <i data-feather="monitor"></i><span>{{ __('Dashboard') }}</span>
                         </a>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('admin.dashboard') }}"><i data-feather="monitor"> </i><span>{{__('Dashboard') }}</span></a></li>

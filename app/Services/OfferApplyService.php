@@ -33,13 +33,13 @@ class OfferApplyService
 
     public function canUserApply(int $userId, int $offerId): array
     {
-        // Foydalanuvchining joblarini tekshirish
+        // Check user's jobs
         $userJobs = $this->offerApplyRepository->getUserJobs($userId);
 
         if (!$userJobs || $userJobs->isEmpty()) {
             return [
                 'can_apply' => false,
-                'message' => 'Sizning ishingiz topilmadi. Iltimos, avval ish yarating.'
+                'message' => __('Your job was not found. Please create a job first')
             ];
         }
 
@@ -48,7 +48,7 @@ class OfferApplyService
         if (!$activeJob) {
             return [
                 'can_apply' => false,
-                'message' => 'Sizning ishingiz hali tasdiqlanmagan. Ish tasdiqlangandan so\'ng ariza yuborishingiz mumkin.'
+                'message' => __('Your job has not been approved yet. You can apply after it is approved')
             ];
         }
 
@@ -57,7 +57,7 @@ class OfferApplyService
         if ($hasApplied) {
             return [
                 'can_apply' => false,
-                'message' => 'Siz bu taklifga allaqachon ariza bergan ekansiz!'
+                'message' => __('You have already applied for this offer!')
             ];
         }
 
@@ -76,7 +76,7 @@ class OfferApplyService
             if (!$canApply['can_apply']) {
                 return [
                     'success' => false,
-                    'message' => $canApply['message']
+                    'message' => __($canApply['message'])
                 ];
             }
 
@@ -84,12 +84,12 @@ class OfferApplyService
 
             return [
                 'success' => true,
-                'message' => 'Ariza muvaffaqiyatli yuborildi!'
+                'message' => __('Application submitted successfully!')
             ];
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'message' => 'Arizani yuborishda xatolik yuz berdi. Qaytadan urinib ko\'ring.'
+                'message' => __('There was an error submitting the application. Please try again.')
             ];
         }
     }
@@ -109,7 +109,7 @@ class OfferApplyService
         try {
             return $this->offerApplyRepository->updateStatus($id, $status);
         } catch (Exception $e) {
-            Log::error('offer approval status error:', ['error' => $e->getMessage()]);
+            Log::error('Offer approval status error:', ['error' => $e->getMessage()]);
             throw $e;
         }
     }

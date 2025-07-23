@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="'Edit Employment Type'">
+<x-admin.breadcrumb :title="__('Edit Employment Type')">
     <a href="{{ route('admin.employment-types.index') }}" class="btn btn-secondary">
         <i class="icon-arrow-left"></i>
-        Back to Employment Types
+        {{__('Back to Employment Types')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -15,7 +15,7 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-edit text-primary"></i>
-                        Edit Employment Type: {{ $employmentType->translated_name }}
+                        {{__('Edit Employment Type')}}: {{ $employmentType->translated_name }}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -42,15 +42,15 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name_kr" class="form-label">{{ __('Karakalpak Name') }} <span class="text-danger">*</span></label>
+                                    <label for="name_kaa" class="form-label">{{ __('Karakalpak Name') }} <span class="text-danger">*</span></label>
                                     <input type="text"
-                                        class="form-control @error('name.kr') is-invalid @enderror"
-                                        id="name_kr"
-                                        name="name[kr]"
-                                        value="{{ old('name.kr', $employmentType->name['kr'] ?? '') }}"
+                                        class="form-control @error('name.kaa') is-invalid @enderror"
+                                        id="name_kaa"
+                                        name="name[kaa]"
+                                        value="{{ old('name.kaa', $employmentType->name['kaa'] ?? '') }}"
                                         placeholder="{{ __('Enter Karakalpak name') }}"
                                         required>
-                                    @error('name.kr')
+                                    @error('name.kaa')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

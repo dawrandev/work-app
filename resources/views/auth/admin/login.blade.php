@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ __('Cuba admin is a powerful and clean admin template.') }}">
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{ asset('assets/admin/images/favicon.png') }}" type="image/x-icon">
     <title>{{ __('Login') }}</title>
@@ -33,7 +32,7 @@
                 <div class="login-card">
                     <div>
                         <div class="text-center">
-                            <h3>Admin Panel</h3>
+                            <h3>{{ __('Admin Panel') }}</h3>
                         </div>
                         <div class="login-main">
                             <form class="theme-form" method="POST" action="{{ route('admin.login') }}">

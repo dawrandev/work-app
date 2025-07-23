@@ -49,8 +49,9 @@ class JobApplyController extends Controller
         $application = $applications->where('pivot.id', $id)->first();
 
         if (!$application) {
-            abort(404, 'Ariza topilmadi!');
+            abort(404, __('Application not found!'));
         }
+
 
         return view('job-applies.show', compact('application'));
     }
@@ -73,31 +74,5 @@ class JobApplyController extends Controller
         Alert::success(__('The applicant was responded to'));
 
         return redirect()->back();
-    }
-
-    public function destroy(int $id)
-    {
-        // Pivot table'dan o'chirish logikasi
-        // try {
-        //     $user = auth()->user();
-        //     $deleted = $user->appliedJobs()->wherePivot('id', $id)->detach();
-
-        //     if ($deleted) {
-        //         return response()->json([
-        //             'success' => true,
-        //             'message' => 'Ariza muvaffaqiyatli bekor qilindi!'
-        //         ]);
-        //     } else {
-        //         return response()->json([
-        //             'success' => false,
-        //             'message' => 'Ariza topilmadi!'
-        //         ], 404);
-        //     }
-        // } catch (\Exception $e) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Arizani bekor qilishda xatolik yuz berdi.'
-        //     ], 500);
-        // }
     }
 }

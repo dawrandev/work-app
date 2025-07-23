@@ -27,7 +27,7 @@ $sectionClass = 'manage-jobs';
                             <th width="16%">{{ __('Last Name') }}</th>
                             <th width="15%">{{ __('Phone') }}</th>
                             <th width="12%" class="text-center">{{ __('Status') }}</th>
-                            <th width="12%" class="text-center">{{ __('Approved Status') }}</th>
+                            <th width="12%" class="text-center">{{ __('Approval Status') }}</th>
                             <th width="12%" class="text-center">{{ __('Applied') }}</th>
                             <th width="17%" class="text-center">{{ __('Actions') }}</th>
                         </tr>
@@ -46,19 +46,23 @@ $sectionClass = 'manage-jobs';
                                     {{ $applicant->first_name }}
                                 </a>
                             </td>
-                            <td> <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
+                            <td>
+                                <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
                                     {{ $applicant->last_name }}
-                                </a></td>
-                            <td> <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('offers.show', ['offer' => $applicant->offer_id]) }}" class="text-dark text-decoration-none">
                                     {{ $applicant->phone }}
-                                </a></td>
+                                </a>
+                            </td>
                             <td class="text-center">
                                 @if($applicant->offer_status == 'active')
-                                <span class="badge" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 6px 12px;">{{ __('Active')}}</span>
+                                <span class="badge" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 6px 12px;">{{ __('Active') }}</span>
                                 @elseif($applicant->offer_status == 'paused')
-                                <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">{{ __('Paused')}}</span>
+                                <span class="badge" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: white; padding: 6px 12px;">{{ __('Paused') }}</span>
                                 @elseif($applicant->apply_status == 'closed')
-                                <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">{{ __('Closed')}}</span>
+                                <span class="badge" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 6px 12px;">{{ __('Closed') }}</span>
                                 @endif
                             </td>
                             <td class="text-center">
@@ -81,11 +85,10 @@ $sectionClass = 'manage-jobs';
                                 @endif
                             </td>
                             <td class="text-center">
-                                <small class="text-muted">{{ \Carbon\Carbon::parse($applicant->applied_at)->format('d M, Y') }}</small>
+                                <small class="text-muted">{{ \Carbon\Carbon::parse($applicant->applied_at)->format('d/m/Y') }}</small>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm" role="group">
-                                    {{-- Cover letter modal --}}
                                     <button type="button"
                                         class="btn btn-outline-primary rounded-start"
                                         data-toggle="modal"
@@ -93,8 +96,6 @@ $sectionClass = 'manage-jobs';
                                         title="{{ __('View Cover Letter') }}">
                                         <i class="lni lni-envelope"></i>
                                     </button>
-
-                                    {{-- Reject button --}}
                                     <form action="{{ route('job-applies.respond', $applicant->id) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('PATCH')
@@ -103,8 +104,6 @@ $sectionClass = 'manage-jobs';
                                             <i class="lni lni-close"></i>
                                         </button>
                                     </form>
-
-                                    {{-- Accept button --}}
                                     <form action="{{ route('job-applies.respond', $applicant->id) }}" method="POST" style="display: inline;" class="ms-1">
                                         @csrf
                                         @method('PATCH')
@@ -131,7 +130,6 @@ $sectionClass = 'manage-jobs';
             </div>
         </div>
 
-        <!-- Pagination -->
         @if ($applicants->hasPages())
         <div class="pagination-wrapper mt-4">
             {{ $applicants->links() }}
@@ -140,7 +138,6 @@ $sectionClass = 'manage-jobs';
     </div>
 </div>
 
-<!-- Cover Letter Modals -->
 @foreach ($applicants as $applicant)
 <div class="modal fade form-modal" id="coverLetterModal{{ $loop->iteration }}" tabindex="-1" aria-labelledby="coverLetterModalLabel{{ $loop->iteration }}" aria-hidden="true">
     <div class="modal-dialog max-width-px-840 position-relative">

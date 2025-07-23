@@ -17,17 +17,6 @@ class JobSaveController extends Controller
         // Middleware can be added here if needed
     }
 
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
-
     public function store(JobSaveStoreRequest $request)
     {
         try {
@@ -41,29 +30,11 @@ class JobSaveController extends Controller
         return redirect()->back();
     }
 
-
-    public function show(string $id)
-    {
-        //
-    }
-
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     public function destroy($locale, string $id)
     {
         $this->jobSaveService->destroy($id);
 
-        Alert::success(__('Job deleted successfully'));
+        Alert::success(__('Job deleted successfully!'));
 
         return redirect()->back();
     }

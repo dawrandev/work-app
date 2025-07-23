@@ -80,7 +80,7 @@ class JobController extends Controller
     {
         $job = $this->jobService->updateJob($job, $request->validated(), $request);
 
-        Alert::success(__('Job updated successfully!'));
+        Alert::success(__('A request has been sent to update!'));
 
         return redirect()->route('profile.manage-jobs');
     }

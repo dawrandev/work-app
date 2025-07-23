@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="'Edit Type'">
+<x-admin.breadcrumb :title="__('Edit Type')">
     <a href="{{ route('admin.types.index') }}" class="btn btn-secondary">
         <i class="icon-arrow-left"></i>
-        Back to Types
+        {{__('Back to Types')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -15,7 +15,7 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-edit text-primary"></i>
-                        Edit Type: {{ $type->translated_name }}
+                        {{__('Edit Type')}}: {{ $type->translated_name }}
                     </h5>
                 </div>
                 <div class="card-body">

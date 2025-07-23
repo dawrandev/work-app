@@ -1,13 +1,11 @@
 @extends('layouts.admin.main')
-
 @section('content')
-<x-admin.breadcrumb :title="''">
-    <a href="{{ route('admin.categories.index') }}" class="btn btn-primary">
+<x-admin.breadcrumb :title="__('Create Subcategory')">
+    <a href="{{ route('admin.subcategories.index') }}" class="btn btn-primary">
         <i class="icon-list"></i>
-        Subcategories list
+        {{__('Subcategories List')}}
     </a>
 </x-admin.breadcrumb>
-
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
@@ -15,31 +13,37 @@
                 <div class="card-header bg-primary text-white text-center">
                     <h4 class="mb-0">
                         <i class="bi bi-folder-plus me-2"></i>
-                        Add Subcategory
+                        {{__('Add Subcategory')}}
                     </h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('admin.subcategories.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="" class="form-label">
-                                Select Category
+                            <label for="category_id" class="form-label">
+                                {{__('Select Category')}}
                             </label>
-                            <select class="form-select" name="category_id">
-                                <option value="">All Categories</option>
+                            <select class="form-select @error('category_id') is-invalid @enderror" name="category_id" id="category_id" required>
+                                <option value="">{{__('Choose a category')}}</option>
                                 @foreach(getCategories() as $category)
                                 <option value="{{ $category->id }}"
-                                    {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                     {{ $category->translated_name }}
                                 </option>
                                 @endforeach
                             </select>
+                            @error('category_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
-                        <!-- Dinamik tillar -->
+
+                        <!-- Dynamic languages -->
                         @foreach(config('app.all_locales') as $locale => $language)
                         <div class="mb-3">
                             <label for="name_{{ $locale }}" class="form-label">
-                                Subcategory name ({{ $language }})
+                                {{__('Subcategory Name')}} ({{ $language }})
                             </label>
                             <input
                                 type="text"
@@ -57,7 +61,7 @@
                         @endforeach
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-plus-lg"></i> Add
+                                <i class="bi bi-plus-lg"></i> {{__('Add')}}
                             </button>
                         </div>
                     </form>

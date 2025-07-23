@@ -33,14 +33,9 @@ class DistrictController extends Controller
     {
         $district = $this->districtService->createDistrict($request->validated());
 
-        Alert::success(__('District created successfully'));
+        Alert::success(__('District created successfully!'));
 
         return redirect()->route('admin.districts.index');
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit($locale, District $district)
@@ -53,9 +48,9 @@ class DistrictController extends Controller
         $result = $this->districtService->updateDistrict($request->validated(), $district);
 
         if ($result) {
-            Alert::success(__('District updated successfully'));
+            Alert::success(__('District updated successfully!'));
         } else {
-            Alert::error(__('Error updating district'));
+            Alert::error(__('Error updating district!'));
         }
 
         return redirect()->route('admin.districts.index');
@@ -65,7 +60,7 @@ class DistrictController extends Controller
     {
         $district->delete();
 
-        Alert::success(__('District deleted successfully'));
+        Alert::success(__('District deleted successfully!'));
 
         return redirect()->back();
     }

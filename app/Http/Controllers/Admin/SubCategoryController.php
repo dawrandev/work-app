@@ -35,7 +35,7 @@ class SubCategoryController extends Controller
     {
         $subcategories = $this->subCategoryService->createSubcategory($request->validated());
 
-        Alert::success(__('Subcategory created successfully'));
+        Alert::success(__('Subcategory created successfully!'));
 
         return redirect()->route('admin.subcategories.index');
     }
@@ -55,22 +55,19 @@ class SubCategoryController extends Controller
         $result = $this->subCategoryService->updateSubcategory($request->validated(), $subcategory);
 
         if ($result) {
-            Alert::success(__('Subcategory updated successfully'));
+            Alert::success(__('Subcategory updated successfully!'));
         } else {
-            Alert::error(__('Error updating subcategory'));
+            Alert::error(__('Error updating subcategory!'));
         }
 
         return redirect()->route('admin.subcategories.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($locale, SubCategory $subcategory)
     {
         $subcategory->delete();
 
-        Alert::success(__('Subcategory deleted succesfully'));
+        Alert::success(__('Subcategory deleted succesfully!'));
 
         return redirect()->route('admin.subcategories.index');
     }

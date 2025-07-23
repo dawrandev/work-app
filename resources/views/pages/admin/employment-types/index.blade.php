@@ -1,10 +1,10 @@
 @extends('layouts.admin.main')
 
 @section('content')
-<x-admin.breadcrumb :title="'Employment Types'">
+<x-admin.breadcrumb :title="__('Employment Types')">
     <a href="{{ route('admin.employment-types.create') }}" class="btn btn-primary">
         <i class="icon-plus"></i>
-        Add Employment Type
+        {{__('Add Employment Type')}}
     </a>
 </x-admin.breadcrumb>
 
@@ -15,7 +15,7 @@
                 <div class="card-header bg-white border-bottom">
                     <h5 class="mb-0">
                         <i class="icon-list text-primary"></i>
-                        Employment Types Management
+                        {{__('Employment Types Management')}}
                     </h5>
                 </div>
                 <div class="card-body">
@@ -24,8 +24,8 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col" width="10%">#</th>
-                                    <th scope="col">Employment Type Name</th>
-                                    <th scope="col" width="200px" class="text-center">Actions</th>
+                                    <th scope="col">{{__('Employment Type Name')}}</th>
+                                    <th scope="col" width="200px" class="text-center">{{__('Actions')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,12 +42,12 @@
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('admin.employment-types.edit', $employmentType->id) }}"
                                                 class="btn btn-sm btn-outline-primary"
-                                                title="Edit">
+                                                title="{{__('Edit')}}">
                                                 <i class="icon-pencil-alt"></i>
                                             </a>
                                             <button type="button"
                                                 class="btn btn-sm btn-outline-danger"
-                                                title="Delete"
+                                                title="{{__('Delete')}}"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal{{ $employmentType->id }}">
                                                 <i class="icon-trash"></i>
@@ -65,7 +65,7 @@
                                                     <i class="icon-trash text-danger me-2"></i>
                                                     {{ __('Delete Employment Type') }}
                                                 </h5>
-                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="{{__('Close')}}"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="text-center mb-3">
@@ -104,11 +104,11 @@
                                     <td colspan="3" class="text-center py-5">
                                         <div class="text-muted">
                                             <i class="icon-folder-open mb-3" style="font-size: 3rem;"></i>
-                                            <h5>No employment types found</h5>
-                                            <p>Start by creating your first employment type</p>
+                                            <h5>{{__('No employment types found')}}</h5>
+                                            <p>{{__('Start by creating your first employment type')}}</p>
                                             <a href="{{ route('admin.employment-types.create') }}" class="btn btn-primary">
                                                 <i class="icon-plus me-2"></i>
-                                                Create Employment Type
+                                                {{__('Create Employment Type')}}
                                             </a>
                                         </div>
                                     </td>

@@ -39,9 +39,7 @@ class ProfileController extends Controller
 
     public function myResume()
     {
-        $offer = Offer::where('user_id', auth()->id())
-            ->with('user', 'category', 'subcategory', 'type', 'district', 'images')
-            ->first();
+        $offer = Offer::where('user_id', auth()->id())->with('user', 'category', 'subcategory', 'type', 'district', 'images')->first();
 
         return view('pages.user.profile.my-resume', compact('offer'));
     }
@@ -96,7 +94,7 @@ class ProfileController extends Controller
             'image' => $imageName,
         ]);
 
-        Alert::success(__('Profile image updated successfully'));
+        Alert::success(__('Profile image updated successfully!'));
 
         return redirect()->route('profile.profile');
     }

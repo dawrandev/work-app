@@ -11,12 +11,12 @@
     <div class="page-title">
         <div class="row">
             <div class="col-6">
-                <h3>Dashboard</h3>
+                <h3>{{__('Dashboard')}}</h3>
             </div>
             <div class="col-6">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}"><i class="icon-home"></i></a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">{{__('Dashboard')}}</li>
                 </ol>
             </div>
         </div>
@@ -98,7 +98,7 @@
                         <div class="media-body">
                             <h6 class="m-0">{{__('All Jobs')}}</h6>
                             <h3 class="mb-0 mt-2 text-secondary">{{ number_format($firstCardStats['total_jobs']) }}</h3>
-                            <small class="text-muted">E'lonlar</small>
+                            <small class="text-muted">{{__('Jobs')}}</small>
                         </div>
                         <div class="text-center">
                             <i data-feather="briefcase" style="font-size: 40px;"></i>
@@ -130,9 +130,9 @@
                 <div class="card-body">
                     <div class="media">
                         <div class="media-body">
-                            <h6 class="m-0">{{("Today's")}}</h6>
+                            <h6 class="m-0">{{__("Today's")}}</h6>
                             <h3 class="mb-0 mt-2 text-warning">{{ number_format($firstCardStats['today_count']) }}</h3>
-                            <small class="text-muted">Today's news</small>
+                            <small class="text-muted">{{__("Today's news")}}</small>
                         </div>
                         <div class="text-center">
                             <i data-feather="trending-up" style="font-size: 40px;"></i>
@@ -234,7 +234,7 @@
     <div class="row">
         <!-- Monthly Dynamics Chart -->
         <div class="col-xl-12">
-            <x-admin.charts.monthlyChart :title="'Monthly Data'" :months="$monthlyData['months']" :jobs="$monthlyData['jobs']" :offers="$monthlyData['offers']" />
+            <x-admin.charts.monthlyChart :title="__('Monthly Data')" :months="$monthlyData['months']" :jobs="$monthlyData['jobs']" :offers="$monthlyData['offers']" />
         </div>
 
         <!-- Category Distribution -->

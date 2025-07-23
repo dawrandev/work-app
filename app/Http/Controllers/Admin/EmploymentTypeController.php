@@ -33,15 +33,11 @@ class EmploymentTypeController extends Controller
     {
         $employmentType = $this->employmentTypeService->createEmploymentType($request->validated());
 
-        Alert::success(__('Employment Type created successfully'));
+        Alert::success(__('Employment Type created successfully!'));
 
         return redirect()->route('admin.employment-types.index');
     }
 
-    public function show(string $id)
-    {
-        //
-    }
 
     public function edit($locale, EmploymentType $employmentType)
     {
@@ -53,9 +49,9 @@ class EmploymentTypeController extends Controller
         $result = $this->employmentTypeService->updateEmploymentType($request->validated(), $employmentType);
 
         if ($result) {
-            Alert::success(__('Employment Type updated successfully'));
+            Alert::success(__('Employment Type updated successfully!'));
         } else {
-            Alert::error(__('Error updating employment type'));
+            Alert::error(__('Error updating employment type!'));
         }
 
         return redirect()->route('admin.employment-types.index');
@@ -65,7 +61,7 @@ class EmploymentTypeController extends Controller
     {
         $employmentType->delete();
 
-        Alert::success(__('Employment Type deleted successfully'));
+        Alert::success(__('Employment Type deleted successfully!'));
 
         return redirect()->back();
     }

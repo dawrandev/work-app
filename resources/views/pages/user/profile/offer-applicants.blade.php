@@ -23,12 +23,12 @@ $sectionClass = 'manage-jobs';
                         <tr>
                             <th width="4%" class="text-center">#</th>
                             <th width="8%" class="text-center">{{ __('Photo') }}</th>
-                            <th width="16%">{{ __('First Name') }}</th>
-                            <th width="16%">{{ __('Last Name') }}</th>
-                            <th width="15%">{{ __('Phone') }}</th>
-                            <th width="12%" class="text-center">{{ __('Status') }}</th>
-                            <th width="12%" class="text-center">{{ __('Approved Status') }}</th>
-                            <th width="12%" class="text-center">{{ __('Applied') }}</th>
+                            <th width="14%">{{ __('First Name') }}</th>
+                            <th width="14%">{{ __('Last Name') }}</th>
+                            <th width="14%">{{ __('Phone') }}</th>
+                            <th width="13%" class="text-center">{{ __('Status') }}</th>
+                            <th width="13%" class="text-center">{{ __('Approved Status') }}</th>
+                            <th width="13%" class="text-center">{{ __('Applied') }}</th>
                             <th width="17%" class="text-center">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
@@ -118,7 +118,7 @@ $sectionClass = 'manage-jobs';
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center py-5">
+                            <td colspan="9" class="text-center py-5">
                                 <div class="empty-content">
                                     <i class="lni lni-briefcase" style="font-size: 3rem; color: #dee2e6;"></i>
                                     <p class="mt-3 mb-1">{{ __('No applicants found') }}</p>

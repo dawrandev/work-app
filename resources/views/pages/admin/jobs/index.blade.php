@@ -5,70 +5,70 @@
 @endpush
 
 @section('content')
-<x-admin.breadcrumb :title="'Jobs Management'">
+<x-admin.breadcrumb :title="__('Jobs Management')">
     <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">
         <i class="icon-home"></i>
-        Dashboard
+        {{__('Dashboard')}}
     </a>
 </x-admin.breadcrumb>
 
 <div class="container-fluid">
     <!-- Stats Cards -->
     <div class="row mb-4">
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-primary text-white shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="mb-1">{{ $jobs->total() }}</h3>
-                            <p class="mb-0">Total Jobs</p>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-primary text-white shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1 pe-3">
+                            <h3 class="mb-2">{{ $jobs->total() }}</h3>
+                            <p class="mb-0 lh-sm">{{__('Total Jobs')}}</p>
                         </div>
-                        <div class="text-white-50">
+                        <div class="text-white-50 flex-shrink-0">
                             <i class="icon-briefcase" style="font-size: 2.5rem;"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-success text-white shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="mb-1">{{ $jobs->where('status', 'active')->count() }}</h3>
-                            <p class="mb-0">Active Jobs</p>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-success text-white shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1 pe-3">
+                            <h3 class="mb-2">{{ $jobs->where('status', 'active')->count() }}</h3>
+                            <p class="mb-0 lh-sm">{{__('Active Jobs')}}</p>
                         </div>
-                        <div class="text-white-50">
+                        <div class="text-white-50 flex-shrink-0">
                             <i class="icon-check-box" style="font-size: 2.5rem;"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-warning text-white shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="mb-1">{{ $jobs->where('approval_status', 'pending')->count() }}</h3>
-                            <p class="mb-0">Pending Approval</p>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-warning text-white shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1 pe-3">
+                            <h3 class="mb-2">{{ $jobs->where('approval_status', 'pending')->count() }}</h3>
+                            <p class="mb-0 lh-sm">{{__('Pending Approval')}}</p>
                         </div>
-                        <div class="text-white-50">
+                        <div class="text-white-50 flex-shrink-0">
                             <i class="icon-alarm-clock" style="font-size: 2.5rem;"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="card bg-danger text-white shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="mb-1">{{ $jobs->where('approval_status', 'rejected')->count() }}</h3>
-                            <p class="mb-0">Rejected Jobs</p>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-danger text-white shadow-sm h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1 pe-3">
+                            <h3 class="mb-2">{{ $jobs->where('approval_status', 'rejected')->count() }}</h3>
+                            <p class="mb-0 lh-sm">{{__('Rejected Jobs')}}</p>
                         </div>
-                        <div class="text-white-50">
+                        <div class="text-white-50 flex-shrink-0">
                             <i class="icon-close" style="font-size: 2.5rem;"></i>
                         </div>
                     </div>
@@ -83,13 +83,13 @@
             <form method="GET" action="{{ route('admin.jobs.index') }}">
                 <div class="row g-3">
                     <div class="col-md-3">
-                        <label class="form-label">Search</label>
-                        <input type="text" name="search" class="form-control" placeholder="Search by title or user..." value="{{ request('search') }}">
+                        <label class="form-label">{{__('Search')}}</label>
+                        <input type="text" name="search" class="form-control" placeholder="{{__('Search by title or user...')}}" value="{{ request('search') }}">
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">Status</label>
+                        <label class="form-label">{{__('Status')}}</label>
                         <select name="status" class="form-select">
-                            <option value="">All Status</option>
+                            <option value="">{{__('All Status')}}</option>
                             @foreach(statuses() as $key => $status)
                             <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>
                                 {{ $status }}
@@ -98,9 +98,9 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">Approval</label>
+                        <label class="form-label">{{__('Approval')}}</label>
                         <select name="approval_status" class="form-select">
-                            <option value="">All Approvals</option>
+                            <option value="">{{__('All Approvals')}}</option>
                             @foreach(approvalStatuses() as $value => $label)
                             <option value="{{ $value }}" {{ request('approval_status') == $value ? 'selected' : '' }}>
                                 {{ $label }}
@@ -109,9 +109,9 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label class="form-label">Category</label>
+                        <label class="form-label">{{__('Category')}}</label>
                         <select name="category_id" class="form-select">
-                            <option value="">All Categories</option>
+                            <option value="">{{__('All Categories')}}</option>
                             @foreach(getCategories() as $category)
                             <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
                                 {{ $category->translated_name }}
@@ -123,10 +123,10 @@
                         <label class="form-label">&nbsp;</label>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
-                                <i class="icon-search"></i> Filter
+                                <i class="icon-search"></i> {{__('Filter')}}
                             </button>
                             <a href="{{ route('admin.jobs.index') }}" class="btn btn-outline-secondary">
-                                <i class="icon-refresh-cw"></i> Reset
+                                <i class="icon-refresh-cw"></i> {{__('Reset')}}
                             </a>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
         <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
             <h5 class="mb-0">
                 <i class="icon-list text-primary"></i>
-                All Jobs
+                {{__('All Jobs')}}
             </h5>
         </div>
         <div class="card-body">
@@ -149,14 +149,14 @@
                 <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>Job Info</th>
-                            <th>Category</th>
-                            <th>Salary Range</th>
-                            <th>Location</th>
-                            <th>Status</th>
-                            <th>Approval</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th>{{__('Job Info')}}</th>
+                            <th>{{__('Category')}}</th>
+                            <th>{{__('Salary Range')}}</th>
+                            <th>{{__('Location')}}</th>
+                            <th>{{__('Status')}}</th>
+                            <th>{{__('Approval')}}</th>
+                            <th>{{__('Created')}}</th>
+                            <th>{{__('Actions')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -193,32 +193,32 @@
                             <td>
                                 @switch($job->status)
                                 @case('active')
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success">{{__('Active')}}</span>
                                 @break
                                 @case('paused')
-                                <span class="badge bg-warning">Paused</span>
+                                <span class="badge bg-warning">{{__('Paused')}}</span>
                                 @break
                                 @case('closed')
-                                <span class="badge bg-secondary">Closed</span>
+                                <span class="badge bg-secondary">{{__('Closed')}}</span>
                                 @break
                                 @case('expired')
-                                <span class="badge bg-danger">Expired</span>
+                                <span class="badge bg-danger">{{__('Expired')}}</span>
                                 @break
                                 @case('draft')
-                                <span class="badge bg-info">Draft</span>
+                                <span class="badge bg-info">{{__('Draft')}}</span>
                                 @break
                                 @endswitch
                             </td>
                             <td>
                                 @switch($job->approval_status)
                                 @case('pending')
-                                <span class="badge bg-warning">Pending</span>
+                                <span class="badge bg-warning">{{__('Pending')}}</span>
                                 @break
                                 @case('approved')
-                                <span class="badge bg-success">Approved</span>
+                                <span class="badge bg-success">{{__('Approved')}}</span>
                                 @break
                                 @case('rejected')
-                                <span class="badge bg-danger">Rejected</span>
+                                <span class="badge bg-danger">{{__('Rejected')}}</span>
                                 @break
                                 @endswitch
                             </td>
@@ -229,7 +229,7 @@
                             <td>
                                 <a href="{{ route('admin.jobs.show', $job->id) }}"
                                     class="btn btn-sm btn-outline-primary"
-                                    title="View Details">
+                                    title="{{__('View Details')}}">
                                     <i class="icon-eye"></i>
                                 </a>
                             </td>
@@ -242,7 +242,7 @@
             <!-- Pagination -->
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div class="text-muted">
-                    Showing {{ $jobs->firstItem() ?? 0 }} to {{ $jobs->lastItem() ?? 0 }} of {{ $jobs->total() }} results
+                    {{__('Showing')}} {{ $jobs->firstItem() ?? 0 }} {{__('to')}} {{ $jobs->lastItem() ?? 0 }} {{__('of')}} {{ $jobs->total() }} {{__('results')}}
                 </div>
                 <div>
                     {{ $jobs->links() }}
@@ -251,10 +251,10 @@
             @else
             <div class="text-center py-5">
                 <i class="icon-briefcase text-muted" style="font-size: 4rem;"></i>
-                <h4 class="text-muted mt-3">No Jobs Found</h4>
-                <p class="text-muted">No jobs match your current filters. Try adjusting your search criteria.</p>
+                <h4 class="text-muted mt-3">{{__('No Jobs Found')}}</h4>
+                <p class="text-muted">{{__('No jobs match your current filters. Try adjusting your search criteria.')}}</p>
                 <a href="{{ route('admin.jobs.index') }}" class="btn btn-primary">
-                    <i class="icon-refresh-cw"></i> Clear Filters
+                    <i class="icon-refresh-cw"></i> {{__('Clear Filters')}}
                 </a>
             </div>
             @endif

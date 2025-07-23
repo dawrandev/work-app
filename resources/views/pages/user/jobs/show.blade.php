@@ -361,13 +361,13 @@
         <div class="apply-modal-main" style="position: relative;">
             <button class="apply-close-modal" onclick="closeApplyModal('noOfferModal')">&times;</button>
             <div class="heading">
-                <h3>{{__('Create your profile first')}}</h3>
+                <h3>{{__('Create your offer first')}}</h3>
             </div>
             <p style="color: #666; margin-bottom: 30px;">
                 {{__('To apply for a job, you need to enter information about yourself first.')}}
             </p>
             <div class="button">
-                <button class="btn" onclick="createProfile()">{{__('Create Profile')}}</button>
+                <button class="btn" onclick="createProfile()">{{__('Create Offer')}}</button>
             </div>
         </div>
     </div>
@@ -423,9 +423,9 @@
                 @csrf
 
                 <div class="form-group">
-                    <label class="label">{{__('Select your profile')}}</label>
+                    <label class="label">{{__('Select your offer')}}</label>
                     <select class="form-control" name="offer_id" id="offerSelect" required>
-                        <option value="">{{__('Select profile...')}}</option>
+                        <option value="">{{__('Select offer...')}}</option>
                     </select>
                 </div>
 

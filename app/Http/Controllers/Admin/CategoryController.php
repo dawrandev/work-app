@@ -32,7 +32,7 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->createCategory($request->validated());
 
-        Alert::success(__('Category created succesfully'));
+        Alert::success(__('Category created succesfully!'));
 
         return redirect()->route('admin.categories.index');
     }
@@ -52,9 +52,9 @@ class CategoryController extends Controller
         $result = $this->categoryService->updateCategory($request->validated(), $category);
 
         if ($result) {
-            Alert::success(__('Category updated succesfully'));
+            Alert::success(__('Category updated succesfully!'));
         } else {
-            Alert::success(__('Error updating category'));
+            Alert::success(__('Error updating category!'));
         }
 
         return redirect()->route('admin.categories.index');
@@ -64,7 +64,7 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        Alert::success(__('Category deleted succesfully'));
+        Alert::success(__('Category deleted succesfully!'));
 
         return redirect()->back();
     }

@@ -33,7 +33,7 @@ class OfferController extends Controller
     {
         $this->offerService->createOffer($request->validated(), $request);
 
-        Alert::success(__('Offer created successfully'));
+        Alert::success(__('Request sent successfully!'));
 
         return redirect()->back();
     }
@@ -59,7 +59,7 @@ class OfferController extends Controller
     {
         $offer = $this->offerService->updateOffer($offer, $request->validated(), $request);
 
-        Alert::success(__('Offer Updated Successfully'));
+        Alert::success(__('A request has been sent to update!'));
 
         return redirect()->back();
     }
@@ -68,7 +68,7 @@ class OfferController extends Controller
     {
         $offer->delete();
 
-        Alert::success(__('Offer deleted succesfully'));
+        Alert::success(__('Offer deleted succesfully!'));
 
         return redirect()->back();
     }
