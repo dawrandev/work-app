@@ -1,4 +1,5 @@
 @extends('layouts.admin.main')
+@section('title', __('Create Category'))
 @push('styles')
 <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
 @endpush
@@ -43,7 +44,6 @@
                             </div>
                             @enderror
                         </div>
-                        <!-- Dinamik tillar -->
                         @foreach(config('app.all_locales') as $locale => $language)
                         <div class="mb-3">
                             <label for="name_{{ $locale }}" class="form-label">

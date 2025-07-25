@@ -1,4 +1,5 @@
 @extends('layouts.admin.main')
+@section('title', __('Edit Subcategory'))
 @section('content')
 <x-admin.breadcrumb :title="__('Edit Subcategory')">
     <a href="{{ route('admin.subcategories.index') }}" class="btn btn-primary">

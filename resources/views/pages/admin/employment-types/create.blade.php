@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('Create Employment Type'))
 @section('content')
 <x-admin.breadcrumb :title="__('Create Employment Type')">
     <a href="{{ route('admin.employment-types.index') }}" class="btn btn-secondary">
@@ -41,15 +41,15 @@
 
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="name_kaa" class="form-label">{{ __('Karakalpak Name') }} <span class="text-danger">*</span></label>
+                                    <label for="name_kr" class="form-label">{{ __('Karakalpak Name') }} <span class="text-danger">*</span></label>
                                     <input type="text"
-                                        class="form-control @error('name.kaa') is-invalid @enderror"
-                                        id="name_kaa"
-                                        name="name[kaa]"
-                                        value="{{ old('name.kaa') }}"
+                                        class="form-control @error('name.kr') is-invalid @enderror"
+                                        id="name_kr"
+                                        name="name[kr]"
+                                        value="{{ old('name.kr') }}"
                                         placeholder="{{ __('Enter Karakalpak name') }}"
                                         required>
-                                    @error('name.kaa')
+                                    @error('name.kr')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>

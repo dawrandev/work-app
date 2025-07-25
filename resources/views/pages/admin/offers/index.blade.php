@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('All Offers'))
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/themify.css')}}">
 @endpush

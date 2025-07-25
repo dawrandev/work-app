@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('Edit Type'))
 @section('content')
 <x-admin.breadcrumb :title="__('Edit Type')">
     <a href="{{ route('admin.types.index') }}" class="btn btn-secondary">

@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('Create District'))
 @section('content')
 <x-admin.breadcrumb :title="__('Create District')">
     <a href="{{ route('admin.districts.index') }}" class="btn btn-secondary">

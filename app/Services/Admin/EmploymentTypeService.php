@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\Admin\EmploymentTypeRepository;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class EmploymentTypeService
 {
@@ -24,7 +25,8 @@ class EmploymentTypeService
         try {
             return $this->employmentTypeRepository->create($data);
         } catch (Exception $e) {
-            throw new Exception('Error creating employment type: ' . $e->getMessage());
+            Log::error('Error creating employment type:', ['error' => $e->getMessage()]);
+            throw $e;
         }
     }
 

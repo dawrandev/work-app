@@ -1,4 +1,5 @@
 @extends('layouts.user.main')
+@section('title', __('Post New Job'))
 
 @section('content')
 @push('css')

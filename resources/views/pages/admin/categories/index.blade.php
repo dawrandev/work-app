@@ -1,4 +1,5 @@
 @extends('layouts.admin.main')
+@section('title', __('All Categories'))
 
 @section('content')
 <x-admin.breadcrumb :title="__('Categories')">

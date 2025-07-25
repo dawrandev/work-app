@@ -1,4 +1,6 @@
 @extends('layouts.admin.main')
+@section('title', __('Edit Category'))
+
 @section('content')
 <x-admin.breadcrumb :title="__('Edit Category')">
     <a href="{{ route('admin.categories.index') }}" class="btn btn-primary">
@@ -23,21 +25,31 @@
                         <!-- Icon maydoni -->
                         <div class="mb-3">
                             <label for="icon" class="form-label">{{__('Icon')}}</label>
-                            <input
-                                type="text"
-                                name="icon"
-                                id="icon"
-                                class="form-control @error('icon') is-invalid @enderror"
-                                value="{{ old('icon', $category->icon) }}"
-                                placeholder="{{__('Line icons...')}}"
-                                required>
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    name="icon"
+                                    id="icon"
+                                    class="form-control @error('icon') is-invalid @enderror"
+                                    value="{{ old('icon', $category->icon) }}"
+                                    placeholder="lni lni-briefcase"
+                                    required>
+                                <a href="https://v2.lineicons.com/" target="_blank" class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-placement="top" title="{{__('Choose icon from Line Icons')}}">
+                                    <i class="bi bi-palette"></i> {{__('Choose Icon')}}
+                                </a>
+                            </div>
+                            <div class="form-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-info-circle"></i>
+                                    {{__('Select an icon for this category')}}
+                                </small>
+                            </div>
                             @error('icon')
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
-                        <!-- Dinamik tillar -->
                         @foreach(config('app.all_locales') as $locale => $language)
                         <div class="mb-3">
                             <label for="name_{{ $locale }}" class="form-label">

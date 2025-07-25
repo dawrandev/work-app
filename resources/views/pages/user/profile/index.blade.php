@@ -1,4 +1,5 @@
 @extends('layouts.user.main')
+@section('title', __('Profile'))
 
 @section('content')
 <div class="{{ $sectionClass ?? 'default-section' }} section">
@@ -11,5 +12,4 @@
         </div>
     </div>
 </div>
-
 @endsection

@@ -81,7 +81,7 @@
                             @endif
                         </td>
                         <td class="align-middle">
-                            <span class="text-muted">{{ $user->created_at->format('d M, Y') }}</span>
+                            <span class="text-muted">{{ $user->created_at->format('d/m/Y') }}</span>
                         </td>
                         <td class="text-center align-middle">
                             <div class="btn-group" role="group">

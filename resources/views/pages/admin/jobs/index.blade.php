@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('All Jobs'))
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/themify.css')}}">
 @endpush
@@ -223,8 +223,7 @@
                                 @endswitch
                             </td>
                             <td>
-                                <span class="fw-medium">{{ $job->created_at->format('d M, Y') }}</span>
-                                <small class="text-muted d-block">{{ $job->created_at->format('H:i') }}</small>
+                                <span class="fw-medium">{{ $job->created_at->format('d/m/Y') }}</span>
                             </td>
                             <td>
                                 <a href="{{ route('admin.jobs.show', $job->id) }}"

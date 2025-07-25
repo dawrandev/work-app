@@ -42,7 +42,7 @@
                                 </button>
                             </div>
                             <p class="text-center create-new-account">
-                                {{__('Dont have an account? ')}}
+                                {{__('Do not have an account? ')}}
                                 <a href="javascript:" id="open-signup-modal">{{__('Create a free account')}}</a>
                             </p>
                         </form>

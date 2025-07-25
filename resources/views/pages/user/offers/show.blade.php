@@ -1,4 +1,5 @@
 @extends('layouts.user.main')
+@section('title', __('Offer Details'))
 
 @section('content')
 

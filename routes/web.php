@@ -168,6 +168,8 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
         // AuthController
         Route::get('/', [AdminAuthController::class, 'showLogin'])->name('showLogin');
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login');
+        Route::get('/profile', [AdminAuthController::class, 'profile'])->name('profile')->middleware('admin');
+        Route::put('/update', [AdminAuthController::class, 'update'])->name('update')->middleware('owner', 'admin');
 
         Route::middleware('admin')->group(function () {
             Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');

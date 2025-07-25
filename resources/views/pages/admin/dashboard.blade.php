@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('Dashboard'))
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/vendors/chartist.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/css/vendors/date-picker.css') }}">

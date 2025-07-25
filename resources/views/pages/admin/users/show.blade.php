@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('User Details'))
 @section('content')
 <x-admin.breadcrumb :title="__('User Details')">
     <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">

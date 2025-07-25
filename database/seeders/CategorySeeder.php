@@ -44,7 +44,7 @@ class CategorySeeder extends Seeder
                     'ru' => 'Гостиница',
                     'kr' => 'Miymanxana'
                 ]),
-                'icon' => 'lni lni-hotel',
+                'icon' => 'lni lni-apartment',
             ],
             [
                 'name' => json_encode([

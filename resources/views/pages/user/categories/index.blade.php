@@ -1,4 +1,5 @@
 @extends('layouts.user.main')
+@section('title', __('All Categories'))
 
 @section('content')
 <x-user.breadcrumb :title="__('Categories')" :description="__('Job categories here.')" :page="__('Categories')" />

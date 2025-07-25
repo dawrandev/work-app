@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('Job Details'))
 @push('css')
 <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/vendors/feather-icon.css')}}">
 @endpush

@@ -1,5 +1,5 @@
 @extends('layouts.user.main')
-
+@section('title', __('Edit Job'))
 @section('content')
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -36,7 +36,8 @@
         // Update UI to show current status
         const statusElement = document.getElementById('imageCountStatus');
         if (statusElement) {
-            statusElement.textContent = `${totalImages}/3 images`;
+            // Tarjima qilingan versiya
+            statusElement.textContent = `${totalImages}/3 {{ __('images') }}`;
 
             if (totalImages >= MAX_IMAGES) {
                 statusElement.classList.add('text-warning');
@@ -275,6 +276,9 @@
                                     <label>{{ __('Select Location on Map') }}</label>
                                     <div id="map" style="height: 400px; border-radius: 8px; overflow: hidden; z-index: 1;"></div>
                                     <div class="mt-2">
+                                        <button type="button" class="btn btn-sm btn-info" onclick="searchAddress()">
+                                            <i class="lni lni-search"></i> {{ __('Find Address') }}
+                                        </button>
                                         <button type="button" class="btn btn-sm btn-warning" onclick="clearLocation()">
                                             <i class="lni lni-trash"></i> {{ __('Clear') }}
                                         </button>
@@ -282,6 +286,15 @@
                                     <!-- Hidden coordinates -->
                                     <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude', $job->latitude) }}">
                                     <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude', $job->longitude) }}">
+
+                                    <!-- Koordinatalarni ko'rsatish (optional) -->
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <span id="coordinatesDisplay" style="display: none;">
+                                                Lat: <span id="latDisplay"></span>, Lng: <span id="lngDisplay"></span>
+                                        </small>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
 
@@ -378,8 +391,7 @@
         // Map container mavjudligini tekshirish
         const mapContainer = document.getElementById('map');
         if (!mapContainer) {
-            console.error('{{ __('
-                Map container not found ') }}');
+            console.error('Map container not found');
             return;
         }
 
@@ -387,8 +399,7 @@
         try {
             // Default location (Nukus)
             const defaultLocation = [42.4611, 59.6166];
-            const initialLocation = (existingLat && existingLng) ? [existingLat, existingLng] :
-                defaultLocation;
+            const initialLocation = (existingLat && existingLng) ? [existingLat, existingLng] : defaultLocation;
 
             // Initialize map
             map = L.map('map').setView(initialLocation, 12);
@@ -410,9 +421,14 @@
                 placeMarker(L.latLng(existingLat, existingLng));
                 updateCoordinates(existingLat, existingLng);
             }
+
+            // Fix map size issues after loading
+            setTimeout(function() {
+                map.invalidateSize();
+            }, 100);
+
         } catch (error) {
-            console.error('{{ __('
-                Map initialization error ') }}:', error);
+            console.error('Map initialization error:', error);
         }
     });
 
@@ -438,24 +454,96 @@
     function updateCoordinates(lat, lng) {
         document.getElementById('latitude').value = lat.toFixed(8);
         document.getElementById('longitude').value = lng.toFixed(8);
-        document.getElementById('latDisplay').textContent = lat.toFixed(6);
-        document.getElementById('lngDisplay').textContent = lng.toFixed(6);
+
+        // latDisplay va lngDisplay elementlari mavjud bo'lsa update qilish
+        const latDisplay = document.getElementById('latDisplay');
+        const lngDisplay = document.getElementById('lngDisplay');
+
+        if (latDisplay) latDisplay.textContent = lat.toFixed(6);
+        if (lngDisplay) lngDisplay.textContent = lng.toFixed(6);
     }
 
-    // Reverse geocode function
+    // Reverse geocode function - FIXED
     function reverseGeocode(lat, lng) {
+        // Loading indicator qo'shish
+        const addressInput = document.getElementById('address');
+        const originalPlaceholder = addressInput.placeholder;
+        addressInput.placeholder = '{{ __("Loading address...") }}';
+
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=uz`)
             .then(response => response.json())
             .then(data => {
                 if (data.display_name) {
-                    document.getElementById('address').value = data.display_name;
+                    addressInput.value = data.display_name;
+                    addressInput.placeholder = originalPlaceholder;
                 }
             })
-            .catch(error => console.error('{{ __('
-                Reverse geocoding error ') }}:', error));
+            .catch(error => {
+                console.error('Reverse geocoding error:', error);
+                addressInput.placeholder = originalPlaceholder;
+
+                // Xatolik bo'lsa, koordinatalarni ko'rsatish
+                addressInput.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+            });
     }
 
-    // getCurrentLocation, searchAddress, clearLocation funksiyalari main.js'dan keladi
+    // Search address function
+    function searchAddress() {
+        const address = document.getElementById('address').value;
+
+        if (!address) {
+            alert('{{ __("Please enter an address") }}');
+            return;
+        }
+
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1&accept-language=uz`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const location = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                    placeMarker(location);
+                    updateCoordinates(location.lat, location.lng);
+
+                    // Address inputni yangilash
+                    document.getElementById('address').value = data[0].display_name;
+                } else {
+                    alert('{{ __("Address not found") }}');
+                }
+            })
+            .catch(error => {
+                console.error('Geocoding error:', error);
+                alert('{{ __("Error searching address") }}');
+            });
+    }
+
+    // Clear location function
+    function clearLocation() {
+        if (marker) {
+            map.removeLayer(marker);
+            marker = null;
+        }
+
+        document.getElementById('latitude').value = '';
+        document.getElementById('longitude').value = '';
+        document.getElementById('address').value = '';
+
+        const latDisplay = document.getElementById('latDisplay');
+        const lngDisplay = document.getElementById('lngDisplay');
+
+        if (latDisplay) latDisplay.textContent = '';
+        if (lngDisplay) lngDisplay.textContent = '';
+
+        // Reset to default view
+        map.setView([42.4611, 59.6166], 12);
+    }
+
+    // Address inputdan qidirish
+    document.getElementById('address').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchAddress();
+        }
+    });
 </script>
 
 <style>

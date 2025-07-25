@@ -42,7 +42,7 @@
                                         @csrf
                                         <input type="hidden" name="job_id" value="{{ $job->id }}">
                                         <button type="submit" class="btn save">
-                                            <i class="lni lni-bookmark"></i> {{ __('Save Job') }}
+                                            <i class="lni lni-bookmark"></i> {{ __('Save') }}
                                         </button>
                                     </form>
                                 </div>

@@ -1,5 +1,7 @@
 @extends('layouts.user.main')
 
+@section('title', __('Home'))
+
 @section('content')
 
 @include('sections.user.hero')

@@ -1,5 +1,5 @@
 @extends('layouts.admin.main')
-
+@section('title', __('All Users'))
 @section('content')
 <x-admin.breadcrumb :title="''">
 </x-admin.breadcrumb>

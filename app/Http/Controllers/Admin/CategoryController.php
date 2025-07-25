@@ -37,10 +37,6 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.index');
     }
 
-    public function show(string $id)
-    {
-        //
-    }
 
     public function edit($locale, Category $category)
     {
