@@ -21,7 +21,6 @@ class JobSaveController extends Controller
     {
         try {
             $this->jobSaveService->saveJob($request->validated(), $request);
-
             Alert::success(__('Job saved successfully!'));
         } catch (\Exception $e) {
             Alert::warning(__($e->getMessage() === 'Job already saved!' ? 'This job is already saved!' : 'Error occurred'));

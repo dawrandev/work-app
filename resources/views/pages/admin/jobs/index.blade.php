@@ -149,6 +149,7 @@
                 <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
+                            <th>{{__('#')}}</th>
                             <th>{{__('Job Info')}}</th>
                             <th>{{__('Category')}}</th>
                             <th>{{__('Salary Range')}}</th>
@@ -160,8 +161,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($jobs as $job)
+                        @foreach($jobs as $index => $job)
                         <tr>
+                            <td>
+                                <span class="text-muted fw-medium">
+                                    {{ ($jobs->currentPage() - 1) * $jobs->perPage() + $index + 1 }}
+                                </span>
+                            </td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"

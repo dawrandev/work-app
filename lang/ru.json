@@ -711,5 +711,21 @@
     "Image size must not exceed 2MB.": "Размер изображения не должен превышать 2MB.",
     "New password is required.": "Новый пароль обязателен для заполнения.",
     "New password must be at least 6 characters.": "Новый пароль должен содержать минимум 6 символов.",
-    "Password confirmation does not match.": "Подтверждение пароля не совпадает."
+    "Password confirmation does not match.": "Подтверждение пароля не совпадает.",
+    "App Store": "App Store",
+    "Google Play": "Google Play",
+    "Start building your creative website with our awesome template Massive.": "Начните создавать свой креативный веб-сайт с нашим потрясающим шаблоном Massive.",
+    "555 Wall Street, USA, NY": "г. Ташкент, Узбекистан",
+    "Email": "Электронная почта",
+    "For Candidates": "Для соискателей",
+    "User Dashboard": "Панель пользователя",
+    "Jobs Featured": "Рекомендуемые вакансии",
+    "Jobs Listing": "Список вакансий",
+    "My Applications": "Мои заявки",
+    "For Employers": "Для работодателей",
+    "Post New Offer": "Разместить новое предложение",
+    "Manage Offers": "Управление предложениями",
+    "Offers Listing": "Список предложений",
+    "Designed and Developed by": "Разработано и создано:",
+    "Terms of use": "Условия использования"
 }

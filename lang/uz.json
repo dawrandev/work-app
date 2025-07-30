@@ -701,5 +701,21 @@
     "Image size must not exceed 2MB.": "Rasm hajmi 2MB dan oshmasligi kerak.",
     "New password is required.": "Yangi parol kiritish majburiy.",
     "New password must be at least 6 characters.": "Yangi parol kamida 6 ta belgidan iborat bo'lishi kerak.",
-    "Password confirmation does not match.": "Parol tasdig'i mos kelmaydi."
+    "Password confirmation does not match.": "Parol tasdig'i mos kelmaydi.",
+    "App Store": "App Store",
+    "Google Play": "Google Play",
+    "Start building your creative website with our awesome template Massive.": "Ajoyib Massive shablonim bilan ijodiy veb-saytingizni qurishni boshlang.",
+    "555 Wall Street, USA, NY": "Toshkent shahri, O'zbekiston",
+    "Email": "Elektron pochta",
+    "For Candidates": "Nomzodlar uchun",
+    "User Dashboard": "Foydalanuvchi paneli",
+    "Jobs Featured": "Ajratilgan ishlar",
+    "Jobs Listing": "Ish o'rinlari ro'yxati",
+    "My Applications": "Mening arizalarim",
+    "For Employers": "Ish beruvchilar uchun",
+    "Post New Offer": "Yangi taklif e'lon qilish",
+    "Manage Offers": "Takliflarni boshqarish",
+    "Offers Listing": "Takliflar ro'yxati",
+    "Designed and Developed by": "Dizayn va ishlab chiqilgan:",
+    "Terms of use": "Foydalanish shartlari"
 }

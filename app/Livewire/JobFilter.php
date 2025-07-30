@@ -138,13 +138,11 @@ class JobFilter extends Component
             return null;
         }
 
-        // Job modellarini to'liq yuklash
         $jobs = collect($this->initialJobsData['items'])->map(function ($jobData) {
             return Job::with(['category', 'subcategory', 'district', 'type'])
                 ->find($jobData['id']);
         });
 
-        // Custom paginator yaratish
         return new \Illuminate\Pagination\LengthAwarePaginator(
             $jobs,
             $this->initialJobsData['total'],
@@ -156,7 +154,6 @@ class JobFilter extends Component
 
     public function render()
     {
-        // Agar initial jobs mavjud bo'lsa va filter o'zgartirilmagan bo'lsa
         if ($this->useInitialJobs && $this->initialJobsData !== null) {
             $jobs = $this->convertInitialJobsToCollection();
 
@@ -168,7 +165,6 @@ class JobFilter extends Component
             ]);
         }
 
-        // Aks holda oddiy filter logikasi
         $query = Job::query()
             ->select('jobs.*')
             ->with([

@@ -21,31 +21,9 @@ class JobController extends Controller
 
     public function index(Request $request, Filter $filter)
     {
-        $jobsData = null;
-        $filters = [];
+        [$jobsData, $filters] = $this->jobService->getJobsWithFilters($request, $filter);
 
-        if ($request->hasAny(['category_id', 'subcategory_id', 'district_id', 'type_id', 'salary_from', 'salary_to'])) {
-            $jobs = $filter->apply(Job::query(), $request->all());
-            $filters = $request->only(['category_id', 'subcategory_id', 'district_id', 'type_id', 'salary_from', 'salary_to']);
-
-            $jobsData = [
-                'items' => $jobs->items(),
-                'total' => $jobs->total(),
-                'per_page' => $jobs->perPage(),
-                'current_page' => $jobs->currentPage(),
-                'last_page' => $jobs->lastPage(),
-            ];
-
-            Log::info('Controller Filter Applied:', [
-                'filters' => $filters,
-                'jobs_count' => $jobs->total()
-            ]);
-        }
-
-        return view('pages.user.jobs.index', [
-            'jobsData' => $jobsData,
-            'filters' => $filters
-        ]);
+        return view('pages.user.jobs.index', compact('jobsData', 'filters'));
     }
 
     public function create()

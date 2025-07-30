@@ -37,7 +37,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Global Livewire routes 
+
 Route::post('/livewire/update', \Livewire\Mechanisms\HandleRequests\HandleRequests::class . '@handleUpdate')
     ->name('livewire.update');
 Route::get('/livewire/livewire.js', \Livewire\Mechanisms\FrontendAssets\FrontendAssets::class . '@returnJavaScriptAsFile')

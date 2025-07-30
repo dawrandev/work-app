@@ -92,7 +92,11 @@
                             <!-- Profile Dropdown Button -->
                             <div class="profile-dropdown-wrapper ml-2">
                                 <a href="{{ route('profile.index') }}" class="profile-btn">
+                                    @if(auth()->user()->image && auth()->user()->image !== 'user-icon.png')
+                                    <img src="{{ asset('storage/users/' . auth()->user()->image) }}" alt="Profile" class="profile-image">
+                                    @else
                                     <i class="lni lni-user"></i>
+                                    @endif
                                 </a>
                                 <ul class="profile-dropdown-menu">
                                     <li><a href="{{ route('profile.profile') }}"><i class="lni lni-user"></i> {{ __('My Profile') }}</a></li>
@@ -119,6 +123,8 @@
                             </div>
                             @endauth
                         </div>
+
+
                     </nav>
                     <!-- navbar -->
                 </div>

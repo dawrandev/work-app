@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Filters\Filter;
 use App\Http\Requests\JobStoreRequest;
 use App\Models\Job;
 use App\Repositories\JobRepository;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -125,5 +127,81 @@ class JobService
     public function getUserJobs($user_id)
     {
         return $this->jobRepository->getUserJobs($user_id);
+    }
+
+    public function getJobsWithFilters(Request $request, Filter $filter): array
+    {
+        $filters = $this->getFilterParams($request);
+
+        $jobsData = $this->hasActiveFilters($filters)
+            ? $this->getFilteredJobsData($request, $filter, $filters)
+            : $this->getAllJobsData();
+
+        return [$jobsData, $filters];
+    }
+
+    /**
+     * Request'dan filter parametrlarini olish
+     */
+    private function getFilterParams(Request $request): array
+    {
+        return $request->only([
+            'category_id',
+            'subcategory_id',
+            'district_id',
+            'type_id',
+            'salary_from',
+            'salary_to'
+        ]);
+    }
+
+    /**
+     * Filterlar faol ekanligini tekshirish
+     */
+    private function hasActiveFilters(array $filters): bool
+    {
+        return !empty(array_filter($filters));
+    }
+
+
+    private function getFilteredJobsData(Request $request, Filter $filter, array $filters): array
+    {
+        $jobs = $filter->apply(Job::query(), $request->all());
+
+        $this->logFilterActivity($filters, $jobs->total());
+
+        return $this->formatJobsData($jobs);
+    }
+
+    private function getAllJobsData(): array
+    {
+        $jobs = Job::where('approval_status', 'approved')
+            ->where('status', 'active')
+            ->latest()
+            ->paginate(12);
+
+        return $this->formatJobsData($jobs);
+    }
+
+    private function formatJobsData($jobs): array
+    {
+        return [
+            'items' => $jobs->items(),
+            'total' => $jobs->total(),
+            'per_page' => $jobs->perPage(),
+            'current_page' => $jobs->currentPage(),
+            'last_page' => $jobs->lastPage(),
+        ];
+    }
+
+    /**
+     * Filter faoliyatini log qilish
+     */
+    private function logFilterActivity(array $filters, int $jobsCount): void
+    {
+        Log::info('Controller Filter Applied:', [
+            'filters' => $filters,
+            'jobs_count' => $jobsCount
+        ]);
     }
 }

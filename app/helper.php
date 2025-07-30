@@ -72,6 +72,16 @@ function approvalStatuses()
     ];
 }
 
+if (!function_exists('approvalStatuses')) {
+    function approvalStatuses()
+    {
+        return [
+            'pending' => __('Pending'),
+            'approved' => __('Approved'),
+            'rejected' => __('Rejected')
+        ];
+    }
+}
 if (!function_exists('getDistricts')) {
     function getDistricts()
     {

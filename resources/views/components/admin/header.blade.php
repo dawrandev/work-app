@@ -59,7 +59,7 @@
                 <li class="profile-nav onhover-dropdown p-0 me-0">
                     <div class="media profile-media"><img class="b-r-10" src="{{ asset('/assets/images/dashboard/profile.jpg') }}" alt="">
                         <div class="media-body"><span>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
-                            <p class="mb-0 font-roboto">Admin <i class="middle fa fa-angle-down"></i></p>
+                            <p class="mb-0 font-roboto">{{__('Admin')}}<i class="middle fa fa-angle-down"></i></p>
                         </div>
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
